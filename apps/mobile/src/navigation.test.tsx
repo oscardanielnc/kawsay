@@ -1,7 +1,9 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react-native';
+import { addDays } from '@kawsay/core/shared/local-date';
 import { renderRouter } from 'expo-router/testing-library';
 import type { ReactNode } from 'react';
 import catalog from '@kawsay/catalog/catalog.json';
+import { setNoActivity } from '@/features/activity/activity-db';
 import { saveProfile } from '@/features/profile/profile-db';
 import { saveWeight } from '@/features/weight/weight-db';
 import { loadCatalog } from '@/lib/db/catalog';
@@ -150,5 +152,25 @@ describe('navigation (design N1, F01)', () => {
     await tap(/Jugo de papaya/);
     await tap('Agregar 1 ración');
     expect(await screen.findByText(/^Jugo de papaya · del desayuno · /)).toBeOnTheScreen();
+  });
+
+  it('editing a day recolours it in the calendar; "Open this day" goes to that day (F14)', async () => {
+    const day = today();
+    const name = new Intl.DateTimeFormat('es', {
+      day: 'numeric',
+      month: 'long',
+      timeZone: 'UTC',
+    }).format(new Date(`${day}T12:00:00Z`));
+    await saveProfile(mockDb, mockEnv, profileInput);
+    await saveWeight(mockDb, mockEnv, { date: addDays(day, -7), kg: 70, timeZone: 'America/Lima' });
+    await setNoActivity(mockDb, mockEnv, day, true);
+    await renderRouter('./app', { initialUrl: '/' });
+    await screen.findByRole('header', { name: 'Hoy' });
+    await fireEvent.press(screen.getByText('Calendario'));
+    await tap(`${name}: Fuera de rango`);
+    await tap('Abrir este día');
+    await tap(/^Sin actividad física\./);
+    await fireEvent.press(screen.getByText('Calendario'));
+    expect(await screen.findByRole('button', { name: `${name}: Sin datos` })).toBeOnTheScreen();
   });
 });

@@ -17,4 +17,4 @@ Month view with each day coloured by how well it went.
 
 ## Acceptance criteria
 
-- [ ] Editing a past entry recolours that day
+- [x] Editing a past entry recolours that day

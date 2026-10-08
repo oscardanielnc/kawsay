@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { addDays, dayNumber, daysBetween, localDateOf } from './local-date';
+import {
+  addDays,
+  addMonths,
+  dayNumber,
+  daysBetween,
+  localDateOf,
+  monthDays,
+  weekStart,
+  weekday,
+} from './local-date';
 
 describe('localDateOf: the calendar day in the device time zone (ADR 0016)', () => {
   it('a meal at 22:00 in Lima stays on that day, although UTC is already the next one', () => {
@@ -46,5 +55,29 @@ describe('addDays and daysBetween', () => {
   it('counts the days from one date to another', () => {
     expect(daysBetween('2026-10-07', '2026-12-30')).toBe(84);
     expect(daysBetween('2026-12-30', '2026-10-07')).toBe(-84);
+  });
+});
+
+describe('months and weeks (F14 calendar, F04 weekly waist)', () => {
+  it('1 October 2026 is a Thursday; weeks start on Monday', () => {
+    expect(weekday('2026-10-01')).toBe(3);
+    expect(weekday('2026-10-05')).toBe(0);
+    expect(weekday('2026-10-11')).toBe(6);
+  });
+
+  it('a month lists its days, leap February included', () => {
+    expect(monthDays('2026-10')).toHaveLength(31);
+    expect(monthDays('2028-02').at(-1)).toBe('2028-02-29');
+    expect(() => monthDays('2026-13')).toThrow(RangeError);
+  });
+
+  it('months move across years', () => {
+    expect(addMonths('2026-12', 1)).toBe('2027-01');
+    expect(addMonths('2026-01', -1)).toBe('2025-12');
+  });
+
+  it('the week of a Sunday starts on the Monday before', () => {
+    expect(weekStart('2026-10-11')).toBe('2026-10-05');
+    expect(weekStart('2026-10-05')).toBe('2026-10-05');
   });
 });

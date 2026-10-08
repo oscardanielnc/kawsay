@@ -436,5 +436,52 @@
     "trend": "Tendencia {{kg}}",
     "chart": "Tendencia de {{from}} a {{to}} en los últimos {{days}} días",
     "legend": "Puntos: tu peso de cada día · Línea: tendencia, que ignora los saltos de un día"
+  },
+  "calendar": {
+    "previous": "Mes anterior",
+    "next": "Mes siguiente",
+    "status": {
+      "green": "Bien",
+      "yellow": "Casi",
+      "red": "Fuera de rango",
+      "grey": "Sin datos"
+    },
+    "counter": {
+      "green": "Bien",
+      "yellow": "Casi",
+      "red": "Fuera",
+      "grey": "Sin datos"
+    },
+    "zone": {
+      "green": "En rango",
+      "yellow": "Algo fuera",
+      "red": "Fuera",
+      "open": "Día en curso"
+    },
+    "unlogged": "No registraste este día. Un día sin datos es gris, no rojo.",
+    "activity": "Actividad",
+    "activityValues": {
+      "none": "Sin actividad física ✓",
+      "missing": "No registrada"
+    },
+    "minutes": "{{minutes}} min",
+    "glasses": "{{glasses}} vasos",
+    "bloating": "Hinchazón",
+    "open": "Abrir este día",
+    "chartTitle": "Evolución del mes",
+    "metrics": {
+      "kcal": "Calorías",
+      "protein": "Proteína",
+      "movement": "Movimiento",
+      "drinks": "Bebidas",
+      "weight": "Peso"
+    },
+    "chart": {
+      "inRange": "{{name}}: {{count}} de {{days}} días en su rango",
+      "movement": "Movimiento: {{minutes}} min en el mes",
+      "drinks": "Bebidas: {{glasses}} vasos por día en promedio",
+      "weight": "Peso: tendencia de {{from}} a {{to}} kg",
+      "empty": "{{name}}: sin datos este mes"
+    }
   }
 }

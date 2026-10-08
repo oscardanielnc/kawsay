@@ -2,6 +2,7 @@ import { drinksGoalGlasses, GLASS_ML } from '@kawsay/core/day/drinks';
 import { activityKcal } from '@kawsay/core/energy/activity';
 import type { ActivityKind } from '@kawsay/core/energy/activity-types';
 import type { LocalDate } from '@kawsay/core/shared/local-date';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text } from 'react-native';
@@ -39,6 +40,7 @@ import { useDb } from '@/lib/db/DatabaseProvider';
 import { deviceTimeZone } from '@/lib/time-zone';
 import { today } from '@/lib/today';
 import { useLoad } from '@/lib/use-load';
+import { useReloadOnFocus } from '@/lib/use-reload-on-focus';
 import { color, type } from '@/lib/theme';
 
 function hourIn(timeZone: string): number {
@@ -54,7 +56,11 @@ export default function TodayRoute() {
   const { t } = useTranslation();
   const { db, env } = useDb();
   const [timeZone] = useState(deviceTimeZone);
-  const [day, setDay] = useState<LocalDate>(today);
+  // The shown day lives in the URL, so the calendar can open any day ("Open this day", F14).
+  const params = useLocalSearchParams<{ day?: string }>();
+  const day: LocalDate =
+    params.day && /^\d{4}-\d{2}-\d{2}$/.test(params.day) ? params.day : today();
+  const setDay = (next: LocalDate) => router.setParams({ day: next });
   const { data, reload } = useLoad(
     useCallback(async () => {
       const [dayData, items, routines, ...recent] = await Promise.all([
@@ -74,6 +80,7 @@ export default function TodayRoute() {
     }, [db, day]),
   );
 
+  useReloadOnFocus(reload);
   const isToday = day === today();
   const hour = hourIn(timeZone);
   const defaultBand = bandAt(hour);

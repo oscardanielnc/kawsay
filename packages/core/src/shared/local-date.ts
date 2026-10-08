@@ -41,3 +41,32 @@ export function addDays(date: LocalDate, days: number): LocalDate {
 export function daysBetween(from: LocalDate, to: LocalDate): number {
   return dayNumber(to) - dayNumber(from);
 }
+
+/** Day of the week, Monday = 0 … Sunday = 6 (calendar rows start on Monday in Peru). */
+export function weekday(date: LocalDate): number {
+  return (((dayNumber(date) + 3) % 7) + 7) % 7;
+}
+
+/** A calendar month, `YYYY-MM`. */
+export type LocalMonth = string;
+
+/** Every day of a month, in order. */
+export function monthDays(month: LocalMonth): LocalDate[] {
+  const first = `${month}-01`;
+  const days: LocalDate[] = [];
+  for (let date = first; date.startsWith(month); date = addDays(date, 1)) days.push(date);
+  if (days.length === 0) throw new RangeError(`not a month (YYYY-MM): ${month}`);
+  return days;
+}
+
+/** The month `months` after (or before) `month`. */
+export function addMonths(month: LocalMonth, months: number): LocalMonth {
+  dayNumber(`${month}-01`);
+  const index = Number(month.slice(0, 4)) * 12 + Number(month.slice(5, 7)) - 1 + months;
+  return `${Math.floor(index / 12)}-${String((index % 12) + 1).padStart(2, '0')}`;
+}
+
+/** Monday of the week `date` falls in: weekly entries (waist, F04) are keyed by it. */
+export function weekStart(date: LocalDate): LocalDate {
+  return addDays(date, -weekday(date));
+}

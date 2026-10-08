@@ -24,7 +24,9 @@ What the linter cannot enforce. Tooling versions: ADR 0012.
 
 - Tests query by role and visible text, never by test IDs or internal state; RNTL 14 APIs are async (`await render`)
 - The clock and the time zone reach screens as props from the route, so tests fix them
-- Colors and sizes come from `docs/design/tokens.md` until `packages/ui` exists
+- Colors, type and spacing come from `src/lib/theme.ts` (tokens of `docs/design/tokens.md`) until `packages/ui` exists
+- Numbers and dates use `src/lib/format.ts` (es-PE: "27.7", "2,393"); never `toFixed` in a screen
+- Async reads in screens go through `useLoad()`; routes compose features and pass data down as props
 - Local queries live in their feature (`features/<feature>/<feature>-db.ts`) and take `(db, env, input)`; `env`
   brings the clock and random bytes so tests fix them
 - Synced tables spread `synced` (+ `dated` for entries); deletes set `deletedAt`, never `DELETE`

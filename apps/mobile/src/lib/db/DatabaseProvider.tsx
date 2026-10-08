@@ -11,11 +11,21 @@ import { loadCatalog, type BundledCatalog } from './catalog';
 import * as schema from './schema';
 import type { Db, RecordEnv } from './types';
 
-const sqlite = openDatabaseSync('kawsay.db', { enableChangeListener: true });
-const db = drizzle(sqlite, { schema }) as unknown as Db;
 const env: RecordEnv = { now: () => Date.now(), randomBytes: (count) => getRandomBytes(count) };
+let opened: Db | null = null;
+
+/** Opens the phone's database on first use, not at import, so importing this module has no side effects. */
+function phoneDatabase(): Db {
+  opened ??= drizzle(openDatabaseSync('kawsay.db', { enableChangeListener: true }), { schema }) as unknown as Db;
+  return opened;
+}
 
 const DatabaseContext = createContext<{ db: Db; env: RecordEnv } | null>(null);
+
+/** Provides an open, migrated database; tests use it with an in-memory SQLite. */
+export function DatabaseScope({ db: scoped, env: scopedEnv, children }: { db: Db; env: RecordEnv; children: ReactNode }) {
+  return <DatabaseContext.Provider value={{ db: scoped, env: scopedEnv }}>{children}</DatabaseContext.Provider>;
+}
 
 /** The local database for screens and hooks; only available under <DatabaseProvider>. */
 export function useDb(): { db: Db; env: RecordEnv } {
@@ -30,6 +40,7 @@ export function useDb(): { db: Db; env: RecordEnv } {
  */
 export function DatabaseProvider({ children }: { children: ReactNode }) {
   const { t } = useTranslation();
+  const db = phoneDatabase();
   const migrated = useMigrations(db as never, migrations);
   const [catalogReady, setCatalogReady] = useState(false);
   const [catalogError, setCatalogError] = useState<Error | null>(null);
@@ -40,7 +51,7 @@ export function DatabaseProvider({ children }: { children: ReactNode }) {
       () => setCatalogReady(true),
       (error: unknown) => setCatalogError(error instanceof Error ? error : new Error(String(error))),
     );
-  }, [migrated.success]);
+  }, [db, migrated.success]);
 
   const error = migrated.error ?? catalogError;
   if (error) {
@@ -55,7 +66,11 @@ export function DatabaseProvider({ children }: { children: ReactNode }) {
     );
   }
   if (!migrated.success || !catalogReady) return null;
-  return <DatabaseContext.Provider value={{ db, env }}>{children}</DatabaseContext.Provider>;
+  return (
+    <DatabaseScope db={db} env={env}>
+      {children}
+    </DatabaseScope>
+  );
 }
 
 const styles = StyleSheet.create({

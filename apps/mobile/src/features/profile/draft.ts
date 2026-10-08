@@ -1,9 +1,9 @@
-import { addDays, type LocalDate } from '@kawsay/core/shared/local-date';
-import { sleepHours } from '@kawsay/core/profile/profile';
+import { addDays, daysBetween, type LocalDate } from '@kawsay/core/shared/local-date';
+import { ageOn, sleepHours } from '@kawsay/core/profile/profile';
 import { computeDayTargets, type DayTargets } from '@kawsay/core/targets/compute-day-targets';
 import { goalPace } from '@kawsay/core/targets/day-target';
 import { FAT_SHARE, PROTEIN_G_PER_KG } from '@kawsay/core/targets/macros';
-import type { ProfileInput } from './profile-db';
+import type { Profile, ProfileInput } from './profile-db';
 
 /** What the onboarding steps fill in (F01); stored as a profile when it ends. */
 export interface Draft {
@@ -25,6 +25,8 @@ export interface Draft {
   symptomsEnabled: boolean;
   intimateEnabled: boolean;
   movementGoalMin: number;
+  proteinGPerKg: number;
+  fatShare: number;
 }
 
 export const initialDraft: Draft = {
@@ -46,6 +48,8 @@ export const initialDraft: Draft = {
   symptomsEnabled: false,
   intimateEnabled: false,
   movementGoalMin: 30,
+  proteinGPerKg: PROTEIN_G_PER_KG.default,
+  fatShare: FAT_SHARE.default,
 };
 
 /** The goal weight shown when "lose" is chosen: 5 kg below today unless already set. */
@@ -75,6 +79,8 @@ export function draftTargets(draft: Draft): DayTargets {
     ),
     activities: [],
     routines: [],
+    proteinGPerKg: draft.proteinGPerKg,
+    fatShare: draft.fatShare,
   });
 }
 
@@ -89,8 +95,8 @@ export function toProfileInput(draft: Draft, today: LocalDate): ProfileInput {
     goalWeightKg: losing ? goalWeightOf(draft) : null,
     goalDate: losing ? addDays(today, draft.weeks * 7) : null,
     climate: draft.climate,
-    proteinGPerKg: PROTEIN_G_PER_KG.default,
-    fatShare: FAT_SHARE.default,
+    proteinGPerKg: draft.proteinGPerKg,
+    fatShare: draft.fatShare,
     movementGoalMin: draft.movementGoalMin,
     usualSleepStart: draft.sleepStart,
     usualSleepEnd: draft.sleepEnd,
@@ -108,4 +114,33 @@ export function shiftTime(time: string, minutes: number): string {
   const [hours = 0, mins = 0] = time.split(':').map(Number);
   const total = (((hours * 60 + mins + minutes) % 1440) + 1440) % 1440;
   return `${String(Math.floor(total / 60)).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
+}
+
+/** The stored profile as an editable draft (Profile settings reuse the onboarding steps). */
+export function profileToDraft(profile: Profile, today: LocalDate, weightKg: number): Draft {
+  const weeksLeft = profile.goalDate
+    ? Math.max(1, Math.round(daysBetween(today, profile.goalDate) / 7))
+    : 12;
+  return {
+    sex: profile.sex,
+    ageYears: ageOn({ ageYears: profile.ageYears, ageSetOn: profile.ageSetOn, today }),
+    heightCm: profile.heightCm,
+    weightKg,
+    goal: profile.goalWeightKg === null ? 'maintain' : 'lose',
+    goalWeightKg: profile.goalWeightKg,
+    weeks: weeksLeft,
+    climate: profile.climate,
+    sleepStart: profile.usualSleepStart,
+    sleepEnd: profile.usualSleepEnd,
+    nap: profile.usualNapStart !== null,
+    napStart: profile.usualNapStart ?? initialDraft.napStart,
+    napEnd: profile.usualNapEnd ?? initialDraft.napEnd,
+    waistEnabled: profile.waistEnabled,
+    waistReminderDay: profile.waistReminderDay ?? initialDraft.waistReminderDay,
+    symptomsEnabled: profile.symptomsEnabled,
+    intimateEnabled: profile.intimateEnabled,
+    movementGoalMin: profile.movementGoalMin,
+    proteinGPerKg: profile.proteinGPerKg,
+    fatShare: profile.fatShare,
+  };
 }

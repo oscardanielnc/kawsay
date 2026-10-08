@@ -21,6 +21,12 @@ Ask age, sex, height, current weight, goal weight and goal date.
 
 ## Acceptance criteria
 
-- [ ] Given 80 kg, 170 cm, 30 years, male, the base target is shown without further input
-- [ ] A goal of −10 kg in 4 weeks shows a warning and a suggested date
-- [ ] 80 kg and 170 cm show BMI 27.7 in yellow, "Sobrepeso", and "−8.0 kg" to the green range
+- [x] Given 80 kg, 170 cm, 30 years, male, the base target is shown without further input
+- [x] A goal of −10 kg in 4 weeks shows a warning and a suggested date
+- [x] 80 kg and 170 cm show BMI 27.7 in yellow, "Sobrepeso", and "−8.0 kg" to the green range
+
+## Build notes
+
+- 2026-10-08: built in `apps/mobile/src/features/profile` (tests named after these criteria). The account step
+  arrives with F02; until then the profile lives on the phone only. Export, routines and own symptoms rows arrive
+  with F15, F18 and F13

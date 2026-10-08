@@ -10,8 +10,27 @@ import type { StepProps } from './BodyStep';
 
 const STEP_MIN = 15;
 
-/** Climate (drinks goal only, F10) and the usual sleep schedule that prefills F11. */
-export function PlaceSleepStep({ draft, update }: StepProps) {
+/** Climate where the user lives: it changes the drinks goal only (F01, F10). */
+export function ClimateBlock({ draft, update }: StepProps) {
+  const { t } = useTranslation();
+  return (
+    <>
+      <Segmented
+        options={[
+          { value: 'warm', label: t('profile.warm'), hint: t('profile.warmHint') },
+          { value: 'temperate', label: t('profile.temperate'), hint: t('profile.baseHint') },
+          { value: 'cold', label: t('profile.cold'), hint: t('profile.baseHint') },
+        ]}
+        value={draft.climate}
+        onChange={(climate) => update({ climate })}
+      />
+      <Text style={[type.caption, { color: color.inkMuted }]}>{t('profile.climateNote')}</Text>
+    </>
+  );
+}
+
+/** Usual night and optional nap, which prefill sleep every day (F11). */
+export function SleepBlock({ draft, update }: StepProps) {
   const { t } = useTranslation();
   const time = (label: string, value: string, set: (v: string) => void) => (
     <Stepper
@@ -23,29 +42,29 @@ export function PlaceSleepStep({ draft, update }: StepProps) {
   );
   return (
     <>
+      {time(t('profile.fallAsleep'), draft.sleepStart, (sleepStart) => update({ sleepStart }))}
+      {time(t('profile.wakeUp'), draft.sleepEnd, (sleepEnd) => update({ sleepEnd }))}
+      <Toggle label={t('profile.napToggle')} value={draft.nap} onChange={(nap) => update({ nap })} />
+      {draft.nap ? (
+        <>
+          {time(t('profile.napFrom'), draft.napStart, (napStart) => update({ napStart }))}
+          {time(t('profile.napTo'), draft.napEnd, (napEnd) => update({ napEnd }))}
+        </>
+      ) : null}
+      <Text style={[type.caption, { color: color.inkMuted }]}>{t('profile.sleepNote')}</Text>
+    </>
+  );
+}
+
+export function PlaceSleepStep(props: StepProps) {
+  const { t } = useTranslation();
+  return (
+    <>
       <Card title={t('profile.climate')}>
-        <Segmented
-          options={[
-            { value: 'warm', label: t('profile.warm'), hint: t('profile.warmHint') },
-            { value: 'temperate', label: t('profile.temperate'), hint: t('profile.baseHint') },
-            { value: 'cold', label: t('profile.cold'), hint: t('profile.baseHint') },
-          ]}
-          value={draft.climate}
-          onChange={(climate) => update({ climate })}
-        />
-        <Text style={[type.caption, { color: color.inkMuted }]}>{t('profile.climateNote')}</Text>
+        <ClimateBlock {...props} />
       </Card>
       <Card title={t('profile.sleep')}>
-        {time(t('profile.fallAsleep'), draft.sleepStart, (sleepStart) => update({ sleepStart }))}
-        {time(t('profile.wakeUp'), draft.sleepEnd, (sleepEnd) => update({ sleepEnd }))}
-        <Toggle label={t('profile.napToggle')} value={draft.nap} onChange={(nap) => update({ nap })} />
-        {draft.nap ? (
-          <>
-            {time(t('profile.napFrom'), draft.napStart, (napStart) => update({ napStart }))}
-            {time(t('profile.napTo'), draft.napEnd, (napEnd) => update({ napEnd }))}
-          </>
-        ) : null}
-        <Text style={[type.caption, { color: color.inkMuted }]}>{t('profile.sleepNote')}</Text>
+        <SleepBlock {...props} />
       </Card>
     </>
   );

@@ -14,7 +14,11 @@ const ICONS: Record<string, { color: string; shapes: Shape[] }> = {
   jogging: { color: '#D9473B', shapes: [{ d: 'M3 12h4l2-5 4 10 2-5h6' }] },
   motorbike: {
     color: '#6B5E55',
-    shapes: [{ circle: [6, 17, 3] }, { circle: [18, 17, 3] }, { d: 'M6 17l4-6h5l3 6M12 11l-1-3h3' }],
+    shapes: [
+      { circle: [6, 17, 3] },
+      { circle: [18, 17, 3] },
+      { d: 'M6 17l4-6h5l3 6M12 11l-1-3h3' },
+    ],
   },
   housework: { color: '#9A6B00', shapes: [{ d: 'M4 11l8-7 8 7v9H4z' }, { d: 'M10 20v-5h4v5' }] },
   football: {
@@ -51,9 +55,22 @@ export function ActivityIcon({ kind, size = 40 }: { kind: string; size?: number 
         justifyContent: 'center',
       }}
     >
-      <Svg width={size * 0.6} height={size * 0.6} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+      <Svg
+        width={size * 0.6}
+        height={size * 0.6}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={color}
+        strokeWidth={2.2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         {shapes.map((shape, i) =>
-          'd' in shape ? <Path key={i} d={shape.d} /> : <Circle key={i} cx={shape.circle[0]} cy={shape.circle[1]} r={shape.circle[2]} />,
+          'd' in shape ? (
+            <Path key={i} d={shape.d} />
+          ) : (
+            <Circle key={i} cx={shape.circle[0]} cy={shape.circle[1]} r={shape.circle[2]} />
+          ),
         )}
       </Svg>
     </View>

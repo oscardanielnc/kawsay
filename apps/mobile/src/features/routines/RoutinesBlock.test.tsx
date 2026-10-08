@@ -10,13 +10,23 @@ const routine: Routine = {
   name: 'Fuerza A + escaleras',
   restSeconds: 75,
   exercises: [
-    { name: 'Sentadilla goblet', exercise: { kind: 'weights', sets: 3, reps: 15, secondsPerRep: 4, intensity: 'light' } },
+    {
+      name: 'Sentadilla goblet',
+      exercise: { kind: 'weights', sets: 3, reps: 15, secondsPerRep: 4, intensity: 'light' },
+    },
     { name: 'Escaleras 1.º → 3.º', exercise: { kind: 'stairs', laps: 4, lapSeconds: 70 } },
   ],
 };
 
 function renderBlock(routines: Routine[] = [routine]) {
-  const props = { routines, bmrKcal, defaultBand: 'morning' as const, onLog: jest.fn(), onSave: jest.fn(), onDelete: jest.fn() };
+  const props = {
+    routines,
+    bmrKcal,
+    defaultBand: 'morning' as const,
+    onLog: jest.fn(),
+    onSave: jest.fn(),
+    onDelete: jest.fn(),
+  };
   return { ...props, rendered: render(<RoutinesBlock {...props} />) };
 }
 
@@ -55,9 +65,13 @@ describe('RoutinesBlock (F18)', () => {
     await fireEvent.press(screen.getByRole('button', { name: '+ Ejercicio' }));
     await fireEvent.press(screen.getByRole('button', { name: /^Escaleras/ }));
     await fireEvent.press(screen.getByRole('button', { name: 'Guardar rutina' }));
-    const [[saved]] = onSave.mock.calls as [[{ name: string; restSeconds: number; exercises: unknown[] }]];
+    const [[saved]] = onSave.mock.calls as [
+      [{ name: string; restSeconds: number; exercises: unknown[] }],
+    ];
     expect(saved).toMatchObject({ name: 'Escaleras + core', restSeconds: 75 });
-    expect(saved.exercises).toEqual([{ name: 'Escaleras', exercise: { kind: 'stairs', laps: 8, lapSeconds: 70 } }]);
+    expect(saved.exercises).toEqual([
+      { name: 'Escaleras', exercise: { kind: 'stairs', laps: 8, lapSeconds: 70 } },
+    ]);
   });
 
   it('the editor explains each MET with its Compendium code', async () => {
@@ -85,7 +99,9 @@ describe('RoutinesBlock (F18)', () => {
     await fireEvent.press(screen.getByRole('button', { name: 'Listo' }));
     await fireEvent.press(screen.getByRole('button', { name: 'Guardar rutina' }));
     jest.useRealTimers();
-    const [[saved]] = onSave.mock.calls as [[{ exercises: { exercise: { lapSeconds?: number } }[] }]];
+    const [[saved]] = onSave.mock.calls as [
+      [{ exercises: { exercise: { lapSeconds?: number } }[] }],
+    ];
     expect(saved.exercises[1]?.exercise.lapSeconds).toBe(65);
   });
 });

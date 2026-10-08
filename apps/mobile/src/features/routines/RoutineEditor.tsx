@@ -19,7 +19,14 @@ interface Props {
 }
 
 /** Name, rest between sets, exercises with their kcal and minutes, the total and an ⓘ with each MET (F18). */
-export function RoutineEditor({ draft, bmrKcal, onChange, onEditExercise, onAddExercise, onDelete }: Props) {
+export function RoutineEditor({
+  draft,
+  bmrKcal,
+  onChange,
+  onEditExercise,
+  onAddExercise,
+  onDelete,
+}: Props) {
   const { t } = useTranslation();
   const [formula, setFormula] = useState(false);
   const totals = routineTotals({ id: draft.id ?? '', ...draft }, bmrKcal);
@@ -43,15 +50,26 @@ export function RoutineEditor({ draft, bmrKcal, onChange, onEditExercise, onAddE
         const energy = totals.perExercise[index];
         const label = `${item.name}. ${t(`routines.kinds.${item.exercise.kind}`)}`;
         return (
-          <Pressable key={index} accessibilityRole="button" accessibilityLabel={label} onPress={() => onEditExercise(index)} style={styles.row}>
+          <Pressable
+            key={index}
+            accessibilityRole="button"
+            accessibilityLabel={label}
+            onPress={() => onEditExercise(index)}
+            style={styles.row}
+          >
             <ActivityIcon kind={item.exercise.kind === 'stairs' ? 'stairs' : item.exercise.kind} />
             <View style={styles.grow}>
               <Text style={[type.heading, styles.ink]}>{item.name}</Text>
-              <Text style={[type.caption, styles.muted]}>{t(`routines.kinds.${item.exercise.kind}`)}</Text>
+              <Text style={[type.caption, styles.muted]}>
+                {t(`routines.kinds.${item.exercise.kind}`)}
+              </Text>
             </View>
             {energy ? (
               <Text style={[type.label, styles.ink]}>
-                {t('routines.rowEnergy', { kcal: formatNumber(energy.kcal), minutes: formatNumber(energy.minutes, 1) })}
+                {t('routines.rowEnergy', {
+                  kcal: formatNumber(energy.kcal),
+                  minutes: formatNumber(energy.minutes, 1),
+                })}
               </Text>
             ) : null}
           </Pressable>
@@ -60,14 +78,19 @@ export function RoutineEditor({ draft, bmrKcal, onChange, onEditExercise, onAddE
       <Button variant="secondary" label={t('routines.addExercise')} onPress={onAddExercise} />
       <View style={styles.total}>
         <Text style={[type.title, styles.ink]}>
-          {t('routines.total', { kcal: formatNumber(totals.kcal), minutes: formatNumber(totals.minutes) })}
+          {t('routines.total', {
+            kcal: formatNumber(totals.kcal),
+            minutes: formatNumber(totals.minutes),
+          })}
         </Text>
         <Pressable accessibilityRole="button" onPress={() => setFormula(!formula)}>
           <Text style={[type.label, styles.brand]}>{t('routines.how')}</Text>
         </Pressable>
         {formula ? (
           <>
-            <Text style={[type.caption, styles.ink]}>{t('routines.formula', { bmr: formatNumber(bmrKcal) })}</Text>
+            <Text style={[type.caption, styles.ink]}>
+              {t('routines.formula', { bmr: formatNumber(bmrKcal) })}
+            </Text>
             {draft.exercises.map((item, index) => (
               <Text key={index} style={[type.caption, styles.ink]}>
                 {`${item.name} · MET ${formatNumber(totals.perExercise[index]?.met ?? 0, 1)} · ${totals.perExercise[index]?.code ?? ''}`}
@@ -93,7 +116,12 @@ const styles = StyleSheet.create({
   },
   row: { flexDirection: 'row', alignItems: 'center', gap: space.md, paddingVertical: space.xs },
   grow: { flex: 1 },
-  total: { backgroundColor: color.green50, borderRadius: radius.card, padding: space.md, gap: space.xs },
+  total: {
+    backgroundColor: color.green50,
+    borderRadius: radius.card,
+    padding: space.md,
+    gap: space.xs,
+  },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
   brand: { color: color.brand },

@@ -56,10 +56,18 @@ export function AddActivity({ bmrKcal, defaultBand, onAdd }: Props) {
         ))}
       </View>
       <Text style={[type.label, styles.muted]}>{t('activity.duration')}</Text>
-      <Segmented options={DURATIONS.map((d) => ({ value: d, label: `${d}′` }))} value={minutes} onChange={setMinutes} />
+      <Segmented
+        options={DURATIONS.map((d) => ({ value: d, label: `${d}′` }))}
+        value={minutes}
+        onChange={setMinutes}
+      />
       <Text style={[type.label, styles.muted]}>{t('activity.intensity')}</Text>
       <Segmented
-        options={INTENSITIES.map((i) => ({ value: i, label: t(`activity.intensities.${i}`), hint: t(`activity.talk.${i}`) }))}
+        options={INTENSITIES.map((i) => ({
+          value: i,
+          label: t(`activity.intensities.${i}`),
+          hint: t(`activity.talk.${i}`),
+        }))}
         value={intensity}
         onChange={setIntensity}
       />
@@ -75,16 +83,24 @@ export function AddActivity({ bmrKcal, defaultBand, onAdd }: Props) {
             <Text style={[type.label, styles.brand]}>{t('activity.how')}</Text>
           </Pressable>
           {formula ? (
-            <Text style={[type.caption, styles.ink]}>{t('activity.formula', { bmr: formatNumber(bmrKcal) })}</Text>
+            <Text style={[type.caption, styles.ink]}>
+              {t('activity.formula', { bmr: formatNumber(bmrKcal) })}
+            </Text>
           ) : null}
         </View>
       ) : null}
       <Text style={[type.label, styles.muted]}>{t('activity.when')}</Text>
-      <Segmented options={BANDS.map((b) => ({ value: b, label: t(`activity.bands.${b}`) }))} value={band} onChange={setBand} />
+      <Segmented
+        options={BANDS.map((b) => ({ value: b, label: t(`activity.bands.${b}`) }))}
+        value={band}
+        onChange={setBand}
+      />
       <Button
         label={t('activity.add')}
         disabled={kind === null}
-        onPress={() => kind && met !== null && onAdd({ kind, intensity, minutes, met, timeBand: band })}
+        onPress={() =>
+          kind && met !== null && onAdd({ kind, intensity, minutes, met, timeBand: band })
+        }
       />
     </>
   );
@@ -105,7 +121,12 @@ const styles = StyleSheet.create({
     padding: space.xs,
   },
   selected: { borderColor: color.brand, backgroundColor: color.green50 },
-  preview: { backgroundColor: color.green50, borderRadius: radius.chip, padding: space.md, gap: space.xs },
+  preview: {
+    backgroundColor: color.green50,
+    borderRadius: radius.chip,
+    padding: space.md,
+    gap: space.xs,
+  },
   ink: { color: color.ink, textAlign: 'center' },
   muted: { color: color.inkMuted },
   brand: { color: color.brand },

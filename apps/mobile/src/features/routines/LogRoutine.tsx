@@ -38,7 +38,14 @@ export function LogRoutine({
     setDone(nextDone);
     onChange(nextAdjust ? { done: nextDone } : { completion: nextShare });
   };
-  const unit = (kind: string) => t(kind === 'stairs' ? 'routines.unitLaps' : kind === 'mobility' ? 'routines.unitMinutes' : 'routines.unitSets');
+  const unit = (kind: string) =>
+    t(
+      kind === 'stairs'
+        ? 'routines.unitLaps'
+        : kind === 'mobility'
+          ? 'routines.unitMinutes'
+          : 'routines.unitSets',
+    );
 
   return (
     <>
@@ -50,20 +57,30 @@ export function LogRoutine({
           onChange={(s) => update({ share: s })}
         />
       )}
-      <Toggle label={t('routines.adjust')} description={t('routines.adjustHint')} value={adjust} onChange={(a) => update({ adjust: a })} />
+      <Toggle
+        label={t('routines.adjust')}
+        description={t('routines.adjustHint')}
+        value={adjust}
+        onChange={(a) => update({ adjust: a })}
+      />
       {adjust
         ? routine.exercises.map((item, i) => (
             <Stepper
               key={i}
               label={item.name}
               value={`${done[i] ?? 0} ${unit(item.exercise.kind)}`}
-              onDecrement={() => update({ done: done.map((d, j) => (j === i ? Math.max(0, d - 1) : d)) })}
+              onDecrement={() =>
+                update({ done: done.map((d, j) => (j === i ? Math.max(0, d - 1) : d)) })
+              }
               onIncrement={() => update({ done: done.map((d, j) => (j === i ? d + 1 : d)) })}
             />
           ))
         : null}
       <Text style={[type.heading, styles.preview]}>
-        {t('routines.logPreview', { kcal: formatNumber(session.kcal), minutes: formatNumber(session.minutes) })}
+        {t('routines.logPreview', {
+          kcal: formatNumber(session.kcal),
+          minutes: formatNumber(session.minutes),
+        })}
       </Text>
     </>
   );
@@ -71,5 +88,10 @@ export function LogRoutine({
 
 const styles = StyleSheet.create({
   muted: { color: color.inkMuted },
-  preview: { color: color.ink, backgroundColor: color.green50, borderRadius: radius.chip, padding: space.md },
+  preview: {
+    color: color.ink,
+    backgroundColor: color.green50,
+    borderRadius: radius.chip,
+    padding: space.md,
+  },
 });

@@ -10,7 +10,13 @@ interface Props {
   accessibilityLabel?: string;
 }
 
-export function Button({ label, onPress, variant = 'primary', disabled = false, accessibilityLabel }: Props) {
+export function Button({
+  label,
+  onPress,
+  variant = 'primary',
+  disabled = false,
+  accessibilityLabel,
+}: Props) {
   return (
     <Pressable
       accessibilityRole="button"

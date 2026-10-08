@@ -26,7 +26,9 @@ export function Sheet({ title, onDone, children, footer }: Props) {
             </Text>
             {children}
           </ScrollView>
-          <View style={styles.footer}>{footer ?? <Button label={t('common.done')} onPress={onDone} />}</View>
+          <View style={styles.footer}>
+            {footer ?? <Button label={t('common.done')} onPress={onDone} />}
+          </View>
         </SafeAreaView>
       </View>
     </Modal>

@@ -16,15 +16,29 @@ let opened: Db | null = null;
 
 /** Opens the phone's database on first use, not at import, so importing this module has no side effects. */
 function phoneDatabase(): Db {
-  opened ??= drizzle(openDatabaseSync('kawsay.db', { enableChangeListener: true }), { schema }) as unknown as Db;
+  opened ??= drizzle(openDatabaseSync('kawsay.db', { enableChangeListener: true }), {
+    schema,
+  }) as unknown as Db;
   return opened;
 }
 
 const DatabaseContext = createContext<{ db: Db; env: RecordEnv } | null>(null);
 
 /** Provides an open, migrated database; tests use it with an in-memory SQLite. */
-export function DatabaseScope({ db: scoped, env: scopedEnv, children }: { db: Db; env: RecordEnv; children: ReactNode }) {
-  return <DatabaseContext.Provider value={{ db: scoped, env: scopedEnv }}>{children}</DatabaseContext.Provider>;
+export function DatabaseScope({
+  db: scoped,
+  env: scopedEnv,
+  children,
+}: {
+  db: Db;
+  env: RecordEnv;
+  children: ReactNode;
+}) {
+  return (
+    <DatabaseContext.Provider value={{ db: scoped, env: scopedEnv }}>
+      {children}
+    </DatabaseContext.Provider>
+  );
 }
 
 /** The local database for screens and hooks; only available under <DatabaseProvider>. */
@@ -49,7 +63,8 @@ export function DatabaseProvider({ children }: { children: ReactNode }) {
     if (!migrated.success) return;
     loadCatalog(db, catalog as unknown as BundledCatalog).then(
       () => setCatalogReady(true),
-      (error: unknown) => setCatalogError(error instanceof Error ? error : new Error(String(error))),
+      (error: unknown) =>
+        setCatalogError(error instanceof Error ? error : new Error(String(error))),
     );
   }, [db, migrated.success]);
 

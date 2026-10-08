@@ -10,7 +10,13 @@ const ICONS: Record<string, { bg: string; shape: ReactElement }> = {
       <>
         <Path d="M7 22h34a17 17 0 0 1-34 0z" fill="#E08A4F" />
         <Path d="M7 22h34" stroke="#8A3E14" strokeWidth={2.5} />
-        <Path d="M18 9c0 3 3 3 3 6M26 9c0 3 3 3 3 6" stroke="#B9B6AE" strokeWidth={2.5} strokeLinecap="round" fill="none" />
+        <Path
+          d="M18 9c0 3 3 3 3 6M26 9c0 3 3 3 3 6"
+          stroke="#B9B6AE"
+          strokeWidth={2.5}
+          strokeLinecap="round"
+          fill="none"
+        />
       </>
     ),
   },
@@ -20,7 +26,12 @@ const ICONS: Record<string, { bg: string; shape: ReactElement }> = {
       <>
         <Circle cx={24} cy={26} r={15} fill="#fff" stroke="#C9A227" strokeWidth={2.5} />
         <Circle cx={24} cy={26} r={8} fill="#E9C46A" />
-        <Path d="M6 10v10M4 10v6M8 10v6M42 10v20" stroke="#6B5E55" strokeWidth={2.2} strokeLinecap="round" />
+        <Path
+          d="M6 10v10M4 10v6M8 10v6M42 10v20"
+          stroke="#6B5E55"
+          strokeWidth={2.2}
+          strokeLinecap="round"
+        />
       </>
     ),
   },
@@ -48,9 +59,33 @@ const ICONS: Record<string, { bg: string; shape: ReactElement }> = {
     shape: (
       <>
         <Path d="M8 40L40 8" stroke="#8A6A4A" strokeWidth={2.5} strokeLinecap="round" />
-        <Rect x={13} y={25} width={10} height={10} rx={3} transform="rotate(-45 18 30)" fill="#9E2B25" />
-        <Rect x={21} y={17} width={10} height={10} rx={3} transform="rotate(-45 26 22)" fill="#B84E18" />
-        <Rect x={29} y={9} width={9} height={9} rx={3} transform="rotate(-45 33 13)" fill="#9E2B25" />
+        <Rect
+          x={13}
+          y={25}
+          width={10}
+          height={10}
+          rx={3}
+          transform="rotate(-45 18 30)"
+          fill="#9E2B25"
+        />
+        <Rect
+          x={21}
+          y={17}
+          width={10}
+          height={10}
+          rx={3}
+          transform="rotate(-45 26 22)"
+          fill="#B84E18"
+        />
+        <Rect
+          x={29}
+          y={9}
+          width={9}
+          height={9}
+          rx={3}
+          transform="rotate(-45 33 13)"
+          fill="#9E2B25"
+        />
       </>
     ),
   },
@@ -58,8 +93,17 @@ const ICONS: Record<string, { bg: string; shape: ReactElement }> = {
     bg: '#FBE4E1',
     shape: (
       <>
-        <Path d="M24 15c-9-4-15 3-13 11 2 10 8 15 13 11 5 4 11-1 13-11 2-8-4-15-13-11z" fill="#D9473B" />
-        <Path d="M24 15c0-4 2-6 6-7" stroke="#3E8A55" strokeWidth={2.5} strokeLinecap="round" fill="none" />
+        <Path
+          d="M24 15c-9-4-15 3-13 11 2 10 8 15 13 11 5 4 11-1 13-11 2-8-4-15-13-11z"
+          fill="#D9473B"
+        />
+        <Path
+          d="M24 15c0-4 2-6 6-7"
+          stroke="#3E8A55"
+          strokeWidth={2.5}
+          strokeLinecap="round"
+          fill="none"
+        />
       </>
     ),
   },
@@ -130,7 +174,14 @@ export function FoodIcon({ icon, size = 48 }: { icon: string; size?: number }) {
   return (
     <View
       importantForAccessibility="no-hide-descendants"
-      style={{ width: size, height: size, borderRadius: size / 4, backgroundColor: bg, alignItems: 'center', justifyContent: 'center' }}
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size / 4,
+        backgroundColor: bg,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
     >
       <Svg width={size * 0.78} height={size * 0.78} viewBox="0 0 48 48">
         {shape}

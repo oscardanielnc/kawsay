@@ -41,7 +41,9 @@ export function MealsSection({ entries, items, recent, onAdd, onDelete }: Props)
   const [sheet, setSheet] = useState<SheetState | null>(null);
   const mealName = (meal: Meal) => t(`meals.slots.${meal}`);
   const chipLabel = (e: MealEntryView) =>
-    e.servings !== null ? `${fractionLabel(e.servings)} ${e.name}` : `${formatNumber(e.grams ?? 0)} g ${e.name}`;
+    e.servings !== null
+      ? `${fractionLabel(e.servings)} ${e.name}`
+      : `${formatNumber(e.grams ?? 0)} g ${e.name}`;
 
   let title: string | null = null;
   let body = null;
@@ -52,17 +54,34 @@ export function MealsSection({ entries, items, recent, onAdd, onDelete }: Props)
       <DishPicker
         recent={recent[sheet.meal]}
         items={items}
-        onPick={(item) => setSheet({ kind: 'portion', meal: sheet.meal, item, portion: { servings: 1, grams: '', saveRest: false } })}
+        onPick={(item) =>
+          setSheet({
+            kind: 'portion',
+            meal: sheet.meal,
+            item,
+            portion: { servings: 1, grams: '', saveRest: false },
+          })
+        }
       />
     );
   } else if (sheet?.kind === 'portion') {
     const { meal, item, portion } = sheet;
     title = t('meals.howMuch');
-    body = <PortionPicker item={item} portion={portion} onChange={(next) => setSheet({ ...sheet, portion: next })} />;
+    body = (
+      <PortionPicker
+        item={item}
+        portion={portion}
+        onChange={(next) => setSheet({ ...sheet, portion: next })}
+      />
+    );
     const grams = portion.grams ? Number(portion.grams) : null;
     footer = (
       <Button
-        label={grams !== null ? t('meals.addGrams', { grams }) : t('meals.addServings', { portion: fractionLabel(portion.servings) })}
+        label={
+          grams !== null
+            ? t('meals.addGrams', { grams })
+            : t('meals.addServings', { portion: fractionLabel(portion.servings) })
+        }
         onPress={() => {
           onAdd({
             meal,
@@ -79,8 +98,12 @@ export function MealsSection({ entries, items, recent, onAdd, onDelete }: Props)
     title = chipLabel(entry);
     body = (
       <>
-        <Text style={[type.body, styles.ink]}>{t('meals.entryKcal', { kcal: formatNumber(entry.kcal), meal: mealName(entry.meal) })}</Text>
-        {entry.leftoverOf ? <Text style={[type.caption, styles.muted]}>{t('meals.leftover')}</Text> : null}
+        <Text style={[type.body, styles.ink]}>
+          {t('meals.entryKcal', { kcal: formatNumber(entry.kcal), meal: mealName(entry.meal) })}
+        </Text>
+        {entry.leftoverOf ? (
+          <Text style={[type.caption, styles.muted]}>{t('meals.leftover')}</Text>
+        ) : null}
       </>
     );
     footer = (
@@ -104,7 +127,11 @@ export function MealsSection({ entries, items, recent, onAdd, onDelete }: Props)
           <View key={meal} style={styles.slot}>
             <View style={styles.head}>
               <Text style={[type.heading, styles.ink, styles.grow]}>{mealName(meal)}</Text>
-              {own.length ? <Text style={[type.label, styles.muted]}>{t('meals.kcal', { kcal: formatNumber(kcal) })}</Text> : null}
+              {own.length ? (
+                <Text style={[type.label, styles.muted]}>
+                  {t('meals.kcal', { kcal: formatNumber(kcal) })}
+                </Text>
+              ) : null}
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={t('meals.addTo', { meal: mealName(meal) })}
@@ -146,7 +173,14 @@ const styles = StyleSheet.create({
   slot: { gap: space.sm, paddingVertical: space.xs },
   head: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   grow: { flex: 1 },
-  plus: { width: touch, height: touch, borderRadius: radius.pill, backgroundColor: color.accent, alignItems: 'center', justifyContent: 'center' },
+  plus: {
+    width: touch,
+    height: touch,
+    borderRadius: radius.pill,
+    backgroundColor: color.accent,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   onAccent: { color: color.onDark },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
   chip: {

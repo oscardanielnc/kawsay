@@ -326,5 +326,115 @@
     },
     "movement": "Movimiento",
     "minutes": "{{minutes}} de {{goal}} min"
+  },
+  "checkins": {
+    "title": "Cuerpo y ánimo",
+    "bathroom": "Idas al baño",
+    "addVisit": "+ Ida al baño",
+    "visitTitle": "¿Cómo fue?",
+    "none": "No fui hoy",
+    "gas": "Solo gases",
+    "remove": "Quitar {{name}}",
+    "bristolLabel": "Tipo {{n}}: {{name}}",
+    "bristol": {
+      "1": "Bolitas duras",
+      "2": "Grumosa",
+      "3": "Con grietas",
+      "4": "Lisa · ideal",
+      "5": "Trozos blandos",
+      "6": "Pastosa",
+      "7": "Líquida"
+    },
+    "bloating": "Hinchazón comparada con tu normal",
+    "bloatingValues": {
+      "better": "Mejor",
+      "usual": "Como siempre",
+      "worse": "Peor"
+    },
+    "stress": "Máximo estrés que sentiste hoy",
+    "stressHint": "El pico del día, aunque luego te calmaras",
+    "stressValues": {
+      "1": "Nada",
+      "2": "Poco",
+      "3": "Medio",
+      "4": "Alto",
+      "5": "Máximo"
+    },
+    "energy": "Energía",
+    "energyValues": {
+      "1": "Agotado",
+      "2": "Baja",
+      "3": "Normal",
+      "4": "Buena",
+      "5": "Mucha"
+    },
+    "mood": "Ánimo",
+    "moodValues": {
+      "1": "Mal",
+      "2": "Bajo",
+      "3": "Normal",
+      "4": "Bien",
+      "5": "Feliz"
+    }
+  },
+  "hydration": {
+    "title": "Hidratación",
+    "progress": "{{glasses}} de {{goal}} vasos",
+    "kinds": {
+      "water": "Agua",
+      "zero-calorie": "Café o té",
+      "alcohol": "Alcohol"
+    },
+    "add": "Agregar un vaso de {{kind}}",
+    "remove": "Quitar vaso de {{kind}}",
+    "removeAlcohol": "Quitar vaso de {{kind}} (no suma)",
+    "caloric": "Con calorías",
+    "caloricTitle": "Bebida con calorías",
+    "caloricHint": "Se anota en la comida de ahora, así sus calorías cuentan una sola vez.",
+    "fromMeal": "{{name}} · del {{meal}} · {{glasses}} vasos",
+    "urine": "Color de la orina",
+    "urineValues": {
+      "clear": "Clara",
+      "yellow": "Amarilla",
+      "dark": "Oscura"
+    },
+    "sweated": "Sudé mucho hoy",
+    "sweatedHint": "Sol, calor fuerte o ejercicio largo: +2 vasos",
+    "note": "Un vaso ≈ 250 ml. La meta sale de tu sexo y el clima de tu perfil. La comida aporta otro 20–30 % y no se cuenta. El alcohol no suma."
+  },
+  "sleep": {
+    "title": "Sueño",
+    "total": "{{hours}} h en total",
+    "hours": "{{hours}} h",
+    "kinds": {
+      "night": "Noche",
+      "nap": "Siesta"
+    },
+    "fellAsleep": "Me dormí",
+    "wokeUp": "Me desperté",
+    "quality": "Calidad del sueño",
+    "tapMoon": "toca una luna",
+    "qualityLabel": "Calidad {{name}}",
+    "qualityValues": {
+      "1": "Muy mala",
+      "2": "Mala",
+      "3": "Regular",
+      "4": "Buena",
+      "5": "Excelente"
+    },
+    "nightmares": "Tuve pesadillas",
+    "addNap": "+ Agregar siesta",
+    "removeNap": "Quitar siesta",
+    "note": "Las horas vienen de tu horario habitual; ajústalas si cambiaron."
+  },
+  "weight": {
+    "title": "Peso",
+    "today": "Peso de hoy",
+    "rule": "Al despertar, después del baño y antes de comer: así los días se comparan entre sí.",
+    "save": "Guardar peso",
+    "edit": "Editar peso",
+    "trend": "Tendencia {{kg}}",
+    "chart": "Tendencia de {{from}} a {{to}} en los últimos {{days}} días",
+    "legend": "Puntos: tu peso de cada día · Línea: tendencia, que ignora los saltos de un día"
   }
 }

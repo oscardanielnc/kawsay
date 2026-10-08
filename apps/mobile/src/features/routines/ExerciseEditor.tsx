@@ -24,8 +24,16 @@ const LEVELS: readonly Intensity[] = ['light', 'medium', 'hard'];
 export function ExerciseEditor({ item, restSeconds, bmrKcal, onChange, onMeasureLap }: Props) {
   const { t } = useTranslation();
   const e = item.exercise;
-  const set = (patch: Partial<Exercise>) => onChange({ ...item, exercise: { ...e, ...patch } as Exercise });
-  const step = (label: string, value: number, unit: string, key: string, delta: number, min: number) => (
+  const set = (patch: Partial<Exercise>) =>
+    onChange({ ...item, exercise: { ...e, ...patch } as Exercise });
+  const step = (
+    label: string,
+    value: number,
+    unit: string,
+    key: string,
+    delta: number,
+    min: number,
+  ) => (
     <Stepper
       label={label}
       value={`${formatNumber(value)}${unit}`}
@@ -51,8 +59,12 @@ export function ExerciseEditor({ item, restSeconds, bmrKcal, onChange, onMeasure
         </>
       ) : null}
       {e.kind === 'mobility' ? step(t('routines.minutes'), e.minutes, '', 'minutes', 1, 1) : null}
-      {e.kind === 'weights' || e.kind === 'bodyweight' || e.kind === 'isometric' ? step(t('routines.sets'), e.sets, '', 'sets', 1, 1) : null}
-      {e.kind === 'isometric' ? step(t('routines.seconds'), e.seconds, ' s', 'seconds', 5, 5) : null}
+      {e.kind === 'weights' || e.kind === 'bodyweight' || e.kind === 'isometric'
+        ? step(t('routines.sets'), e.sets, '', 'sets', 1, 1)
+        : null}
+      {e.kind === 'isometric'
+        ? step(t('routines.seconds'), e.seconds, ' s', 'seconds', 5, 5)
+        : null}
       {e.kind === 'weights' || e.kind === 'bodyweight' ? (
         <>
           {step(t('routines.reps'), e.reps, '', 'reps', 1, 1)}
@@ -60,11 +72,19 @@ export function ExerciseEditor({ item, restSeconds, bmrKcal, onChange, onMeasure
         </>
       ) : null}
       {e.kind === 'weights' || e.kind === 'bodyweight' || e.kind === 'isometric' ? (
-        <Toggle label={t('routines.perSide')} value={e.perSide ?? false} onChange={(perSide) => set({ perSide })} />
+        <Toggle
+          label={t('routines.perSide')}
+          value={e.perSide ?? false}
+          onChange={(perSide) => set({ perSide })}
+        />
       ) : null}
       <Text style={[type.label, styles.muted]}>{t('routines.effort')}</Text>
       <Segmented
-        options={LEVELS.map((level) => ({ value: level, label: t(`routines.efforts.${level}`), hint: t(`activity.talk.${level}`) }))}
+        options={LEVELS.map((level) => ({
+          value: level,
+          label: t(`routines.efforts.${level}`),
+          hint: t(`activity.talk.${level}`),
+        }))}
         value={e.intensity ?? 'medium'}
         onChange={(intensity) => set({ intensity })}
       />
@@ -91,5 +111,10 @@ const styles = StyleSheet.create({
     color: color.ink,
   },
   muted: { color: color.inkMuted },
-  preview: { color: color.ink, backgroundColor: color.green50, borderRadius: radius.chip, padding: space.md },
+  preview: {
+    color: color.ink,
+    backgroundColor: color.green50,
+    borderRadius: radius.chip,
+    padding: space.md,
+  },
 });

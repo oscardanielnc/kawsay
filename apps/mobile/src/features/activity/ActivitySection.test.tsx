@@ -24,10 +24,16 @@ describe('ActivitySection (F08)', () => {
     await rendered;
     await fireEvent.press(screen.getByRole('button', { name: '+ Agregar actividad' }));
     await fireEvent.press(screen.getByRole('button', { name: 'Escaleras' }));
-    await fireEvent.press(screen.getByRole('button', { name: "30′" }));
+    await fireEvent.press(screen.getByRole('button', { name: '30′' }));
     expect(screen.getByText(/\+228 kcal · MET 6\.8/)).toBeOnTheScreen();
     await fireEvent.press(screen.getByRole('button', { name: 'Agregar' }));
-    expect(onAdd).toHaveBeenCalledWith({ kind: 'stairs', intensity: 'medium', minutes: 30, met: 6.8, timeBand: 'morning' });
+    expect(onAdd).toHaveBeenCalledWith({
+      kind: 'stairs',
+      intensity: 'medium',
+      minutes: 30,
+      met: 6.8,
+      timeBand: 'morning',
+    });
   });
 
   it('the ⓘ explains the formula', async () => {
@@ -65,7 +71,7 @@ describe('ActivitySection (F08)', () => {
     };
     const { onDelete, rendered } = renderSection({ entries: [entry] });
     await rendered;
-    expect(screen.getByText("30′ · Media · Mañana · +228 kcal")).toBeOnTheScreen();
+    expect(screen.getByText('30′ · Media · Mañana · +228 kcal')).toBeOnTheScreen();
     expect(screen.queryByRole('button', { name: /Sin actividad física/ })).not.toBeOnTheScreen();
     await fireEvent.press(screen.getByRole('button', { name: 'Quitar Escaleras' }));
     expect(onDelete).toHaveBeenCalledWith('a1');

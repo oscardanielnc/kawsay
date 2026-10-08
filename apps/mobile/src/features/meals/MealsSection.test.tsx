@@ -3,7 +3,12 @@ import '@/lib/i18n';
 import type { CatalogItem, MealEntryView } from './meals-db';
 import { MealsSection } from './MealsSection';
 
-const item = (id: string, name: string, kcalPerServing: number, extra: Partial<CatalogItem> = {}): CatalogItem => ({
+const item = (
+  id: string,
+  name: string,
+  kcalPerServing: number,
+  extra: Partial<CatalogItem> = {},
+): CatalogItem => ({
   kind: 'dish',
   id,
   name,
@@ -16,7 +21,10 @@ const item = (id: string, name: string, kcalPerServing: number, extra: Partial<C
   per100g: { energyKcal: kcalPerServing / 3 },
   ...extra,
 });
-const panConHuevo = item('pan-con-huevo', 'Pan con huevo', 310, { icon: 'pan', group: 'breakfast' });
+const panConHuevo = item('pan-con-huevo', 'Pan con huevo', 310, {
+  icon: 'pan',
+  group: 'breakfast',
+});
 const lomo = item('lomo-saltado', 'Lomo saltado', 820);
 const juane = item('mini-juane-pollo', 'Mini juane de pollo (calle)', 480, { icon: 'hoja' });
 const items = [panConHuevo, lomo, juane];
@@ -40,7 +48,12 @@ describe('MealsSection (F05)', () => {
     await fireEvent.press(screen.getByRole('button', { name: 'Agregar a Desayuno' }));
     await fireEvent.press(screen.getByRole('button', { name: /Pan con huevo/ }));
     await fireEvent.press(screen.getByRole('button', { name: 'Agregar 1 ración' }));
-    expect(onAdd).toHaveBeenCalledWith({ meal: 'breakfast', item: panConHuevo, servings: 1, saveRestForTomorrow: false });
+    expect(onAdd).toHaveBeenCalledWith({
+      meal: 'breakfast',
+      item: panConHuevo,
+      servings: 1,
+      saveRestForTomorrow: false,
+    });
   });
 
   it('half a serving halves the calories and offers to save the rest for tomorrow', async () => {
@@ -52,7 +65,12 @@ describe('MealsSection (F05)', () => {
     expect(screen.getByText('410')).toBeOnTheScreen();
     await fireEvent.press(screen.getByRole('switch', { name: /Guardar el resto \(½\)/ }));
     await fireEvent.press(screen.getByRole('button', { name: 'Agregar ½ ración' }));
-    expect(onAdd).toHaveBeenCalledWith({ meal: 'dinner', item: lomo, servings: 0.5, saveRestForTomorrow: true });
+    expect(onAdd).toHaveBeenCalledWith({
+      meal: 'dinner',
+      item: lomo,
+      servings: 0.5,
+      saveRestForTomorrow: true,
+    });
   });
 
   it('grams instead of a fraction', async () => {
@@ -62,7 +80,12 @@ describe('MealsSection (F05)', () => {
     await fireEvent.press(screen.getByRole('button', { name: /Lomo saltado/ }));
     await fireEvent.changeText(screen.getByLabelText('o en gramos'), '120');
     await fireEvent.press(screen.getByRole('button', { name: 'Agregar 120 g' }));
-    expect(onAdd).toHaveBeenCalledWith({ meal: 'lunch', item: lomo, grams: 120, saveRestForTomorrow: false });
+    expect(onAdd).toHaveBeenCalledWith({
+      meal: 'lunch',
+      item: lomo,
+      grams: 120,
+      saveRestForTomorrow: false,
+    });
   });
 
   it('typing filters the dishes', async () => {

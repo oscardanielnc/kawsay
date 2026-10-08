@@ -59,9 +59,17 @@ export function RoutinesBlock({ routines, bmrKcal, defaultBand, onLog, onSave, o
     title = routine.name;
     body = (
       <>
-        <LogRoutine routine={routine} bmrKcal={bmrKcal} onChange={(next) => setMode({ ...mode, choice: next })} />
+        <LogRoutine
+          routine={routine}
+          bmrKcal={bmrKcal}
+          onChange={(next) => setMode({ ...mode, choice: next })}
+        />
         <Text style={[type.label, styles.muted]}>{t('activity.when')}</Text>
-        <Segmented options={BANDS.map((b) => ({ value: b, label: t(`activity.bands.${b}`) }))} value={band} onChange={(b) => setMode({ ...mode, band: b })} />
+        <Segmented
+          options={BANDS.map((b) => ({ value: b, label: t(`activity.bands.${b}`) }))}
+          value={band}
+          onChange={(b) => setMode({ ...mode, band: b })}
+        />
       </>
     );
     footer = (
@@ -70,7 +78,8 @@ export function RoutinesBlock({ routines, bmrKcal, defaultBand, onLog, onSave, o
         onPress={() => {
           const session = sessionOf(routine, choice, bmrKcal);
           const planned = routineTotals(routine, bmrKcal).minutes;
-          const share = 'completion' in choice ? choice.completion : planned ? session.minutes / planned : 1;
+          const share =
+            'completion' in choice ? choice.completion : planned ? session.minutes / planned : 1;
           onLog({ routine, minutes: session.minutes, met: session.met, share, timeBand: band });
           close();
         }}
@@ -91,7 +100,11 @@ export function RoutinesBlock({ routines, bmrKcal, defaultBand, onLog, onSave, o
             />
           </View>
         ))}
-        <Button variant="secondary" label={t('routines.create')} onPress={() => setMode({ kind: 'edit', draft: NEW_ROUTINE })} />
+        <Button
+          variant="secondary"
+          label={t('routines.create')}
+          onPress={() => setMode({ kind: 'edit', draft: NEW_ROUTINE })}
+        />
       </>
     );
     footer = <View />;
@@ -105,7 +118,12 @@ export function RoutinesBlock({ routines, bmrKcal, defaultBand, onLog, onSave, o
         onChange={(next) => setMode({ kind: 'edit', draft: next })}
         onEditExercise={(index) => setMode({ kind: 'exercise', draft, index })}
         onAddExercise={() => setMode({ kind: 'templates', draft })}
-        {...(draft.id && { onDelete: () => { onDelete(draft.id ?? ''); close(); } })}
+        {...(draft.id && {
+          onDelete: () => {
+            onDelete(draft.id ?? '');
+            close();
+          },
+        })}
       />
     );
     footer = (
@@ -126,7 +144,9 @@ export function RoutinesBlock({ routines, bmrKcal, defaultBand, onLog, onSave, o
         key={template.name}
         accessibilityRole="button"
         accessibilityLabel={`${template.name}. ${t(`routines.kinds.${template.exercise.kind}`)}`}
-        onPress={() => setMode({ kind: 'edit', draft: { ...draft, exercises: [...draft.exercises, template] } })}
+        onPress={() =>
+          setMode({ kind: 'edit', draft: { ...draft, exercises: [...draft.exercises, template] } })
+        }
         style={styles.row}
       >
         <ActivityIcon kind={template.exercise.kind} />
@@ -146,7 +166,11 @@ export function RoutinesBlock({ routines, bmrKcal, defaultBand, onLog, onSave, o
       body = (
         <LapStopwatch
           onDone={(lapSeconds) =>
-            setMode({ kind: 'exercise', draft: replace({ ...item, exercise: { ...stairs, lapSeconds } }) ?? draft, index })
+            setMode({
+              kind: 'exercise',
+              draft: replace({ ...item, exercise: { ...stairs, lapSeconds } }) ?? draft,
+              index,
+            })
           }
         />
       );
@@ -166,7 +190,12 @@ export function RoutinesBlock({ routines, bmrKcal, defaultBand, onLog, onSave, o
           <Button
             variant="secondary"
             label={t('routines.removeExercise')}
-            onPress={() => setMode({ kind: 'edit', draft: { ...draft, exercises: draft.exercises.filter((_, i) => i !== index) } })}
+            onPress={() =>
+              setMode({
+                kind: 'edit',
+                draft: { ...draft, exercises: draft.exercises.filter((_, i) => i !== index) },
+              })
+            }
           />
           <View style={styles.grow}>
             <Button label={t('common.done')} onPress={() => setMode({ kind: 'edit', draft })} />
@@ -180,7 +209,11 @@ export function RoutinesBlock({ routines, bmrKcal, defaultBand, onLog, onSave, o
     <View style={styles.block}>
       <View style={styles.row}>
         <Text style={[type.label, styles.muted, styles.grow]}>{t('routines.title')}</Text>
-        <Button variant="link" label={t('routines.manage')} onPress={() => setMode({ kind: 'manage' })} />
+        <Button
+          variant="link"
+          label={t('routines.manage')}
+          onPress={() => setMode({ kind: 'manage' })}
+        />
       </View>
       <View style={styles.chips}>
         {routines.map((r) => {
@@ -190,7 +223,9 @@ export function RoutinesBlock({ routines, bmrKcal, defaultBand, onLog, onSave, o
               key={r.id}
               accessibilityRole="button"
               accessibilityLabel={`${r.name}, ${formatNumber(minutes)}′`}
-              onPress={() => setMode({ kind: 'log', routine: r, choice: { completion: 1 }, band: defaultBand })}
+              onPress={() =>
+                setMode({ kind: 'log', routine: r, choice: { completion: 1 }, band: defaultBand })
+              }
               style={styles.chip}
             >
               <ActivityIcon kind={r.exercises[0]?.exercise.kind ?? 'weights'} size={28} />

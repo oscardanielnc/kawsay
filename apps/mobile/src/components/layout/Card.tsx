@@ -16,6 +16,11 @@ export function Card({ title, children }: { title?: string; children: ReactNode 
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: color.surface, borderRadius: radius.card, padding: space.lg, gap: space.sm },
+  card: {
+    backgroundColor: color.surface,
+    borderRadius: radius.card,
+    padding: space.lg,
+    gap: space.sm,
+  },
   title: { color: color.inkMuted, textTransform: 'uppercase', letterSpacing: 0.5 },
 });

@@ -23,7 +23,15 @@ export function eatenShare(item: CatalogItem, portion: Portion): number {
 }
 
 /** "How much did you eat?": ¼ … 2 servings or grams, kcal live, and "save the rest" below one serving (F05). */
-export function PortionPicker({ item, portion, onChange }: { item: CatalogItem; portion: Portion; onChange: (p: Portion) => void }) {
+export function PortionPicker({
+  item,
+  portion,
+  onChange,
+}: {
+  item: CatalogItem;
+  portion: Portion;
+  onChange: (p: Portion) => void;
+}) {
   const { t } = useTranslation();
   const share = eatenShare(item, portion);
   const kcal = (item.kcalPerServing ?? 0) * share;
@@ -36,7 +44,10 @@ export function PortionPicker({ item, portion, onChange }: { item: CatalogItem; 
           <Text style={[type.heading, styles.ink]}>{item.name}</Text>
           {item.servingGrams ? (
             <Text style={[type.caption, styles.muted]}>
-              {t('meals.serving', { grams: formatNumber(item.servingGrams), kcal: formatNumber(item.kcalPerServing ?? 0) })}
+              {t('meals.serving', {
+                grams: formatNumber(item.servingGrams),
+                kcal: formatNumber(item.kcalPerServing ?? 0),
+              })}
             </Text>
           ) : null}
         </View>
@@ -73,7 +84,14 @@ export function PortionPicker({ item, portion, onChange }: { item: CatalogItem; 
 }
 
 const styles = StyleSheet.create({
-  preview: { flexDirection: 'row', alignItems: 'center', gap: space.md, backgroundColor: color.surface, borderRadius: radius.card, padding: space.md },
+  preview: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: space.md,
+    backgroundColor: color.surface,
+    borderRadius: radius.card,
+    padding: space.md,
+  },
   grow: { flex: 1 },
   input: {
     backgroundColor: color.surface,

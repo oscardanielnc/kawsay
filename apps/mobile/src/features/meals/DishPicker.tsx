@@ -51,7 +51,9 @@ export function DishPicker({ recent, items, onPick }: Props) {
             ) : null}
           </Pressable>
         ))}
-        {shown.length === 0 ? <Text style={[type.body, styles.muted]}>{t('meals.noMatch')}</Text> : null}
+        {shown.length === 0 ? (
+          <Text style={[type.body, styles.muted]}>{t('meals.noMatch')}</Text>
+        ) : null}
       </View>
       <Button
         variant="secondary"

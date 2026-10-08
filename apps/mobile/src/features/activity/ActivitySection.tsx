@@ -36,7 +36,16 @@ interface Props {
 }
 
 /** Physical activity of the day (F08): the base day, logged activities and the add sheet. */
-export function ActivitySection({ entries, noActivity, bmrKcal, defaultBand, onAdd, onDelete, onNoActivity, children }: Props) {
+export function ActivitySection({
+  entries,
+  noActivity,
+  bmrKcal,
+  defaultBand,
+  onAdd,
+  onDelete,
+  onNoActivity,
+  children,
+}: Props) {
   const { t } = useTranslation();
   const [adding, setAdding] = useState(false);
   const minutes = entries.reduce((sum, e) => sum + e.minutes, 0);
@@ -97,11 +106,19 @@ export function ActivitySection({ entries, noActivity, bmrKcal, defaultBand, onA
       ) : null}
       {noActivity ? null : (
         <>
-          <Button variant="secondary" label={t('activity.addButton')} onPress={() => setAdding(true)} />
+          <Button
+            variant="secondary"
+            label={t('activity.addButton')}
+            onPress={() => setAdding(true)}
+          />
           {children}
         </>
       )}
-      <Sheet title={adding ? t('activity.addTitle') : null} onDone={() => setAdding(false)} footer={<View />}>
+      <Sheet
+        title={adding ? t('activity.addTitle') : null}
+        onDone={() => setAdding(false)}
+        footer={<View />}
+      >
         <AddActivity
           bmrKcal={bmrKcal}
           defaultBand={defaultBand}

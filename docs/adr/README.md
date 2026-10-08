@@ -20,3 +20,4 @@ Template: [template.md](template.md).
 | [0013](0013-sensitive-data.md) | Sensitive data handling | Accepted |
 | [0014](0014-food-data.md) | Food data: three layers and household units | Accepted |
 | [0015](0015-catalog-sources.md) | Catalog source files: INS 2023 from the PDF, USDA SR Legacy | Accepted |
+| [0016](0016-local-dates.md) | Days are local calendar days from the phone's time zone | Accepted |

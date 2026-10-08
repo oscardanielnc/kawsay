@@ -12,3 +12,18 @@ export function dayNumber(date: LocalDate): number {
   }
   return ms / MS_PER_DAY;
 }
+
+/**
+ * The calendar day of an instant in a time zone (IANA name from the phone, e.g. `America/Lima`). Entries store this
+ * date when they are logged, so a dinner at 22:00 in Lima belongs to that day even though UTC has moved on (ADR 0016).
+ */
+export function localDateOf(instant: Date, timeZone: string): LocalDate {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(instant);
+  const part = (type: Intl.DateTimeFormatPartTypes) => parts.find((p) => p.type === type)?.value;
+  return `${part('year')}-${part('month')}-${part('day')}`;
+}

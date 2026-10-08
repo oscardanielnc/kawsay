@@ -500,5 +500,25 @@
     },
     "chart": "{{count}} semanas medidas de las últimas {{weeks}}",
     "profileLine": "Cintura / estatura"
+  },
+  "symptoms": {
+    "title": "Tus síntomas",
+    "create": "+ Crear",
+    "createTitle": "Nuevo síntoma",
+    "name": "Nombre del síntoma",
+    "namePlaceholder": "Ej.: acidez, dolor de cabeza",
+    "scale": "¿Cómo lo anotas?",
+    "scales": {
+      "yes-no": "Sí / no",
+      "zero-five": "De 0 a 5",
+      "size": "Tamaño"
+    },
+    "sizes": {
+      "small": "Pequeño",
+      "medium": "Mediano",
+      "large": "Grande"
+    },
+    "save": "Crear síntoma",
+    "clear": "Quitar la respuesta de hoy"
   }
 }

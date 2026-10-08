@@ -167,6 +167,21 @@ export const checkIn = sqliteTable(
   (t) => [index('check_in_by_date').on(t.date)],
 );
 
+/** The user's own symptoms (F13): a name and how it is answered. */
+export const symptom = sqliteTable('symptom', {
+  ...synced,
+  name: text('name').notNull(),
+  /** yes/no, a 0–5 scale, or a size (small · medium · large). */
+  scale: text('scale', { enum: ['yes-no', 'zero-five', 'size'] }).notNull(),
+});
+
+/** A symptom's answer on a day; answering again replaces it. Values: `yes`; `0`–`5`; `small` | `medium` | `large`. */
+export const symptomEntry = sqliteTable(
+  'symptom_entry',
+  { ...synced, ...dated, symptomId: text('symptom_id').notNull(), value: text('value').notNull() },
+  (t) => [index('symptom_entry_by_date').on(t.date)],
+);
+
 /** User routines (F18); exercises live in routine_exercise. */
 export const routine = sqliteTable('routine', {
   ...synced,

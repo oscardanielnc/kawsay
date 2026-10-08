@@ -43,6 +43,13 @@
       "when": 1791501578986,
       "tag": "0005_waist",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1791501710434,
+      "tag": "0006_symptoms",
+      "breakpoints": true
     }
   ]
 }

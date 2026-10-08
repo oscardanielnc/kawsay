@@ -32,6 +32,13 @@ import { SleepSection, type SleepChange } from '@/features/sleep/SleepSection';
 import { DayRings } from '@/features/today/DayRings';
 import { RangeRows } from '@/features/today/RangeRows';
 import { TodayScreen } from '@/features/today/TodayScreen';
+import {
+  answerSymptom,
+  createSymptom,
+  listSymptoms,
+  symptomAnswersOn,
+} from '@/features/symptoms/symptoms-db';
+import { SymptomsSection } from '@/features/symptoms/SymptomsSection';
 import { saveWaist, waistsSince } from '@/features/waist/waist-db';
 import { WaistCard } from '@/features/waist/WaistCard';
 import { WeightCard } from '@/features/weight/WeightCard';
@@ -65,11 +72,13 @@ export default function TodayRoute() {
   const setDay = (next: LocalDate) => router.setParams({ day: next });
   const { data, reload } = useLoad(
     useCallback(async () => {
-      const [dayData, items, routines, waists, ...recent] = await Promise.all([
+      const [dayData, items, routines, waists, symptoms, answers, ...recent] = await Promise.all([
         loadDay(db, day),
         catalogItems(db),
         listRoutines(db),
         waistsSince(db, addDays(day, -7 * 12)),
+        listSymptoms(db),
+        symptomAnswersOn(db, day),
         ...MEALS.map((meal) => recentFor(db, meal)),
       ]);
       const [breakfast = [], lunch = [], dinner = [], snack = []] = recent;
@@ -79,6 +88,8 @@ export default function TodayRoute() {
         items,
         routines,
         waists,
+        symptoms,
+        answers,
         recent: { breakfast, lunch, dinner, snack },
       };
     }, [db, day]),
@@ -243,6 +254,16 @@ export default function TodayRoute() {
           }
           onSave={saveSleepChange}
           onDelete={(id) => run(() => deleteSleep(db, env, id))}
+        />
+      ) : null}
+      {data.profile?.symptomsEnabled ? (
+        <SymptomsSection
+          symptoms={data.symptoms}
+          answers={data.answers}
+          onAnswer={(symptomId, value) =>
+            run(() => answerSymptom(db, env, { date: day, timeZone, symptomId, value }))
+          }
+          onCreate={(symptom) => run(() => createSymptom(db, env, symptom))}
         />
       ) : null}
       {data.profile?.waistEnabled ? (

@@ -14,4 +14,4 @@ Users create the symptoms they care about.
 
 ## Acceptance criteria
 
-- [ ] Creating a symptom takes less than 30 seconds
+- [x] Creating a symptom takes less than 30 seconds

@@ -138,6 +138,37 @@ export const drinkEntry = sqliteTable(
   (t) => [index('drink_entry_by_date').on(t.date)],
 );
 
+/** User routines (F18); exercises live in routine_exercise. */
+export const routine = sqliteTable('routine', {
+  ...synced,
+  name: text('name').notNull(),
+  restSeconds: integer('rest_seconds').notNull(),
+});
+
+/** One exercise of a routine, as the fields of core's `Exercise` for its kind. */
+export const routineExercise = sqliteTable(
+  'routine_exercise',
+  {
+    ...synced,
+    routineId: text('routine_id').notNull(),
+    position: integer('position').notNull(),
+    name: text('name').notNull(),
+    kind: text('kind', {
+      enum: ['weights', 'bodyweight', 'isometric', 'stairs', 'mobility'],
+    }).notNull(),
+    sets: integer('sets'),
+    reps: integer('reps'),
+    secondsPerRep: real('seconds_per_rep'),
+    seconds: integer('seconds'),
+    laps: integer('laps'),
+    lapSeconds: integer('lap_seconds'),
+    minutes: real('minutes'),
+    intensity: text('intensity', { enum: ['light', 'medium', 'hard'] }),
+    perSide: integer('per_side', { mode: 'boolean' }).notNull().default(false),
+  },
+  (t) => [index('routine_exercise_by_routine').on(t.routineId)],
+);
+
 // Catalog (ADR 0014): loaded from @kawsay/catalog, replaced when its version changes. Not synced.
 
 export const food = sqliteTable('food', {

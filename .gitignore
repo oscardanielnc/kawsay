@@ -34,3 +34,6 @@ Thumbs.db
 # Signing material
 *.keystore
 *.jks
+
+# Python
+__pycache__/

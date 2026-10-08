@@ -3,10 +3,11 @@
 Raw nutrient tables, per 100 g of edible portion, converted once from the official releases. The importer (next
 step) matches `seed/foods.json` against them. Never edit these files by hand: re-run the script.
 
-| Folder                     | Source                                                                                                                            | Licence                                                                                          | Rows                    |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------- |
-| `ins-2023/foods.csv`       | INS/CENAN, _Tablas Peruanas de Composición de Alimentos_, 2023 digital version, 11th edition (March 2025), ISBN 978-612-310-178-7 | "Se autoriza su reproducción total o parcial, siempre y cuando se cite la fuente" (credits page) | 1,125 foods, groups A–U |
-| `usda-sr-legacy/foods.csv` | USDA FoodData Central, SR Legacy (April 2018)                                                                                     | CC0 1.0                                                                                          | 7,793 foods             |
+| Folder                     | Source                                                                                                                            | Licence                                                                                          | Rows                         |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------- |
+| `ins-2023/foods.csv`       | INS/CENAN, _Tablas Peruanas de Composición de Alimentos_, 2023 digital version, 11th edition (March 2025), ISBN 978-612-310-178-7 | "Se autoriza su reproducción total o parcial, siempre y cuando se cite la fuente" (credits page) | 1,125 foods, groups A–U      |
+| `ins-2023/prepared.csv`    | Same document, group S: preparations eaten away from home (INEI survey, mostly Lima and Callao)                                   | Same                                                                                             | 567 preparations, 1,103 rows |
+| `usda-sr-legacy/foods.csv` | USDA FoodData Central, SR Legacy (April 2018)                                                                                     | CC0 1.0                                                                                          | 7,793 foods                  |
 
 ## Regenerate
 
@@ -16,6 +17,7 @@ curl -L -o tpca.pdf https://repositorio.ins.gob.pe/server/api/core/bitstreams/6c
 # sha256 f6b32f1834b9640b533cb06cdca40b4946f331ebbd69b3bd11a59af5e4848485
 pip install pdfplumber
 python scripts/extract_ins.py tpca.pdf sources/ins-2023/foods.csv
+python scripts/extract_ins_prepared.py tpca.pdf sources/ins-2023/prepared.csv
 
 # USDA
 curl -L -o sr.zip https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip
@@ -32,5 +34,11 @@ python scripts/extract_usda.py sr/FoodData_Central_sr_legacy_food_csv_2018-04 so
 - `page` points to the PDF page, so any value can be checked by eye
 - Some rows are inconsistent in the source itself (e.g. A93 kcal vs kJ, margarines summing to ~93 g). They are kept
   as published; the importer reports them
-- Group S (567 prepared foods, one row per socioeconomic stratum) is not extracted yet: ADR 0014 uses it only to
-  cross-check seed dishes
+
+## Reading the group S file
+
+- One row per socioeconomic stratum (`A`–`E`) of each preparation; a preparation appears only in the strata the
+  survey found it in. Compare a seed dish against the median of its rows
+- `stratum` empty and `analysed = yes`: values from chemical analysis (the PDF marks them `•` and `*`)
+- Subgroups by code prefix: `SB` breakfast drinks · `SE` starters · `SS` main dishes · `SR` soft drinks · `SP` desserts
+- Used only to cross-check seed dishes (ADR 0014), never as the dish itself

@@ -20,7 +20,7 @@ releases of several datasets.
 - `packages/catalog/sources/` holds both tables as CSV with the same column names, plus the scripts that produce
   them and the download URL and SHA-256 of each original
 - INS: 1,125 foods (groups A–U) extracted with `pdfplumber`; "•" stays empty; asterisk marks become
-  `imputed_from`. Group S is deferred
+  `imputed_from`. Group S (567 preparations by stratum) goes to its own file for cross-checks
 - USDA: SR Legacy, slimmed to the 22 columns Kawsay uses
 
 ## Consequences

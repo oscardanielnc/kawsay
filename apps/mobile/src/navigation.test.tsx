@@ -1,5 +1,11 @@
 import { screen } from '@testing-library/react-native';
 import { renderRouter } from 'expo-router/testing-library';
+import type { ReactNode } from 'react';
+
+// Routes only: the database has its own tests on a real SQLite (src/lib/db).
+jest.mock('@/lib/db/DatabaseProvider', () => ({
+  DatabaseProvider: ({ children }: { children: ReactNode }) => children,
+}));
 
 describe('navigation (design N1)', () => {
   it('opens on Today and shows the five tabs in Spanish', async () => {

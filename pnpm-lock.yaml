@@ -196,6 +196,9 @@ importers:
       '@expo-google-fonts/figtree':
         specifier: ^0.4.1
         version: 0.4.1
+      '@kawsay/catalog':
+        specifier: workspace:*
+        version: link:../../packages/catalog
       '@kawsay/core':
         specifier: workspace:*
         version: link:../../packages/core

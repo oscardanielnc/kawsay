@@ -22,7 +22,11 @@ export default (): ExpoConfig => ({
     },
     predictiveBackGestureEnabled: false,
   },
-  plugins: ['expo-router', 'expo-localization'],
+  // An update only reaches builds whose native part has the same fingerprint, so incompatible JS never lands.
+  runtimeVersion: { policy: 'fingerprint' },
+  // Download on launch in the background; the new version applies on the next launch (ADR 0010).
+  updates: { checkAutomatically: 'ON_LOAD', fallbackToCacheTimeout: 0 },
+  plugins: ['expo-router', 'expo-localization', 'expo-updates'],
   experiments: { typedRoutes: true },
   extra: { variant },
 });

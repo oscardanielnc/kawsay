@@ -8,18 +8,28 @@
       "developmentClient": true,
       "distribution": "internal",
       "channel": "development",
-      "env": { "APP_VARIANT": "development" },
-      "android": { "buildType": "apk" }
+      "env": {
+        "APP_VARIANT": "development"
+      },
+      "android": {
+        "buildType": "apk"
+      }
     },
-    "preview": {
+    "personal": {
       "distribution": "internal",
-      "channel": "preview",
-      "env": { "APP_VARIANT": "production" },
-      "android": { "buildType": "apk" }
+      "channel": "production",
+      "env": {
+        "APP_VARIANT": "production"
+      },
+      "android": {
+        "buildType": "apk"
+      }
     },
     "production": {
       "channel": "production",
-      "env": { "APP_VARIANT": "production" },
+      "env": {
+        "APP_VARIANT": "production"
+      },
       "autoIncrement": true
     }
   }

@@ -6,8 +6,8 @@ import { ScrollView, StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { formatNumber, formatShortDate } from '@/lib/format';
 import { color, space, type } from '@/lib/theme';
-import { Card } from './components/Card';
-import { EditSheet } from './components/EditSheet';
+import { Card } from '@/components/layout/Card';
+import { Sheet } from '@/components/feedback/Sheet';
 import { SettingsRow } from './components/SettingsRow';
 import { StatusCard } from './components/StatusCard';
 import { TargetCard } from './components/TargetCard';
@@ -113,7 +113,7 @@ export function ProfileScreen({ today, profile, weights, onSave }: Props) {
           <SettingsRow icon="📚" title={t('profile.editors.about')} summary={t('profile.aboutSummary')} onPress={() => open('about')} />
         </Card>
       </ScrollView>
-      <EditSheet title={editor ? t(`profile.editors.${editor}`) : null} onDone={done}>
+      <Sheet title={editor ? t(`profile.editors.${editor}`) : null} onDone={done}>
         {editor === 'body' ? <BodyStep draft={draft} update={update} /> : null}
         {editor === 'goal' ? <GoalStep draft={draft} update={update} today={today} /> : null}
         {editor === 'targets' ? <TargetSettingsStep draft={draft} update={update} /> : null}
@@ -121,7 +121,7 @@ export function ProfileScreen({ today, profile, weights, onSave }: Props) {
         {editor === 'sleep' ? <SleepBlock draft={draft} update={update} /> : null}
         {editor === 'modules' ? <ModulesStep draft={draft} update={update} /> : null}
         {editor === 'about' ? <Text style={[type.body, styles.ink]}>{t('profile.aboutBody')}</Text> : null}
-      </EditSheet>
+      </Sheet>
     </SafeAreaView>
   );
 }

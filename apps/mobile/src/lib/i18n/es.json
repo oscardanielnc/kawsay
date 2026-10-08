@@ -10,7 +10,8 @@
     "title": "Hoy"
   },
   "common": {
-    "comingSoon": "Pronto"
+    "comingSoon": "Pronto",
+    "done": "Listo"
   },
   "db": {
     "errorTitle": "No se pudo abrir tus datos",
@@ -156,7 +157,6 @@
     "no": "no",
     "aboutSummary": "Tablas INS 2023 · USDA · Compendio 2024",
     "aboutBody": "Composición de alimentos: Tablas Peruanas de Composición de Alimentos 2023, Instituto Nacional de Salud (reproducción autorizada citando la fuente).\n\nNutrientes faltantes y alimentos fuera del INS: USDA FoodData Central (dominio público).\n\nPlatos de menú: Encuesta de composición nutricional de alimentos consumidos fuera del hogar (ENCONUT 2013), INEI.\n\nProductos de marca: etiqueta del envase, con la fecha en que se leyó.\n\nGasto por actividad: 2024 Adult Compendium of Physical Activities.\n\nReferencias de vitaminas y minerales: National Academies (DRI) · sodio: OMS.",
-    "done": "Listo",
     "protein": "Proteína",
     "proteinHint": "1.2–2.2 g por kg de referencia",
     "proteinValue": "{{value}} g/kg",

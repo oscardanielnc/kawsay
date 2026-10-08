@@ -1,7 +1,7 @@
 import { FAT_SHARE, PROTEIN_G_PER_KG } from '@kawsay/core/targets/macros';
 import { useTranslation } from 'react-i18next';
 import { formatNumber } from '@/lib/format';
-import { Stepper } from '../components/Stepper';
+import { Stepper } from '@/components/forms/Stepper';
 import type { StepProps } from './BodyStep';
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));

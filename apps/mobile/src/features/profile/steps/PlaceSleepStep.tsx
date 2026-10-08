@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { Text } from 'react-native';
 import { color, type } from '@/lib/theme';
-import { Card } from '../components/Card';
-import { Segmented } from '../components/Segmented';
-import { Stepper } from '../components/Stepper';
-import { Toggle } from '../components/Toggle';
+import { Card } from '@/components/layout/Card';
+import { Segmented } from '@/components/forms/Segmented';
+import { Stepper } from '@/components/forms/Stepper';
+import { Toggle } from '@/components/forms/Toggle';
 import { shiftTime } from '../draft';
 import type { StepProps } from './BodyStep';
 

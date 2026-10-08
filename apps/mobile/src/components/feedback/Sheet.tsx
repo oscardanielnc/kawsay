@@ -3,16 +3,18 @@ import { useTranslation } from 'react-i18next';
 import { Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { color, radius, space, type } from '@/lib/theme';
-import { Button } from './Button';
+import { Button } from '@/components/primitives/Button';
 
 interface Props {
   title: string | null;
   onDone: () => void;
   children: ReactNode;
+  /** Replaces the default "Done" button, e.g. with "Add ½ serving". */
+  footer?: ReactNode;
 }
 
-/** A sheet over the Profile with one editor and a "Done" button that saves. Hidden when `title` is null. */
-export function EditSheet({ title, onDone, children }: Props) {
+/** A sheet over a screen with its content and a footer action. Hidden when `title` is null. */
+export function Sheet({ title, onDone, children, footer }: Props) {
   const { t } = useTranslation();
   return (
     <Modal visible={title !== null} animationType="slide" transparent onRequestClose={onDone}>
@@ -24,9 +26,7 @@ export function EditSheet({ title, onDone, children }: Props) {
             </Text>
             {children}
           </ScrollView>
-          <View style={styles.footer}>
-            <Button label={t('profile.done')} onPress={onDone} />
-          </View>
+          <View style={styles.footer}>{footer ?? <Button label={t('common.done')} onPress={onDone} />}</View>
         </SafeAreaView>
       </View>
     </Modal>

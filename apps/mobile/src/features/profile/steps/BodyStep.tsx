@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Text } from 'react-native';
 import { formatNumber } from '@/lib/format';
 import { color, type } from '@/lib/theme';
-import { Segmented } from '../components/Segmented';
-import { Stepper } from '../components/Stepper';
+import { Segmented } from '@/components/forms/Segmented';
+import { Stepper } from '@/components/forms/Stepper';
 import type { Draft } from '../draft';
 
 export interface StepProps {

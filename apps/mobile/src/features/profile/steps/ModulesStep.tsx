@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { color, radius, space, type } from '@/lib/theme';
-import { Segmented } from '../components/Segmented';
-import { Toggle } from '../components/Toggle';
+import { Segmented } from '@/components/forms/Segmented';
+import { Toggle } from '@/components/forms/Toggle';
 import type { StepProps } from './BodyStep';
 
 /** Six always-on modules and three optional ones (F01, F04, F12, F13). */

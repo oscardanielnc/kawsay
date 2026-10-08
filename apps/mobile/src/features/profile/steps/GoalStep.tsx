@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { formatNumber, formatShortDate } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
-import { Button } from '../components/Button';
-import { Segmented } from '../components/Segmented';
-import { Stepper } from '../components/Stepper';
+import { Button } from '@/components/primitives/Button';
+import { Segmented } from '@/components/forms/Segmented';
+import { Stepper } from '@/components/forms/Stepper';
 import { draftPace, goalWeightOf } from '../draft';
 import type { StepProps } from './BodyStep';
 

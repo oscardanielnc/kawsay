@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { dayNumber, localDateOf } from './local-date';
+import { addDays, dayNumber, daysBetween, localDateOf } from './local-date';
 
 describe('localDateOf: the calendar day in the device time zone (ADR 0016)', () => {
   it('a meal at 22:00 in Lima stays on that day, although UTC is already the next one', () => {
@@ -33,5 +33,18 @@ describe('dayNumber', () => {
 
   it.each(['2026-13-01', '2026-02-30', '7/10/2026'])('rejects %s', (date) => {
     expect(() => dayNumber(date)).toThrow(RangeError);
+  });
+});
+
+describe('addDays and daysBetween', () => {
+  it('moves across months and years by calendar days', () => {
+    expect(addDays('2026-10-07', 84)).toBe('2026-12-30');
+    expect(addDays('2026-12-30', 3)).toBe('2027-01-02');
+    expect(addDays('2026-03-01', -1)).toBe('2026-02-28');
+  });
+
+  it('counts the days from one date to another', () => {
+    expect(daysBetween('2026-10-07', '2026-12-30')).toBe(84);
+    expect(daysBetween('2026-12-30', '2026-10-07')).toBe(-84);
   });
 });

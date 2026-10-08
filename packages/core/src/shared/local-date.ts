@@ -27,3 +27,17 @@ export function localDateOf(instant: Date, timeZone: string): LocalDate {
   const part = (type: Intl.DateTimeFormatPartTypes) => parts.find((p) => p.type === type)?.value;
   return `${part('year')}-${part('month')}-${part('day')}`;
 }
+
+function fromDayNumber(day: number): LocalDate {
+  return new Date(day * MS_PER_DAY).toISOString().slice(0, 10);
+}
+
+/** The calendar day `days` after (or before, if negative) `date`. */
+export function addDays(date: LocalDate, days: number): LocalDate {
+  return fromDayNumber(dayNumber(date) + days);
+}
+
+/** Calendar days from `from` to `to`; negative when `to` is earlier. */
+export function daysBetween(from: LocalDate, to: LocalDate): number {
+  return dayNumber(to) - dayNumber(from);
+}

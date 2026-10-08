@@ -35,7 +35,11 @@ describe('buildCatalog on the real seed and sources', () => {
     expect(juane?.totals.perServing.energyKcal).toBeGreaterThan(200);
   });
 
+  it('avocado is palta fuerte (INS C131)', () => {
+    expect(catalog.foods.find((f) => f.id === 'palta')?.source.code).toBe('C131');
+  });
+
   it('cross-checks the dishes linked to group S', () => {
-    expect(catalog.crossChecks.length).toBe(25);
+    expect(catalog.crossChecks.length).toBe(24);
   });
 });

@@ -11,7 +11,7 @@ Searchable foods and dishes with nutrients, available offline.
 
 - Three layers: **foods** (ingredients) · **seed dishes** (curated recipes) · **user dishes** (F07)
 - Foods: Peruvian food composition tables (INS, 2023 edition) first; USDA FoodData Central for what INS lacks (B12, vitamin D, missing foods)
-- Seed dishes: about 40 frequent Peruvian dishes, each a recipe of catalog foods in grams, reviewed once. When INS group S has the dish, its values cross-check the recipe (within ±20%)
+- Seed dishes: about 40 frequent Peruvian dishes, each a recipe of catalog foods in grams, reviewed once. When INS group S has the dish, its values cross-check the recipe: it agrees within ±20% of the strata median or inside the range of the strata; a reference measured in fewer than 5 establishments (INEI ENCONUT 2013) is weak and only reported
 - Household units per food (1 egg, 1 cup of cooked rice, ⅛ of a rotisserie chicken), so the user never needs grams; weights come from the INS household-measure tables and are editable
 - **Sauces and creams: 1 portion = 40 g** (½ portion = 20 g), for homemade and bottled ones alike
 - Every food and dish shows its source; a missing value shows "sin dato", never 0

@@ -1,6 +1,12 @@
 import type { Catalog } from './build-catalog.ts';
 
 const pct = (value: number) => `${Math.round(value * 100)}%`;
+const VERDICT: Record<Catalog['crossChecks'][number]['verdict'], string> = {
+  'within-20': '✓ within ±20%',
+  'inside-strata-range': '✓ inside strata range',
+  'weak-reference': '· weak reference',
+  outside: '⚠️ review',
+};
 const kcal = (value: number | null | undefined) => (value == null ? '—' : value.toFixed(0));
 
 function table(header: string[], rows: string[][]): string {
@@ -13,7 +19,7 @@ function table(header: string[], rows: string[][]): string {
 export function renderReport(catalog: Catalog): string {
   const count = (predicate: (f: Catalog['foods'][number]) => boolean) =>
     catalog.foods.filter(predicate).length;
-  const flagged = catalog.crossChecks.filter((c) => c.flagged);
+  const checks = (verdict: string) => catalog.crossChecks.filter((c) => c.verdict === verdict);
   const incomplete = catalog.dishes.filter((d) => d.totals.coverage.energyKcal < 1);
 
   return [
@@ -35,7 +41,12 @@ export function renderReport(catalog: Catalog): string {
         ['… proxies', String(count((f) => f.status === 'proxy'))],
         ['Dishes', String(catalog.dishes.length)],
         ['… cross-checked with group S', String(catalog.crossChecks.length)],
-        ['… outside ±20%', String(flagged.length)],
+        [
+          '… agree (±20% or inside the strata range)',
+          String(checks('within-20').length + checks('inside-strata-range').length),
+        ],
+        ['… weak reference (< 5 establishments)', String(checks('weak-reference').length)],
+        ['… to review', String(checks('outside').length)],
       ],
     ),
     '## Unmatched',
@@ -85,17 +96,20 @@ export function renderReport(catalog: Catalog): string {
     ),
     '## Group S cross-check',
     '',
-    'kcal per 100 g of the seed recipe vs the median of the INS strata. Over ±20%: review the recipe.',
+    'kcal per 100 g of the seed recipe vs the median of the INS strata. Establishments come from INEI ENCONUT 2013,',
+    'the survey behind group S. A recipe is questioned only when the reference is strong (≥ 5 establishments) and the',
+    'recipe falls outside both ±20% and the range of the strata.',
     '',
     table(
-      ['Dish', 'Group S', 'Recipe', 'INS median', 'Gap', ''],
+      ['Dish', 'Group S', 'Establishments', 'Recipe', 'INS median', 'Gap', 'Verdict'],
       catalog.crossChecks.map((c) => [
         c.dish,
         `${c.code} (${c.strata} strata)`,
+        c.establishments === null ? 'not in ENCONUT' : String(c.establishments),
         kcal(c.dishKcalPer100g),
         kcal(c.referenceKcalPer100g),
         `${c.gap >= 0 ? '+' : ''}${pct(c.gap)}`,
-        c.flagged ? '⚠️' : '✓',
+        VERDICT[c.verdict],
       ]),
     ),
     '## Dishes with incomplete energy',

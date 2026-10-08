@@ -69,7 +69,7 @@ export function reactNative(app) {
       rules: { 'i18next/no-literal-string': ['error', { mode: 'jsx-text-only' }] },
     },
     {
-      // routes (app/) → features → shared (components/, lib/). A feature never imports another feature.
+      // routes (app/) → compose → features → shared (components/, lib/). A feature never imports another feature (ADR 0017).
       files: [`${app}/app/**/*.{ts,tsx}`, `${app}/src/**/*.{ts,tsx}`],
       ignores: ['**/*.test.{ts,tsx}'],
       plugins: { boundaries },
@@ -77,6 +77,7 @@ export function reactNative(app) {
         'import/resolver': { typescript: { project: `${app}/tsconfig.json` } },
         'boundaries/elements': [
           element('routes', 'app'),
+          element('compose', 'src/compose'),
           element('feature', 'src/features/*', ['prefix', 'feature']),
           element('shared', 'src/components'),
           element('shared', 'src/lib'),
@@ -90,7 +91,7 @@ export function reactNative(app) {
             policies: [
               {
                 from: { element: { type: 'feature' } },
-                disallow: { to: { element: { types: { anyOf: ['routes'] } } } },
+                disallow: { to: { element: { types: { anyOf: ['routes', 'compose'] } } } },
               },
               {
                 from: {
@@ -110,7 +111,13 @@ export function reactNative(app) {
               },
               {
                 from: { element: { type: 'shared' } },
-                disallow: { to: { element: { types: { anyOf: ['routes', 'feature'] } } } },
+                disallow: {
+                  to: { element: { types: { anyOf: ['routes', 'compose', 'feature'] } } },
+                },
+              },
+              {
+                from: { element: { type: 'compose' } },
+                disallow: { to: { element: { types: { anyOf: ['routes'] } } } },
               },
             ],
           },

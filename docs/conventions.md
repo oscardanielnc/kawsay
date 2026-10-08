@@ -26,7 +26,8 @@ What the linter cannot enforce. Tooling versions: ADR 0012.
 - The clock and the time zone reach screens as props from the route, so tests fix them
 - Colors, type and spacing come from `src/lib/theme.ts` (tokens of `docs/design/tokens.md`) until `packages/ui` exists
 - Numbers and dates use `src/lib/format.ts` (es-PE: "27.7", "2,393"); never `toFixed` in a screen
-- Async reads in screens go through `useLoad()`; routes compose features and pass data down as props
+- Async reads in screens go through `useLoad()`; routes compose features and pass data down as props. What spans
+  features (a day's targets, ring and colour) lives in `src/compose/` (ADR 0017)
 - Local queries live in their feature (`features/<feature>/<feature>-db.ts`) and take `(db, env, input)`; `env`
   brings the clock and random bytes so tests fix them
 - Synced tables spread `synced` (+ `dated` for entries); deletes set `deletedAt`, never `DELETE`

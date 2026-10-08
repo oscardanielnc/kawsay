@@ -1,3 +1,4 @@
+import { weightAtBmi } from '../body/bmi';
 import { assertInRange, assertPositive } from '../shared/assert';
 
 export const KCAL_PER_G = { protein: 4, fat: 9, carbs: 4 } as const;
@@ -25,7 +26,7 @@ export function referenceWeightKg({
   heightCm: number;
 }): number {
   assertPositive({ weightKg, heightCm });
-  return Math.min(weightKg, 25 * (heightCm / 100) ** 2);
+  return Math.min(weightKg, weightAtBmi(25, heightCm));
 }
 
 /** Protein fixed by reference weight, fat as a share of the target, carbohydrates the rest. */

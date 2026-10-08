@@ -20,6 +20,7 @@ Users define their own workouts once; calories are computed per exercise and log
 | Stairs, up and down | laps × lap time | 7.5 (17138) |
 | Mobility | minutes | 2.3 (02101) |
 
+- Kinds with a single code (isometric, stairs, mobility) scale their MET −20% light / +20% hard (ADR 0009)
 - "Per side" doubles the work time. Effort uses the F08 talk test: light "you can talk" · medium "short sentences" · hard "can barely talk"
 - Rest counts: the Compendium weight-training values were measured over whole sessions, rests included
 - Stairs: the lap time is measured once with an in-app stopwatch and reused

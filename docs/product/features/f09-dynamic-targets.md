@@ -13,6 +13,7 @@ Targets follow the day's activity and the real weight trend.
 - Protein: 1.6 g per kg of reference weight, fixed all day
 - Fat: 25% of the day target; carbohydrates take the remainder (warning below 130 g)
 - The target never goes below BMR
+- A goal that is not a loss gets no deficit: the target is the expenditure (no surplus in v0.1)
 - With ≥ 14 days of weights, compare the real trend with the expected one and recalibrate the base, at most ±10% per step
 
 ## Acceptance criteria

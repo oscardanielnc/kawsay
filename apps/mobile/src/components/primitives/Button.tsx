@@ -6,12 +6,15 @@ interface Props {
   onPress: () => void;
   variant?: 'primary' | 'secondary' | 'link';
   disabled?: boolean;
+  /** When the visible label is ambiguous in a list ("Edit"), the full name for screen readers. */
+  accessibilityLabel?: string;
 }
 
-export function Button({ label, onPress, variant = 'primary', disabled = false }: Props) {
+export function Button({ label, onPress, variant = 'primary', disabled = false, accessibilityLabel }: Props) {
   return (
     <Pressable
       accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel ?? label}
       accessibilityState={{ disabled }}
       disabled={disabled}
       onPress={onPress}

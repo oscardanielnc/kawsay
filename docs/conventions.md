@@ -15,6 +15,7 @@ What the linter cannot enforce. Tooling versions: ADR 0012.
 
 - Conventional Commits (`feat:`, `fix:`, `test:`, `refactor:`, `chore:`, `docs:`), scope = package or app: `feat(core): …`
 - Hooks: `pre-commit` runs gitleaks and lint-staged; `commit-msg` strips AI trailers
+- CI (`.github/workflows/ci.yml`): gitleaks over the full history, then `pnpm check`'s steps; a red run blocks the merge
 - Docs change in the same commit as the code they describe
 
 ## packages/core

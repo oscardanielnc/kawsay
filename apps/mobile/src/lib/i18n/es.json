@@ -7,7 +7,10 @@
     "profile": "Perfil"
   },
   "today": {
-    "title": "Hoy"
+    "title": "Hoy",
+    "previous": "Día anterior",
+    "next": "Día siguiente",
+    "backToToday": "Volver a hoy"
   },
   "common": {
     "comingSoon": "Pronto",
@@ -293,5 +296,33 @@
     "unitSets": "series",
     "logPreview": "+{{kcal}} kcal · {{minutes}} min de movimiento",
     "editNamed": "Editar {{name}}"
+  },
+  "ranges": {
+    "calories": "Calorías",
+    "protein": "Proteína",
+    "fat": "Grasa",
+    "carbs": "Carbohidratos",
+    "inRange": "En rango",
+    "none": "Sin registros",
+    "left": "Faltan {{amount}} {{unit}}",
+    "lowish": "Algo bajo",
+    "highish": "Algo alto",
+    "low": "Muy bajo",
+    "high": "Muy alto",
+    "track": "{{name}}: {{label}}. Rango verde de {{from}} a {{to}} {{unit}}"
+  },
+  "rings": {
+    "logged": "registrado",
+    "label": "{{done}} de 6 partes del día registradas; {{minutes}} de {{goal}} minutos de movimiento",
+    "areas": {
+      "meals": "Comidas",
+      "activity": "Actividad",
+      "water": "Agua",
+      "body": "Cuerpo y ánimo",
+      "sleep": "Sueño",
+      "weight": "Peso"
+    },
+    "movement": "Movimiento",
+    "minutes": "{{minutes}} de {{goal}} min"
   }
 }

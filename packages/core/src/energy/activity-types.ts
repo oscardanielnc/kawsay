@@ -4,22 +4,23 @@ export type ActivityKind =
   'walking' | 'weights' | 'stairs' | 'jogging' | 'motorbike' | 'housework' | 'football' | 'cycling';
 
 /**
- * Activity catalog of the design (F08). `met` lists one Compendium value per intensity when the 2024 Adult
- * Compendium has separate codes; a single value scales ±20% with intensity (ADR 0009).
+ * Activity catalog of the design (F08). `met` lists one value per intensity when the 2024 Adult Compendium has
+ * separate codes; a single value scales ±20% with intensity (ADR 0009). `codes` holds only codes verified in the
+ * docs (F18); the others stay empty until checked against the Compendium, so the ⓘ never cites an unverified code.
  */
 export const ACTIVITY_TYPES: readonly {
   kind: ActivityKind;
   met: readonly number[];
   codes: readonly string[];
 }[] = [
-  { kind: 'walking', met: [2.8, 3.5, 4.3], codes: ['17151', '17190', '17200'] },
+  { kind: 'walking', met: [2.8, 3.5, 4.3], codes: [] },
   { kind: 'weights', met: [3.5, 5.0, 6.0], codes: ['02054', '02052', '02050'] },
-  { kind: 'stairs', met: [6.8], codes: ['17133'] },
-  { kind: 'jogging', met: [7.0], codes: ['12020'] },
-  { kind: 'motorbike', met: [2.8], codes: ['16030'] },
-  { kind: 'housework', met: [3.3], codes: ['05130'] },
-  { kind: 'football', met: [7.0], codes: ['15610'] },
-  { kind: 'cycling', met: [4.0], codes: ['01011'] },
+  { kind: 'stairs', met: [6.8], codes: [] },
+  { kind: 'jogging', met: [7.0], codes: [] },
+  { kind: 'motorbike', met: [2.8], codes: [] },
+  { kind: 'housework', met: [3.3], codes: [] },
+  { kind: 'football', met: [7.0], codes: [] },
+  { kind: 'cycling', met: [4.0], codes: [] },
 ];
 
 const LEVEL: Record<Intensity, number> = { light: 0, medium: 1, hard: 2 };

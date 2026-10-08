@@ -5,7 +5,7 @@ import type { Tone } from '../shared/tone';
 export type Metric = 'calories' | 'protein' | 'fat' | 'carbs';
 
 /** Zone limits as % of the day target; green and yellow include their limits (design/direction.md). */
-const ZONES: Record<
+export const RANGE_ZONES: Record<
   Metric,
   { yellowFrom: number; greenFrom: number; greenTo: number; yellowTo: number }
 > = {
@@ -30,7 +30,7 @@ export function rangeState({
   dayOpen: boolean;
 }): RangeState {
   assertPositive({ target });
-  const zone = ZONES[metric];
+  const zone = RANGE_ZONES[metric];
   const percent = roundTo((value / target) * 100, 6); // 110.00000000000001 is 110
   if (percent < zone.greenFrom && dayOpen) return 'left';
   if (percent < zone.yellowFrom || percent > zone.yellowTo) return 'red';
@@ -40,6 +40,6 @@ export function rangeState({
 
 /** The green zone in the metric's own unit, printed under the range row (design). */
 export function greenRange(metric: Metric, target: number): { from: number; to: number } {
-  const zone = ZONES[metric];
+  const zone = RANGE_ZONES[metric];
   return { from: (target * zone.greenFrom) / 100, to: (target * zone.greenTo) / 100 };
 }

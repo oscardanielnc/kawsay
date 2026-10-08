@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { rangeState } from './range-state';
+import { greenRange, rangeState } from './range-state';
 
 const target = 100; // values below read as % of the target
 
@@ -43,5 +43,12 @@ describe('rangeState: zones as % of the day target (design/direction.md)', () =>
     expect(() => rangeState({ metric: 'fat', value: 50, target: 0, dayOpen: false })).toThrow(
       RangeError,
     );
+  });
+});
+
+describe('greenRange: the limits printed under the green zone (design)', () => {
+  it('calories 90–110 %, protein 90–130 %', () => {
+    expect(greenRange('calories', 2000)).toEqual({ from: 1800, to: 2200 });
+    expect(greenRange('protein', 100)).toEqual({ from: 90, to: 130 });
   });
 });

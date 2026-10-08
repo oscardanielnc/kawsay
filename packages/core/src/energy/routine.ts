@@ -119,3 +119,25 @@ export function routineSessionEnergy({
     });
   return { minutes: total.minutes * completion, kcal: total.kcal * completion };
 }
+
+/** "Adjust per exercise" (F18): the sets, laps or minutes actually done replace the planned ones. */
+export function withDone(exercise: Exercise, done: number): Exercise {
+  switch (exercise.kind) {
+    case 'stairs':
+      return { ...exercise, laps: done };
+    case 'mobility':
+      return { ...exercise, minutes: done };
+    default:
+      return { ...exercise, sets: done };
+  }
+}
+
+/**
+ * Time-weighted MET of a session: 1 + Σ((MET − 1) × time) ÷ Σ time. A session stored as one block with this MET has
+ * the same kcal as its exercises added one by one, and keeps them when the routine is edited later (F18).
+ */
+export function equivalentMet(energies: readonly ExerciseEnergy[]): number {
+  const minutes = energies.reduce((sum, e) => sum + e.minutes, 0);
+  if (minutes === 0) return 1;
+  return 1 + energies.reduce((sum, e) => sum + (e.met - 1) * e.minutes, 0) / minutes;
+}

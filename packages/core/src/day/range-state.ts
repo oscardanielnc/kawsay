@@ -37,3 +37,9 @@ export function rangeState({
   if (percent < zone.greenFrom || percent > zone.greenTo) return 'yellow';
   return 'green';
 }
+
+/** The green zone in the metric's own unit, printed under the range row (design). */
+export function greenRange(metric: Metric, target: number): { from: number; to: number } {
+  const zone = ZONES[metric];
+  return { from: (target * zone.greenFrom) / 100, to: (target * zone.greenTo) / 100 };
+}

@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { activityKcal } from './activity';
-import { exerciseEnergy, routineSessionEnergy, type Exercise } from './routine';
+import {
+  equivalentMet,
+  exerciseEnergy,
+  routineSessionEnergy,
+  withDone,
+  type Exercise,
+} from './routine';
 
 const bmrKcal = 1717.5;
 const restSeconds = 75;
@@ -107,5 +113,37 @@ describe('routineSessionEnergy', () => {
     expect(() =>
       routineSessionEnergy({ exercises, restSeconds, bmrKcal, completion: 1.25 }),
     ).toThrow(RangeError);
+  });
+});
+
+describe('withDone: "adjust per exercise" (F18)', () => {
+  it('replaces the sets, laps or minutes actually done', () => {
+    expect(withDone({ kind: 'stairs', laps: 4, lapSeconds: 50 }, 6)).toEqual({
+      kind: 'stairs',
+      laps: 6,
+      lapSeconds: 50,
+    });
+    expect(withDone({ kind: 'isometric', sets: 3, seconds: 45 }, 2)).toMatchObject({ sets: 2 });
+    expect(withDone({ kind: 'mobility', minutes: 10 }, 5)).toMatchObject({ minutes: 5 });
+  });
+});
+
+describe('equivalentMet: a session stored as one block keeps its kcal', () => {
+  it('time-weighted MET gives the same kcal as adding the exercises one by one', () => {
+    const exercises: Exercise[] = [
+      { kind: 'weights', sets: 3, reps: 10, secondsPerRep: 3, intensity: 'medium' },
+      { kind: 'stairs', laps: 6, lapSeconds: 50 },
+    ];
+    const energies = exercises.map((e) => exerciseEnergy(e, { restSeconds, bmrKcal }));
+    const minutes = energies.reduce((sum, e) => sum + e.minutes, 0);
+    const met = equivalentMet(energies);
+    expect(activityKcal({ met, hours: minutes / 60, bmrKcal })).toBeCloseTo(
+      energies.reduce((sum, e) => sum + e.kcal, 0),
+      10,
+    );
+  });
+
+  it('no time means rest', () => {
+    expect(equivalentMet([])).toBe(1);
   });
 });

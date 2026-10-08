@@ -1,0 +1,6 @@
+{
+  "name": "@kawsay/catalog",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Food catalog: seed dishes and foods, INS and USDA source tables, importer (ADR 0014, 0015)"
+}

@@ -11,7 +11,8 @@ export interface Survey {
   kcalPer100gMax: number;
 }
 
-export type Verdict = 'within-20' | 'inside-strata-range' | 'outside' | 'weak-reference';
+export type Verdict =
+  'within-20' | 'inside-strata-range' | 'outside' | 'weak-reference' | 'accepted';
 
 export interface CrossCheck {
   code: string;

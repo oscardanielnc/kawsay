@@ -11,7 +11,7 @@ export interface Inputs {
   matches: {
     foods: Record<string, FoodMatch>;
     /** Seed dish → its group S code and, when ENCONUT lists it, the component name there. */
-    groupS: Record<string, { code: string; enconut?: string }>;
+    groupS: Record<string, { code: string; enconut?: string; accepted?: string }>;
   };
   sources: Sources;
   prepared: Record<string, string>[];
@@ -24,7 +24,7 @@ export interface Catalog {
   sources: { ins: string; usda: string };
   foods: ResolvedFood[];
   dishes: (SeedDish & { totals: DishTotals })[];
-  crossChecks: (CrossCheck & { dish: string })[];
+  crossChecks: (CrossCheck & { dish: string; acceptedBecause?: string })[];
 }
 
 /** Reads seed/ and sources/ from the package root. */
@@ -73,10 +73,22 @@ export function buildCatalog(inputs: Inputs): Catalog {
       if (!survey) throw new Error(`${dishId}: ENCONUT has no component ${link.enconut}`);
     }
     const kcal = dish.totals.per100g.energyKcal ?? 0;
-    return {
-      dish: dishId,
-      ...crossCheck({ dishKcalPer100g: kcal, code: link.code, rows: inputs.prepared, survey }),
-    };
+    const check = crossCheck({
+      dishKcalPer100g: kcal,
+      code: link.code,
+      rows: inputs.prepared,
+      survey,
+    });
+    // A deviation the owner reviewed and kept on purpose stays visible, with its reason.
+    if (link.accepted && check.verdict === 'outside') {
+      return {
+        dish: dishId,
+        ...check,
+        verdict: 'accepted' as const,
+        acceptedBecause: link.accepted,
+      };
+    }
+    return { dish: dishId, ...check };
   });
   return {
     version: new Date().toISOString().slice(0, 10),

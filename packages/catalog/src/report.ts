@@ -6,6 +6,7 @@ const VERDICT: Record<Catalog['crossChecks'][number]['verdict'], string> = {
   'inside-strata-range': '✓ inside strata range',
   'weak-reference': '· weak reference',
   outside: '⚠️ review',
+  accepted: '✓ accepted',
 };
 const kcal = (value: number | null | undefined) => (value == null ? '—' : value.toFixed(0));
 
@@ -45,6 +46,7 @@ export function renderReport(catalog: Catalog): string {
           '… agree (±20% or inside the strata range)',
           String(checks('within-20').length + checks('inside-strata-range').length),
         ],
+        ['… accepted on purpose', String(checks('accepted').length)],
         ['… weak reference (< 5 establishments)', String(checks('weak-reference').length)],
         ['… to review', String(checks('outside').length)],
       ],
@@ -111,6 +113,14 @@ export function renderReport(catalog: Catalog): string {
         `${c.gap >= 0 ? '+' : ''}${pct(c.gap)}`,
         VERDICT[c.verdict],
       ]),
+    ),
+    '### Accepted on purpose',
+    '',
+    table(
+      ['Dish', 'Why'],
+      catalog.crossChecks
+        .filter((c) => c.acceptedBecause)
+        .map((c) => [c.dish, c.acceptedBecause ?? '']),
     ),
     '## Dishes with incomplete energy',
     '',

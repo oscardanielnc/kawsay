@@ -29,14 +29,20 @@ describe('buildCatalog on the real seed and sources', () => {
     expect(egg?.per100g?.vitaminB12Ug).toBe(0.89);
   });
 
-  it('computes all 76 seed dishes', () => {
-    expect(catalog.dishes).toHaveLength(76);
+  it('computes all 77 seed dishes', () => {
+    expect(catalog.dishes).toHaveLength(77);
     const juane = catalog.dishes.find((d) => d.id === 'mini-juane-pollo');
     expect(juane?.totals.perServing.energyKcal).toBeGreaterThan(200);
   });
 
   it('avocado is palta fuerte (INS C131)', () => {
     expect(catalog.foods.find((f) => f.id === 'palta')?.source.code).toBe('C131');
+  });
+
+  it('a gap the owner accepted is reported as accepted, with its reason', () => {
+    const huancaina = catalog.crossChecks.find((c) => c.dish === 'papa-huancaina');
+    expect(huancaina?.verdict).toBe('accepted');
+    expect(huancaina?.acceptedBecause).toMatch(/midpoint/i);
   });
 
   it('cross-checks the dishes linked to group S', () => {

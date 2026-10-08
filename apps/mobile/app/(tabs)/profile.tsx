@@ -17,17 +17,28 @@ export default function ProfileRoute() {
   const [day] = useState(today);
   const { data, reload } = useLoad(
     useCallback(async () => {
-      const [profile, weights] = await Promise.all([getProfile(db), weightsBetween(db, addDays(day, -TREND_DAYS), day)]);
+      const [profile, weights] = await Promise.all([
+        getProfile(db),
+        weightsBetween(db, addDays(day, -TREND_DAYS), day),
+      ]);
       return { profile, weights };
     }, [db, day]),
   );
   const save = async ({ profile, weightKg }: { profile: ProfileInput; weightKg?: number }) => {
     await inTransaction(db, async () => {
       await saveProfile(db, env, profile);
-      if (weightKg !== undefined) await saveWeight(db, env, { date: day, kg: weightKg, timeZone: deviceTimeZone() });
+      if (weightKg !== undefined)
+        await saveWeight(db, env, { date: day, kg: weightKg, timeZone: deviceTimeZone() });
     });
     reload();
   };
   if (!data?.profile) return null;
-  return <ProfileScreen today={day} profile={data.profile} weights={data.weights} onSave={(change) => void save(change)} />;
+  return (
+    <ProfileScreen
+      today={day}
+      profile={data.profile}
+      weights={data.weights}
+      onSave={(change) => void save(change)}
+    />
+  );
 }

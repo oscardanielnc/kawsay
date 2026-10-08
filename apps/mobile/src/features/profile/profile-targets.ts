@@ -28,6 +28,8 @@ export function profileTargets(
   today: LocalDate,
   weightKg: number,
   activities: readonly ActivityBlock[] = [],
+  /** Logged sleep of the day (F11); the usual schedule otherwise. */
+  sleptHours: number = usualSleepHours(profile),
 ): DayTargets {
   return computeDayTargets({
     body: {
@@ -42,7 +44,7 @@ export function profileTargets(
       today,
       goalDate: profile.goalDate,
     }),
-    sleepHours: usualSleepHours(profile),
+    sleepHours: sleptHours,
     activities,
     routines: [],
     expenditureFactor: profile.expenditureFactor,

@@ -15,4 +15,4 @@ Log one weight per day and see the trend.
 
 ## Acceptance criteria
 
-- [ ] An outlier day (+1.5 kg) moves the trend only slightly
+- [x] An outlier day (+1.5 kg) moves the trend only slightly

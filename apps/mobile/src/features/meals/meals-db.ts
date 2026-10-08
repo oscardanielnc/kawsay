@@ -37,6 +37,14 @@ export interface MealEntryView {
   leftoverOf: string | null;
 }
 
+/** The meal a drink tapped in hydration goes to, by the local hour (F10). */
+export function mealAt(hour: number): Meal {
+  if (hour < 11) return 'breakfast';
+  if (hour < 16) return 'lunch';
+  if (hour < 19) return 'snack';
+  return 'dinner';
+}
+
 /** Dish groups suggested first for each meal when the user has no history yet. */
 const GROUPS_FOR: Record<Meal, string[]> = {
   breakfast: ['breakfast', 'drink'],

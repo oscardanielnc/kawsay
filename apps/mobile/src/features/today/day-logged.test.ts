@@ -5,6 +5,12 @@ const nothing = {
   activityCount: 0,
   noActivity: false,
   weighedToday: false,
+  drinkCount: 0,
+  urineNoted: false,
+  bathroomNoted: false,
+  bodyAnswers: 0,
+  sleepSessions: 0,
+  sleepRated: 0,
 };
 
 describe('dayLogged: the six parts of the outer ring (design S2)', () => {
@@ -37,5 +43,20 @@ describe('dayLogged: the six parts of the outer ring (design S2)', () => {
       areas: { weight: true },
       done: 1,
     });
+  });
+
+  it('water counts with a drink and the urine colour (Today v3)', () => {
+    expect(dayLogged({ ...nothing, drinkCount: 3 }).areas.water).toBe(false);
+    expect(dayLogged({ ...nothing, drinkCount: 3, urineNoted: true }).areas.water).toBe(true);
+  });
+
+  it('body and mood count with the bathroom (or “didn’t go”) plus bloating, stress, energy and mood', () => {
+    expect(dayLogged({ ...nothing, bodyAnswers: 4 }).areas.body).toBe(false);
+    expect(dayLogged({ ...nothing, bodyAnswers: 4, bathroomNoted: true }).areas.body).toBe(true);
+  });
+
+  it('sleep counts when every session has its quality', () => {
+    expect(dayLogged({ ...nothing, sleepSessions: 2, sleepRated: 1 }).areas.sleep).toBe(false);
+    expect(dayLogged({ ...nothing, sleepSessions: 2, sleepRated: 2 }).areas.sleep).toBe(true);
   });
 });

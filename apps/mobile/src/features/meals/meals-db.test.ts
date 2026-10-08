@@ -9,6 +9,7 @@ import {
   dayTotals,
   deleteMeal,
   drinksFromMeals,
+  mealAt,
   mealsOn,
   recentFor,
 } from './meals-db';
@@ -209,5 +210,19 @@ describe('meal entries (F05)', () => {
       source: 'INS',
       kcalPerServing: 184,
     });
+  });
+});
+
+describe('mealAt: the meal a drink tapped in hydration goes to (F10)', () => {
+  it.each([
+    [7, 'breakfast'],
+    [10, 'breakfast'],
+    [11, 'lunch'],
+    [15, 'lunch'],
+    [16, 'snack'],
+    [19, 'dinner'],
+    [23, 'dinner'],
+  ] as const)('%d h → %s', (hour, meal) => {
+    expect(mealAt(hour)).toBe(meal);
   });
 });

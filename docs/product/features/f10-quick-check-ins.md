@@ -19,4 +19,4 @@ Body and mood in one or two taps.
 
 ## Acceptance criteria
 
-- [ ] Any check-in takes at most two taps
+- [x] Any check-in takes at most two taps

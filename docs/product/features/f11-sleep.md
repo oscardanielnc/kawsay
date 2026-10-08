@@ -16,4 +16,4 @@ Several sleep sessions per day.
 
 ## Acceptance criteria
 
-- [ ] A night plus a nap show the daily total
+- [x] A night plus a nap show the daily total

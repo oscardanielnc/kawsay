@@ -20,7 +20,7 @@ Four slots per day: breakfast, lunch, dinner, snacks.
 
 - [x] Repeating yesterday's breakfast takes one tap plus the portion
 - [x] Half a dish at dinner with "save the rest" shows the other half in tomorrow's breakfast
-- [ ] A juice added to breakfast adds its calories there and fills its glasses in hydration, marked as "from breakfast"
+- [x] A juice added to breakfast adds its calories there and fills its glasses in hydration, marked as "from breakfast"
 
 ## Build notes
 

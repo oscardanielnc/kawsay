@@ -34,6 +34,12 @@ describe('profileTargets', () => {
     expect(stairs.activityKcal).toBeGreaterThan(rest.activityKcal);
   });
 
+  it('a shorter logged night raises the day target: more hours awake at the baseline (F11)', () => {
+    const usual = profileTargets(profile, '2026-10-08', 70);
+    const short = profileTargets(profile, '2026-10-08', 70, [], 6);
+    expect(short.targetKcal).toBeGreaterThan(usual.targetKcal);
+  });
+
   it('the trend weight is null before the first weigh-in', () => {
     expect(trendWeightKg([])).toBeNull();
   });

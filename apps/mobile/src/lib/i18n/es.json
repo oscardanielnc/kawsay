@@ -166,5 +166,32 @@
     "movement": "Movimiento diario",
     "movementHint": "OMS: 150–300 min por semana",
     "minutes": "{{count}} min"
+  },
+  "meals": {
+    "title": "Comidas",
+    "slots": {
+      "breakfast": "Desayuno",
+      "lunch": "Almuerzo",
+      "dinner": "Cena",
+      "snack": "Snacks"
+    },
+    "addTo": "Agregar a {{meal}}",
+    "kcal": "{{kcal}} kcal",
+    "search": "Buscar plato",
+    "kcalPerServing": "{{kcal}} kcal · ración",
+    "noMatch": "No hay platos con ese nombre.",
+    "create": "+ Crear plato",
+    "createNamed": "+ Crear plato \"{{name}}\"",
+    "createSoon": "Crear tus propios platos llega pronto (F07).",
+    "howMuch": "¿Cuánto comiste?",
+    "serving": "1 ración ≈ {{grams}} g · {{kcal}} kcal",
+    "fraction": "Fracción de la ración",
+    "inGrams": "o en gramos",
+    "saveRest": "Guardar el resto ({{rest}}) para el desayuno de mañana",
+    "addServings": "Agregar {{portion}} ración",
+    "addGrams": "Agregar {{grams}} g",
+    "entryKcal": "{{kcal}} kcal en {{meal}}",
+    "leftover": "Resto guardado de ayer",
+    "remove": "Quitar"
   }
 }

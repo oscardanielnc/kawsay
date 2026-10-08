@@ -18,6 +18,13 @@ Four slots per day: breakfast, lunch, dinner, snacks.
 
 ## Acceptance criteria
 
-- [ ] Repeating yesterday's breakfast takes one tap plus the portion
-- [ ] Half a dish at dinner with "save the rest" shows the other half in tomorrow's breakfast
+- [x] Repeating yesterday's breakfast takes one tap plus the portion
+- [x] Half a dish at dinner with "save the rest" shows the other half in tomorrow's breakfast
 - [ ] A juice added to breakfast adds its calories there and fills its glasses in hydration, marked as "from breakfast"
+
+## Build notes
+
+- 2026-10-08: built in `apps/mobile/src/features/meals`. Criterion 3: calories and the drink volume "from
+  breakfast" are stored (`drinksFromMeals`); the glasses are drawn by F10. "Create dish" is shown disabled until F07
+- A food's serving is its first household unit ("1 vaso" = 250 g); a dish of group `drink` or a food whose first unit
+  is a "vaso" carries its volume to hydration

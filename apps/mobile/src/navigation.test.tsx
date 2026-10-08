@@ -1,7 +1,9 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 import { renderRouter } from 'expo-router/testing-library';
 import type { ReactNode } from 'react';
+import catalog from '@kawsay/catalog/catalog.json';
 import { saveProfile } from '@/features/profile/profile-db';
+import { loadCatalog } from '@/lib/db/catalog';
 import { createTestDb } from '@/lib/db/test-db';
 import type { Db, RecordEnv } from '@/lib/db/types';
 
@@ -31,7 +33,29 @@ jest.mock('@/lib/db/DatabaseProvider', () => {
 
 beforeEach(async () => {
   mockDb = await createTestDb();
+  await loadCatalog(mockDb, catalog);
 });
+
+const profileInput = {
+  sex: 'female' as const,
+  heightCm: 160,
+  ageYears: 35,
+  ageSetOn: '2026-10-08',
+  goalWeightKg: null,
+  goalDate: null,
+  climate: 'warm' as const,
+  proteinGPerKg: 1.6,
+  fatShare: 0.25,
+  movementGoalMin: 30,
+  usualSleepStart: '23:00',
+  usualSleepEnd: '07:00',
+  usualNapStart: null,
+  usualNapEnd: null,
+  waistEnabled: false,
+  waistReminderDay: null,
+  symptomsEnabled: false,
+  intimateEnabled: false,
+};
 
 async function tap(name: string | RegExp, times = 1) {
   for (let i = 0; i < times; i++) await fireEvent.press(screen.getByRole('button', { name }));
@@ -59,26 +83,7 @@ describe('navigation (design N1, F01)', () => {
   });
 
   it('with a profile it opens on Today and shows the five tabs in Spanish', async () => {
-    await saveProfile(mockDb, mockEnv, {
-      sex: 'female',
-      heightCm: 160,
-      ageYears: 35,
-      ageSetOn: '2026-10-08',
-      goalWeightKg: null,
-      goalDate: null,
-      climate: 'warm',
-      proteinGPerKg: 1.6,
-      fatShare: 0.25,
-      movementGoalMin: 30,
-      usualSleepStart: '23:00',
-      usualSleepEnd: '07:00',
-      usualNapStart: null,
-      usualNapEnd: null,
-      waistEnabled: false,
-      waistReminderDay: null,
-      symptomsEnabled: false,
-      intimateEnabled: false,
-    });
+    await saveProfile(mockDb, mockEnv, profileInput);
     await renderRouter('./app', { initialUrl: '/' });
     expect(await screen.findByRole('header', { name: 'Hoy' })).toBeOnTheScreen();
     await waitFor(() => {
@@ -86,5 +91,18 @@ describe('navigation (design N1, F01)', () => {
         expect(screen.getByText(tab)).toBeOnTheScreen();
       }
     });
+  });
+
+  it('a dish added on Today appears as a chip in its meal, and survives reopening the app (F05)', async () => {
+    await saveProfile(mockDb, mockEnv, profileInput);
+    const first = await renderRouter('./app', { initialUrl: '/' });
+    await tap('Agregar a Almuerzo');
+    await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'lomo');
+    await tap(/Lomo saltado/);
+    await tap('Agregar 1 ración');
+    expect(await screen.findByRole('button', { name: '1 Lomo saltado' })).toBeOnTheScreen();
+    await first.unmount();
+    await renderRouter('./app', { initialUrl: '/' });
+    expect(await screen.findByRole('button', { name: '1 Lomo saltado' })).toBeOnTheScreen();
   });
 });

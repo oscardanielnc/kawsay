@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { crossCheck, type CrossCheck, type Survey } from './cross-check.ts';
 import { parseCsv } from './csv.ts';
@@ -90,8 +91,13 @@ export function buildCatalog(inputs: Inputs): Catalog {
     }
     return { dish: dishId, ...check };
   });
+  // The app reloads its catalog only when this changes, so it must depend on the data, not on the build date.
+  const version = createHash('sha256')
+    .update(JSON.stringify({ foods, dishes }))
+    .digest('hex')
+    .slice(0, 16);
   return {
-    version: new Date().toISOString().slice(0, 10),
+    version,
     sources: {
       ins: 'INS/CENAN, Tablas Peruanas de Composición de Alimentos, 2023 (11th digital edition, 2025)',
       usda: 'USDA FoodData Central, SR Legacy (April 2018)',

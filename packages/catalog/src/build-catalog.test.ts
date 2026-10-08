@@ -45,6 +45,15 @@ describe('buildCatalog on the real seed and sources', () => {
     expect(huancaina?.acceptedBecause).toMatch(/midpoint/i);
   });
 
+  it('the version is a hash of the content: rebuilding the same data keeps it, changing a value changes it', () => {
+    const again = buildCatalog(readInputs(new URL('..', import.meta.url)));
+    expect(catalog.version).toMatch(/^[0-9a-f]{16}$/);
+    expect(again.version).toBe(catalog.version);
+    const inputs = readInputs(new URL('..', import.meta.url));
+    inputs.dishes[0]!.items[0]!.grams += 1;
+    expect(buildCatalog(inputs).version).not.toBe(catalog.version);
+  });
+
   it('cross-checks the dishes linked to group S', () => {
     expect(catalog.crossChecks.length).toBe(24);
   });

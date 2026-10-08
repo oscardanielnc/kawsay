@@ -355,8 +355,9 @@
    "plant": true
   },
   "palta": {
-   "ins": "C55",
-   "plant": true
+   "ins": "C131",
+   "plant": true,
+   "note": "Palta fuerte; generic 'Palta' C55 and Hass C161 differ (130 and 204 kcal)"
   },
   "aceituna": {
    "ins": "C2",
@@ -537,30 +538,103 @@
   }
  },
  "groupS": {
-  "chaufa-calle": "SS23",
-  "lomo-saltado": "SS155",
-  "saltado-pollo": "SS268",
-  "aeropuerto": "SS8",
-  "arroz-con-pollo": "SS33",
-  "pollo-frito-arroz": "SS248",
-  "escabeche-pollo": "SS93",
-  "chuleta-con-papas": "SS76",
-  "churrasco": "SS79",
-  "ceviche-pota": "SE28",
-  "pollo-brasa-octavo": "SS196",
-  "pollo-brasa-cuarto": "SS196",
-  "caldo-gallina": "SE9",
-  "crema-alverjas": "SE50",
-  "crema-rocoto": "SE53",
-  "causa-rellena": "SE21",
-  "papa-huancaina": "SE74",
-  "arroz-con-mariscos": "SS31",
-  "chicha-morada": "SR19",
-  "refresco-maracuya": "SR12",
-  "papa-rellena": "SE78",
-  "ensalada-rusa": "SE64",
-  "ensalada-palta": "SE144",
-  "broaster": "SS238",
-  "pizza-tajada": "SS195"
+  "chaufa-calle": {
+   "code": "SS23",
+   "enconut": "ARROZ CHAUFA DE POLLO"
+  },
+  "lomo-saltado": {
+   "code": "SS155",
+   "enconut": "LOMO SALTADO CON ARROZ"
+  },
+  "saltado-pollo": {
+   "code": "SS268",
+   "enconut": "SALTADO DE POLLO CON ARROZ"
+  },
+  "aeropuerto": {
+   "code": "SS8",
+   "enconut": "AEROPUERTO DE POLLO"
+  },
+  "arroz-con-pollo": {
+   "code": "SS33",
+   "enconut": "ARROZ CON POLLO"
+  },
+  "pollo-frito-arroz": {
+   "code": "SS248",
+   "enconut": "POLLO FRITO CON ARROZ"
+  },
+  "escabeche-pollo": {
+   "code": "SS93",
+   "enconut": "ESCABECHE DE POLLO CON ARROZ"
+  },
+  "chuleta-con-papas": {
+   "code": "SS76",
+   "enconut": "CHULETA DE CERDO CON PAPAS FRITAS CON ARROZ"
+  },
+  "churrasco": {
+   "code": "SS79",
+   "enconut": "CHURRASCO CON PAPAS FRITAS CON ENSALADA CON ARROZ"
+  },
+  "ceviche-pota": {
+   "code": "SE28",
+   "enconut": "CEBICHE DE POTA"
+  },
+  "pollo-brasa-octavo": {
+   "code": "SS196",
+   "enconut": "POLLO A LA BRASA CON PAPAS FRITAS"
+  },
+  "pollo-brasa-cuarto": {
+   "code": "SS196",
+   "enconut": "POLLO A LA BRASA CON PAPAS FRITAS"
+  },
+  "caldo-gallina": {
+   "code": "SE9",
+   "enconut": "CALDO DE GALLINA"
+  },
+  "crema-alverjas": {
+   "code": "SE50",
+   "enconut": "CREMA DE ARVEJA"
+  },
+  "causa-rellena": {
+   "code": "SE21",
+   "enconut": "CAUSA RELLENA"
+  },
+  "papa-huancaina": {
+   "code": "SE74",
+   "enconut": "PAPA A LA HUANCAINA"
+  },
+  "arroz-con-mariscos": {
+   "code": "SS31",
+   "enconut": "ARROZ CON MARISCOS"
+  },
+  "chicha-morada": {
+   "code": "SR19",
+   "enconut": "CHICHA MORADA"
+  },
+  "refresco-maracuya": {
+   "code": "SR12",
+   "enconut": "REFRESCO DE MARACUYA"
+  },
+  "papa-rellena": {
+   "code": "SE78",
+   "enconut": "PAPA RELLENA"
+  },
+  "ensalada-rusa": {
+   "code": "SE64",
+   "enconut": "ENSALADA RUSA"
+  },
+  "ensalada-palta": {
+   "code": "SE144"
+  },
+  "broaster": {
+   "code": "SS238",
+   "enconut": "POLLO BROASTER"
+  },
+  "pizza-tajada": {
+   "code": "SS195",
+   "enconut": "PIZZA AMERICANA PERSONAL"
+  }
+ },
+ "groupSExcluded": {
+  "crema-rocoto": "SE53 is potato with rocoto cream in ENCONUT (rocoto 67 g + potato 132 g per plate), not the soup in the seed"
  }
 }

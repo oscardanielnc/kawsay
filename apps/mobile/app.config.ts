@@ -1,4 +1,15 @@
 import type { ExpoConfig } from 'expo/config';
+import path from 'node:path';
+
+/** Font files embedded in the APK (design T2: Bricolage Grotesque titles, Figtree text). */
+const font = (family: string, file: string) =>
+  path.join(path.dirname(require.resolve(`@expo-google-fonts/${family}/package.json`)), file);
+const FONTS = [
+  font('bricolage-grotesque', '600SemiBold/BricolageGrotesque_600SemiBold.ttf'),
+  font('bricolage-grotesque', '700Bold/BricolageGrotesque_700Bold.ttf'),
+  font('figtree', '400Regular/Figtree_400Regular.ttf'),
+  font('figtree', '600SemiBold/Figtree_600SemiBold.ttf'),
+];
 
 /** Two installable variants side by side (ADR 0010): the dev build never touches real data. */
 const variant = process.env.APP_VARIANT === 'production' ? 'production' : 'development';
@@ -34,7 +45,18 @@ export default (): ExpoConfig => ({
     checkAutomatically: 'ON_LOAD',
     fallbackToCacheTimeout: 0,
   },
-  plugins: ['expo-router', 'expo-localization', 'expo-updates'],
+  plugins: [
+    'expo-router',
+    'expo-localization',
+    'expo-updates',
+    'expo-sqlite',
+    'expo-secure-store',
+    ['expo-local-authentication', { faceIDPermission: false }],
+    'expo-notifications',
+    ['expo-font', { fonts: FONTS }],
+    'expo-sharing',
+    'expo-file-system',
+  ],
   experiments: { typedRoutes: true },
   extra: { variant, eas: { projectId: EAS_PROJECT_ID } },
 });

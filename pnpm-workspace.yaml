@@ -3,5 +3,7 @@ packages:
   - packages/*
 # Install scripts are denied unless listed here (pnpm 12 default).
 allowBuilds:
+  # drizzle-kit's bundler; the script only verifies its platform binary.
+  esbuild: true
   # Ships prebuilt binaries; its postinstall is only a fallback download.
   unrs-resolver: false

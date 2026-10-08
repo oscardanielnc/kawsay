@@ -1,0 +1,566 @@
+{
+ "version": "2026-10-07",
+ "about": "Explicit link from each seed food to its source row (ADR 0014, 0015). Reviewed by hand; the importer never guesses.",
+ "foods": {
+  "arroz-cocido": {
+   "ins": "A2",
+   "plant": true
+  },
+  "fideo-cocido": {
+   "ins": "A23",
+   "plant": true
+  },
+  "pan-frances": {
+   "ins": "A49"
+  },
+  "pan-comun": {
+   "ins": "A49",
+   "note": "INS has no separate 'pan común'; the everyday roll is the pan francés"
+  },
+  "harina-trigo": {
+   "ins": "A63",
+   "plant": true
+  },
+  "pan-rallado": {
+   "usda": 174928
+  },
+  "galleta-soda": {
+   "ins": "A24",
+   "plant": true
+  },
+  "papa-sancochada": {
+   "ins": "U19",
+   "cookedToRaw": {
+    "factor": 1.02,
+    "ref": "TAFERA 2016, table II: Papa blanca perricholi, entera, sancochado"
+   },
+   "plant": true
+  },
+  "papa-amarilla-sancochada": {
+   "ins": "U18",
+   "cookedToRaw": {
+    "factor": 1.02,
+    "ref": "TAFERA 2016, table II: Papa amarilla, entera, sancochado"
+   },
+   "plant": true
+  },
+  "papa-frita": {
+   "usda": 170698,
+   "note": "INS L43/L44 are packaged chips; homemade fries come from USDA"
+  },
+  "camote-sancochado": {
+   "ins": "U3",
+   "cookedToRaw": {
+    "factor": 1.03,
+    "ref": "TAFERA 2016, table II: Camote amarillo, entero, sancochado"
+   },
+   "plant": true
+  },
+  "yuca-sancochada": {
+   "ins": "U37",
+   "plant": true
+  },
+  "platano-verde-asado": {
+   "ins": "C79",
+   "plant": true
+  },
+  "platano-maduro": {
+   "ins": "C75",
+   "plant": true
+  },
+  "choclo": {
+   "ins": "A34",
+   "cookedToRaw": {
+    "factor": 0.94,
+    "ref": "TAFERA 2016, table II: Maíz fresco (choclo) en grano, sancochado"
+   },
+   "plant": true
+  },
+  "pollo-carne": {
+   "ins": "F84",
+   "fill": 173618
+  },
+  "pollo-pechuga": {
+   "ins": "F82",
+   "fill": 171478
+  },
+  "gallina": {
+   "ins": "F113",
+   "fill": 172401
+  },
+  "pollo-broaster": {
+   "usda": 172386
+  },
+  "res-carne": {
+   "ins": "F35",
+   "fill": 169530,
+   "cookedToRaw": {
+    "factor": 1.4,
+    "ref": "TAFERA 2016, table II: Res, carne, guisada"
+   },
+   "note": "Factor for guisada: the usual home method; sancochado would be 1.83"
+  },
+  "res-corazon": {
+   "usda": 169448,
+   "note": "INS has only raw heart (F36) and TAFERA no grilled-heart factor"
+  },
+  "cerdo-chuleta": {
+   "ins": "F107",
+   "fill": 168256
+  },
+  "cerdo-carne": {
+   "ins": "F108",
+   "fill": 168256
+  },
+  "chicharron-cerdo": {
+   "ins": "F47",
+   "fill": 167812
+  },
+  "manteca-cerdo": {
+   "ins": "D17",
+   "fill": 171401
+  },
+  "chorizo": {
+   "ins": "F110",
+   "fill": 173859
+  },
+  "salchicha": {
+   "ins": "F114",
+   "fill": 172964
+  },
+  "res-molida": {
+   "ins": "F90",
+   "fill": 174033
+  },
+  "huevo": {
+   "ins": "J4",
+   "fill": 171287
+  },
+  "pescado-tilapia": {
+   "ins": "E77",
+   "fill": 175176
+  },
+  "pescado-rio": {
+   "ins": "E94",
+   "fill": 174186,
+   "note": "Boquichico; doncella is E96"
+  },
+  "pescado-mar": {
+   "ins": "E50",
+   "fill": 175119,
+   "note": "Jurel fresco; bonito is E27"
+  },
+  "toyo": {
+   "ins": "E78",
+   "fill": 173697
+  },
+  "pota": {
+   "ins": "E88",
+   "fill": 174223
+  },
+  "mariscos-mix": {
+   "ins": "E92",
+   "fill": 174216
+  },
+  "langostino": {
+   "ins": "E14",
+   "fill": 174210
+  },
+  "kanikama": {
+   "usda": 173702
+  },
+  "leche-evaporada": {
+   "ins": "G7",
+   "fill": 171276
+  },
+  "leche-entera": {
+   "ins": "G11",
+   "fill": 172217
+  },
+  "leche-condensada": {
+   "ins": "G3",
+   "fill": 171275
+  },
+  "queso-fresco": {
+   "ins": "G14",
+   "fill": 172223
+  },
+  "queso-crema": {
+   "usda": 173418
+  },
+  "crema-leche": {
+   "ins": "G1",
+   "fill": 170859
+  },
+  "mantequilla": {
+   "ins": "D19",
+   "fill": 173410
+  },
+  "yogurt-bebible": {
+   "label": true,
+   "insAlternative": "G17"
+  },
+  "yogurt-griego": {
+   "label": true,
+   "insAlternative": "G38"
+  },
+  "helado-crema": {
+   "usda": 167575
+  },
+  "helado-paleta": {
+   "label": true
+  },
+  "manjar-blanco": {
+   "unmatched": "Not in INS 2023 nor USDA SR Legacy; read the label of a local brand"
+  },
+  "whey": {
+   "label": true,
+   "usdaAlternative": 173177
+  },
+  "lentejas": {
+   "ins": "T53",
+   "plant": true
+  },
+  "frejol-canario": {
+   "ins": "T16",
+   "plant": true
+  },
+  "alverja-verde": {
+   "ins": "T2",
+   "plant": true,
+   "cookedToRaw": {
+    "factor": 1.03,
+    "ref": "TAFERA 2016, table II: Arveja fresca, sancochado"
+   }
+  },
+  "alverja-seca": {
+   "ins": "T61",
+   "plant": true
+  },
+  "habas": {
+   "ins": "T47",
+   "plant": true,
+   "cookedToRaw": {
+    "factor": 0.8,
+    "ref": "TAFERA 2016, table II: Haba fresca sin cáscara, sancochado"
+   }
+  },
+  "cebolla-roja": {
+   "ins": "B29",
+   "plant": true,
+   "note": "Cebolla de cabeza: the red onion sold in Peru"
+  },
+  "cebolla-china": {
+   "ins": "B28",
+   "plant": true
+  },
+  "tomate": {
+   "ins": "B79",
+   "plant": true
+  },
+  "ajo": {
+   "ins": "B13",
+   "plant": true
+  },
+  "aji-amarillo": {
+   "ins": "B3",
+   "plant": true
+  },
+  "aji-panca": {
+   "ins": "B7",
+   "plant": true,
+   "proxy": "Ají colorado molido: INS B6 is dried panca, not the paste"
+  },
+  "aji-charapita": {
+   "ins": "B90",
+   "plant": true
+  },
+  "rocoto": {
+   "ins": "B76",
+   "plant": true
+  },
+  "culantro": {
+   "ins": "B39",
+   "plant": true
+  },
+  "sachaculantro": {
+   "ins": "B39",
+   "plant": true,
+   "proxy": "Culantro: INS has no sachaculantro"
+  },
+  "palillo": {
+   "ins": "L31",
+   "plant": true
+  },
+  "kion": {
+   "ins": "B111",
+   "plant": true
+  },
+  "albahaca": {
+   "ins": "B14",
+   "plant": true
+  },
+  "espinaca": {
+   "ins": "B108",
+   "plant": true
+  },
+  "lechuga": {
+   "ins": "B53",
+   "plant": true,
+   "note": "Lechuga americana; larga is B54"
+  },
+  "pepino": {
+   "usda": 168409,
+   "note": "INS C61 is pepino dulce, a different fruit"
+  },
+  "zanahoria": {
+   "ins": "B85",
+   "plant": true
+  },
+  "zapallo": {
+   "ins": "B89",
+   "plant": true,
+   "note": "Zapallo macre, the soup squash"
+  },
+  "vainita": {
+   "usda": 169961,
+   "note": "INS has only cooked vainita (B133)"
+  },
+  "brocoli": {
+   "ins": "B21",
+   "plant": true
+  },
+  "beterraga": {
+   "ins": "U31",
+   "plant": true,
+   "cookedToRaw": {
+    "factor": 1.05,
+    "ref": "TAFERA 2016, table II: Betarraga, entero, sancochado"
+   }
+  },
+  "col": {
+   "ins": "B31",
+   "plant": true
+  },
+  "pimiento": {
+   "ins": "B69",
+   "plant": true
+  },
+  "apio": {
+   "ins": "B17",
+   "plant": true
+  },
+  "brote-soya": {
+   "ins": "B46",
+   "plant": true
+  },
+  "palta": {
+   "ins": "C55",
+   "plant": true
+  },
+  "aceituna": {
+   "ins": "C2",
+   "plant": true
+  },
+  "limon-jugo": {
+   "ins": "C34",
+   "plant": true
+  },
+  "maiz-morado": {
+   "ins": "A38",
+   "plant": true,
+   "note": "Only the dry grain; the infusion keeps a fraction of it (chicha recipes count it as such)"
+  },
+  "mandarina": {
+   "ins": "C40",
+   "plant": true
+  },
+  "naranja": {
+   "ins": "C48",
+   "plant": true
+  },
+  "naranja-jugo": {
+   "usda": 169098,
+   "note": "INS C126 is packaged juice; fresh-squeezed comes from USDA"
+  },
+  "manzana": {
+   "ins": "C42",
+   "plant": true
+  },
+  "platano-seda": {
+   "ins": "C71",
+   "plant": true
+  },
+  "papaya": {
+   "ins": "C59",
+   "plant": true
+  },
+  "pina": {
+   "ins": "C69",
+   "plant": true
+  },
+  "granadilla": {
+   "ins": "C20",
+   "plant": true
+  },
+  "mango": {
+   "ins": "C41",
+   "plant": true
+  },
+  "sandia": {
+   "ins": "C83",
+   "plant": true
+  },
+  "melon": {
+   "ins": "C45",
+   "plant": true
+  },
+  "uva": {
+   "ins": "C170",
+   "plant": true,
+   "note": "Red Globe, the grape sold most"
+  },
+  "fresa": {
+   "ins": "C18",
+   "plant": true
+  },
+  "maracuya-pulpa": {
+   "ins": "C43",
+   "plant": true,
+   "note": "Jugo puro: the pulp strained of seeds"
+  },
+  "cocona": {
+   "ins": "C16",
+   "plant": true
+  },
+  "aguaje": {
+   "ins": "C5",
+   "plant": true
+  },
+  "guanabana": {
+   "ins": "C22",
+   "plant": true
+  },
+  "carambola": {
+   "ins": "C102",
+   "plant": true
+  },
+  "agua": {
+   "none": true
+  },
+  "agua-coco": {
+   "usda": 170174
+  },
+  "azucar": {
+   "ins": "K1",
+   "plant": true
+  },
+  "cafe-soluble": {
+   "usda": 171893
+  },
+  "cocoa": {
+   "ins": "L6",
+   "plant": true
+  },
+  "chocolate": {
+   "ins": "L38",
+   "plant": true
+  },
+  "vinagre": {
+   "ins": "L50",
+   "plant": true
+  },
+  "aceite-vegetal": {
+   "ins": "D9",
+   "plant": true,
+   "note": "Soybean oil, the usual 'aceite vegetal'"
+  },
+  "aceite-oliva": {
+   "ins": "D44",
+   "plant": true
+  },
+  "mayonesa": {
+   "ins": "L42"
+  },
+  "ketchup": {
+   "usda": 168556
+  },
+  "mostaza": {
+   "usda": 172234
+  },
+  "sillao": {
+   "ins": "L48",
+   "plant": true
+  },
+  "mayopalta": {
+   "label": true
+  },
+  "tari": {
+   "label": true
+  },
+  "perejil": {
+   "ins": "B68",
+   "plant": true
+  },
+  "oregano": {
+   "ins": "B129",
+   "plant": true
+  },
+  "ajonjoli": {
+   "ins": "D39",
+   "plant": true
+  },
+  "bizcocho": {
+   "usda": 172706
+  },
+  "galleta-vainilla": {
+   "label": true,
+   "insAlternative": "A25"
+  },
+  "pizza": {
+   "usda": 173295
+  },
+  "choco-soda": {
+   "label": true
+  },
+  "galleta-chispas": {
+   "label": true
+  },
+  "oreo": {
+   "label": true
+  },
+  "morochas": {
+   "label": true
+  },
+  "galleta-kiwicha": {
+   "label": true
+  }
+ },
+ "groupS": {
+  "chaufa-calle": "SS23",
+  "lomo-saltado": "SS155",
+  "saltado-pollo": "SS268",
+  "aeropuerto": "SS8",
+  "arroz-con-pollo": "SS33",
+  "pollo-frito-arroz": "SS248",
+  "escabeche-pollo": "SS93",
+  "chuleta-con-papas": "SS76",
+  "churrasco": "SS79",
+  "ceviche-pota": "SE28",
+  "pollo-brasa-octavo": "SS196",
+  "pollo-brasa-cuarto": "SS196",
+  "caldo-gallina": "SE9",
+  "crema-alverjas": "SE50",
+  "crema-rocoto": "SE53",
+  "causa-rellena": "SE21",
+  "papa-huancaina": "SE74",
+  "arroz-con-mariscos": "SS31",
+  "chicha-morada": "SR19",
+  "refresco-maracuya": "SR12",
+  "papa-rellena": "SE78",
+  "ensalada-rusa": "SE64",
+  "ensalada-palta": "SE144",
+  "broaster": "SS238",
+  "pizza-tajada": "SS195"
+ }
+}

@@ -1,13 +1,8 @@
 /** @jest-environment node */
+import { dayStatusOn } from '@/lib/db/day-status';
 import { createTestDb } from '@/lib/db/test-db';
 import type { RecordEnv } from '@/lib/db/types';
-import {
-  activitiesOn,
-  addActivity,
-  dayStatusOn,
-  deleteActivity,
-  setNoActivity,
-} from './activity-db';
+import { activitiesOn, addActivity, deleteActivity, setNoActivity } from './activity-db';
 
 const lima = 'America/Lima';
 const today = '2026-10-08';

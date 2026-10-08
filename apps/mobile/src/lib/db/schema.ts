@@ -138,6 +138,24 @@ export const drinkEntry = sqliteTable(
   (t) => [index('drink_entry_by_date').on(t.date)],
 );
 
+/**
+ * Body and mood check-ins (F10), one row per tap with its time. Bathroom keeps every visit; the other kinds show the
+ * latest of the day. Values: bathroom `1`–`7` (Bristol), `gas`, `none`; bloating `better` | `usual` | `worse`;
+ * stress (the day's peak), energy and mood `1`–`5`; urine `clear` | `yellow` | `dark`.
+ */
+export const checkIn = sqliteTable(
+  'check_in',
+  {
+    ...synced,
+    ...dated,
+    kind: text('kind', {
+      enum: ['bathroom', 'bloating', 'stress', 'energy', 'mood', 'urine'],
+    }).notNull(),
+    value: text('value').notNull(),
+  },
+  (t) => [index('check_in_by_date').on(t.date)],
+);
+
 /** User routines (F18); exercises live in routine_exercise. */
 export const routine = sqliteTable('routine', {
   ...synced,

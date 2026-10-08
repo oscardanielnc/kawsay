@@ -1,7 +1,8 @@
 import type { LocalDate } from '@kawsay/core/shared/local-date';
 import { and, asc, eq, isNull } from 'drizzle-orm';
 import { newRecord } from '@/lib/db/record';
-import { activityEntry, dayStatus } from '@/lib/db/schema';
+import { writeDayStatus } from '@/lib/db/day-status';
+import { activityEntry } from '@/lib/db/schema';
 import { inTransaction } from '@/lib/db/transaction';
 import type { Db, RecordEnv } from '@/lib/db/types';
 
@@ -52,7 +53,7 @@ export async function addActivity(
       timeBand: input.timeBand,
       routineId: input.routineId ?? null,
     });
-    await writeStatus(db, env, input.date, { noActivity: false });
+    await writeDayStatus(db, env, input.date, { noActivity: false });
     return { id: record.id };
   });
 }
@@ -81,17 +82,6 @@ export async function deleteActivity(db: Db, env: RecordEnv, id: string): Promis
     .where(eq(activityEntry.id, id));
 }
 
-export async function dayStatusOn(
-  db: Db,
-  date: LocalDate,
-): Promise<{ noActivity: boolean; sweatedALot: boolean }> {
-  const [row] = await db
-    .select({ noActivity: dayStatus.noActivity, sweatedALot: dayStatus.sweatedALot })
-    .from(dayStatus)
-    .where(and(eq(dayStatus.date, date), isNull(dayStatus.deletedAt)));
-  return row ?? { noActivity: false, sweatedALot: false };
-}
-
 /** "No physical activity": the base day, exclusive with logged activities (F08). */
 export async function setNoActivity(
   db: Db,
@@ -99,27 +89,5 @@ export async function setNoActivity(
   date: LocalDate,
   on: boolean,
 ): Promise<void> {
-  await writeStatus(db, env, date, { noActivity: on });
-}
-
-async function writeStatus(
-  db: Db,
-  env: RecordEnv,
-  date: LocalDate,
-  patch: Partial<{ noActivity: boolean; sweatedALot: boolean }>,
-): Promise<void> {
-  const [existing] = await db
-    .select({ id: dayStatus.id })
-    .from(dayStatus)
-    .where(and(eq(dayStatus.date, date), isNull(dayStatus.deletedAt)));
-  if (existing) {
-    await db
-      .update(dayStatus)
-      .set({ ...patch, updatedAt: env.now() })
-      .where(eq(dayStatus.id, existing.id));
-  } else {
-    await db
-      .insert(dayStatus)
-      .values({ ...newRecord(env), date, noActivity: false, sweatedALot: false, ...patch });
-  }
+  await writeDayStatus(db, env, date, { noActivity: on });
 }

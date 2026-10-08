@@ -8,7 +8,6 @@ import {
   activitiesOn,
   addActivity,
   bandAt,
-  dayStatusOn,
   deleteActivity,
   setNoActivity,
 } from '@/features/activity/activity-db';
@@ -39,6 +38,7 @@ import { TodayScreen } from '@/features/today/TodayScreen';
 import { weightsBetween } from '@/features/weight/weight-db';
 import { Card } from '@/components/layout/Card';
 import { useDb } from '@/lib/db/DatabaseProvider';
+import { dayStatusOn } from '@/lib/db/day-status';
 import { deviceTimeZone } from '@/lib/time-zone';
 import { today } from '@/lib/today';
 import { useLoad } from '@/lib/use-load';

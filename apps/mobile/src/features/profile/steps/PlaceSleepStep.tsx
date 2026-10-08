@@ -1,0 +1,52 @@
+import { useTranslation } from 'react-i18next';
+import { Text } from 'react-native';
+import { color, type } from '@/lib/theme';
+import { Card } from '../components/Card';
+import { Segmented } from '../components/Segmented';
+import { Stepper } from '../components/Stepper';
+import { Toggle } from '../components/Toggle';
+import { shiftTime } from '../draft';
+import type { StepProps } from './BodyStep';
+
+const STEP_MIN = 15;
+
+/** Climate (drinks goal only, F10) and the usual sleep schedule that prefills F11. */
+export function PlaceSleepStep({ draft, update }: StepProps) {
+  const { t } = useTranslation();
+  const time = (label: string, value: string, set: (v: string) => void) => (
+    <Stepper
+      label={label}
+      value={value}
+      onDecrement={() => set(shiftTime(value, -STEP_MIN))}
+      onIncrement={() => set(shiftTime(value, STEP_MIN))}
+    />
+  );
+  return (
+    <>
+      <Card title={t('profile.climate')}>
+        <Segmented
+          options={[
+            { value: 'warm', label: t('profile.warm'), hint: t('profile.warmHint') },
+            { value: 'temperate', label: t('profile.temperate'), hint: t('profile.baseHint') },
+            { value: 'cold', label: t('profile.cold'), hint: t('profile.baseHint') },
+          ]}
+          value={draft.climate}
+          onChange={(climate) => update({ climate })}
+        />
+        <Text style={[type.caption, { color: color.inkMuted }]}>{t('profile.climateNote')}</Text>
+      </Card>
+      <Card title={t('profile.sleep')}>
+        {time(t('profile.fallAsleep'), draft.sleepStart, (sleepStart) => update({ sleepStart }))}
+        {time(t('profile.wakeUp'), draft.sleepEnd, (sleepEnd) => update({ sleepEnd }))}
+        <Toggle label={t('profile.napToggle')} value={draft.nap} onChange={(nap) => update({ nap })} />
+        {draft.nap ? (
+          <>
+            {time(t('profile.napFrom'), draft.napStart, (napStart) => update({ napStart }))}
+            {time(t('profile.napTo'), draft.napEnd, (napEnd) => update({ napEnd }))}
+          </>
+        ) : null}
+        <Text style={[type.caption, { color: color.inkMuted }]}>{t('profile.sleepNote')}</Text>
+      </Card>
+    </>
+  );
+}

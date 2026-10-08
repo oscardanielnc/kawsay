@@ -15,5 +15,105 @@
   "db": {
     "errorTitle": "No se pudo abrir tus datos",
     "errorBody": "Tus registros siguen guardados en el teléfono. Cierra y vuelve a abrir la app; si el problema sigue, avísanos con este detalle:"
+  },
+  "form": {
+    "less": "Menos {{label}}",
+    "more": "Más {{label}}"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Kawsay",
+      "tagline": "Metas que siguen al día que tuviste.",
+      "body": "Comida, movimiento, cuerpo y ánimo en menos de 10 segundos por registro."
+    },
+    "start": "Empezar",
+    "next": "Siguiente",
+    "back": "Atrás",
+    "finish": "Empezar a registrar",
+    "progress": "Paso {{step}} de {{total}}",
+    "body": {
+      "title": "Tu cuerpo",
+      "intro": "Con esto se calcula tu gasto en reposo."
+    },
+    "goal": {
+      "title": "Tu meta"
+    },
+    "place": {
+      "title": "Dónde vives y duermes"
+    },
+    "modules": {
+      "title": "Qué quieres registrar",
+      "later": "Puedes cambiarlo cuando quieras en Perfil."
+    },
+    "target": {
+      "title": "Tu meta diaria"
+    }
+  },
+  "profile": {
+    "sex": "Sexo",
+    "sexWhy": "lo pide la fórmula",
+    "male": "Hombre",
+    "female": "Mujer",
+    "age": "Edad",
+    "ageValue": "{{count}} años",
+    "height": "Estatura",
+    "heightValue": "{{count}} cm",
+    "weightToday": "Peso de hoy",
+    "weighRule": "Al despertar, después del baño, antes de comer",
+    "kg": "{{value}} kg",
+    "lose": "Bajar de peso",
+    "maintain": "Mantener",
+    "goalWeight": "Peso meta",
+    "inHowLong": "En cuánto tiempo",
+    "until": "Hasta el {{date}}",
+    "weeksValue": "{{count}} sem",
+    "pace": "Ritmo",
+    "paceValue": "{{value}} kg/sem",
+    "tooFast": "⚠️ Más rápido que el 1 % de tu peso por semana ({{max}} kg). Te quita energía y músculo.",
+    "useWeeks": "Usar {{weeks}} semanas (hasta el {{date}})",
+    "safePace": "✅ Dentro de lo recomendable (máx. {{max}} kg/sem)",
+    "maintainNote": "Tu meta será tu gasto del día, sin déficit.",
+    "climate": "Clima donde vives",
+    "warm": "☀️ Cálido",
+    "temperate": "⛅ Templado",
+    "cold": "❄️ Frío",
+    "warmHint": "+2 vasos",
+    "baseHint": "base",
+    "climateNote": "Cambia tu meta de bebidas, no tus calorías.",
+    "sleep": "Tu horario de sueño habitual",
+    "fallAsleep": "Me duermo",
+    "wakeUp": "Me despierto",
+    "napToggle": "Suelo tomar siesta",
+    "napFrom": "Siesta desde",
+    "napTo": "Siesta hasta",
+    "sleepNote": "Prellena tu sueño cada día. Lo corriges si cambió.",
+    "alwaysOn": "Siempre activos",
+    "always": [
+      "🍽️ Comidas",
+      "🏃 Actividad",
+      "💧 Hidratación",
+      "🙂 Cuerpo y ánimo",
+      "🌙 Sueño",
+      "⚖️ Peso"
+    ],
+    "optional": "Opcionales",
+    "waist": "📏 Cintura semanal",
+    "waistHint": "Te lo recuerda una vez por semana",
+    "weekdays": ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+    "symptoms": "🩺 Síntomas propios",
+    "symptomsHint": "Creas los que te importan",
+    "intimate": "🔒 Vida íntima (privado)",
+    "intimateHint": "Relaciones sexuales y masturbación, para ver si se relacionan con tu energía, ánimo y sueño. Queda oculto tras tu huella o PIN, nunca se envía a la IA y solo se exporta si lo marcas",
+    "dayWithoutExercise": "Meta de un día sin ejercicio",
+    "kcal": "kcal",
+    "proteinG": "proteína g",
+    "fatG": "grasa g",
+    "carbsG": "carbos g",
+    "movementMin": "min mov.",
+    "targetNote": "Sube los días que te mueves. Se recalibra con tu peso cada 2 semanas.",
+    "how": "ⓘ ¿Cómo se calcula?",
+    "howBody": "Basal (Mifflin-St Jeor): {{bmr}} kcal\n+ despierto {{awake}} h “sentado y caminatas breves” (MET 1.4)\n× 1.10 digestión = gasto {{expenditure}} kcal\n− déficit por tu ritmo (7,700 kcal/kg, máx. 1 % del peso/sem y 25 % del gasto)\n= {{target}} kcal, nunca bajo tu basal\nProteína {{protein}} g × {{reference}} kg de referencia (tu peso o el de IMC 25, el menor) · grasa {{fat}} % · carbos el resto",
+    "lowCarbs": "⚠ Carbohidratos bajo 130 g",
+    "notMedical": "🩺 Kawsay no es una app médica ni da diagnósticos. Si tienes una enfermedad renal, acuerda tu proteína con un médico."
   }
 }

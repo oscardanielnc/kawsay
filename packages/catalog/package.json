@@ -2,5 +2,19 @@
   "name": "@kawsay/catalog",
   "version": "0.0.0",
   "private": true,
-  "description": "Food catalog: seed dishes and foods, INS and USDA source tables, importer (ADR 0014, 0015)"
+  "description": "Food catalog: seed dishes and foods, INS and USDA source tables, importer (ADR 0014, 0015)",
+  "type": "module",
+  "scripts": {
+    "build": "node src/build.ts",
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@kawsay/config": "workspace:*",
+    "@types/node": "^24.5.2",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.3"
+  }
 }

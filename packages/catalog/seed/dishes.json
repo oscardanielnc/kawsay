@@ -527,7 +527,51 @@
      "grams": 300
     }
    ],
-   "note": ""
+   "note": "Main dish with a large piece of hen; the menu starter is caldo-pollo-menu"
+  },
+  {
+   "id": "caldo-pollo-menu",
+   "name": "Caldo de pollo (menú)",
+   "group": "soup",
+   "icon": "sopa",
+   "confidence": "high",
+   "serving": "1 plato hondo",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pollo-carne",
+     "grams": 36
+    },
+    {
+     "food": "fideo-cocido",
+     "grams": 188
+    },
+    {
+     "food": "papa-amarilla-sancochada",
+     "grams": 39
+    },
+    {
+     "food": "zanahoria",
+     "grams": 16
+    },
+    {
+     "food": "apio",
+     "grams": 11
+    },
+    {
+     "food": "cebolla-china",
+     "grams": 2
+    },
+    {
+     "food": "kion",
+     "grams": 1
+    },
+    {
+     "food": "agua",
+     "grams": 272
+    }
+   ],
+   "note": "Menu starter with bits of chicken, no piece: median served grams in 12 Lima kitchens (INEI ENCONUT 2013)"
   },
   {
    "id": "sopa-res",
@@ -574,36 +618,44 @@
    "name": "Sopa crema de alverjas",
    "group": "soup",
    "icon": "sopa",
-   "confidence": "low",
+   "confidence": "medium",
    "serving": "1 plato hondo",
    "servings": 1,
    "items": [
     {
      "food": "alverja-seca",
-     "grams": 150
+     "grams": 132
     },
     {
      "food": "papa-sancochada",
-     "grams": 40
+     "grams": 56
     },
     {
      "food": "leche-evaporada",
-     "grams": 20
+     "grams": 10
     },
     {
      "food": "mantequilla",
+     "grams": 3
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 1
+    },
+    {
+     "food": "huevo",
      "grams": 5
     },
     {
      "food": "cebolla-roja",
-     "grams": 10
+     "grams": 8
     },
     {
      "food": "agua",
-     "grams": 150
+     "grams": 222
     }
    ],
-   "note": ""
+   "note": "Midpoint per ingredient between a home recipe and the median Lima menu portion (INEI ENCONUT 2013; split peas 50 g raw per serving)"
   },
   {
    "id": "crema-rocoto",
@@ -1386,37 +1438,37 @@
    "name": "Papa a la huancaína",
    "group": "main",
    "icon": "plato",
-   "confidence": "high",
+   "confidence": "medium",
    "serving": "1 plato",
    "servings": 1,
    "items": [
     {
      "food": "papa-sancochada",
-     "grams": 200
+     "grams": 160
     },
     {
      "food": "queso-fresco",
-     "grams": 40
+     "grams": 24
     },
     {
      "food": "leche-evaporada",
-     "grams": 40
+     "grams": 30
     },
     {
      "food": "aji-amarillo",
-     "grams": 20
-    },
-    {
-     "food": "galleta-soda",
-     "grams": 8
-    },
-    {
-     "food": "aceite-vegetal",
      "grams": 15
     },
     {
+     "food": "galleta-soda",
+     "grams": 9
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 8
+    },
+    {
      "food": "huevo",
-     "grams": 25
+     "grams": 20
     },
     {
      "food": "aceituna",
@@ -1424,10 +1476,14 @@
     },
     {
      "food": "lechuga",
-     "grams": 10
+     "grams": 11
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 3
     }
    ],
-   "note": ""
+   "note": "Midpoint per ingredient between a home recipe and the median Lima menu portion (INEI ENCONUT 2013, 66 kitchens)"
   },
   {
    "id": "arroz-con-mariscos",

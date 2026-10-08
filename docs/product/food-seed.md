@@ -1,6 +1,6 @@
 # Food seed
 
-- Status: Draft 2026-10-07 · 76 dishes · 128 foods · data in `packages/catalog/seed/` (ADR 0014)
+- Status: Draft 2026-10-07 · 77 dishes · 128 foods · data in `packages/catalog/seed/` (ADR 0014)
 - Review once: amounts are typical servings, grams as eaten; nutrients are computed at import from INS / USDA / labels
 - Confidence: 🟢 standard recipe · 🟡 typical, varies by cook · 🔴 rough, check first
 - **Sauces and creams: 1 portion = 40 g** (½ portion = 20 g); bottled ones are foods with the same portions
@@ -30,9 +30,10 @@
 | Dish | Serving | Ingredients (g) | |
 | --- | --- | --- | --- |
 | Sopa casera | 1 plato hondo | fideos / tallarín cocido 60 · papa blanca sancochada 60 · pollo 30 · zanahoria 30 · zapallo 30 · choclo desgranado cocido 30 · apio 10 · cebolla roja 10 · agua 250 | 🔴 |
-| Caldo de gallina | 1 plato hondo | gallina 120 · fideos / tallarín cocido 80 · papa amarilla sancochada 100 · huevo de gallina 50 · cebolla china 5 · kion 2 · agua 300 | 🟡 |
+| Caldo de gallina (segundo, con presa grande) | 1 plato hondo | gallina 120 · fideos / tallarín cocido 80 · papa amarilla sancochada 100 · huevo de gallina 50 · cebolla china 5 · kion 2 · agua 300 | 🟡 |
+| Caldo de pollo (menú, entrada sin presa) | 1 plato hondo | pollo 36 · fideos / tallarín cocido 188 · papa amarilla sancochada 39 · zanahoria 16 · apio 11 · cebolla china 2 · kion 1 · agua 272 — mediana de 12 locales, INEI ENCONUT 2013 | 🟢 |
 | Sopa de res | 1 plato hondo | res 80 · papa blanca sancochada 80 · fideos / tallarín cocido 40 · choclo desgranado cocido 40 · zanahoria 30 · col 30 · agua 300 | 🔴 |
-| Sopa crema de alverjas | 1 plato hondo | alverja seca partida cocida 150 · papa blanca sancochada 40 · leche evaporada 20 · mantequilla 5 · cebolla roja 10 · agua 150 | 🔴 |
+| Sopa crema de alverjas | 1 plato hondo | alverja seca partida cocida 132 · papa blanca sancochada 56 · leche evaporada 10 · mantequilla 3 · aceite vegetal 1 · huevo de gallina 5 · cebolla roja 8 · agua 222 — punto medio casa / menú (ENCONUT) | 🟡 |
 | Crema de rocoto | 1 plato hondo | papa blanca sancochada 100 · rocoto 20 · leche evaporada 30 · queso fresco 20 · cebolla roja 15 · aceite vegetal 5 · agua 150 | 🔴 |
 
 ## Segundos (pensión)
@@ -56,7 +57,7 @@
 | Ceviche de pota | 1 plato | pota 150 · cebolla roja 60 · limón 40 · ají amarillo 5 · culantro 2 · camote sancochado 100 · choclo desgranado cocido 50 · lechuga 10 | 🟢 |
 | Tallarín verde | 1 plato | fideos / tallarín cocido 250 · espinaca 30 · albahaca 15 · queso fresco 20 · leche evaporada 30 · aceite vegetal 10 · cebolla roja 15 | 🟡 |
 | Causa rellena | 1 tajada | papa amarilla sancochada 150 · aceite vegetal 10 · ají amarillo 10 · limón 5 · pollo 50 · mayonesa 15 · palta 25 · huevo de gallina 12 · aceituna de botija 6 | 🟡 |
-| Papa a la huancaína | 1 plato | papa blanca sancochada 200 · queso fresco 40 · leche evaporada 40 · ají amarillo 20 · galleta de soda 8 · aceite vegetal 15 · huevo de gallina 25 · aceituna de botija 6 · lechuga 10 | 🟢 |
+| Papa a la huancaína | 1 plato | papa blanca sancochada 160 · queso fresco 24 · leche evaporada 30 · ají amarillo 15 · galleta de soda 9 · aceite vegetal 8 · huevo de gallina 20 · aceituna de botija 6 · lechuga 11 · cebolla roja 3 — punto medio casa / menú (ENCONUT, 66 locales) | 🟡 |
 | Arroz con mariscos | 1 plato | arroz blanco cocido 200 · mariscos mixtos 100 · aceite vegetal 12 · ají panca en pasta 10 · cebolla roja 20 · alverja verde cocida 20 · pimiento 10 · queso fresco 5 | 🟡 |
 | Escabeche de pollo | 1 plato con arroz | pollo 120 · cebolla roja 100 · vinagre 15 · ají amarillo 10 · aceite vegetal 12 · camote sancochado 80 · huevo de gallina 25 · aceituna de botija 6 · arroz blanco cocido 150 | 🟡 |
 | Lentejas con arroz | 1 plato | lentejas cocidas 200 · arroz blanco cocido 150 · aceite vegetal 8 · cebolla roja 15 · ajo 2 | 🟢 |

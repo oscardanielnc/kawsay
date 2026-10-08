@@ -1,6 +1,6 @@
 import { assertPositive } from '../shared/assert';
-
-export type Tone = 'green' | 'yellow' | 'red';
+import { roundTo } from '../shared/round';
+import type { Tone } from '../shared/tone';
 
 export type BmiBand =
   | 'severe-thinness'
@@ -49,7 +49,7 @@ export function bmiStatus({
   heightCm: number;
 }): BmiStatus {
   assertPositive({ weightKg, heightCm });
-  const bmi = Math.round((weightKg / (heightCm / 100) ** 2) * 10) / 10;
+  const bmi = roundTo(weightKg / (heightCm / 100) ** 2, 1);
   const { band, tone } = BANDS.find((b) => bmi < b.below) ?? BANDS[BANDS.length - 1]!;
   const kgToHealthy =
     band === 'healthy'

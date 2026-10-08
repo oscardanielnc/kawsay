@@ -18,7 +18,7 @@ Status: design closed (2026-10-07); construction starts. Not a medical device.
 | `packages/catalog`   | Food catalog seed and importer (ADR 0014)                      |
 | `docs/`              | Vision, features, architecture, ADRs ([index](docs/README.md)) |
 
-`packages/config`, `packages/core` and `packages/catalog/seed` exist; the rest is planned.
+`apps/mobile`, `packages/config`, `packages/core` and `packages/catalog` exist; the rest is planned.
 
 ## Run
 

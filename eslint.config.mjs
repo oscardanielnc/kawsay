@@ -1,7 +1,7 @@
-import { base } from '@kawsay/config/eslint';
+import { base, reactNative } from '@kawsay/config/eslint';
 import { defineConfig } from 'eslint/config';
 
-export default defineConfig(base(import.meta.dirname), {
+export default defineConfig(base(import.meta.dirname), reactNative('apps/mobile'), {
   // packages/core is pure TypeScript shared by app and API: it imports nothing (architecture overview).
   files: ['packages/core/src/**/*.ts'],
   ignores: ['**/*.test.ts'],

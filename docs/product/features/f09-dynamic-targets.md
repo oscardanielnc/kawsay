@@ -15,6 +15,7 @@ Targets follow the day's activity and the real weight trend.
 - The target never goes below BMR
 - A goal that is not a loss gets no deficit: the target is the expenditure (no surplus in v0.1)
 - With ≥ 14 days of weights, compare the real trend with the expected one and recalibrate the base, at most ±10% per step
+- The energy balance covers the days from the first to the last weigh-in of the window; a day in it without logged meals skips the step (the factor stays)
 
 ## Acceptance criteria
 

@@ -33,6 +33,14 @@ export const profile = sqliteTable('profile', {
   /** Usual schedule as local "HH:MM", to prefill sleep (F11). */
   usualSleepStart: text('usual_sleep_start').notNull(),
   usualSleepEnd: text('usual_sleep_end').notNull(),
+  usualNapStart: text('usual_nap_start'),
+  usualNapEnd: text('usual_nap_end'),
+  /** Optional modules (F01 "what to log"); the six core ones are always on. */
+  waistEnabled: integer('waist_enabled', { mode: 'boolean' }).notNull().default(false),
+  /** 0 = Monday … 6 = Sunday, for the weekly waist reminder (F04). */
+  waistReminderDay: integer('waist_reminder_day'),
+  symptomsEnabled: integer('symptoms_enabled', { mode: 'boolean' }).notNull().default(false),
+  intimateEnabled: integer('intimate_enabled', { mode: 'boolean' }).notNull().default(false),
   /** Recalibration factor (ADR 0009). */
   expenditureFactor: real('expenditure_factor').notNull(),
 });

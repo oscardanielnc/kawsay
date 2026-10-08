@@ -63,7 +63,9 @@ Nobody logs minute by minute. Every entry defaults to a **time band** (early mor
 evening, night) taken from when it is logged or from its slot; an exact time is optional. Sleep prefills from the
 user's usual schedule.
 
-## Range thresholds (proposed)
+## Range thresholds
+
+Approved 2026-10-07; implemented in `packages/core` `day/range-state`.
 
 | Metric | Green | Yellow | Red |
 | --- | --- | --- | --- |

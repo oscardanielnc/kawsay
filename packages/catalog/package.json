@@ -11,6 +11,9 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
+  "dependencies": {
+    "@kawsay/core": "workspace:*"
+  },
   "devDependencies": {
     "@kawsay/config": "workspace:*",
     "@types/node": "^24.5.2",

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kawsay · Calendario (prototipo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F2E8;--surface:#FFFFFF;--ink:#1C1F1A;--muted:#5E6358;--line:#E4DFD3;--brand:#1F4D3A;--accent:#B84E18;
+ --good:#5BA66E;--goodText:#255E3B;--warn:#EBC867;--warnText:#9A6B00;--bad:#E58B7A;--badText:#B3392F;--none:#E4E0D6;--g100:#D5EBDB;--g300:#86C497}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit}
+html,body{margin:0;background:#E9E4D8}
+body{font:15px/22px Figtree,system-ui,sans-serif;color:var(--ink)}
+.stage{min-height:100vh;display:flex;justify-content:center;padding:16px 0}
+.phone{width:390px;max-width:100%;background:var(--bg);border-radius:28px;overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.12);height:844px;display:flex;flex-direction:column}
+@media (max-width:430px){.stage{padding:0}.phone{border-radius:0;height:100vh;box-shadow:none}}
+.scroll{flex:1;overflow-y:auto;padding:0 16px 110px}
+h1,h2,.num{font-family:"Bricolage Grotesque",Figtree,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 0 8px}
+header h1{margin:0;font-size:22px;line-height:28px}
+header small{display:block;color:var(--muted);font-size:13px}
+.iconbtn{width:44px;height:44px;border:none;border-radius:50%;background:var(--surface);display:grid;place-items:center;cursor:pointer}
+.card{background:var(--surface);border-radius:14px;padding:16px;margin:12px 0}
+.card h2{margin:0 0 4px;font-size:17px;font-weight:600}
+.muted{color:var(--muted);font-size:13px}
+/* blanket */
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font:700 11px Figtree;color:var(--muted);text-align:center;margin:10px 0 4px}
+.blanket{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.day{position:relative;aspect-ratio:1/1.15;border:none;border-radius:8px;cursor:pointer;padding:0;overflow:hidden;font:700 12px Figtree;color:var(--ink);transition:transform .2s}
+.day:active{transform:scale(.92)}
+.day .weave{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(28,31,26,.10) 0 2px,transparent 2px 7px),repeating-linear-gradient(90deg,rgba(255,255,255,.18) 0 2px,transparent 2px 9px)}
+.day .n{position:absolute;top:4px;left:6px}
+.day .mk{position:absolute;bottom:4px;right:5px}
+.day.sel{outline:3px solid var(--ink);outline-offset:1px}
+.day.today:after{content:"";position:absolute;top:5px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.day.empty{background:transparent;cursor:default}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:4px}
+.sw{width:14px;height:14px;border-radius:4px;display:inline-grid;place-items:center}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px;text-align:center}
+.stats div{background:var(--bg);border-radius:10px;padding:6px 2px}
+.stats b{display:block;font:700 18px "Bricolage Grotesque"}
+/* detail */
+.detail{display:flex;gap:12px;align-items:center}
+.detail .badge{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;flex:none}
+.rows{margin-top:10px;font-size:14px}
+.rows div{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)}
+.rows div:first-child{border-top:none}
+.btn{min-height:44px;border:none;border-radius:10px;padding:10px 16px;font:700 15px Figtree;cursor:pointer;background:var(--accent);color:#fff;width:100%;margin-top:10px}
+/* chart */
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin:8px 0}
+.chip{flex:none;min-height:40px;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font:600 13px Figtree;cursor:pointer;color:var(--ink)}
+.chip.on{background:var(--g100);border-color:var(--goodText);color:var(--goodText)}
+.chartwrap{position:relative}
+svg.chart{width:100%;height:auto;display:block;overflow:visible}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;border-radius:8px;padding:6px 9px;font:600 12px/16px Figtree;opacity:0;transition:opacity .15s;white-space:nowrap;transform:translate(-50%,-110%)}
+.tip.show{opacity:1}
+.cap{font-size:12px;color:var(--muted);margin-top:6px}
+nav{position:absolute;left:0;right:0;bottom:0;height:76px;background:var(--surface);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;padding-bottom:8px}
+nav a{display:flex;flex-direction:column;align-items:center;gap:2px;font:600 11px Figtree;color:var(--muted);text-decoration:none;min-width:56px}
+nav a.on{color:var(--brand)}
+nav .fab{width:56px;height:56px;border-radius:50%;background:var(--accent);display:grid;place-items:center;margin-top:-26px;box-shadow:0 6px 14px rgba(184,78,24,.35);border:none}
+.note{font-size:11px;color:var(--muted);text-align:center;margin:14px 0 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="stage"><div class="phone">
+<div class="scroll">
+ <header>
+  <button class="iconbtn" aria-label="Mes anterior"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <div style="text-align:center"><h1>Octubre</h1><small>2026 · tu manta del mes</small></div>
+  <button class="iconbtn" aria-label="Mes siguiente"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+ </header>
+
+ <section class="card" aria-label="Calendario del mes">
+  <div class="wk"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+  <div class="blanket" id="blanket"></div>
+  <div class="legend" id="legend"></div>
+  <div class="stats" id="stats"></div>
+ </section>
+
+ <section class="card" id="detail" aria-live="polite"></section>
+
+ <section class="card" aria-label="Evolución del mes">
+  <h2>Evolución del mes</h2>
+  <div class="chips" id="metrics"></div>
+  <div class="chartwrap"><svg class="chart" id="chart" viewBox="0 0 358 210" role="img"></svg><div class="tip" id="tip"></div></div>
+  <div class="cap" id="cap"></div>
+ </section>
+ <p class="note">Prototipo · datos de ejemplo</p>
+</div>
+<nav aria-label="Navegación">
+ <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2" stroke-linecap="round"/></svg>Hoy</a>
+ <a href="#" class="on"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 9.5h16M4 14.5h16M9.5 4v16M14.5 4v16"/></svg>Calendario</a>
+ <button class="fab" aria-label="Registrar"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+ <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Análisis</a>
+ <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" stroke-linecap="round"/></svg>Perfil</a>
+</nav>
+</div></div>
+<script>
+/* ===== synthetic month: October 2026, today = 7 ===== */
+const TODAY=7, DAYS=31, FIRST_DOW=3; /* Oct 1 2026 = Thursday (Mon=0) */
+let seed=7;const rnd=()=>(seed=(seed*9301+49297)%233280)/233280;
+const D=[];for(let d=1;d<=DAYS;d++){
+ if(d>TODAY){D.push({d,future:true});continue}
+ const logged=!(d===3);
+ const target=1700+Math.round(rnd()*250), kcal=logged?Math.round(target*(0.78+rnd()*0.42)):0;
+ const prot=logged?Math.round(95*(0.7+rnd()*0.6)):0, move=logged?Math.round(rnd()*55):0;
+ const weight=+(72.4-d*0.06+(rnd()-.5)*0.9).toFixed(1), waist=+(91.5-d*0.05+(rnd()-.5)*0.6).toFixed(1);
+ const drinks=logged?Math.round(5+rnd()*6):0, bloat=logged?['Mejor','Como siempre','Peor'][Math.floor(rnd()*3)]:null;
+ const act=logged?(move>0||rnd()>.3):false;
+ D.push({d,logged,target,kcal,prot,move,weight,waist,drinks,bloat,act});
+}
+/* status per F14 + direction thresholds */
+function zoneK(r){return r>=.9&&r<=1.1?0:(r>=.8&&r<=1.2?1:2)}
+function zoneP(r){return r>=.9&&r<=1.3?0:((r>=.7&&r<.9)||(r>1.3&&r<=1.6)?1:2)}
+function status(x){if(x.future)return'future';if(!x.logged)return'none';const fails=[zoneK(x.kcal/x.target)>0,zoneP(x.prot/95)>0,!x.act].filter(Boolean).length;return fails===0?'good':fails===1?'warn':'bad';}
+const ST={good:['var(--good)','Bien','#fff','<path d="M5 12.5l4 4 10-10" stroke-width="3"/>','var(--goodText)'],warn:['var(--warn)','Casi','#5E4A00','<circle cx="12" cy="12" r="3.5" fill="currentColor" stroke="none"/>','var(--warnText)'],bad:['var(--bad)','Fuera de rango','#6B1F18','<path d="M7 7l10 10M17 7L7 17" stroke-width="3"/>','var(--badText)'],none:['var(--none)','Sin datos','#5E6358','',' var(--muted)'],future:['transparent','','#B9B6AE','','']};
+const mark=(s,size=12)=>ST[s][3]?`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${ST[s][2]}" stroke-linecap="round" stroke-linejoin="round">${ST[s][3]}</svg>`:'';
+let sel=TODAY, metric='kcal';
+function renderBlanket(){
+ const b=document.getElementById('blanket');let h='';for(let i=0;i<FIRST_DOW;i++)h+='<span class="day empty"></span>';
+ D.forEach(x=>{const s=status(x);const fut=s==='future';
+  h+=`<button class="day ${x.d===sel?'sel':''} ${x.d===TODAY?'today':''}" style="background:${fut?'transparent':ST[s][0]};${fut?'border:1.5px dashed #D9D4C8;color:#B9B6AE;cursor:default':`color:${ST[s][2]}`}" ${fut?'disabled':''} aria-label="${x.d} de octubre: ${fut?'futuro':ST[s][1]}" onclick="sel=${x.d};render()">${fut?'':'<span class="weave"></span>'}<span class="n">${x.d}</span><span class="mk">${mark(s)}</span></button>`;});
+ b.innerHTML=h;
+ document.getElementById('legend').innerHTML=['good','warn','bad','none'].map(s=>`<span><span class="sw" style="background:${ST[s][0]}">${mark(s,10)}</span>${ST[s][1]}</span>`).join('');
+ const past=D.filter(x=>!x.future),c=k=>past.filter(x=>status(x)===k).length;
+ document.getElementById('stats').innerHTML=[['good','Bien'],['warn','Casi'],['bad','Fuera'],['none','Sin datos']].map(([k,l])=>`<div><b style="color:${ST[k][4]}">${c(k)}</b><span class="muted">${l}</span></div>`).join('');
+}
+function renderDetail(){const x=D[sel-1],s=status(x);const el=document.getElementById('detail');
+ if(!x.logged){el.innerHTML=`<div class="detail"><span class="badge" style="background:var(--none)"></span><div><h2>${sel} de octubre</h2><div class="muted">No registraste este día. Un día sin datos es gris, no rojo.</div></div></div><button class="btn">Registrar este día</button>`;return;}
+ const zk=['En rango','Algo fuera','Fuera'][zoneK(x.kcal/x.target)], zp=['En rango','Algo fuera','Fuera'][zoneP(x.prot/95)];
+ el.innerHTML=`<div class="detail"><span class="badge" style="background:${ST[s][0]}">${mark(s,26)}</span><div><h2>${sel} de octubre${sel===TODAY?' · hoy':''}</h2><div class="muted" style="color:${ST[s][4]};font-weight:700">${ST[s][1]}</div></div></div>
+ <div class="rows"><div><span>Calorías</span><b>${x.kcal.toLocaleString('es-PE')} kcal · ${zk}</b></div><div><span>Proteína</span><b>${x.prot} g · ${zp}</b></div><div><span>Actividad</span><b>${x.act?(x.move?x.move+' min':'Sin actividad física ✓'):'No registrada'}</b></div><div><span>Bebidas</span><b>${x.drinks} vasos</b></div><div><span>Hinchazón</span><b>${x.bloat}</b></div></div>
+ <button class="btn">Abrir este día</button>`;}
+/* ===== chart ===== */
+const METRICS={kcal:['Calorías','kcal','bar'],prot:['Proteína','g','bar'],move:['Movimiento','min','bar'],drinks:['Bebidas','vasos','bar'],weight:['Peso','kg','line'],waist:['Cintura','cm','line']};
+function inRange(p){if(metric==='kcal')return zoneK(p.kcal/p.target)===0;if(metric==='prot')return zoneP(p.prot/95)===0;if(metric==='move')return p.move>=30;if(metric==='drinks')return p.drinks>=10;return false;}
+function renderChart(){
+ document.getElementById('metrics').innerHTML=Object.entries(METRICS).map(([k,[n]])=>`<button class="chip ${metric===k?'on':''}" onclick="metric='${k}';renderChart()">${n}</button>`).join('');
+ const [name,unit,kind]=METRICS[metric];const svg=document.getElementById('chart');
+ const W=358,H=210,L=34,R=6,T=10,B=24,iw=W-L-R,ih=H-T-B;const pts=D.filter(x=>!x.future);
+ const vals=pts.map(x=>x.logged||kind==='line'?x[metric]:null).filter(v=>v!==null);
+ let band=null;
+ if(metric==='kcal'){const t=Math.round(pts.reduce((a,x)=>a+x.target,0)/pts.length);band=[t*.9,t*1.1];}
+ if(metric==='prot')band=[95*.9,95*1.3];
+ if(metric==='move')band=[30,60];
+ if(metric==='drinks')band=[10,12];
+ let lo,hi;if(kind==='bar'){lo=0;hi=Math.max(...vals,band?band[1]:0)*1.12;}else{lo=Math.min(...vals)-.6;hi=Math.max(...vals)+.6;}
+ const x=d=>L+(d-.5)/DAYS*iw, y=v=>T+ih-(v-lo)/(hi-lo)*ih, bw=iw/DAYS-2;
+ let g='';
+ const ticks=4;for(let i=0;i<=ticks;i++){const v=lo+(hi-lo)*i/ticks;g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#EDE8DC" stroke-width="1"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end" font-size="10" fill="#5E6358">${kind==='line'?v.toFixed(1):Math.round(v).toLocaleString('es-PE')}</text>`;}
+ if(band)g+=`<rect x="${L}" y="${y(band[1])}" width="${iw}" height="${y(band[0])-y(band[1])}" fill="#86C497" opacity=".28"/><text x="${W-R}" y="${y(band[1])-3}" text-anchor="end" font-size="10" font-weight="700" fill="#255E3B">${metric==='kcal'?'rango aprox. ':'rango '}${Math.round(band[0]).toLocaleString('es-PE')}–${Math.round(band[1]).toLocaleString('es-PE')}</text>`;
+ [1,8,15,22,29].forEach(d=>{g+=`<text x="${x(d)}" y="${H-6}" text-anchor="middle" font-size="10" fill="#5E6358">${d}</text>`});
+ if(kind==='bar'){pts.forEach(p=>{if(!p.logged){g+=`<rect x="${x(p.d)-bw/2}" y="${y(lo)-3}" width="${bw}" height="3" rx="1.5" fill="#D9D4C8"/>`;return;}
+   const v=p[metric],h=Math.max(y(lo)-y(v),2);const inb=inRange(p);
+   g+=`<path d="M${x(p.d)-bw/2},${y(lo)} v${-(h-3)} q0,-3 3,-3 h${bw-6} q3,0 3,3 v${h-3} z" fill="${inb?'#1F4D3A':'#8C9A8E'}"/>`;});}
+ else{const ps=pts.map(p=>[x(p.d),y(p[metric])]);
+  /* trend = EMA */ let e=null;const tr=pts.map(p=>{e=e===null?p[metric]:e+.25*(p[metric]-e);return[x(p.d),y(e)]});
+  g+=ps.map(([a,b])=>`<circle cx="${a}" cy="${b}" r="3" fill="#B9B6AE"/>`).join('');
+  g+=`<path d="M${tr.map(q=>q.join(',')).join(' L')}" fill="none" stroke="#1F4D3A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const last=tr[tr.length-1];g+=`<circle cx="${last[0]}" cy="${last[1]}" r="5" fill="#1F4D3A" stroke="#fff" stroke-width="2"/>`;}
+ /* hit targets */
+ pts.forEach(p=>{g+=`<rect class="hit" data-d="${p.d}" x="${x(p.d)-iw/DAYS/2}" y="${T}" width="${iw/DAYS}" height="${ih}" fill="transparent"/>`});
+ svg.innerHTML=g;svg.setAttribute('aria-label',`${name} por día en octubre`);
+ const tip=document.getElementById('tip');
+ svg.querySelectorAll('.hit').forEach(r=>{const show=()=>{const d=+r.dataset.d,p=D[d-1];const v=p.logged||kind==='line'?p[metric]:null;
+   const box=svg.getBoundingClientRect(),sx=box.width/W;tip.innerHTML=`${d} oct · ${v===null?'sin datos':(kind==='line'?v.toFixed(1):v.toLocaleString('es-PE'))+' '+unit}`;tip.style.left=(x(d)*sx)+'px';tip.style.top=((v===null?y(lo):y(v))*sx)+'px';tip.classList.add('show');};
+  r.addEventListener('mouseenter',show);r.addEventListener('click',show);r.addEventListener('mouseleave',()=>tip.classList.remove('show'));});
+ const inBand=band?pts.filter(p=>p.logged&&inRange(p)).length:null;
+ document.getElementById('cap').innerHTML=kind==='line'?`Puntos grises: medida diaria · línea verde: <b>tendencia</b> (lo que importa).`:`Barra verde oscuro = dentro del rango de ese día (tu meta cambia con la actividad) · gris = fuera. ${inBand!==null?`<b>${inBand} de ${pts.filter(p=>p.logged).length}</b> días registrados en rango.`:''}`;
+}
+function render(){renderBlanket();renderDetail();}
+render();renderChart();
+</script>
+</body>
+</html>

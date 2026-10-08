@@ -1,0 +1,35 @@
+# F18. Routines
+
+- Release: v0.1 (free-text exercise: v0.2)
+- Status: Approved 2026-10-07 · prototype: design/explorations/2026-10-07-dish-insights-routine.html
+
+## What
+
+Users define their own workouts once; calories are computed per exercise and logged with one tap.
+
+## Rules
+
+- A routine has a name, a rest between sets (default 75 s) and a list of exercises
+- Each exercise has a kind, which sets how its time is measured and its MET (2024 Adult Compendium):
+
+| Kind | Time | MET light / medium / hard (code) |
+| --- | --- | --- |
+| Weights | sets × (reps × seconds per rep + rest) | 3.5 (02054) / 5.0 (02052) / 6.0 (02050) |
+| Bodyweight | same | 3.0 (02056) / 3.8 (02022) / 6.5 (02057) |
+| Isometric (plank) | sets × (seconds + rest) | 2.8 (02024) |
+| Stairs, up and down | laps × lap time | 7.5 (17138) |
+| Mobility | minutes | 2.3 (02101) |
+
+- "Per side" doubles the work time. Effort uses the F08 talk test: light "you can talk" · medium "short sentences" · hard "can barely talk"
+- Rest counts: the Compendium weight-training values were measured over whole sessions, rests included
+- Stairs: the lap time is measured once with an in-app stopwatch and reused
+- kcal per exercise = (MET − 1) × (BMR / 24) × hours × 1.10 (ADR 0009); the editor shows kcal and minutes per exercise and in total, with an ⓘ listing each MET and code
+- Logging asks how much was done (100 / 75 / 50 / 25%) or, with "Adjust per exercise", the sets or laps actually done; plus the time band
+- v0.2: "Other" exercise in free text → the AI picks the closest Compendium code → the user confirms
+- Level 3 (v0.3): per-session sets × reps × weight for strength progress (not calories)
+
+## Acceptance criteria
+
+- [ ] Logging a routine at 75% records 75% of its minutes and calories
+- [ ] Adjusting stairs from 4 to 6 laps adds 2 × lap time at MET 7.5
+- [ ] Editing a routine does not change sessions already logged

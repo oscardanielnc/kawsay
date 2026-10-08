@@ -1,0 +1,1624 @@
+{
+ "version": "2026-10-07",
+ "foods": {
+  "arroz-cocido": {
+   "name": "Arroz blanco cocido",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 160
+    },
+    {
+     "label": "½ taza",
+     "grams": 80
+    },
+    {
+     "label": "1 cucharón",
+     "grams": 120
+    }
+   ]
+  },
+  "fideo-cocido": {
+   "name": "Fideos / tallarín cocido",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 140
+    },
+    {
+     "label": "1 plato",
+     "grams": 250
+    }
+   ]
+  },
+  "pan-frances": {
+   "name": "Pan francés",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 pan",
+     "grams": 35
+    }
+   ]
+  },
+  "pan-comun": {
+   "name": "Pan común (pan simple)",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 pan",
+     "grams": 30
+    }
+   ]
+  },
+  "harina-trigo": {
+   "name": "Harina de trigo",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 8
+    }
+   ]
+  },
+  "pan-rallado": {
+   "name": "Pan rallado / panko",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 8
+    }
+   ]
+  },
+  "galleta-soda": {
+   "name": "Galleta de soda",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 galleta",
+     "grams": 8
+    },
+    {
+     "label": "1 paquete",
+     "grams": 34
+    }
+   ]
+  },
+  "papa-sancochada": {
+   "name": "Papa blanca sancochada",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 papa mediana",
+     "grams": 150
+    },
+    {
+     "label": "½ papa",
+     "grams": 75
+    }
+   ]
+  },
+  "papa-amarilla-sancochada": {
+   "name": "Papa amarilla sancochada",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 papa mediana",
+     "grams": 120
+    }
+   ]
+  },
+  "papa-frita": {
+   "name": "Papas fritas",
+   "source": "INS",
+   "state": "fried",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 120
+    },
+    {
+     "label": "1 porción grande",
+     "grams": 200
+    }
+   ]
+  },
+  "camote-sancochado": {
+   "name": "Camote sancochado",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 trozo",
+     "grams": 100
+    }
+   ]
+  },
+  "yuca-sancochada": {
+   "name": "Yuca sancochada",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 trozo",
+     "grams": 100
+    }
+   ]
+  },
+  "platano-verde-asado": {
+   "name": "Plátano verde (bellaco) asado",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 plátano",
+     "grams": 180
+    }
+   ]
+  },
+  "platano-maduro": {
+   "name": "Plátano maduro (bellaco)",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 plátano",
+     "grams": 150
+    },
+    {
+     "label": "½ plátano",
+     "grams": 75
+    }
+   ]
+  },
+  "choclo": {
+   "name": "Choclo desgranado cocido",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 150
+    },
+    {
+     "label": "½ choclo",
+     "grams": 80
+    }
+   ]
+  },
+  "pollo-carne": {
+   "name": "Pollo, carne con piel, cocida",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1/32 de pollo",
+     "grams": 30
+    },
+    {
+     "label": "1/16 de pollo",
+     "grams": 60
+    },
+    {
+     "label": "1/8 de pollo",
+     "grams": 120
+    },
+    {
+     "label": "¼ de pollo",
+     "grams": 240
+    },
+    {
+     "label": "1 presa",
+     "grams": 120
+    }
+   ]
+  },
+  "pollo-pechuga": {
+   "name": "Pollo, pechuga sin piel, cocida",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 filete",
+     "grams": 120
+    },
+    {
+     "label": "½ taza deshilachada",
+     "grams": 60
+    }
+   ]
+  },
+  "gallina": {
+   "name": "Gallina, carne cocida",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 presa",
+     "grams": 120
+    }
+   ]
+  },
+  "pollo-broaster": {
+   "name": "Pollo frito apanado (broaster)",
+   "source": "USDA",
+   "state": "fried",
+   "units": [
+    {
+     "label": "1 presa",
+     "grams": 180
+    }
+   ]
+  },
+  "res-carne": {
+   "name": "Res, carne magra cocida",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 bistec",
+     "grams": 100
+    },
+    {
+     "label": "1 churrasco",
+     "grams": 180
+    }
+   ]
+  },
+  "res-corazon": {
+   "name": "Corazón de res a la parrilla",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 palito",
+     "grams": 50
+    },
+    {
+     "label": "3 palitos",
+     "grams": 150
+    }
+   ]
+  },
+  "cerdo-chuleta": {
+   "name": "Cerdo, chuleta cocida (sin hueso)",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 chuleta",
+     "grams": 120
+    }
+   ]
+  },
+  "cerdo-carne": {
+   "name": "Cerdo, carne cocida",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 150
+    }
+   ]
+  },
+  "chicharron-cerdo": {
+   "name": "Chicharrón de cerdo",
+   "source": "INS",
+   "state": "fried",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 150
+    },
+    {
+     "label": "2 trozos",
+     "grams": 40
+    }
+   ]
+  },
+  "manteca-cerdo": {
+   "name": "Manteca de cerdo",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 13
+    }
+   ]
+  },
+  "chorizo": {
+   "name": "Chorizo",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 chorizo",
+     "grams": 80
+    }
+   ]
+  },
+  "salchicha": {
+   "name": "Salchicha (hot dog)",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 salchicha",
+     "grams": 40
+    }
+   ]
+  },
+  "res-molida": {
+   "name": "Carne molida de res cocida",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "½ taza",
+     "grams": 70
+    }
+   ]
+  },
+  "huevo": {
+   "name": "Huevo de gallina",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 huevo",
+     "grams": 50
+    },
+    {
+     "label": "½ huevo",
+     "grams": 25
+    },
+    {
+     "label": "¼ huevo",
+     "grams": 12
+    }
+   ]
+  },
+  "pescado-tilapia": {
+   "name": "Tilapia, filete",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 filete",
+     "grams": 150
+    }
+   ]
+  },
+  "pescado-rio": {
+   "name": "Pescado de río (boquichico, doncella)",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 150
+    }
+   ]
+  },
+  "pescado-mar": {
+   "name": "Pescado de mar (jurel, bonito)",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 150
+    }
+   ]
+  },
+  "toyo": {
+   "name": "Toyo (tollo)",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 150
+    }
+   ]
+  },
+  "pota": {
+   "name": "Pota",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 150
+    }
+   ]
+  },
+  "mariscos-mix": {
+   "name": "Mariscos mixtos",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 100
+    }
+   ]
+  },
+  "langostino": {
+   "name": "Langostino",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "3 langostinos",
+     "grams": 45
+    }
+   ]
+  },
+  "kanikama": {
+   "name": "Kanikama",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "2 barritas",
+     "grams": 40
+    }
+   ]
+  },
+  "leche-evaporada": {
+   "name": "Leche evaporada",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 15
+    },
+    {
+     "label": "¼ taza",
+     "grams": 60
+    }
+   ]
+  },
+  "leche-entera": {
+   "name": "Leche fresca entera",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 vaso",
+     "grams": 250
+    }
+   ]
+  },
+  "leche-condensada": {
+   "name": "Leche condensada",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 20
+    }
+   ]
+  },
+  "queso-fresco": {
+   "name": "Queso fresco",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 tajada",
+     "grams": 30
+    }
+   ]
+  },
+  "queso-crema": {
+   "name": "Queso crema",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 15
+    }
+   ]
+  },
+  "crema-leche": {
+   "name": "Crema de leche",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 15
+    }
+   ]
+  },
+  "mantequilla": {
+   "name": "Mantequilla",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cdta",
+     "grams": 5
+    },
+    {
+     "label": "1 cda",
+     "grams": 14
+    }
+   ]
+  },
+  "yogurt-bebible": {
+   "name": "Yogurt bebible",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 vaso",
+     "grams": 250
+    }
+   ]
+  },
+  "yogurt-griego": {
+   "name": "Yogurt griego natural",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "½ taza",
+     "grams": 120
+    }
+   ]
+  },
+  "helado-crema": {
+   "name": "Helado de crema",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 bola",
+     "grams": 70
+    }
+   ]
+  },
+  "helado-paleta": {
+   "name": "Helado de paleta",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 paleta",
+     "grams": 60
+    }
+   ]
+  },
+  "manjar-blanco": {
+   "name": "Manjar blanco",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 20
+    }
+   ]
+  },
+  "whey": {
+   "name": "Proteína whey (polvo)",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 15
+    },
+    {
+     "label": "1 scoop",
+     "grams": 30
+    }
+   ]
+  },
+  "lentejas": {
+   "name": "Lentejas cocidas",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 200
+    },
+    {
+     "label": "½ taza",
+     "grams": 100
+    }
+   ]
+  },
+  "frejol-canario": {
+   "name": "Frejol canario cocido",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 180
+    }
+   ]
+  },
+  "alverja-verde": {
+   "name": "Alverja verde cocida",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "¼ taza",
+     "grams": 40
+    }
+   ]
+  },
+  "alverja-seca": {
+   "name": "Alverja seca partida cocida",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 200
+    }
+   ]
+  },
+  "habas": {
+   "name": "Habas verdes cocidas",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "½ taza",
+     "grams": 60
+    }
+   ]
+  },
+  "cebolla-roja": {
+   "name": "Cebolla roja",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 cda picada",
+     "grams": 10
+    },
+    {
+     "label": "¼ cebolla",
+     "grams": 40
+    },
+    {
+     "label": "½ cebolla",
+     "grams": 80
+    }
+   ]
+  },
+  "cebolla-china": {
+   "name": "Cebolla china",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 8
+    }
+   ]
+  },
+  "tomate": {
+   "name": "Tomate",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 tomate",
+     "grams": 120
+    },
+    {
+     "label": "½ tomate",
+     "grams": 60
+    }
+   ]
+  },
+  "ajo": {
+   "name": "Ajo",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 diente",
+     "grams": 4
+    }
+   ]
+  },
+  "aji-amarillo": {
+   "name": "Ají amarillo",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 cda en pasta",
+     "grams": 15
+    }
+   ]
+  },
+  "aji-panca": {
+   "name": "Ají panca en pasta",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 15
+    }
+   ]
+  },
+  "aji-charapita": {
+   "name": "Ají charapita",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "5 ajíes",
+     "grams": 2
+    }
+   ]
+  },
+  "rocoto": {
+   "name": "Rocoto",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "½ rocoto",
+     "grams": 30
+    }
+   ]
+  },
+  "culantro": {
+   "name": "Culantro",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 4
+    }
+   ]
+  },
+  "sachaculantro": {
+   "name": "Sachaculantro",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "2 hojas",
+     "grams": 2
+    }
+   ]
+  },
+  "palillo": {
+   "name": "Palillo (cúrcuma)",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 pizca",
+     "grams": 1
+    }
+   ]
+  },
+  "kion": {
+   "name": "Kion (jengibre)",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 trocito",
+     "grams": 3
+    }
+   ]
+  },
+  "albahaca": {
+   "name": "Albahaca",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "½ taza",
+     "grams": 15
+    }
+   ]
+  },
+  "espinaca": {
+   "name": "Espinaca",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 30
+    }
+   ]
+  },
+  "lechuga": {
+   "name": "Lechuga",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 50
+    },
+    {
+     "label": "2 hojas",
+     "grams": 20
+    }
+   ]
+  },
+  "pepino": {
+   "name": "Pepino",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "½ pepino",
+     "grams": 100
+    }
+   ]
+  },
+  "zanahoria": {
+   "name": "Zanahoria",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 mediana",
+     "grams": 80
+    }
+   ]
+  },
+  "zapallo": {
+   "name": "Zapallo",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 trozo",
+     "grams": 100
+    }
+   ]
+  },
+  "vainita": {
+   "name": "Vainita",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "½ taza",
+     "grams": 60
+    }
+   ]
+  },
+  "brocoli": {
+   "name": "Brócoli",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 90
+    }
+   ]
+  },
+  "beterraga": {
+   "name": "Beterraga cocida",
+   "source": "INS",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 mediana",
+     "grams": 100
+    }
+   ]
+  },
+  "col": {
+   "name": "Col",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 70
+    }
+   ]
+  },
+  "pimiento": {
+   "name": "Pimiento",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "½ pimiento",
+     "grams": 60
+    }
+   ]
+  },
+  "apio": {
+   "name": "Apio",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 rama",
+     "grams": 40
+    }
+   ]
+  },
+  "brote-soya": {
+   "name": "Frejolito chino (brotes)",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "½ taza",
+     "grams": 50
+    }
+   ]
+  },
+  "palta": {
+   "name": "Palta",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "¼ palta",
+     "grams": 50
+    },
+    {
+     "label": "½ palta",
+     "grams": 100
+    }
+   ]
+  },
+  "aceituna": {
+   "name": "Aceituna de botija",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 aceituna",
+     "grams": 6
+    }
+   ]
+  },
+  "limon-jugo": {
+   "name": "Limón, jugo",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 limón",
+     "grams": 15
+    }
+   ]
+  },
+  "maiz-morado": {
+   "name": "Maíz morado (infusión)",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 vaso",
+     "grams": 5
+    }
+   ]
+  },
+  "mandarina": {
+   "name": "Mandarina",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 mandarina",
+     "grams": 80
+    }
+   ]
+  },
+  "naranja": {
+   "name": "Naranja",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 naranja",
+     "grams": 130
+    }
+   ]
+  },
+  "naranja-jugo": {
+   "name": "Naranja, jugo",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 vaso",
+     "grams": 250
+    }
+   ]
+  },
+  "manzana": {
+   "name": "Manzana",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 manzana",
+     "grams": 150
+    }
+   ]
+  },
+  "platano-seda": {
+   "name": "Plátano de seda",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 plátano",
+     "grams": 100
+    }
+   ]
+  },
+  "papaya": {
+   "name": "Papaya",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 140
+    },
+    {
+     "label": "1 tajada",
+     "grams": 200
+    }
+   ]
+  },
+  "pina": {
+   "name": "Piña",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 rodaja",
+     "grams": 85
+    }
+   ]
+  },
+  "granadilla": {
+   "name": "Granadilla (pulpa)",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 granadilla",
+     "grams": 60
+    }
+   ]
+  },
+  "mango": {
+   "name": "Mango",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 mango",
+     "grams": 150
+    }
+   ]
+  },
+  "sandia": {
+   "name": "Sandía",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 tajada",
+     "grams": 200
+    }
+   ]
+  },
+  "melon": {
+   "name": "Melón",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 tajada",
+     "grams": 160
+    }
+   ]
+  },
+  "uva": {
+   "name": "Uva",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 150
+    },
+    {
+     "label": "10 uvas",
+     "grams": 50
+    }
+   ]
+  },
+  "fresa": {
+   "name": "Fresa",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 150
+    }
+   ]
+  },
+  "maracuya-pulpa": {
+   "name": "Maracuyá, pulpa",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 maracuyá",
+     "grams": 20
+    }
+   ]
+  },
+  "cocona": {
+   "name": "Cocona",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 cocona",
+     "grams": 50
+    }
+   ]
+  },
+  "aguaje": {
+   "name": "Aguaje, pulpa",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 aguaje",
+     "grams": 12
+    },
+    {
+     "label": "5 aguajes",
+     "grams": 60
+    }
+   ]
+  },
+  "guanabana": {
+   "name": "Guanábana",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 taza",
+     "grams": 225
+    }
+   ]
+  },
+  "carambola": {
+   "name": "Carambola",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 carambola",
+     "grams": 90
+    }
+   ]
+  },
+  "agua": {
+   "name": "Agua",
+   "source": "none",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 vaso",
+     "grams": 250
+    }
+   ]
+  },
+  "agua-coco": {
+   "name": "Agua de coco",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 vaso",
+     "grams": 250
+    }
+   ]
+  },
+  "azucar": {
+   "name": "Azúcar blanca",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cdta",
+     "grams": 5
+    },
+    {
+     "label": "1 cda",
+     "grams": 12
+    }
+   ]
+  },
+  "cafe-soluble": {
+   "name": "Café soluble",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cdta",
+     "grams": 2
+    }
+   ]
+  },
+  "cocoa": {
+   "name": "Cocoa en polvo",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 7
+    }
+   ]
+  },
+  "chocolate": {
+   "name": "Chocolate de taza / cobertura",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 onza",
+     "grams": 10
+    }
+   ]
+  },
+  "vinagre": {
+   "name": "Vinagre",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 15
+    }
+   ]
+  },
+  "aceite-vegetal": {
+   "name": "Aceite vegetal",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cdta",
+     "grams": 5
+    },
+    {
+     "label": "1 cda",
+     "grams": 14
+    }
+   ]
+  },
+  "aceite-oliva": {
+   "name": "Aceite de oliva",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cdta",
+     "grams": 5
+    },
+    {
+     "label": "1 cda",
+     "grams": 14
+    }
+   ]
+  },
+  "mayonesa": {
+   "name": "Mayonesa",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 40
+    },
+    {
+     "label": "½ porción",
+     "grams": 20
+    },
+    {
+     "label": "1 cda",
+     "grams": 15
+    }
+   ]
+  },
+  "ketchup": {
+   "name": "Ketchup",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 40
+    },
+    {
+     "label": "½ porción",
+     "grams": 20
+    },
+    {
+     "label": "1 cda",
+     "grams": 15
+    }
+   ]
+  },
+  "mostaza": {
+   "name": "Mostaza",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 40
+    },
+    {
+     "label": "½ porción",
+     "grams": 20
+    },
+    {
+     "label": "1 cda",
+     "grams": 15
+    }
+   ]
+  },
+  "sillao": {
+   "name": "Sillao (salsa de soya)",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 15
+    }
+   ]
+  },
+  "mayopalta": {
+   "name": "Mayonesa sabor palta",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 40
+    },
+    {
+     "label": "½ porción",
+     "grams": 20
+    },
+    {
+     "label": "1 cda",
+     "grams": 15
+    }
+   ]
+  },
+  "tari": {
+   "name": "Tarí (crema de ají Alacena)",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 40
+    },
+    {
+     "label": "½ porción",
+     "grams": 20
+    },
+    {
+     "label": "1 cda",
+     "grams": 15
+    }
+   ],
+   "label": {
+    "servingGrams": null,
+    "kcal": 70,
+    "carbs": 2,
+    "sugars": 0,
+    "fat": 6,
+    "protein": 0,
+    "sodiumMg": 160,
+    "from": "plazavea.com.pe product page, read 2026-10-07; serving size missing: read it on the package"
+   }
+  },
+  "perejil": {
+   "name": "Perejil",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "2 cdas picado",
+     "grams": 10
+    }
+   ]
+  },
+  "oregano": {
+   "name": "Orégano seco",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cdta",
+     "grams": 1
+    }
+   ]
+  },
+  "ajonjoli": {
+   "name": "Ajonjolí",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 cdta",
+     "grams": 3
+    }
+   ]
+  },
+  "bizcocho": {
+   "name": "Bizcocho (queque simple)",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 tajada",
+     "grams": 50
+    }
+   ]
+  },
+  "galleta-vainilla": {
+   "name": "Galleta de vainilla",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 galleta",
+     "grams": 8
+    }
+   ]
+  },
+  "pizza": {
+   "name": "Pizza americana / pepperoni",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 tajada",
+     "grams": 110
+    }
+   ]
+  },
+  "choco-soda": {
+   "name": "Chokosoda (Field)",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 galleta",
+     "grams": 36
+    }
+   ],
+   "label": {
+    "servingGrams": 36,
+    "kcal": 170,
+    "carbs": 25,
+    "sugars": 14,
+    "fat": 8,
+    "protein": 1.5,
+    "sodiumMg": 120,
+    "from": "plazavea.com.pe product page, read 2026-10-07"
+   }
+  },
+  "galleta-chispas": {
+   "name": "Galleta con chispas de chocolate",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 galleta",
+     "grams": null
+    }
+   ]
+  },
+  "oreo": {
+   "name": "Oreo chocolate",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 paquete",
+     "grams": 36
+    }
+   ],
+   "label": {
+    "servingGrams": 36,
+    "kcal": 170,
+    "carbs": 25,
+    "sugars": 14,
+    "fat": 7,
+    "protein": 2,
+    "sodiumMg": 160,
+    "from": "plazavea.com.pe product page, read 2026-10-07"
+   }
+  },
+  "morochas": {
+   "name": "Morochas (Nestlé)",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 bolsa",
+     "grams": 42
+    }
+   ],
+   "label": {
+    "servingGrams": 16,
+    "kcal": 98,
+    "carbs": 15.0,
+    "fat": 3.6,
+    "protein": 1.3,
+    "sodiumMg": 71,
+    "from": "plazavea.com.pe product page, read 2026-10-07"
+   }
+  },
+  "galleta-kiwicha": {
+   "name": "Galleta de kiwicha",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 paquete",
+     "grams": null
+    }
+   ]
+  }
+ }
+}

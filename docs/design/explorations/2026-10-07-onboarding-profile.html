@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kawsay · Primer uso y Perfil (prototipo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#F6F2E8;--surface:#FFFFFF;--ink:#1C1F1A;--muted:#5E6358;--line:#E4DFD3;
+ --brand:#1F4D3A;--accent:#B84E18;
+ --g50:#EEF6F0;--g100:#D5EBDB;--g200:#B4DBBF;--g300:#86C497;--g400:#5BA66E;--g700:#255E3B;
+ --amber:#EBC867;--amberText:#9A6B00;--red:#E58B7A;--redText:#B3392F;--grey:#B9B6AE;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+button,input{font-family:inherit}
+html,body{margin:0;background:#E9E4D8}
+body{font:15px/22px Figtree,system-ui,sans-serif;color:var(--ink)}
+.stage{min-height:100vh;display:flex;justify-content:center;padding:16px 0}
+.phone{width:390px;max-width:100%;background:var(--bg);border-radius:28px;overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.12);height:844px;display:flex;flex-direction:column}
+@media (max-width:430px){.stage{padding:0}.phone{border-radius:0;height:100vh;box-shadow:none}}
+.scroll{flex:1;overflow-y:auto;padding:0 16px 130px;scroll-behavior:smooth}
+h1,h2,h3,.num{font-family:"Bricolage Grotesque",Figtree,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 0 8px}
+header h1{margin:0;font-size:22px;line-height:28px}
+header small{display:block;color:var(--muted);font-size:13px}
+.iconbtn{width:44px;height:44px;border:none;border-radius:50%;background:var(--surface);display:grid;place-items:center;cursor:pointer}
+.card{background:var(--surface);border-radius:14px;padding:16px;margin:12px 0;transition:box-shadow .3s}
+.card.pending{box-shadow:0 0 0 2px var(--accent)}
+.card h2{margin:0 0 10px;font-size:17px;line-height:22px;font-weight:600;display:flex;align-items:center;gap:8px}
+.card h2 .right{margin-left:auto;font:600 13px Figtree;color:var(--muted)}
+.muted{color:var(--muted);font-size:13px}
+.lbl{display:flex;align-items:center;gap:8px;font:600 14px Figtree;margin-bottom:6px}
+.ib{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex:none}
+/* summary rings */
+.sum{display:flex;gap:14px;align-items:center}
+.rings{position:relative;width:150px;height:150px;flex:none}
+.rings svg{width:150px;height:150px;transform:rotate(-90deg)}
+.rings .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.rings .num{font-size:30px;line-height:32px;font-weight:700}
+.seg{transition:stroke .35s}
+.arc{transition:stroke-dasharray .5s cubic-bezier(.2,.8,.2,1)}
+.leg{flex:1;font-size:13px;line-height:18px}
+.leg .it{display:flex;align-items:center;gap:6px;padding:3px 0;cursor:pointer;border:none;background:none;font:inherit;color:inherit;width:100%;text-align:left}
+.dot{width:10px;height:10px;border-radius:50%;flex:none}
+.move{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+.move b{font-family:"Bricolage Grotesque";font-size:18px}
+/* ranges */
+.rb{margin:14px 0 2px}
+.rb .top{display:flex;align-items:baseline;gap:8px;font-size:14px}
+.rb .top b{font-weight:700}
+.rb .top .v{margin-left:auto;font:700 15px "Bricolage Grotesque"}
+.rb .top .st{font:700 12px Figtree;min-width:92px;text-align:right}
+.track{position:relative;height:10px;border-radius:999px;display:flex;margin-top:8px}
+.track i{height:100%}
+.track i:first-child{border-radius:999px 0 0 999px}.track i:last-child{border-radius:0 999px 999px 0}
+.marker{position:absolute;top:-5px;width:4px;height:20px;border-radius:3px;background:var(--ink);transform:translateX(-2px);transition:left .5s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.edges{position:relative;height:16px;font:600 10px Figtree;color:var(--g700)}
+.edges span{position:absolute;top:2px;transform:translateX(-50%)}
+/* chips & buttons */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:44px;border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 10px;font:600 14px Figtree;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:transform .18s}
+.chip:active{transform:scale(.94)}
+.chip.on{background:var(--g100);border-color:var(--g700);color:var(--g700)}
+.chip.add{border-style:dashed;color:var(--accent);border-color:var(--accent)}
+.chip small{font-weight:400;color:var(--muted)}
+.btn{min-height:44px;border:none;border-radius:10px;padding:10px 16px;font:700 15px Figtree;cursor:pointer;background:var(--accent);color:#fff;transition:transform .18s}
+.btn:active{transform:scale(.95)}.btn:disabled{opacity:.45;cursor:default}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn.block{width:100%}
+.link{border:none;background:none;color:var(--accent);font:700 13px Figtree;cursor:pointer;padding:8px 0;min-height:44px}
+/* meals */
+.meal{padding:10px 0;border-top:1px solid var(--line)}
+.meal:first-of-type{border-top:none}
+.meal .head{display:flex;align-items:center;gap:10px}
+.meal .head b{flex:1}
+.meal .kcal{font:700 13px Figtree;color:var(--muted)}
+.plus{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--accent);background:var(--surface);color:var(--accent);font:700 22px Figtree;cursor:pointer}
+.items{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.fchip{display:inline-flex;align-items:center;gap:6px;background:var(--bg);border-radius:999px;padding:3px 10px 3px 3px;font:600 13px Figtree;border:none;cursor:pointer}
+.fchip .fi{width:30px;height:30px}
+/* food tiles */
+.ftiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ftile{border:none;background:var(--surface);border-radius:14px;padding:10px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;font:600 12px/15px Figtree;color:var(--ink);transition:transform .18s;min-height:104px}
+.ftile:active{transform:scale(.93)}
+.ftile small{color:var(--muted);font-weight:400}
+.fi{width:48px;height:48px;border-radius:14px;display:grid;place-items:center}
+.tabs{display:flex;gap:6px;margin-bottom:10px}
+/* activity */
+.noact{display:flex;align-items:center;gap:12px;border:1.5px dashed var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;background:none;width:100%;text-align:left;font:inherit;color:inherit;min-height:56px}
+.noact.on{border:1.5px solid var(--g700);background:var(--g100)}
+.actrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.actrow:first-child{border-top:none}
+.actrow .t{flex:1}.actrow .t small{display:block;color:var(--muted);font-size:12px}
+.x{width:44px;height:44px;border:none;background:none;color:var(--muted);font-size:20px;cursor:pointer}
+/* water */
+.glasses{display:flex;gap:4px;flex-wrap:wrap}
+.glass{width:34px;height:44px;border:none;background:none;padding:0;cursor:pointer}
+.glass .fill{transition:transform .3s cubic-bezier(.2,.8,.2,1);transform-origin:50% 100%}
+/* scales */
+.row{margin:14px 0}
+.scale{display:flex;gap:6px}
+.face{flex:1;min-height:58px;border:2px solid transparent;border-radius:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:700 11px Figtree;transition:transform .18s,border-color .18s}
+.face.on{border-color:var(--ink);transform:scale(1.06)}
+.bath{background:#F3E7DC;border-color:#E2CDB9;color:#6B3E1E}
+.bristol{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.bristol button{min-height:76px;border:2px solid transparent;border-radius:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;font:700 11px Figtree}
+.bristol button.on{border-color:var(--ink)}
+/* sleep */
+.sleep{padding:12px 0;border-top:1px solid var(--line)}
+.sleep:first-of-type{border-top:none}
+.sleep .tline{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.sleep input[type=time]{border:1.5px solid var(--line);border-radius:10px;padding:8px 6px;font:600 15px Figtree;min-height:44px;background:var(--surface);color:var(--ink)}
+.moons{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.moons button{width:40px;height:44px;border:none;background:none;cursor:pointer;padding:0;color:#D9D4C8;transition:transform .18s}
+.moons button.on{color:#3D4C8C}
+.moons button:active{transform:scale(.85)}
+/* private */
+.locked{display:flex;align-items:center;gap:12px;cursor:pointer}
+.counter{display:flex;align-items:center;gap:10px;padding:8px 0}
+.counter button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);font:700 20px Figtree;cursor:pointer}
+.counter b{min-width:20px;text-align:center;font:700 18px "Bricolage Grotesque"}
+/* review, nav, sheet */
+.review{position:sticky;bottom:88px;display:flex;justify-content:center;pointer-events:none;margin-top:8px}
+.review .btn{pointer-events:auto;box-shadow:0 6px 16px rgba(184,78,24,.35)}
+nav{position:absolute;left:0;right:0;bottom:0;height:76px;background:var(--surface);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;padding-bottom:8px}
+nav a{display:flex;flex-direction:column;align-items:center;gap:2px;font:600 11px Figtree;color:var(--muted);text-decoration:none;min-width:56px}
+nav a.on{color:var(--brand)}
+nav .fab{width:56px;height:56px;border-radius:50%;background:var(--accent);display:grid;place-items:center;margin-top:-26px;box-shadow:0 6px 14px rgba(184,78,24,.35);border:none;cursor:pointer}
+.scrim{position:absolute;inset:0;background:rgba(28,31,26,.35);opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.open{opacity:1;pointer-events:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--bg);border-radius:22px 22px 0 0;padding:10px 16px 24px;transform:translateY(105%);transition:transform .4s cubic-bezier(.2,.8,.2,1);max-height:86%;overflow-y:auto}
+.sheet.open{transform:none}
+.sheet .grab{width:40px;height:5px;border-radius:3px;background:var(--grey);margin:0 auto 12px}
+.sheet h3{margin:0 0 12px;font-size:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tile{min-height:80px;border:2px solid transparent;border-radius:14px;background:var(--surface);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font:600 12px Figtree;color:var(--ink);transition:transform .18s}
+.tile:active{transform:scale(.93)}
+.tile.on{border-color:var(--g700);background:var(--g100)}
+input.txt{width:100%;min-height:44px;border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;font:600 15px Figtree;background:var(--surface)}
+.ex{display:flex;align-items:center;gap:8px;padding:6px 0}
+.ex input{flex:1}
+.ex .sr{width:80px;flex:none}
+.search{position:relative;margin-bottom:12px}.search input{width:100%;min-height:48px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px 10px 40px;font:600 15px Figtree;background:var(--surface)}
+.search svg{position:absolute;left:12px;top:14px}
+.sticky{position:sticky;bottom:-24px;background:var(--bg);padding:12px 0 4px;margin-top:12px}
+.btn.big{min-height:56px;font-size:16px}
+.frac{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.frac button{min-height:52px;border:2px solid transparent;border-radius:12px;background:var(--surface);font:700 16px "Bricolage Grotesque";cursor:pointer}
+.frac button.on{border-color:var(--g700);background:var(--g100);color:var(--g700)}
+.preview{display:flex;align-items:center;gap:12px;background:var(--surface);border-radius:14px;padding:12px;margin-bottom:12px}
+.preview b{font:700 22px "Bricolage Grotesque"}
+.toggle{display:flex;align-items:center;gap:10px;background:var(--surface);border-radius:12px;padding:10px 12px;cursor:pointer;border:none;width:100%;text-align:left;font:600 14px Figtree;min-height:52px;color:var(--ink)}
+.sw{width:44px;height:26px;border-radius:999px;background:#D9D4C8;position:relative;flex:none;transition:background .2s}
+.sw:after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s}
+.sw.on{background:var(--g700)}.sw.on:after{left:21px}
+.drinks{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.drink{flex:none;min-height:44px;border:2px solid transparent;border-radius:999px;padding:4px 12px 4px 6px;display:inline-flex;align-items:center;gap:6px;font:600 13px Figtree;cursor:pointer}
+.drink.on{border-color:var(--ink)}
+.urine{display:flex;gap:6px}.urine button{flex:1;min-height:52px;border:2px solid transparent;border-radius:12px;font:700 12px Figtree;cursor:pointer}
+.urine button.on{border-color:var(--ink)}
+.sl-top{display:flex;align-items:baseline;gap:8px}.sl-top b{font:600 16px "Bricolage Grotesque"}.sl-top .h{margin-left:auto;font:700 14px Figtree;color:#3D4C8C}
+.sl-times{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-top:8px}
+.sl-times label{display:flex;flex-direction:column;font:600 11px Figtree;color:var(--muted)}
+.sl-times input{width:100%}
+.sl-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.info{border:none;background:none;color:var(--muted);font:600 12px Figtree;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;gap:4px;padding:0}
+.formula{background:var(--surface);border-radius:12px;padding:12px;font:600 14px/22px Figtree}
+.note{font-size:11px;color:var(--muted);text-align:center;margin:18px 0 0}
+.toast{position:absolute;left:50%;bottom:96px;transform:translate(-50%,20px);background:var(--brand);color:#fff;border-radius:999px;padding:8px 14px;font:600 13px Figtree;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;z-index:5}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+/* ===== v4 additions ===== */
+.switch{display:flex;justify-content:center;gap:6px;padding:12px 16px 0;flex-wrap:wrap}
+.switch button{min-height:40px;border:1.5px solid #CFC8B8;background:#fff;border-radius:999px;padding:6px 14px;font:700 13px Figtree;cursor:pointer;color:var(--ink)}
+.switch button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.back{width:44px;height:44px;border:none;background:none;font:700 26px Figtree;color:var(--brand);cursor:pointer}
+.hdr{display:flex;align-items:center;gap:4px;padding:12px 0 4px}
+.hdr h1{margin:0;flex:1;font-size:22px;line-height:28px}
+.seg2{display:flex;background:#E9E4D8;border-radius:12px;padding:4px;gap:4px;margin:8px 0}
+.seg2 button{flex:1;min-height:40px;border:none;border-radius:9px;background:none;font:700 13px Figtree;color:var(--muted);cursor:pointer}
+.seg2 button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.icons{display:flex;gap:6px;overflow-x:auto;padding:2px 0 4px}
+.icons button{border:2px solid transparent;border-radius:16px;padding:0;background:none;cursor:pointer;flex:none}
+.icons button.on{border-color:var(--g700)}
+.src{display:inline-block;font:700 10px Figtree;padding:1px 6px;border-radius:999px;background:var(--g50);color:var(--g700);vertical-align:middle}
+.src.usda{background:#E2EEF6;color:#2F5D86}.src.lab{background:#F8E3EE;color:#8A3566}
+.ing{display:flex;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--line);animation:pop .35s ease-out both}
+.ing:first-child{border-top:none}
+.ing .t{flex:1;min-width:0}.ing .t b{font-weight:600}
+.ing .amt{border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:4px 10px;font:600 13px Figtree;cursor:pointer;min-height:36px;margin-top:4px;color:var(--ink)}
+.ing .k{font:700 14px "Bricolage Grotesque";min-width:58px;text-align:right}
+.ing.miss{background:#FDF5DE;border-radius:12px;padding:10px;border-top:none;margin:6px 0}
+.ing.sug{border:1.5px dashed var(--accent);border-radius:12px;padding:10px;margin:6px 0}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.aibar{display:flex;gap:8px;align-items:flex-start;background:var(--g50);border-radius:12px;padding:10px 12px;font-size:13px;line-height:18px;color:var(--g700);margin-bottom:8px}
+.tot{position:sticky;bottom:0;background:var(--brand);color:#fff;border-radius:16px 16px 0 0;margin:12px -16px 0;padding:12px 16px 16px}
+.tot .g{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
+.tot .g b{display:block;font:700 20px "Bricolage Grotesque"}
+.tot .g span{font:600 11px Figtree;opacity:.85}
+.tot .mi{font-size:12px;opacity:.9;margin:6px 0 10px;text-align:center}
+.tot .btn{background:var(--accent);width:100%}
+.stp{display:flex;align-items:center;gap:8px}
+.stp button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);font:700 18px Figtree;cursor:pointer;color:var(--ink)}
+.stp b{min-width:52px;text-align:center;font:700 16px "Bricolage Grotesque"}
+.frow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0}
+.loading{display:flex;gap:6px;justify-content:center;padding:18px}
+.loading i{width:8px;height:8px;border-radius:50%;background:var(--g400);animation:bl 1s infinite}
+.loading i:nth-child(2){animation-delay:.15s}.loading i:nth-child(3){animation-delay:.3s}
+@keyframes bl{0%,100%{opacity:.25}50%{opacity:1}}
+/* analysis */
+.nrow{display:block;width:100%;border:none;background:none;text-align:left;padding:10px 0;border-top:1px solid var(--line);cursor:pointer;font:inherit;color:inherit}
+.nrow:first-child{border-top:none}
+.nrow .top{display:flex;align-items:baseline;gap:8px;font-size:14px}
+.nrow .top b{font-weight:700}
+.nrow .top .v{margin-left:auto;font:600 13px Figtree;color:var(--muted)}
+.nrow .top .st{font:700 12px Figtree;min-width:96px;text-align:right}
+.nrow .track{height:8px;margin-top:6px}
+.nrow .marker{height:16px;top:-4px}
+.ntrack-grey{height:8px;border-radius:999px;background:repeating-linear-gradient(45deg,#E4DFD3 0 6px,#EFEBE2 6px 12px);margin-top:6px}
+.wk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.wk div{background:var(--bg);border-radius:12px;padding:10px 4px}
+.wk b{display:block;font:700 20px "Bricolage Grotesque"}
+.wk span{font:600 11px Figtree;color:var(--muted)}
+.tag{font:700 10px Figtree;background:#FBE9DF;color:var(--accent);padding:2px 8px;border-radius:999px;margin-left:6px}
+.big{font:700 40px/44px "Bricolage Grotesque"}
+.list2 div{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.list2 div:first-child{border-top:none}
+.list2 .r{margin-left:auto;font:700 13px Figtree}
+.minibar{height:6px;border-radius:999px;background:var(--g300);margin-top:4px}
+.have{font:700 10px Figtree;background:var(--g100);color:var(--g700);padding:1px 6px;border-radius:999px}
+.caveat{background:#FDF5DE;border-radius:12px;padding:10px 12px;font-size:13px;line-height:18px;margin-top:12px}
+/* routine */
+.exr{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);cursor:pointer;width:100%;border-left:none;border-right:none;border-bottom:none;background:none;text-align:left;font:inherit;color:inherit}
+.exr:first-child{border-top:none}
+.exr .t{flex:1}.exr .t small{display:block;color:var(--muted);font-size:12px}
+.exr .r{text-align:right;font:700 13px Figtree}.exr .r small{display:block;color:var(--muted);font-weight:400}
+.mt{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.mt td,.mt th{padding:5px 4px;border-top:1px solid var(--line);text-align:left}
+.mt th{font-weight:700;color:var(--muted)}
+.watch{font:700 34px "Bricolage Grotesque";text-align:center;margin:8px 0}
+
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="switch" role="tablist">
+ <button data-s="ob" onclick="go('ob')">🚪 Primer uso</button>
+ <button data-s="pf" onclick="go('pf')">👤 Perfil</button>
+</div>
+<div class="stage"><div class="phone">
+ <div class="scroll" id="scr"></div>
+ <nav aria-label="Navegación" id="nav">
+  <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2" stroke-linecap="round"/></svg>Hoy</a>
+  <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 9.5h16M4 14.5h16M9.5 4v16M14.5 4v16"/></svg>Calendario</a>
+  <button class="fab" aria-label="Registrar"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+  <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Análisis</a>
+  <a href="#" class="on"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" stroke-linecap="round"/></svg>Perfil</a>
+ </nav>
+ <div class="scrim" id="scrim" onclick="closeSheet()"></div>
+ <div class="sheet" id="sheet" role="dialog" aria-modal="true"><div class="grab"></div><div id="sheetBody"></div></div>
+ <div class="toast" id="toast"></div>
+</div></div>
+<script>
+const fmt=(n,d=0)=>n.toLocaleString('es-PE',{minimumFractionDigits:d,maximumFractionDigits:d});
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1800);}
+function openSheet(h){document.getElementById('sheetBody').innerHTML=h;document.getElementById('sheet').classList.add('open');document.getElementById('scrim').classList.add('open');}
+function closeSheet(){document.getElementById('sheet').classList.remove('open');document.getElementById('scrim').classList.remove('open');}
+
+/* ===== demo profile (synthetic) ===== */
+const P={sex:'H',age:30,h:170,w:80,goal:'bajar',gw:74,weeks:12,climate:'cal',sleepA:'23:00',sleepB:'07:00',nap:false,napA:'13:30',napB:'14:00',prot:1.6,fat:25,move:30,
+ waist:true,waistDay:'Dom',waistCm:92,bmiInfo:false,syms:true,priv:false,email:'demo@kawsay.dev',pass:''};
+const M={step:0};
+const mins=(a,b)=>{const[x,y]=a.split(':').map(Number),[u,v]=b.split(':').map(Number);let d=(u*60+v)-(x*60+y);if(d<=0)d+=1440;return d;};
+function T(){ // ADR 0009
+ const bmr=10*P.w+6.25*P.h-5*P.age+(P.sex==='H'?5:-161);
+ const sleepH=(mins(P.sleepA,P.sleepB)+(P.nap?mins(P.napA,P.napB):0))/60, awake=24-sleepH;
+ const exp=(bmr+0.4*bmr/24*awake)*1.10;
+ const pace=P.goal==='bajar'?Math.max(0,(P.w-P.gw)/P.weeks):0, maxPace=P.w*0.01;
+ const deficit=Math.min(pace,maxPace)*7700/7, cap=0.25*exp;
+ const target=Math.max(bmr,exp-Math.min(deficit,cap));
+ const refW=Math.min(P.w,25*(P.h/100)**2), prot=P.prot*refW, fat=P.fat/100*target/9, carb=(target-prot*4-fat*9)/4;
+ return {bmr,exp,awake,pace,maxPace,target,refW,prot,fat,carb,fast:pace>maxPace,sugW:Math.ceil((P.w-P.gw)/maxPace)};}
+const dateIn=w=>{const d=new Date(2026,9,7+w*7);return d.toLocaleDateString('es-PE',{day:'numeric',month:'short',year:'numeric'});};
+function stp(val,fn,label=''){return `<div class="stp"><button aria-label="Menos ${label}" onclick="${fn}(-1)">−</button><b>${val}</b><button aria-label="Más ${label}" onclick="${fn}(1)">+</button></div>`;}
+const re=()=>render();
+window.cAge=d=>{P.age=Math.max(14,P.age+d);re()};window.cH=d=>{P.h=Math.max(120,P.h+d);re()};window.cW=d=>{P.w=Math.round((P.w+d*.5)*10)/10;re()};
+window.cGW=d=>{P.gw=Math.round((P.gw+d*.5)*10)/10;re()};window.cWk=d=>{P.weeks=Math.max(2,P.weeks+d);re()};
+window.cProt=d=>{P.prot=Math.min(2.2,Math.max(1.2,Math.round((P.prot+d*.1)*10)/10));re()};window.cFat=d=>{P.fat=Math.min(35,Math.max(20,P.fat+d));re()};
+window.cMove=d=>{P.move=Math.max(10,P.move+d*5);re()};
+function go(s){M.s=s;closeSheet();document.querySelectorAll('.switch button').forEach(b=>b.classList.toggle('on',b.dataset.s===s));document.getElementById('nav').style.display=s==='pf'?'flex':'none';render();document.getElementById('scr').scrollTop=0;}
+let SH=null; // open profile sheet renderer
+function render(){if(M.s==='ob')rOb();else{rPf();if(SH)SH();}}
+
+/* ---------- shared blocks ---------- */
+const bodyBlock=()=>`
+ <div class="lbl">Sexo <span class="muted" style="font-weight:400">(lo pide la fórmula)</span></div>
+ <div class="seg2"><button class="${P.sex==='H'?'on':''}" onclick="P.sex='H';re()">Hombre</button><button class="${P.sex==='M'?'on':''}" onclick="P.sex='M';re()">Mujer</button></div>
+ <div class="frow"><b>Edad</b>${stp(P.age+' años','cAge','edad')}</div>
+ <div class="frow"><b>Estatura</b>${stp(P.h+' cm','cH','estatura')}</div>
+ <div class="frow"><div><b>Peso de hoy</b><div class="muted">Al despertar, después del baño, antes de comer</div></div>${stp(fmt(P.w,1)+' kg','cW','peso')}</div>`;
+function goalBlock(){const t=T();return `
+ <div class="seg2"><button class="${P.goal==='bajar'?'on':''}" onclick="P.goal='bajar';re()">Bajar de peso</button><button class="${P.goal==='mantener'?'on':''}" onclick="P.goal='mantener';re()">Mantener</button></div>
+ ${P.goal==='bajar'?`<div class="frow"><b>Peso meta</b>${stp(fmt(P.gw,1)+' kg','cGW','peso meta')}</div>
+ <div class="frow"><div><b>En cuánto tiempo</b><div class="muted">Hasta el ${dateIn(P.weeks)}</div></div>${stp(P.weeks+' sem','cWk','semanas')}</div>
+ <div class="preview" style="margin:8px 0 0">Ritmo <b style="margin-left:auto;font-size:20px">−${fmt(t.pace,2)} kg/sem</b></div>
+ ${t.fast?`<div class="caveat">⚠️ Más rápido que el 1 % de tu peso por semana (${fmt(t.maxPace,1)} kg). Te quita energía y músculo.<br><button class="btn" style="margin-top:8px;min-height:40px" onclick="P.weeks=${t.sugW};re()">Usar ${t.sugW} semanas (hasta el ${dateIn(t.sugW)})</button></div>`:`<p class="muted" style="margin:6px 0 0">✅ Dentro de lo recomendable (máx. ${fmt(t.maxPace,1)} kg/sem)</p>`}`:`<p class="muted">Tu meta será tu gasto del día, sin déficit.</p>`}`;}
+const CLIM=[['cal','☀️ Cálido','+2 vasos'],['tem','⛅ Templado','base'],['fri','❄️ Frío','base']];
+const climBlock=()=>`<div class="chips">${CLIM.map(([k,n,s])=>`<button class="chip ${P.climate===k?'on':''}" onclick="P.climate='${k}';re()">${n} <small>${s}</small></button>`).join('')}</div><p class="muted" style="margin:6px 0 0">Cambia tu meta de bebidas, no tus calorías.</p>`;
+const sleepBlock=()=>`
+ <div class="sl-times"><label>Me duermo<input type="time" class="txt" value="${P.sleepA}" onchange="P.sleepA=this.value;re()"></label><span>→</span><label>Me despierto<input type="time" class="txt" value="${P.sleepB}" onchange="P.sleepB=this.value;re()"></label></div>
+ <button class="toggle" style="margin-top:8px" onclick="P.nap=!P.nap;re()"><span style="flex:1">Suelo tomar siesta</span><span class="sw ${P.nap?'on':''}"></span></button>
+ ${P.nap?`<div class="sl-times"><label>Desde<input type="time" class="txt" value="${P.napA}" onchange="P.napA=this.value;re()"></label><span>→</span><label>Hasta<input type="time" class="txt" value="${P.napB}" onchange="P.napB=this.value;re()"></label></div>`:''}
+ <p class="muted" style="margin:6px 0 0">Prellena tu sueño cada día. Lo corriges si cambió.</p>`;
+const ALWAYS=['🍽️ Comidas','🏃 Actividad','💧 Hidratación','🙂 Cuerpo y ánimo','🌙 Sueño','⚖️ Peso'];
+const modBlock=()=>`
+ <div class="chips" style="margin-bottom:8px">${ALWAYS.map(n=>`<span class="chip on" style="cursor:default">${n}</span>`).join('')}</div>
+ <p class="muted" style="margin:0 0 6px">Siempre activos. Opcionales:</p>
+ <button class="toggle" onclick="P.waist=!P.waist;re()"><span style="flex:1">📏 Cintura semanal<br><small class="muted">Te lo recuerda una vez por semana</small></span><span class="sw ${P.waist?'on':''}"></span></button>
+ ${P.waist?`<div class="chips" style="margin:8px 0">${['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].map(d=>`<button class="chip ${P.waistDay===d?'on':''}" style="min-width:44px;justify-content:center" onclick="P.waistDay='${d}';re()">${d}</button>`).join('')}</div>`:''}
+ <button class="toggle" style="margin-top:8px" onclick="P.syms=!P.syms;re()"><span style="flex:1">🩺 Síntomas propios<br><small class="muted">Creas los que te importan</small></span><span class="sw ${P.syms?'on':''}"></span></button>
+ <button class="toggle" style="margin-top:8px" onclick="P.priv=!P.priv;re();if(P.priv)toast('Se pedirá tu huella o PIN')"><span style="flex:1">🔒 Vida íntima (privado)<br><small class="muted">Relaciones sexuales y masturbación, para ver si se relacionan con tu energía, ánimo y sueño. Queda oculto tras tu huella o PIN, nunca se envía a la IA y solo se exporta si lo marcas</small></span><span class="sw ${P.priv?'on':''}"></span></button>`;
+const targetsBox=t=>`<div class="tot" style="position:static;border-radius:16px;margin:0">
+ <div class="muted" style="color:#fff;opacity:.85;text-align:center;font-size:12px">Meta de un día sin ejercicio</div>
+ <div style="text-align:center;font:700 40px/46px 'Bricolage Grotesque'">${fmt(t.target)} <span style="font-size:16px">kcal</span></div>
+ <div class="g"><div><b>${fmt(t.prot)}</b><span>proteína g</span></div><div><b>${fmt(t.fat)}</b><span>grasa g</span></div><div><b>${fmt(t.carb)}</b><span>carbos g</span></div><div><b>${P.move}</b><span>min mov.</span></div></div>
+ <div class="mi" style="margin-bottom:0">Sube los días que te mueves. Se recalibra con tu peso cada 2 semanas.</div></div>`;
+const howBox=t=>`<div class="formula" style="font-weight:400;font-size:13px;line-height:20px">
+ Basal (Mifflin-St Jeor): <b>${fmt(t.bmr)}</b> kcal<br>+ despierto ${fmt(t.awake,1)} h “sentado y caminatas breves” (MET 1,4)<br>× 1,10 digestión = gasto <b>${fmt(t.exp)}</b> kcal<br>
+ − déficit por tu ritmo (7.700 kcal/kg, máx. 1 % del peso/sem y 25 % del gasto)<br>= <b>${fmt(t.target)}</b> kcal, nunca bajo tu basal<br>
+ Proteína ${fmt(P.prot,1)} g × ${fmt(t.refW,1)} kg de referencia (tu peso o el de IMC 25, el menor) · grasa ${P.fat} % · carbos el resto${t.carb<130?' · <b style="color:var(--redText)">⚠ carbos bajo 130 g</b>':''}</div>`;
+
+/* ---------- ONBOARDING ---------- */
+const STEPS=['Bienvenida','Cuenta','Tu cuerpo','Tu meta','Dónde vives y duermes','Qué registrar','Tu meta diaria'];
+function rOb(){const s=M.step,t=T();
+ const dots=s?`<div style="display:flex;gap:6px;justify-content:center;padding:14px 0 4px">${STEPS.slice(1).map((_,i)=>`<span style="width:${i+1===s?22:8}px;height:8px;border-radius:999px;background:${i+1<=s?'var(--brand)':'#D9D4C8'};transition:all .3s"></span>`).join('')}</div>`:'';
+ let body='';
+ if(s===0)body=`<div style="text-align:center;padding:90px 8px 0">
+  <svg width="120" height="120" viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="none" stroke="#D5EBDB" stroke-width="14"/><circle cx="60" cy="60" r="50" fill="none" stroke="#1F4D3A" stroke-width="14" stroke-dasharray="230 400" stroke-linecap="round" transform="rotate(-90 60 60)"/><circle cx="60" cy="60" r="30" fill="none" stroke="#FBE9DF" stroke-width="10"/><circle cx="60" cy="60" r="30" fill="none" stroke="#B84E18" stroke-width="10" stroke-dasharray="120 300" stroke-linecap="round" transform="rotate(-90 60 60)"/></svg>
+  <h1 style="font-size:34px;margin:18px 0 6px">Kawsay</h1><p style="font-size:17px;margin:0 0 6px">Metas que siguen al día que tuviste.</p>
+  <p class="muted">Comida, movimiento, cuerpo y ánimo en menos de 10 segundos por registro.</p></div>`;
+ if(s===1)body=`<h1 style="font-size:24px">Crea tu cuenta</h1><p class="muted">Tus registros se guardan primero en el celular y se sincronizan cuando hay internet.</p>
+  <div class="lbl">Correo</div><input class="txt" type="email" value="${P.email}">
+  <div class="lbl" style="margin-top:12px">Contraseña</div><input class="txt" type="password" placeholder="Mínimo 10 caracteres">
+  <p style="text-align:center"><button class="link">Ya tengo cuenta · Iniciar sesión</button></p>`;
+ if(s===2)body=`<h1 style="font-size:24px">Tu cuerpo</h1><p class="muted">Con esto se calcula tu gasto en reposo.</p><section class="card">${bodyBlock()}</section>`;
+ if(s===3)body=`<h1 style="font-size:24px">Tu meta</h1><section class="card">${goalBlock()}</section>`;
+ if(s===4)body=`<h1 style="font-size:24px">Dónde vives y duermes</h1><section class="card"><div class="lbl">Clima donde vives</div>${climBlock()}</section><section class="card"><div class="lbl">Tu horario de sueño habitual</div>${sleepBlock()}</section>`;
+ if(s===5)body=`<h1 style="font-size:24px">Qué quieres registrar</h1><section class="card">${modBlock()}</section><p class="muted">Puedes cambiarlo cuando quieras en Perfil.</p>`;
+ if(s===6)body=`<h1 style="font-size:24px">Tu meta diaria</h1>${targetsBox(t)}<button class="info" onclick="M.how=!M.how;re()">ⓘ ¿Cómo se calcula?</button>${M.how?howBox(t):''}
+  <div class="caveat">🩺 Kawsay no es una app médica ni da diagnósticos. Si tienes una enfermedad renal, acuerda tu proteína con un médico.</div>`;
+ document.getElementById('scr').innerHTML=`${dots}<div style="min-height:640px">${body}</div>
+  <div style="position:sticky;bottom:0;background:var(--bg);padding:12px 0 16px;display:flex;gap:8px">
+   ${s>0?`<button class="btn ghost" style="flex:none" onclick="M.step--;re()">Atrás</button>`:''}
+   <button class="btn big" style="flex:1" onclick="${s<6?'M.step++;re();document.getElementById(\'scr\').scrollTop=0':'toast(\'¡Listo! Te llevamos a Hoy\')'}">${s===0?'Empezar':s===1?'Crear cuenta':s<6?'Siguiente':'Empezar a registrar'}</button></div>`;}
+
+/* ---------- BODY STATUS (BMI) ---------- */
+const BMIZ=[[15,17,'r','Delgadez marcada'],[17,18.5,'y','Bajo peso'],[18.5,25,'g','Peso saludable'],[25,30,'y','Sobrepeso'],[30,35,'r','Obesidad']];
+const ZC={r:['var(--red)','var(--redText)'],y:['var(--amber)','var(--amberText)'],g:['#86C497','var(--g700)']};
+function bmiOf(w){return w/(P.h/100)**2;}
+function bmiCat(b){if(b<17)return['r','Delgadez marcada'];if(b<18.5)return['y','Bajo peso'];if(b<25)return['g','Peso saludable'];if(b<30)return['y','Sobrepeso'];return['r',b<35?'Obesidad grado I':b<40?'Obesidad grado II':'Obesidad grado III'];}
+const pos=b=>Math.min(100,Math.max(0,(b-15)/20*100));
+function bmiCard(){
+ const b=bmiOf(P.w),[c,label]=bmiCat(b),h2=(P.h/100)**2,lo=18.5*h2,hi=24.9*h2;
+ const gb=P.goal==='bajar'?bmiOf(P.gw):null;
+ const dist=P.w>hi?`Para el verde: <b>−${fmt(P.w-hi,1)} kg</b> (hasta ${fmt(hi,1)} kg)`:P.w<lo?`Para el verde: <b>+${fmt(lo-P.w,1)} kg</b> (desde ${fmt(lo,1)} kg)`:`Estás en tu rango verde`;
+ const wr=P.waist&&P.waistCm?P.waistCm/P.h:null;
+ const wc=wr==null?null:wr<0.5?['g','Saludable']:wr<0.6?['y','Riesgo aumentado']:['r','Riesgo alto'];
+ return `<section class="card" style="margin-top:4px">
+ <h2>Tu estado hoy<span class="right">IMC</span></h2>
+ <div style="display:flex;align-items:flex-end;gap:12px"><span class="big" style="color:${ZC[c][1]}">${fmt(b,1)}</span><div style="padding-bottom:6px"><b style="color:${ZC[c][1]};font-size:17px">${label}</b><div class="muted">${fmt(P.w,1)} kg · ${P.h} cm · tendencia ↓ −0,4 en 30 días</div></div></div>
+ <div class="track" style="margin-top:16px;height:14px">${BMIZ.map(z=>`<i style="width:${(z[1]-z[0])/20*100}%;background:${ZC[z[2]][0]}"></i>`).join('')}
+  <span class="marker" style="left:${pos(b)}%;height:26px;top:-6px"></span>
+  ${gb?`<span style="position:absolute;left:${pos(gb)}%;top:-22px;transform:translateX(-50%);font-size:14px" title="Tu meta">🚩</span>`:''}</div>
+ <div class="edges" style="color:var(--muted)">${[18.5,25,30].map(v=>`<span style="left:${pos(v)}%">${fmt(v,v%1?1:0)}</span>`).join('')}</div>
+ <div class="edges" style="height:14px;color:var(--muted)">${[[16.75,'Bajo peso'],[21.75,'Saludable'],[27.5,'Sobrepeso'],[32.5,'Obesidad']].map(([v,n])=>`<span style="left:${pos(v)}%;${n==='Saludable'?'color:var(--g700)':''}">${n}</span>`).join('')}</div>
+ <div class="preview" style="margin:12px 0 0;font-size:14px;display:block">${dist}${gb?`<div class="muted" style="margin-top:2px">🚩 Tu meta (${fmt(P.gw,1)} kg) = IMC ${fmt(gb,1)} · ${bmiCat(gb)[1].toLowerCase()}</div>`:''}</div>
+ ${wr!=null?`<div class="frow" style="border-top:1px solid var(--line);margin-top:12px;padding-top:12px"><div><b>Cintura / estatura</b><div class="muted">${P.waistCm} cm ÷ ${P.h} cm · sano: menos de 0,5</div></div><div style="text-align:right"><b style="font:700 20px 'Bricolage Grotesque';color:${ZC[wc[0]][1]}">${fmt(wr,2)}</b><div style="font:700 12px Figtree;color:${ZC[wc[0]][1]}">${wc[1]}</div></div></div>`:''}
+ <button class="info" onclick="P.bmiInfo=!P.bmiInfo;re()">ⓘ ¿Qué mide y qué no?</button>
+ ${P.bmiInfo?`<div class="formula" style="font-weight:400;font-size:13px;line-height:20px">IMC = peso ÷ estatura². Rangos de la OMS para adultos. Usa tu <b>peso de tendencia</b>, no el de un solo día.<br>No distingue músculo de grasa: por eso va junto a tu <b>cintura</b>, que mide la grasa de la barriga.<br>No aplica en embarazo ni en menores de 18. No es un diagnóstico.</div>`:''}
+ </section>`;}
+
+/* ---------- PROFILE ---------- */
+const row=(ic,t,sub,fn)=>`<button class="exr" onclick="${fn}"><span class="ib" style="background:var(--g50);width:40px;height:40px;border-radius:12px;font-size:20px">${ic}</span><div class="t"><b>${t}</b><small>${sub}</small></div><span style="color:var(--muted);font:700 20px Figtree">›</span></button>`;
+function rPf(){const t=T();const cl=CLIM.find(c=>c[0]===P.climate);
+ document.getElementById('scr').innerHTML=`
+ <header><div style="display:flex;align-items:center;gap:12px"><span style="width:52px;height:52px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font:700 22px 'Bricolage Grotesque'">D</span><div><h1>Perfil</h1><small>${P.email} · <span style="color:var(--g700)">● sincronizado hace 2 min</span></small></div></div></header>
+ ${bmiCard()}
+ ${targetsBox(t)}
+ <section class="card"><h2>Tú</h2>
+  ${row('🧍','Cuerpo',`${P.sex==='H'?'Hombre':'Mujer'} · ${P.age} años · ${P.h} cm · ${fmt(P.w,1)} kg`,"sh('body')")}
+  ${row('🎯','Meta',P.goal==='bajar'?`${fmt(P.gw,1)} kg hasta el ${dateIn(P.weeks)} · −${fmt(t.pace,2)} kg/sem`:'Mantener peso',"sh('goal')")}
+  ${row('⚙️','Ajustes de metas',`Proteína ${fmt(P.prot,1)} g/kg · grasa ${P.fat} % · movimiento ${P.move} min`,"sh('adv')")}
+  ${row(cl[1].split(' ')[0],'Clima',cl[1].split(' ')[1]+' · '+cl[2],"sh('clim')")}
+  ${row('🌙','Horario de sueño',`${P.sleepA} → ${P.sleepB}${P.nap?' · siesta '+P.napA:''}`,"sh('sleep')")}
+ </section>
+ <section class="card"><h2>Registro</h2>
+  ${row('🧩','Módulos',`Cintura ${P.waist?'('+P.waistDay+')':'no'} · síntomas ${P.syms?'sí':'no'} · vida íntima ${P.priv?'sí':'no'}`,"sh('mod')")}
+  ${row('🏋️','Rutinas','Fuerza A + escaleras · Escaleras + core',"toast('Abre el editor de rutinas (otro prototipo)')")}
+  ${P.syms?row('🩺','Mis síntomas','Dolor de cabeza · Acidez',"sh('sym')"):''}
+ </section>
+ <section class="card"><h2>Tus datos</h2>
+  ${row('📤','Exportar historial','JSON + CSV por módulo + README',"sh('exp')")}
+  ${row('📚','Sobre los datos','Tablas INS 2023 · USDA · Compendio 2024',"sh('about')")}
+  ${row('🚪','Cerrar sesión','Tus datos quedan guardados en la nube',"toast('Sesión cerrada')")}
+ </section>
+ <p class="note">Kawsay v0.1 · prototipo con perfil de ejemplo</p>`;}
+function sh(k){const F={
+ body:()=>`<h3>Cuerpo</h3>${bodyBlock()}`,
+ goal:()=>`<h3>Meta</h3>${goalBlock()}`,
+ adv:()=>{const t=T();return `<h3>Ajustes de metas</h3>
+  <div class="frow"><div><b>Proteína</b><div class="muted">1,2–2,2 g por kg de referencia</div></div>${stp(fmt(P.prot,1)+' g/kg','cProt','proteína')}</div>
+  <div class="frow"><div><b>Grasa</b><div class="muted">20–35 % de la meta del día</div></div>${stp(P.fat+' %','cFat','grasa')}</div>
+  <div class="frow"><div><b>Movimiento diario</b><div class="muted">OMS: 150–300 min por semana</div></div>${stp(P.move+' min','cMove','movimiento')}</div>
+  <div class="preview">Hoy: <b style="margin-left:auto;font-size:18px">${fmt(t.prot)} P · ${fmt(t.fat)} G · ${fmt(t.carb)} C</b></div>${howBox(t)}`},
+ clim:()=>`<h3>Clima</h3>${climBlock()}`,
+ sleep:()=>`<h3>Horario de sueño</h3>${sleepBlock()}`,
+ mod:()=>`<h3>Módulos</h3>${modBlock()}`,
+ sym:()=>`<h3>Mis síntomas</h3><div class="list2"><div>Dolor de cabeza <span class="r muted">sí / no</span></div><div>Acidez <span class="r muted">0–5</span></div></div><button class="btn ghost block" style="margin-top:10px" onclick="toast('Nombre + tipo: sí/no, 0–5 o tamaño')">+ Nuevo síntoma</button>`,
+ exp:()=>`<h3>Exportar historial</h3><div class="lbl">Rango</div><div class="chips">${['Todo','Último año','Últimos 3 meses','Elegir fechas'].map((n,i)=>`<button class="chip ${i===0?'on':''}">${n}</button>`).join('')}</div>
+  <button class="toggle" style="margin-top:10px"><span style="flex:1">Incluir privado<br><small class="muted">Solo si lo marcas · pide tu huella</small></span><span class="sw"></span></button>
+  <p class="muted">Se genera en el celular, sin internet: un JSON completo, un CSV por módulo y un README que explica cada campo.</p><button class="btn block" onclick="closeSheet();toast('kawsay-export.zip listo para compartir')">Generar archivo</button>`,
+ about:()=>`<h3>Sobre los datos</h3><div class="list2">
+  <div>Composición de alimentos: Tablas Peruanas de Composición de Alimentos 2023, Instituto Nacional de Salud (reproducción autorizada citando la fuente)</div>
+  <div>Nutrientes faltantes y alimentos fuera del INS: USDA FoodData Central (dominio público)</div>
+  <div>Productos de marca: etiqueta del envase, con la fecha en que se leyó</div>
+  <div>Gasto por actividad: 2024 Adult Compendium of Physical Activities</div>
+  <div>Referencias de vitaminas y minerales: National Academies (DRI) · sodio: OMS</div></div>`};
+ SH=()=>openSheet(F[k]()+`<button class="btn block" style="margin-top:12px" onclick="SH=null;closeSheet()">Listo</button>`);SH();}
+document.getElementById('scrim').addEventListener('click',()=>SH=null);
+go('ob');
+</script>
+</body>
+</html>

@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kawsay · Crear plato, Análisis y Rutina (prototipo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#F6F2E8;--surface:#FFFFFF;--ink:#1C1F1A;--muted:#5E6358;--line:#E4DFD3;
+ --brand:#1F4D3A;--accent:#B84E18;
+ --g50:#EEF6F0;--g100:#D5EBDB;--g200:#B4DBBF;--g300:#86C497;--g400:#5BA66E;--g700:#255E3B;
+ --amber:#EBC867;--amberText:#9A6B00;--red:#E58B7A;--redText:#B3392F;--grey:#B9B6AE;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+button,input{font-family:inherit}
+html,body{margin:0;background:#E9E4D8}
+body{font:15px/22px Figtree,system-ui,sans-serif;color:var(--ink)}
+.stage{min-height:100vh;display:flex;justify-content:center;padding:16px 0}
+.phone{width:390px;max-width:100%;background:var(--bg);border-radius:28px;overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.12);height:844px;display:flex;flex-direction:column}
+@media (max-width:430px){.stage{padding:0}.phone{border-radius:0;height:100vh;box-shadow:none}}
+.scroll{flex:1;overflow-y:auto;padding:0 16px 130px;scroll-behavior:smooth}
+h1,h2,h3,.num{font-family:"Bricolage Grotesque",Figtree,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 0 8px}
+header h1{margin:0;font-size:22px;line-height:28px}
+header small{display:block;color:var(--muted);font-size:13px}
+.iconbtn{width:44px;height:44px;border:none;border-radius:50%;background:var(--surface);display:grid;place-items:center;cursor:pointer}
+.card{background:var(--surface);border-radius:14px;padding:16px;margin:12px 0;transition:box-shadow .3s}
+.card.pending{box-shadow:0 0 0 2px var(--accent)}
+.card h2{margin:0 0 10px;font-size:17px;line-height:22px;font-weight:600;display:flex;align-items:center;gap:8px}
+.card h2 .right{margin-left:auto;font:600 13px Figtree;color:var(--muted)}
+.muted{color:var(--muted);font-size:13px}
+.lbl{display:flex;align-items:center;gap:8px;font:600 14px Figtree;margin-bottom:6px}
+.ib{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex:none}
+/* summary rings */
+.sum{display:flex;gap:14px;align-items:center}
+.rings{position:relative;width:150px;height:150px;flex:none}
+.rings svg{width:150px;height:150px;transform:rotate(-90deg)}
+.rings .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.rings .num{font-size:30px;line-height:32px;font-weight:700}
+.seg{transition:stroke .35s}
+.arc{transition:stroke-dasharray .5s cubic-bezier(.2,.8,.2,1)}
+.leg{flex:1;font-size:13px;line-height:18px}
+.leg .it{display:flex;align-items:center;gap:6px;padding:3px 0;cursor:pointer;border:none;background:none;font:inherit;color:inherit;width:100%;text-align:left}
+.dot{width:10px;height:10px;border-radius:50%;flex:none}
+.move{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+.move b{font-family:"Bricolage Grotesque";font-size:18px}
+/* ranges */
+.rb{margin:14px 0 2px}
+.rb .top{display:flex;align-items:baseline;gap:8px;font-size:14px}
+.rb .top b{font-weight:700}
+.rb .top .v{margin-left:auto;font:700 15px "Bricolage Grotesque"}
+.rb .top .st{font:700 12px Figtree;min-width:92px;text-align:right}
+.track{position:relative;height:10px;border-radius:999px;display:flex;margin-top:8px}
+.track i{height:100%}
+.track i:first-child{border-radius:999px 0 0 999px}.track i:last-child{border-radius:0 999px 999px 0}
+.marker{position:absolute;top:-5px;width:4px;height:20px;border-radius:3px;background:var(--ink);transform:translateX(-2px);transition:left .5s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.edges{position:relative;height:16px;font:600 10px Figtree;color:var(--g700)}
+.edges span{position:absolute;top:2px;transform:translateX(-50%)}
+/* chips & buttons */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:44px;border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 10px;font:600 14px Figtree;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:transform .18s}
+.chip:active{transform:scale(.94)}
+.chip.on{background:var(--g100);border-color:var(--g700);color:var(--g700)}
+.chip.add{border-style:dashed;color:var(--accent);border-color:var(--accent)}
+.chip small{font-weight:400;color:var(--muted)}
+.btn{min-height:44px;border:none;border-radius:10px;padding:10px 16px;font:700 15px Figtree;cursor:pointer;background:var(--accent);color:#fff;transition:transform .18s}
+.btn:active{transform:scale(.95)}.btn:disabled{opacity:.45;cursor:default}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn.block{width:100%}
+.link{border:none;background:none;color:var(--accent);font:700 13px Figtree;cursor:pointer;padding:8px 0;min-height:44px}
+/* meals */
+.meal{padding:10px 0;border-top:1px solid var(--line)}
+.meal:first-of-type{border-top:none}
+.meal .head{display:flex;align-items:center;gap:10px}
+.meal .head b{flex:1}
+.meal .kcal{font:700 13px Figtree;color:var(--muted)}
+.plus{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--accent);background:var(--surface);color:var(--accent);font:700 22px Figtree;cursor:pointer}
+.items{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.fchip{display:inline-flex;align-items:center;gap:6px;background:var(--bg);border-radius:999px;padding:3px 10px 3px 3px;font:600 13px Figtree;border:none;cursor:pointer}
+.fchip .fi{width:30px;height:30px}
+/* food tiles */
+.ftiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ftile{border:none;background:var(--surface);border-radius:14px;padding:10px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;font:600 12px/15px Figtree;color:var(--ink);transition:transform .18s;min-height:104px}
+.ftile:active{transform:scale(.93)}
+.ftile small{color:var(--muted);font-weight:400}
+.fi{width:48px;height:48px;border-radius:14px;display:grid;place-items:center}
+.tabs{display:flex;gap:6px;margin-bottom:10px}
+/* activity */
+.noact{display:flex;align-items:center;gap:12px;border:1.5px dashed var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;background:none;width:100%;text-align:left;font:inherit;color:inherit;min-height:56px}
+.noact.on{border:1.5px solid var(--g700);background:var(--g100)}
+.actrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.actrow:first-child{border-top:none}
+.actrow .t{flex:1}.actrow .t small{display:block;color:var(--muted);font-size:12px}
+.x{width:44px;height:44px;border:none;background:none;color:var(--muted);font-size:20px;cursor:pointer}
+/* water */
+.glasses{display:flex;gap:4px;flex-wrap:wrap}
+.glass{width:34px;height:44px;border:none;background:none;padding:0;cursor:pointer}
+.glass .fill{transition:transform .3s cubic-bezier(.2,.8,.2,1);transform-origin:50% 100%}
+/* scales */
+.row{margin:14px 0}
+.scale{display:flex;gap:6px}
+.face{flex:1;min-height:58px;border:2px solid transparent;border-radius:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:700 11px Figtree;transition:transform .18s,border-color .18s}
+.face.on{border-color:var(--ink);transform:scale(1.06)}
+.bath{background:#F3E7DC;border-color:#E2CDB9;color:#6B3E1E}
+.bristol{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.bristol button{min-height:76px;border:2px solid transparent;border-radius:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;font:700 11px Figtree}
+.bristol button.on{border-color:var(--ink)}
+/* sleep */
+.sleep{padding:12px 0;border-top:1px solid var(--line)}
+.sleep:first-of-type{border-top:none}
+.sleep .tline{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.sleep input[type=time]{border:1.5px solid var(--line);border-radius:10px;padding:8px 6px;font:600 15px Figtree;min-height:44px;background:var(--surface);color:var(--ink)}
+.moons{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.moons button{width:40px;height:44px;border:none;background:none;cursor:pointer;padding:0;color:#D9D4C8;transition:transform .18s}
+.moons button.on{color:#3D4C8C}
+.moons button:active{transform:scale(.85)}
+/* private */
+.locked{display:flex;align-items:center;gap:12px;cursor:pointer}
+.counter{display:flex;align-items:center;gap:10px;padding:8px 0}
+.counter button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);font:700 20px Figtree;cursor:pointer}
+.counter b{min-width:20px;text-align:center;font:700 18px "Bricolage Grotesque"}
+/* review, nav, sheet */
+.review{position:sticky;bottom:88px;display:flex;justify-content:center;pointer-events:none;margin-top:8px}
+.review .btn{pointer-events:auto;box-shadow:0 6px 16px rgba(184,78,24,.35)}
+nav{position:absolute;left:0;right:0;bottom:0;height:76px;background:var(--surface);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;padding-bottom:8px}
+nav a{display:flex;flex-direction:column;align-items:center;gap:2px;font:600 11px Figtree;color:var(--muted);text-decoration:none;min-width:56px}
+nav a.on{color:var(--brand)}
+nav .fab{width:56px;height:56px;border-radius:50%;background:var(--accent);display:grid;place-items:center;margin-top:-26px;box-shadow:0 6px 14px rgba(184,78,24,.35);border:none;cursor:pointer}
+.scrim{position:absolute;inset:0;background:rgba(28,31,26,.35);opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.open{opacity:1;pointer-events:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--bg);border-radius:22px 22px 0 0;padding:10px 16px 24px;transform:translateY(105%);transition:transform .4s cubic-bezier(.2,.8,.2,1);max-height:86%;overflow-y:auto}
+.sheet.open{transform:none}
+.sheet .grab{width:40px;height:5px;border-radius:3px;background:var(--grey);margin:0 auto 12px}
+.sheet h3{margin:0 0 12px;font-size:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tile{min-height:80px;border:2px solid transparent;border-radius:14px;background:var(--surface);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font:600 12px Figtree;color:var(--ink);transition:transform .18s}
+.tile:active{transform:scale(.93)}
+.tile.on{border-color:var(--g700);background:var(--g100)}
+input.txt{width:100%;min-height:44px;border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;font:600 15px Figtree;background:var(--surface)}
+.ex{display:flex;align-items:center;gap:8px;padding:6px 0}
+.ex input{flex:1}
+.ex .sr{width:80px;flex:none}
+.search{position:relative;margin-bottom:12px}.search input{width:100%;min-height:48px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px 10px 40px;font:600 15px Figtree;background:var(--surface)}
+.search svg{position:absolute;left:12px;top:14px}
+.sticky{position:sticky;bottom:-24px;background:var(--bg);padding:12px 0 4px;margin-top:12px}
+.btn.big{min-height:56px;font-size:16px}
+.frac{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.frac button{min-height:52px;border:2px solid transparent;border-radius:12px;background:var(--surface);font:700 16px "Bricolage Grotesque";cursor:pointer}
+.frac button.on{border-color:var(--g700);background:var(--g100);color:var(--g700)}
+.preview{display:flex;align-items:center;gap:12px;background:var(--surface);border-radius:14px;padding:12px;margin-bottom:12px}
+.preview b{font:700 22px "Bricolage Grotesque"}
+.toggle{display:flex;align-items:center;gap:10px;background:var(--surface);border-radius:12px;padding:10px 12px;cursor:pointer;border:none;width:100%;text-align:left;font:600 14px Figtree;min-height:52px;color:var(--ink)}
+.sw{width:44px;height:26px;border-radius:999px;background:#D9D4C8;position:relative;flex:none;transition:background .2s}
+.sw:after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s}
+.sw.on{background:var(--g700)}.sw.on:after{left:21px}
+.drinks{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.drink{flex:none;min-height:44px;border:2px solid transparent;border-radius:999px;padding:4px 12px 4px 6px;display:inline-flex;align-items:center;gap:6px;font:600 13px Figtree;cursor:pointer}
+.drink.on{border-color:var(--ink)}
+.urine{display:flex;gap:6px}.urine button{flex:1;min-height:52px;border:2px solid transparent;border-radius:12px;font:700 12px Figtree;cursor:pointer}
+.urine button.on{border-color:var(--ink)}
+.sl-top{display:flex;align-items:baseline;gap:8px}.sl-top b{font:600 16px "Bricolage Grotesque"}.sl-top .h{margin-left:auto;font:700 14px Figtree;color:#3D4C8C}
+.sl-times{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-top:8px}
+.sl-times label{display:flex;flex-direction:column;font:600 11px Figtree;color:var(--muted)}
+.sl-times input{width:100%}
+.sl-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.info{border:none;background:none;color:var(--muted);font:600 12px Figtree;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;gap:4px;padding:0}
+.formula{background:var(--surface);border-radius:12px;padding:12px;font:600 14px/22px Figtree}
+.note{font-size:11px;color:var(--muted);text-align:center;margin:18px 0 0}
+.toast{position:absolute;left:50%;bottom:96px;transform:translate(-50%,20px);background:var(--brand);color:#fff;border-radius:999px;padding:8px 14px;font:600 13px Figtree;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;z-index:5}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+/* ===== v4 additions ===== */
+.switch{display:flex;justify-content:center;gap:6px;padding:12px 16px 0;flex-wrap:wrap}
+.switch button{min-height:40px;border:1.5px solid #CFC8B8;background:#fff;border-radius:999px;padding:6px 14px;font:700 13px Figtree;cursor:pointer;color:var(--ink)}
+.switch button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.back{width:44px;height:44px;border:none;background:none;font:700 26px Figtree;color:var(--brand);cursor:pointer}
+.hdr{display:flex;align-items:center;gap:4px;padding:12px 0 4px}
+.hdr h1{margin:0;flex:1;font-size:22px;line-height:28px}
+.seg2{display:flex;background:#E9E4D8;border-radius:12px;padding:4px;gap:4px;margin:8px 0}
+.seg2 button{flex:1;min-height:40px;border:none;border-radius:9px;background:none;font:700 13px Figtree;color:var(--muted);cursor:pointer}
+.seg2 button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.icons{display:flex;gap:6px;overflow-x:auto;padding:2px 0 4px}
+.icons button{border:2px solid transparent;border-radius:16px;padding:0;background:none;cursor:pointer;flex:none}
+.icons button.on{border-color:var(--g700)}
+.src{display:inline-block;font:700 10px Figtree;padding:1px 6px;border-radius:999px;background:var(--g50);color:var(--g700);vertical-align:middle}
+.src.usda{background:#E2EEF6;color:#2F5D86}.src.lab{background:#F8E3EE;color:#8A3566}
+.ing{display:flex;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--line);animation:pop .35s ease-out both}
+.ing:first-child{border-top:none}
+.ing .t{flex:1;min-width:0}.ing .t b{font-weight:600}
+.ing .amt{border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:4px 10px;font:600 13px Figtree;cursor:pointer;min-height:36px;margin-top:4px;color:var(--ink)}
+.ing .k{font:700 14px "Bricolage Grotesque";min-width:58px;text-align:right}
+.ing.miss{background:#FDF5DE;border-radius:12px;padding:10px;border-top:none;margin:6px 0}
+.ing.sug{border:1.5px dashed var(--accent);border-radius:12px;padding:10px;margin:6px 0}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.aibar{display:flex;gap:8px;align-items:flex-start;background:var(--g50);border-radius:12px;padding:10px 12px;font-size:13px;line-height:18px;color:var(--g700);margin-bottom:8px}
+.tot{position:sticky;bottom:0;background:var(--brand);color:#fff;border-radius:16px 16px 0 0;margin:12px -16px 0;padding:12px 16px 16px}
+.tot .g{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
+.tot .g b{display:block;font:700 20px "Bricolage Grotesque"}
+.tot .g span{font:600 11px Figtree;opacity:.85}
+.tot .mi{font-size:12px;opacity:.9;margin:6px 0 10px;text-align:center}
+.tot .btn{background:var(--accent);width:100%}
+.stp{display:flex;align-items:center;gap:8px}
+.stp button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);font:700 18px Figtree;cursor:pointer;color:var(--ink)}
+.stp b{min-width:52px;text-align:center;font:700 16px "Bricolage Grotesque"}
+.frow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0}
+.loading{display:flex;gap:6px;justify-content:center;padding:18px}
+.loading i{width:8px;height:8px;border-radius:50%;background:var(--g400);animation:bl 1s infinite}
+.loading i:nth-child(2){animation-delay:.15s}.loading i:nth-child(3){animation-delay:.3s}
+@keyframes bl{0%,100%{opacity:.25}50%{opacity:1}}
+/* analysis */
+.nrow{display:block;width:100%;border:none;background:none;text-align:left;padding:10px 0;border-top:1px solid var(--line);cursor:pointer;font:inherit;color:inherit}
+.nrow:first-child{border-top:none}
+.nrow .top{display:flex;align-items:baseline;gap:8px;font-size:14px}
+.nrow .top b{font-weight:700}
+.nrow .top .v{margin-left:auto;font:600 13px Figtree;color:var(--muted)}
+.nrow .top .st{font:700 12px Figtree;min-width:96px;text-align:right}
+.nrow .track{height:8px;margin-top:6px}
+.nrow .marker{height:16px;top:-4px}
+.ntrack-grey{height:8px;border-radius:999px;background:repeating-linear-gradient(45deg,#E4DFD3 0 6px,#EFEBE2 6px 12px);margin-top:6px}
+.wk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.wk div{background:var(--bg);border-radius:12px;padding:10px 4px}
+.wk b{display:block;font:700 20px "Bricolage Grotesque"}
+.wk span{font:600 11px Figtree;color:var(--muted)}
+.tag{font:700 10px Figtree;background:#FBE9DF;color:var(--accent);padding:2px 8px;border-radius:999px;margin-left:6px}
+.big{font:700 40px/44px "Bricolage Grotesque"}
+.list2 div{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.list2 div:first-child{border-top:none}
+.list2 .r{margin-left:auto;font:700 13px Figtree}
+.minibar{height:6px;border-radius:999px;background:var(--g300);margin-top:4px}
+.have{font:700 10px Figtree;background:var(--g100);color:var(--g700);padding:1px 6px;border-radius:999px}
+.caveat{background:#FDF5DE;border-radius:12px;padding:10px 12px;font-size:13px;line-height:18px;margin-top:12px}
+/* routine */
+.exr{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);cursor:pointer;width:100%;border-left:none;border-right:none;border-bottom:none;background:none;text-align:left;font:inherit;color:inherit}
+.exr:first-child{border-top:none}
+.exr .t{flex:1}.exr .t small{display:block;color:var(--muted);font-size:12px}
+.exr .r{text-align:right;font:700 13px Figtree}.exr .r small{display:block;color:var(--muted);font-weight:400}
+.mt{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.mt td,.mt th{padding:5px 4px;border-top:1px solid var(--line);text-align:left}
+.mt th{font-weight:700;color:var(--muted)}
+.watch{font:700 34px "Bricolage Grotesque";text-align:center;margin:8px 0}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="switch" role="tablist">
+ <button data-s="dish" onclick="go('dish')">🍳 Crear plato</button>
+ <button data-s="an" onclick="go('an')">📊 Análisis · F19</button>
+ <button data-s="rt" onclick="go('rt')">🏋️ Rutina</button>
+</div>
+<div class="stage"><div class="phone">
+ <div class="scroll" id="scr"></div>
+ <nav aria-label="Navegación" id="nav">
+  <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2" stroke-linecap="round"/></svg>Hoy</a>
+  <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 9.5h16M4 14.5h16M9.5 4v16M14.5 4v16"/></svg>Calendario</a>
+  <button class="fab" aria-label="Registrar"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+  <a href="#" class="on"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Análisis</a>
+  <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" stroke-linecap="round"/></svg>Perfil</a>
+ </nav>
+ <div class="scrim" id="scrim" onclick="closeSheet()"></div>
+ <div class="sheet" id="sheet" role="dialog" aria-modal="true"><div class="grab"></div><div id="sheetBody"></div></div>
+ <div class="toast" id="toast"></div>
+</div></div>
+
+<script>
+const FI={
+ sopa:{bg:'#FBE9DF',s:'<path d="M7 22h34a17 17 0 0 1-34 0z" fill="#E08A4F"/><path d="M7 22h34" stroke="#8A3E14" stroke-width="2.5"/><path d="M18 9c0 3 3 3 3 6M26 9c0 3 3 3 3 6" stroke="#B9B6AE" stroke-width="2.5" stroke-linecap="round" fill="none"/>'},
+ plato:{bg:'#FBEFD8',s:'<circle cx="24" cy="26" r="15" fill="#fff" stroke="#C9A227" stroke-width="2.5"/><circle cx="24" cy="26" r="8" fill="#E9C46A"/><path d="M6 10v10M4 10v6M8 10v6M42 10v20" stroke="#6B5E55" stroke-width="2.2" stroke-linecap="round"/>'},
+ arroz:{bg:'#F4F1EA',s:'<path d="M8 26h32a16 16 0 0 1-32 0z" fill="#B3392F"/><path d="M10 26c2-9 26-9 28 0z" fill="#fff" stroke="#D9D4C8" stroke-width="2"/>'},
+ hoja:{bg:'#E3EFE6',s:'<path d="M10 34c0-14 12-24 28-24 0 16-10 28-24 28" fill="#3E8A55"/><path d="M14 34l18-18" stroke="#D5EBDB" stroke-width="2.2" stroke-linecap="round"/><circle cx="25" cy="27" r="5" fill="#E9C46A"/>'},
+ brocheta:{bg:'#F8E3DD',s:'<path d="M8 40L40 8" stroke="#8A6A4A" stroke-width="2.5" stroke-linecap="round"/><rect x="13" y="25" width="10" height="10" rx="3" transform="rotate(-45 18 30)" fill="#9E2B25"/><rect x="21" y="17" width="10" height="10" rx="3" transform="rotate(-45 26 22)" fill="#B84E18"/><rect x="29" y="9" width="9" height="9" rx="3" transform="rotate(-45 33 13)" fill="#9E2B25"/>'},
+ fruta:{bg:'#FBE4E1',s:'<path d="M24 15c-9-4-15 3-13 11 2 10 8 15 13 11 5 4 11-1 13-11 2-8-4-15-13-11z" fill="#D9473B"/><path d="M24 15c0-4 2-6 6-7" stroke="#3E8A55" stroke-width="2.5" stroke-linecap="round" fill="none"/>'},
+ jugo:{bg:'#FFF1D6',s:'<path d="M14 12h20l-3 28H17z" fill="#F2A541" stroke="#B87A1E" stroke-width="2"/><path d="M28 12l5-7" stroke="#3E8A55" stroke-width="2.5" stroke-linecap="round"/><path d="M15 20h18" stroke="#fff" stroke-width="2"/>'},
+ pan:{bg:'#F6EBD6',s:'<path d="M8 22c0-7 7-10 16-10s16 3 16 10c0 2-2 3-3 3v11H11V25c-1 0-3-1-3-3z" fill="#D9A15A" stroke="#9A6B00" stroke-width="2"/>'},
+ huevo:{bg:'#FFF8E1',s:'<ellipse cx="24" cy="26" rx="15" ry="12" fill="#fff" stroke="#D9D4C8" stroke-width="2"/><circle cx="24" cy="26" r="6" fill="#F2B705"/>'},
+ pescado:{bg:'#E2EEF6',s:'<path d="M8 24c6-9 18-11 26 0-8 11-20 9-26 0z" fill="#5B8DB8"/><path d="M34 24l8-7v14z" fill="#5B8DB8"/><circle cx="15" cy="22" r="1.8" fill="#fff"/>'},
+ dulce:{bg:'#F8E3EE',s:'<path d="M12 24h24l-3 14H15z" fill="#C46A9A"/><path d="M12 24c0-7 5-11 12-11s12 4 12 11z" fill="#F4C6DC"/><circle cx="24" cy="10" r="3" fill="#D9473B"/>'},
+ nuez:{bg:'#F3E7DC',s:'<ellipse cx="18" cy="26" rx="8" ry="11" fill="#B07A47"/><ellipse cx="30" cy="22" rx="8" ry="11" fill="#C99460"/>'},
+};
+const foodIcon=(k,sz=48)=>`<span class="fi" style="background:${FI[k].bg};width:${sz}px;height:${sz}px"><svg width="${sz*.78}" height="${sz*.78}" viewBox="0 0 48 48">${FI[k].s}</svg></span>`;
+const ic=(p,c,s=18)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const fmt=(n,d=0)=>n.toLocaleString('es-PE',{minimumFractionDigits:d,maximumFractionDigits:d});
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1800);}
+function openSheet(html){document.getElementById('sheetBody').innerHTML=html;document.getElementById('sheet').classList.add('open');document.getElementById('scrim').classList.add('open');}
+function closeSheet(){document.getElementById('sheet').classList.remove('open');document.getElementById('scrim').classList.remove('open');clearInterval(W.t);}
+const SRC={INS:'<span class="src">INS</span>',USDA:'<span class="src usda">USDA</span>',Etiqueta:'<span class="src lab">Etiqueta</span>'};
+
+/* ===== catalog (illustrative values per 100 g, NOT real data) ===== */
+const CAT={
+ arroz:{n:'Arroz blanco cocido',src:'INS',p:{k:130,p:2.7,f:.3,c:28,fib:.4,fe:.2},u:[['1 taza',160],['½ taza',80],['1 cucharón',120]]},
+ pollo:{n:'Pollo, carne con piel',src:'INS',p:{k:215,p:27,f:12,c:0,fib:0,fe:1},u:[['1/32 de pollo',30],['1/16 de pollo',60],['1/8 de pollo',120],['¼ de pollo',240]]},
+ huevo:{n:'Huevo de gallina',src:'INS',p:{k:155,p:12.6,f:10.6,c:1.1,fib:0,fe:1.8},u:[['1 huevo',50],['½ huevo',25]]},
+ aceituna:{n:'Aceituna de botija',src:'INS',p:{k:300,p:1.5,f:30,c:6,fib:3,fe:1.6},u:[['1 aceituna',6],['2 aceitunas',12]]},
+ aceite:{n:'Aceite vegetal',src:'INS',p:{k:884,p:0,f:100,c:0,fib:0,fe:0},u:[['1 cdta',5],['1 cda',14]]},
+ cebolla:{n:'Cebolla roja',src:'INS',p:{k:40,p:1.1,f:.1,c:9,fib:1.7,fe:.2},u:[['1 cda picada',10],['¼ cebolla',40]]},
+ papa:{n:'Papa blanca sancochada',src:'INS',p:{k:87,p:1.9,f:.1,c:20,fib:1.8,fe:.3},u:[['1 papa mediana',150],['½ papa',75]]},
+ lentejas:{n:'Lentejas cocidas',src:'INS',p:{k:116,p:9,f:.4,c:20,fib:7.9,fe:3.3},u:[['1 taza',200],['½ taza',100]]},
+ palta:{n:'Palta',src:'INS',p:{k:160,p:2,f:15,c:9,fib:6.7,fe:.6},u:[['¼ palta',50],['½ palta',100]]},
+ tomate:{n:'Tomate',src:'INS',p:{k:18,p:.9,f:.2,c:3.9,fib:1.2,fe:.3},u:[['1 tomate',120],['½ tomate',60]]},
+ tocino:{n:'Tocino de cerdo',src:'USDA',p:{k:541,p:37,f:42,c:1.4,fib:0,fe:1.4},u:[['1 tira',8]]},
+ oreo:{n:'Oreo (galleta)',src:'Etiqueta',p:{k:480,p:4,f:20,c:69,fib:2.5,fe:4},u:[['1 galleta',11],['1 paquete (6)',66]]},
+};
+const ICONS=Object.keys(FI);
+
+/* ===== state ===== */
+const S={screen:'dish'};
+const D={mode:'ai',name:'Juane de pollo (mini)',icon:'hoja',yields:1,items:[],phase:'idle'};
+const W={t:null,s:0};
+
+function go(s){S.screen=s;closeSheet();document.querySelectorAll('.switch button').forEach(b=>b.classList.toggle('on',b.dataset.s===s));document.getElementById('nav').style.display=s==='an'?'flex':'none';render();document.getElementById('scr').scrollTop=0;}
+function render(){({dish:rDish,an:rAn,rt:rRt})[S.screen]();}
+
+/* ================= CREATE DISH ================= */
+const grams=it=>it.g!=null?it.g:CAT[it.f].u[it.ui][1];
+const amtTxt=it=>it.g!=null?`${it.g} g`:`${CAT[it.f].u[it.ui][0]} · ${CAT[it.f].u[it.ui][1]} g`;
+const nut=(it,k)=>CAT[it.f].p[k]*grams(it)/100;
+function totals(){const t={k:0,p:0,f:0,c:0,fib:0,fe:0};D.items.filter(i=>i.f&&!i.sug).forEach(i=>{for(const k in t)t[k]+=nut(i,k)});for(const k in t)t[k]/=D.yields;return t;}
+
+function rDish(){
+ const t=totals(), ai=D.mode==='ai';
+ const rows=D.items.map((it,i)=>{
+  if(it.miss)return `<div class="ing miss"><span style="font-size:20px">⚠️</span><div class="t"><b>${it.miss}</b><div class="muted">No está en la tabla. Si es condimento, puedes ignorarlo.</div><div style="display:flex;gap:8px;margin-top:6px"><button class="btn ghost" style="min-height:36px;padding:4px 12px" onclick="openSearch('${it.q}')">Buscar</button><button class="btn ghost" style="min-height:36px;padding:4px 12px;color:var(--muted);border-color:var(--line)" onclick="D.items.splice(${i},1);rDish()">Ignorar</button></div></div></div>`;
+  const c=CAT[it.f];
+  if(it.sug)return `<div class="ing sug"><div class="t"><b>${c.n}</b> ${SRC[c.src]}<div class="muted">Sugerido: ${it.why} · ${amtTxt(it)}</div></div><button class="btn" style="min-height:36px;padding:4px 12px" onclick="D.items[${i}].sug=false;rDish()">Añadir</button><button class="x" aria-label="Descartar" onclick="D.items.splice(${i},1);rDish()">✕</button></div>`;
+  return `<div class="ing"><div class="t"><b>${c.n}</b> ${SRC[c.src]}<br><button class="amt" onclick="openUnit(${i})">${amtTxt(it)} ▾</button></div><span class="k">${fmt(nut(it,'k'))} kcal</span><button class="x" aria-label="Quitar" onclick="D.items.splice(${i},1);rDish()">✕</button></div>`;
+ }).join('');
+ const empty=!D.items.length;
+ document.getElementById('scr').innerHTML=`
+ <div class="hdr"><button class="back" aria-label="Volver">‹</button><h1>Crear plato</h1></div>
+ <div class="seg2"><button class="${!ai?'on':''}" onclick="setMode('man')">Manual · v0.1</button><button class="${ai?'on':''}" onclick="setMode('ai')">Con IA · v0.2</button></div>
+ <section class="card">
+  <div class="lbl">Nombre</div><input class="txt" value="${D.name}" oninput="D.name=this.value">
+  <div class="lbl" style="margin-top:12px">Ícono</div>
+  <div class="icons">${ICONS.map(k=>`<button class="${D.icon===k?'on':''}" aria-label="${k}" onclick="D.icon='${k}';rDish()">${foodIcon(k,44)}</button>`).join('')}</div>
+  <div class="frow"><div><b>Rinde</b><div class="muted">Porciones que salen de esta receta</div></div><div class="stp"><button onclick="D.yields=Math.max(1,D.yields-1);rDish()">−</button><b>${D.yields}</b><button onclick="D.yields++;rDish()">+</button></div></div>
+ </section>
+ <section class="card">
+  <h2>Ingredientes<span class="right">${D.items.filter(i=>i.f&&!i.sug).length}</span></h2>
+  ${ai&&D.phase==='idle'&&empty?`<div class="aibar">✨<span>La IA propone <b>solo ingredientes y cantidades</b>. Los nutrientes salen de la tabla.</span></div><button class="btn block big" onclick="askAI()">✨ Buscar ingredientes de “${D.name}”</button>`:''}
+  ${D.phase==='loading'?`<div class="loading"><i></i><i></i><i></i></div><p class="muted" style="text-align:center;margin:0">Buscando cómo se prepara…</p>`:''}
+  ${!ai&&empty?`<p class="muted">Agrega ingredientes de la tabla, en medidas caseras o gramos.</p>`:''}
+  <div>${rows}</div>
+  ${(!empty||!ai)&&D.phase!=='loading'?`<div style="display:flex;gap:8px;margin-top:10px"><button class="btn ghost" style="flex:1" onclick="openSearch('')">+ Ingrediente</button>${ai?`<button class="btn ghost" style="flex:1" onclick="whatsMissing()">✨ ¿Qué falta?</button>`:''}</div>`:''}
+ </section>
+ <p class="note">Prototipo · valores ilustrativos, no son datos reales de la tabla</p>
+ <div class="tot"><div class="muted" style="color:#fff;opacity:.85;text-align:center;margin-bottom:6px;font-size:12px">Por porción ${D.yields>1?`(de ${D.yields})`:''}</div>
+  <div class="g"><div><b>${fmt(t.k)}</b><span>kcal</span></div><div><b>${fmt(t.p)}</b><span>proteína g</span></div><div><b>${fmt(t.f)}</b><span>grasa g</span></div><div><b>${fmt(t.c)}</b><span>carbos g</span></div></div>
+  <div class="mi">Fibra ${fmt(t.fib,1)} g · Hierro ${fmt(t.fe,1)} mg · + 10 vitaminas y minerales</div>
+  <button class="btn" ${D.items.some(i=>i.f&&!i.sug)?'':'disabled'} onclick="toast('Plato guardado · ya está en tus recientes')">Guardar plato</button></div>`;
+}
+function setMode(m){D.mode=m;D.items=[];D.phase='idle';rDish();}
+function askAI(){D.phase='loading';rDish();setTimeout(()=>{D.phase='done';D.items=[{f:'arroz',ui:0},{f:'pollo',ui:0},{f:'huevo',ui:1},{f:'aceituna',ui:0},{miss:'Palillo (cúrcuma)',q:'palillo'}];rDish();},1100);}
+function whatsMissing(){toast('Buscando qué falta…');setTimeout(()=>{if(!D.items.some(i=>i.f==='aceite'))D.items.push({f:'aceite',ui:0,sug:true,why:'para el arroz'});if(!D.items.some(i=>i.f==='cebolla'))D.items.push({f:'cebolla',ui:0,sug:true,why:'aderezo'});rDish();},700);}
+function openUnit(i){const it=D.items[i],c=CAT[it.f];
+ openSheet(`<h3>${c.n} ${SRC[c.src]}</h3><p class="muted" style="margin-top:-6px">¿Cuánto lleva?</p>
+ <div class="chips">${c.u.map((u,j)=>`<button class="chip ${it.g==null&&it.ui===j?'on':''}" onclick="D.items[${i}].ui=${j};D.items[${i}].g=null;openUnit(${i});rDish()">${u[0]} <small>${u[1]} g</small></button>`).join('')}</div>
+ <div class="lbl" style="margin-top:14px">o en gramos</div><input class="txt" type="number" inputmode="numeric" value="${grams(it)}" oninput="D.items[${i}].g=Math.max(0,+this.value||0);document.getElementById('uk').textContent=Math.round(nut(D.items[${i}],'k'));rDish()">
+ <div class="preview" style="margin-top:12px"><b id="uk">${fmt(nut(it,'k'))}</b> kcal en esta cantidad</div>
+ <p class="muted">Peso de la medida casera: tablas auxiliares del INS. Puedes corregirlo.</p>
+ <button class="btn block" onclick="closeSheet()">Listo</button>`);}
+function openSearch(q){
+ const res=()=>{const v=document.getElementById('sq').value.toLowerCase();const r=Object.entries(CAT).filter(([k,c])=>c.n.toLowerCase().includes(v));
+  document.getElementById('sr').innerHTML=r.length?r.map(([k,c])=>`<button class="exr" onclick="addIng('${k}')"><div class="t"><b>${c.n}</b> ${SRC[c.src]}<small>${c.p.k} kcal / 100 g · ${c.u[0][0]} = ${c.u[0][1]} g</small></div><span style="color:var(--accent);font:700 22px Figtree">+</span></button>`).join(''):`<p class="muted">Sin resultados en la tabla. Si es un condimento, puedes ignorarlo.</p>`;};
+ openSheet(`<h3>Agregar ingrediente</h3><div class="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E6358" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="sq" value="${q}" placeholder="Busca: papa, huevo, Oreo…"></div><div id="sr"></div><p class="muted">Orden: tabla INS → USDA → etiquetas de marca.</p>`);
+ const inp=document.getElementById('sq');inp.oninput=res;res();}
+function addIng(k){const mi=D.items.findIndex(i=>i.miss);D.items.push({f:k,ui:0});closeSheet();rDish();setTimeout(()=>openUnit(D.items.length-1),350);}
+
+/* ================= ANALYSIS (F19) ================= */
+const NUT=[
+ {n:'Fibra',u:'g',v:13.1,ref:24,cov:.96,refTxt:'14 g por cada 1.000 kcal de tu meta del día (≈1.700 kcal)',src:[['Papaya',22],['Frejoles',18],['Manzana',14]],rich:[['Frejoles cocidos','1 taza',11,'g'],['Lentejas cocidas','1 taza',7.9,'g'],['Palta','½',6.7,'g',1],['Manzana con cáscara','1',4.4,'g',1],['Papaya','1 taza',2.5,'g',1]],note:'Súbela de a pocos y con agua: un salto brusco da más gases.'},
+ {n:'Potasio',u:'mg',v:2150,ref:3400,cov:.9,src:[['Papa',24],['Plátano',18],['Palta',12]],rich:[['Frejoles cocidos','1 taza',710,'mg'],['Papa sancochada','1 mediana',620,'mg',1],['Palta','½',490,'mg',1],['Plátano','1',420,'mg',1],['Tomate','1',290,'mg']]},
+ {n:'Sodio',u:'mg',v:2650,ref:2000,limit:1,cov:.88,src:[['Chaufa (sillao)',28],['Anticucho',16],['Salchipapa',12]],note:'Es un tope, no una meta. El sillao, los cubitos y las cremas concentran sal.'},
+ {n:'Calcio',u:'mg',v:720,ref:1000,cov:.92,src:[['Yogurt',34],['Pan',12],['Queso de la huancaína',9]],rich:[['Yogurt','1 vaso',300,'mg',1],['Sardina en lata','½ lata',190,'mg'],['Queso fresco','1 tajada',190,'mg'],['Frejoles cocidos','1 taza',90,'mg'],['Brócoli','1 taza',60,'mg']]},
+ {n:'Folato',u:'µg',v:300,ref:400,cov:.85},
+ {n:'Riboflavina (B2)',u:'mg',v:1.1,ref:1.3,cov:.9},
+ {n:'Hierro',u:'mg',v:6.9,ref:8,cov:.94,src:[['Lomo saltado',21],['Pan',17],['Anticucho de corazón',15]],rich:[['Sangrecita de pollo','½ taza',14,'mg'],['Hígado de pollo','1 presa',7,'mg'],['Lentejas cocidas','1 taza',6.6,'mg'],['Corazón de res','3 palitos',4.3,'mg',1],['Carne de res','1 bistec',2.6,'mg',1]],note:'El hierro de plantas se absorbe menos que el de carnes. La vitamina C en la misma comida (limón, naranja) ayuda.'},
+ {n:'Zinc',u:'mg',v:9.6,ref:11,cov:.9},
+ {n:'Vitamina A',u:'µg',v:980,ref:900,cov:.93,note:'La tabla del INS la da en equivalentes de retinol: en vegetales puede sobreestimar hasta 2 veces.'},
+ {n:'Tiamina (B1)',u:'mg',v:1.3,ref:1.2,cov:.9},
+ {n:'Niacina (B3)',u:'mg',v:19,ref:16,cov:.9},
+ {n:'Vitamina C',u:'mg',v:140,ref:90,cov:.97,src:[['Mandarina',31],['Papaya',26],['Jugo surtido',18]]},
+ {n:'Vitamina B12',u:'µg',v:1.9,ref:2.4,cov:.62,note:'La tabla del INS no trae B12; sale de USDA solo en los alimentos enlazados. Con menos de 80 % de cobertura no se colorea.'},
+];
+function stat(x){const pct=x.v/x.ref*100;
+ if(x.cov<.8)return{c:'grey',t:'Datos incompletos',col:'var(--muted)',pct};
+ if(x.limit)return x.v<=2000?{c:'g',t:'Bajo el tope',col:'var(--g700)',pct}:x.v<=2300?{c:'y',t:'Cerca del tope',col:'var(--amberText)',pct}:{c:'r',t:'Pasa el tope',col:'var(--redText)',pct};
+ return pct>=100?{c:'g',t:'Cubierto',col:'var(--g700)',pct}:pct>=70?{c:'y',t:'Casi',col:'var(--amberText)',pct}:{c:'r',t:'Bajo',col:'var(--redText)',pct};}
+const ORD={r:0,y:1,g:2,grey:3};
+function bar(x,s){
+ if(s.c==='grey')return `<div class="ntrack-grey"></div>`;
+ if(x.limit){const m=Math.min(x.v,3000)/3000*100;return `<div class="track"><i style="width:${2000/30}%;background:var(--range-green,#86C497)"></i><i style="width:10%;background:var(--amber)"></i><i style="flex:1;background:var(--red)"></i><span class="marker" style="left:${m}%"></span></div>`;}
+ const m=Math.min(s.pct,150)/150*100;
+ return `<div class="track"><i style="width:${70/1.5}%;background:var(--red)"></i><i style="width:${30/1.5}%;background:var(--amber)"></i><i style="flex:1;background:#86C497"></i><span class="marker" style="left:${m}%"></span></div>`;}
+function rAn(){
+ const list=NUT.map((x,i)=>({x,i,s:stat(x)})).sort((a,b)=>ORD[a.s.c]-ORD[b.s.c]||a.s.pct-b.s.pct);
+ const cnt={r:0,y:0,g:0};list.forEach(o=>cnt[o.s.c]!=null&&cnt[o.s.c]++);
+ document.getElementById('scr').innerHTML=`
+ <header><div><h1>Análisis</h1><small>Semana del 1 al 7 de octubre</small></div><div style="display:flex;gap:6px"><button class="iconbtn" aria-label="Semana anterior">‹</button><button class="iconbtn" aria-label="Semana siguiente">›</button></div></header>
+ <section class="card"><h2>Tu semana<span class="tag">propuesta</span></h2>
+  <div class="wk"><div><b>4 · 2 · 1</b><span>días 🟢 🟡 🔴</span></div><div><b>165</b><span>min de movimiento / 150</span></div><div><b>−0,3</b><span>kg tendencia</span></div></div></section>
+ <section class="card"><h2>Vitaminas, minerales y fibra<span class="right">6 de 7 días</span></h2>
+  <p class="muted" style="margin:-4px 0 6px">Promedio diario vs. lo recomendado · ${cnt.r} bajos · ${cnt.y} casi · ${cnt.g} cubiertos</p>
+  ${list.map(({x,i,s})=>`<button class="nrow" onclick="openNut(${i})"><div class="top"><b>${x.n}</b><span class="v">${fmt(x.v,x.v<10?1:0)} de ${x.limit?'máx. ':''}${fmt(x.ref,x.ref<10?1:0)} ${x.u}</span><span class="st" style="color:${s.col}">${s.c==='grey'?s.t:fmt(s.pct)+' % · '+s.t}</span></div>${bar(x,s)}</button>`).join('')}
+  <div class="caveat">🩸 Estima lo que <b>comes</b>, no lo que hay en tu sangre. Eso solo lo mide un análisis.</div>
+ </section>
+ <p class="note">Prototipo · datos de ejemplo</p>`;}
+function openNut(i){const x=NUT[i],s=stat(x);
+ const src=x.src?`<div class="lbl" style="margin-top:14px">De dónde vino esta semana</div><div class="list2">${x.src.map(([n,p])=>`<div><span style="flex:1">${n}<div class="minibar" style="width:${p*2.5}%"></div></span><span class="r">${p} %</span></div>`).join('')}</div>`:'';
+ const rich=x.rich?`<div class="lbl" style="margin-top:14px">Alimentos con más ${x.n.toLowerCase()} por porción</div><div class="list2">${x.rich.sort((a,b)=>(b[4]||0)-(a[4]||0)).map(r=>`<div><span style="flex:1">${r[0]} <small class="muted">${r[1]}</small> ${r[4]?'<span class="have">ya lo comes</span>':''}</span><span class="r">${fmt(r[2],r[2]<10?1:0)} ${r[3]}</span></div>`).join('')}</div>`:(x.limit?'':`<p class="muted" style="margin-top:14px">En el prototipo, el detalle completo está en Fibra, Potasio, Calcio y Hierro.</p>`);
+ openSheet(`<h3>${x.n}</h3>
+ <div class="preview"><div><span class="big" style="color:${s.col}">${s.c==='grey'?'—':fmt(s.pct)+' %'}</span><div class="muted">${s.t}</div></div><div style="margin-left:auto;text-align:right;font-size:13px">Promedio <b style="font-size:16px">${fmt(x.v,x.v<10?1:0)} ${x.u}</b><br>${x.limit?'Tope':'Recomendado'} ${fmt(x.ref,x.ref<10?1:0)} ${x.u}/día</div></div>
+ <p class="muted" style="margin:0">Referencia: ${x.refTxt||(x.limit?'OMS':'NAM, hombre 19–50 años')} · ${fmt(x.cov*100)} % de lo que comiste tiene este dato</p>
+ ${src}${rich}${x.note?`<div class="caveat">ⓘ ${x.note}</div>`:''}
+ <p class="muted" style="margin-top:12px">Sin suplementos ni marcas: solo comida.</p>
+ <button class="btn block" style="margin-top:8px" onclick="closeSheet()">Cerrar</button>`);}
+
+/* ================= ROUTINE ================= */
+const BMR=1650, PERH=BMR/24, TEF=1.10;
+const KIND={
+ pesas:{n:'Pesas',met:[3.5,5.0,6.0],code:['02054','02052','02050'],i:'<path d="M3 9v6M6 7v10M18 7v10M21 9v6M6 12h12"/>',c:'#B84E18'},
+ cuerpo:{n:'Peso corporal',met:[3.0,3.8,6.5],code:['02056','02022','02057'],i:'<circle cx="12" cy="5" r="2"/><path d="M12 7v7M8 21l4-7 4 7M7 10h10"/>',c:'#3D4C8C'},
+ iso:{n:'Isométrico',met:[2.8],code:['02024'],i:'<path d="M3 16h18M6 16l3-5h8"/><circle cx="18" cy="9" r="2"/>',c:'#255E3B'},
+ esc:{n:'Escaleras (subir y bajar)',met:[7.5],code:['17138'],i:'<path d="M3 20h5v-5h5v-5h5V5h3"/>',c:'#5B8DB8'},
+ mov:{n:'Movilidad',met:[2.3],code:['02101'],i:'<circle cx="12" cy="5" r="2"/><path d="M12 7v6l-4 7M12 13l4 7M5 9l7 2 7-2"/>',c:'#9A6B00'},
+};
+const EFF=['Ligero','Medio','Fuerte'], EFFH=['puedes hablar','frases cortas','casi no puedes hablar'];
+const R={name:'Fuerza A + escaleras',rest:75,showF:false,ex:[
+ {n:'Sentadilla goblet',k:'pesas',sets:3,reps:15,tempo:4,eff:0},
+ {n:'Press de suelo, agarre neutro',k:'pesas',sets:3,reps:15,tempo:4,eff:0},
+ {n:'Remo inclinado',k:'pesas',sets:3,reps:15,tempo:4,eff:0},
+ {n:'Puente de glúteo',k:'pesas',sets:3,reps:15,tempo:4,eff:0},
+ {n:'Plancha sobre antebrazos',k:'iso',sets:3,secs:30,eff:0},
+ {n:'Escaleras 1.º → 3.º piso',k:'esc',laps:4,lap:70,eff:0},
+]};
+const met=e=>KIND[e.k].met[Math.min(e.eff,KIND[e.k].met.length-1)];
+const code=e=>KIND[e.k].code[Math.min(e.eff,KIND[e.k].code.length-1)];
+function secs(e,done){const s=done??(e.k==='esc'?e.laps:e.k==='mov'?e.min:e.sets);
+ if(e.k==='esc')return s*e.lap; if(e.k==='mov')return s*60;
+ const work=e.k==='iso'?e.secs:e.reps*e.tempo; return s*(work*(e.side?2:1)+R.rest);}
+const kcal=(e,done)=>(met(e)-1)*PERH*secs(e,done)/3600*TEF;
+const detail=e=>e.k==='esc'?`${e.laps} vueltas × ${e.lap} s`:e.k==='mov'?`${e.min} min`:e.k==='iso'?`${e.sets} × ${e.secs} s${e.side?' por lado':''}`:`${e.sets} × ${e.reps}${e.side?' por lado':''} · ${e.tempo} s/rep`;
+const kicon=(k,sz=40)=>`<span class="ib" style="background:${KIND[k].c}22;width:${sz}px;height:${sz}px;border-radius:12px">${ic(KIND[k].i,KIND[k].c,sz*.6)}</span>`;
+function rRt(){
+ const T=R.ex.reduce((a,e)=>a+secs(e),0), K=R.ex.reduce((a,e)=>a+kcal(e),0);
+ document.getElementById('scr').innerHTML=`
+ <div class="hdr"><button class="back" aria-label="Volver">‹</button><h1>Rutina</h1><button class="link" onclick="toast('Rutina guardada')">Guardar</button></div>
+ <section class="card"><div class="lbl">Nombre</div><input class="txt" value="${R.name}" oninput="R.name=this.value">
+  <div class="frow" style="margin-top:6px"><div><b>Descanso entre series</b><div class="muted">Se suma al tiempo de cada serie</div></div><div class="stp"><button onclick="R.rest=Math.max(0,R.rest-15);rRt()">−</button><b>${R.rest} s</b><button onclick="R.rest+=15;rRt()">+</button></div></div></section>
+ <section class="card"><h2>Ejercicios<span class="right">${R.ex.length}</span></h2>
+  ${R.ex.map((e,i)=>`<button class="exr" onclick="editEx(${i})">${kicon(e.k)}<div class="t"><b>${e.n}</b><small>${KIND[e.k].n} · ${detail(e)}${KIND[e.k].met.length>1?' · '+EFF[e.eff]:''}</small></div><div class="r">${fmt(kcal(e))} kcal<small>${fmt(secs(e)/60,1)} min</small></div></button>`).join('')}
+  <button class="btn ghost block" style="margin-top:10px" onclick="addEx()">+ Ejercicio</button></section>
+ <section class="card"><div class="frow" style="padding:0"><div><span class="big">≈ ${fmt(K)}</span> <b>kcal</b><div class="muted">≈ ${fmt(T/60)} min · se suman a tu meta del día</div></div></div>
+  <button class="info" onclick="R.showF=!R.showF;rRt()">ⓘ ¿Cómo se calcula?</button>
+  ${R.showF?`<div class="formula">kcal = (MET − 1) × (basal ÷ 24) × horas × 1,10<div class="muted" style="font-weight:400;margin-top:4px">Basal de ejemplo: ${fmt(BMR)} kcal/día. Se resta 1 MET porque el reposo ya está en tu meta. Los METs de pesas del Compendio se midieron en sesiones completas, con descansos.</div>
+   <table class="mt"><tr><th>Ejercicio</th><th>MET</th><th>Código</th></tr>${R.ex.map(e=>`<tr><td>${e.n}</td><td>${fmt(met(e),1)}</td><td>${code(e)}</td></tr>`).join('')}</table>
+   <div class="muted" style="font-weight:400;margin-top:8px">Error típico ±20–30 %. La recalibración con tu peso (cada 2 semanas) lo corrige.</div></div>`:''}
+ </section>
+ <button class="btn block big" onclick="logRt()">Registrar hoy</button>
+ <p class="note">Prototipo · METs del Compendio 2024 · basal de ejemplo</p>`;}
+function stepper(lbl,val,fn,sub=''){return `<div class="frow"><div><b>${lbl}</b>${sub?`<div class="muted">${sub}</div>`:''}</div><div class="stp"><button onclick="${fn}(-1)">−</button><b>${val}</b><button onclick="${fn}(1)">+</button></div></div>`;}
+let EI=0;
+function chg(f,d,step,min){const e=R.ex[EI];e[f]=Math.max(min,e[f]+d*step);editEx(EI);rRt();}
+window.cSets=d=>chg('sets',d,1,1);window.cReps=d=>chg('reps',d,1,1);window.cTempo=d=>chg('tempo',d,1,1);window.cSecs=d=>chg('secs',d,5,5);window.cLaps=d=>chg('laps',d,1,1);window.cLap=d=>chg('lap',d,5,10);window.cMin=d=>chg('min',d,1,1);
+function editEx(i){EI=i;const e=R.ex[i],K=KIND[e.k];
+ let body='';
+ if(e.k==='esc')body=stepper('Vueltas',e.laps,'cLaps','1 vuelta = subir y bajar caminando')+stepper('Tiempo por vuelta',e.lap+' s','cLap','La bajada cuenta como descanso')+`<button class="btn ghost block" onclick="watch()">⏱ Medir una vuelta</button>`;
+ else if(e.k==='mov')body=stepper('Minutos',e.min,'cMin');
+ else{body=stepper('Series',e.sets,'cSets')+(e.k==='iso'?stepper('Segundos',e.secs,'cSecs'):stepper('Repeticiones',e.reps,'cReps')+stepper('Segundos por repetición',e.tempo,'cTempo','Bajar en 3 s + subir 1 s = 4'))+`<button class="toggle" onclick="R.ex[${i}].side=!R.ex[${i}].side;editEx(${i});rRt()"><span style="flex:1">Por lado (izquierda y derecha)</span><span class="sw ${e.side?'on':''}"></span></button>`;}
+ if(K.met.length>1)body+=`<div class="lbl" style="margin-top:12px">Esfuerzo</div><div class="chips">${EFF.map((n,j)=>`<button class="chip ${e.eff===j?'on':''}" onclick="R.ex[${i}].eff=${j};editEx(${i});rRt()">${n} <small>${EFFH[j]}</small></button>`).join('')}</div>`;
+ openSheet(`<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">${kicon(e.k,44)}<h3 style="margin:0">${e.n}</h3></div>${body}
+ <div class="preview" style="margin-top:12px"><b>${fmt(kcal(e))}</b> kcal · ${fmt(secs(e)/60,1)} min <span class="muted" style="margin-left:auto">MET ${fmt(met(e),1)} · ${code(e)}</span></div>
+ <div style="display:flex;gap:8px"><button class="btn ghost" style="color:var(--redText);border-color:var(--line)" onclick="R.ex.splice(${i},1);closeSheet();rRt()">Quitar</button><button class="btn" style="flex:1" onclick="closeSheet()">Listo</button></div>`);}
+function watch(){W.s=0;clearInterval(W.t);
+ const draw=()=>openSheet(`<h3>Medir una vuelta</h3><p class="muted">Sube del 1.º al 3.º y baja caminando. Toca “Listo” al volver.</p><div class="watch">${Math.floor(W.s/60)}:${String(W.s%60).padStart(2,'0')}</div><button class="btn block big" onclick="clearInterval(W.t);R.ex[EI].lap=Math.max(10,W.s);toast('Vuelta: '+R.ex[EI].lap+' s');editEx(EI);rRt()">Listo</button><p class="muted" style="text-align:center">Se hace una sola vez; después se reutiliza.</p>`);
+ draw();W.t=setInterval(()=>{W.s++;const el=document.querySelector('.watch');if(el)el.textContent=`${Math.floor(W.s/60)}:${String(W.s%60).padStart(2,'0')}`;},1000);}
+const CATX=[['Zancada estática','pesas',{sets:3,reps:10,tempo:3,side:true}],['Peso muerto rumano','pesas',{sets:3,reps:15,tempo:4}],['Pájaro (elevación posterior)','pesas',{sets:3,reps:15,tempo:3}],['Bicho muerto','cuerpo',{sets:3,reps:10,tempo:3,side:true}],['Plancha lateral','iso',{sets:3,secs:20,side:true}],['Escaleras','esc',{laps:8,lap:70}],['Movilidad','mov',{min:5}]];
+function addEx(){openSheet(`<h3>Agregar ejercicio</h3><div class="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E6358" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input placeholder="Busca un ejercicio"></div>
+ ${CATX.map((c,j)=>`<button class="exr" onclick="R.ex.push(Object.assign({n:'${c[0]}',k:'${c[1]}',eff:0},CATX[${j}][2]));closeSheet();rRt()">${kicon(c[1])}<div class="t"><b>${c[0]}</b><small>${KIND[c[1]].n}</small></div><span style="color:var(--accent);font:700 22px Figtree">+</span></button>`).join('')}
+ <button class="exr" onclick="toast('v0.2: escribes el nombre y la IA elige el MET más cercano')"><span class="ib" style="background:#FBE9DF;width:40px;height:40px;border-radius:12px">✨</span><div class="t"><b>Otro</b><small>Escríbelo y la IA elige el MET · v0.2</small></div></button>`);}
+const L={pct:100,adj:false,done:[],band:'Mañana'};
+function logRt(){L.done=R.ex.map(e=>e.k==='esc'?e.laps:e.k==='mov'?e.min:e.sets);L.pct=100;L.adj=false;drawLog();}
+function drawLog(){
+ const done=R.ex.map((e,i)=>L.adj?L.done[i]:((e.k==='esc'?e.laps:e.k==='mov'?e.min:e.sets)*L.pct/100));
+ const K=R.ex.reduce((a,e,i)=>a+kcal(e,done[i]),0),T=R.ex.reduce((a,e,i)=>a+secs(e,done[i]),0);
+ openSheet(`<h3>${R.name}</h3><div class="lbl">¿Cuánto hiciste?</div>
+ <div class="frac" style="grid-template-columns:repeat(4,1fr)">${[100,75,50,25].map(p=>`<button class="${!L.adj&&L.pct===p?'on':''}" onclick="L.pct=${p};L.adj=false;drawLog()">${p}%</button>`).join('')}</div>
+ <button class="toggle" style="margin-top:10px" onclick="L.adj=!L.adj;drawLog()"><span style="flex:1">Ajustar por ejercicio <small class="muted">(hice 6 vueltas, no 4)</small></span><span class="sw ${L.adj?'on':''}"></span></button>
+ ${L.adj?R.ex.map((e,i)=>`<div class="frow"><span>${e.n}</span><div class="stp"><button onclick="L.done[${i}]=Math.max(0,L.done[${i}]-1);drawLog()">−</button><b>${L.done[i]} <small class="muted">${e.k==='esc'?'vtas':e.k==='mov'?'min':'series'}</small></b><button onclick="L.done[${i}]++;drawLog()">+</button></div></div>`).join(''):''}
+ <div class="lbl" style="margin-top:12px">¿Cuándo?</div><div class="chips">${['Madrugada','Mañana','Mediodía','Tarde','Noche'].map(b=>`<button class="chip ${L.band===b?'on':''}" onclick="L.band='${b}';drawLog()">${b}</button>`).join('')}</div>
+ <div class="preview" style="margin-top:12px"><b>+${fmt(K)}</b> kcal · ${fmt(T/60)} min de movimiento</div>
+ <button class="btn block" onclick="closeSheet();toast('Registrado: +${fmt(K)} kcal · ${fmt(T/60)} min')">Guardar</button>`);}
+
+go('dish');
+</script>
+</body>
+</html>

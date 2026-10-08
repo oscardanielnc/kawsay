@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kawsay · Menú visual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@500;700&family=Figtree:wght@400;600&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Instrument+Serif&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F1EA;--card:#FFFFFF;--ink:#1D1D1B;--muted:#5D5A54;--line:#DEDAD0;--tag:#EDE8DC}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 64px}
+h1{font:700 30px/1.15 system-ui;margin:0 0 6px}
+h2{font:700 20px/1.2 system-ui;margin:40px 0 4px;display:flex;gap:10px;align-items:baseline}
+h2 small{font:400 13px system-ui;color:var(--muted)}
+.lead{color:var(--muted);margin:0 0 8px;max-width:760px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));margin-top:14px}
+.g3{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:26px;padding:0 8px;border-radius:6px;background:var(--ink);color:#fff;font:700 13px system-ui;margin-right:6px}
+.card h3{margin:0 0 6px;font:700 15px system-ui;display:flex;align-items:center}
+.take{color:#1F5C3A}.avoid{color:#9A2E22}
+.card p{margin:4px 0;font-size:14px}
+.tag{display:inline-block;background:var(--tag);border-radius:4px;padding:1px 6px;font-size:12px;color:var(--muted)}
+/* phone */
+.phone{width:200px;height:400px;border:2px solid var(--ink);border-radius:26px;margin:10px auto 6px;position:relative;overflow:hidden;background:#FAF8F3}
+.phone .notch{width:60px;height:6px;border-radius:4px;background:var(--ink);margin:8px auto}
+.ph-pad{padding:6px 12px;font-size:11px}
+.blk{background:#E7E2D6;border-radius:6px;margin:6px 0}
+.tabbar{position:absolute;bottom:0;left:0;right:0;height:46px;border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;background:#fff;font-size:9px;color:var(--muted)}
+.fab{width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font:700 22px system-ui;margin-top:-18px}
+.tl{position:relative;margin-left:26px;border-left:2px solid #CFC8B8;padding-left:10px}
+.tl div{position:relative;margin:7px 0;background:#EDE8DC;border-radius:6px;padding:4px 6px}
+.tl div:before{content:"";position:absolute;left:-17px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.sheet{position:absolute;left:0;right:0;bottom:0;height:150px;background:#fff;border-top-left-radius:16px;border-top-right-radius:16px;box-shadow:0 -2px 8px rgba(0,0,0,.08);padding:8px 10px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:9px;text-align:center}
+.sheet span{background:#EDE8DC;border-radius:8px;padding:8px 0}
+.ring{width:110px;height:110px;margin:8px auto;border-radius:50%;border:12px solid #1D1D1B;border-right-color:#CFC8B8;border-bottom-color:#CFC8B8}
+/* palettes */
+.sw{display:flex;gap:6px;margin:8px 0}
+.sw div{flex:1;height:54px;border-radius:6px;border:1px solid rgba(0,0,0,.08);font:600 10px system-ui;display:flex;align-items:flex-end;padding:4px}
+.prev{border-radius:10px;padding:12px;margin-top:8px}
+.prev .btn{display:inline-block;border-radius:8px;padding:7px 12px;font-weight:700;font-size:13px;margin-right:6px}
+.cr{font-size:12px;color:var(--muted)}
+/* type */
+.type .t{font-size:30px;line-height:1.1;margin:6px 0}
+.type .b{font-size:15px}
+.sem{display:flex;gap:4px;margin-top:6px}
+.sem i{width:22px;height:22px;border-radius:5px;display:inline-block;border:2px solid rgba(0,0,0,.25)}
+svg{display:block;margin:8px auto;max-width:100%}
+ul{margin:6px 0 0 18px;padding:0}li{margin:3px 0;font-size:14px}
+.how{background:#1D1D1B;color:#fff;border-radius:10px;padding:14px 16px;margin-top:14px}
+.how b{color:#F0C35A}
+</style>
+</head>
+<body>
+<main>
+<h1>Kawsay — menú de dirección visual</h1>
+<p class="lead">Fase 4 del estándar. Elige <b>un número por sección</b> (o combina). Nada de esto es definitivo hasta que lo elijas; después se escribe <code>docs/design/direction.md</code> y se diseña una primera pantalla de prueba.</p>
+<div class="how">Responde así: <b>N2 · P1 · T1 · S1+S2 · M1</b> — y lo que quieras cambiar.</div>
+
+<h2>🔎 Referencias <small>qué tomar y qué evitar</small></h2>
+<div class="grid g3">
+ <div class="card"><h3>Fitia <span class="tag" style="margin-left:6px">competidor · Perú</span></h3><p class="take">✔ Registro por comidas, IA por foto y voz, en español</p><p class="avoid">✘ Metas fijas · pantalla llena de números</p></div>
+ <div class="card"><h3>MacroFactor <span class="tag" style="margin-left:6px">competidor</span></h3><p class="take">✔ Gasto adaptativo con tendencia de peso · registro muy rápido · escáner de etiquetas</p><p class="avoid">✘ Denso y técnico para alguien que no cuenta macros</p></div>
+ <div class="card"><h3>Bearable <span class="tag" style="margin-left:6px">síntomas</span></h3><p class="take">✔ Correlaciones factor → síntoma · trackers propios · <b>"Health Experiments"</b></p><p class="avoid">✘ Muchos reportes; cuesta saber por dónde empezar</p></div>
+ <div class="card"><h3>Cara Care <span class="tag" style="margin-left:6px">intestino</span></h3><p class="take">✔ Diario de heces y síntomas · <b>"comida de tus mejores y peores días"</b></p><p class="avoid">✘ Look clínico, frío</p></div>
+ <div class="card"><h3>Daylio <span class="tag" style="margin-left:6px">otro rubro</span></h3><p class="take">✔ Registro con íconos en 2 toques · <b>"Year in Pixels"</b> (calendario de colores)</p><p class="avoid">✘ Ilustraciones genéricas</p></div>
+ <div class="card"><h3>Gentler Streak <span class="tag" style="margin-left:6px">otro rubro · Apple Design Award 2024</span></h3><p class="take">✔ El descanso cuenta, sin culpa · todo lo importante en una sola pantalla</p><p class="avoid">✘ Estética muy de Apple Watch</p></div>
+</div>
+
+<h2>🧭 Navegación</h2>
+<div class="grid">
+ <div class="card"><h3><span class="num">N1</span>Pestañas + botón central</h3>
+  <div class="phone"><div class="notch"></div><div class="ph-pad"><b>Hoy</b><div class="ring"></div><div class="blk" style="height:34px"></div><div class="blk" style="height:34px"></div></div>
+  <div class="tabbar"><span>Hoy</span><span>Calendario</span><span class="fab">+</span><span>Análisis</span><span>Perfil</span></div></div>
+  <p>Clásico y claro. El <b>+</b> abre el registro rápido.</p></div>
+ <div class="card"><h3><span class="num">N2</span>Línea del día + hoja de registro</h3>
+  <div class="phone"><div class="notch"></div><div class="ph-pad"><b>Martes 7</b> · 1.840 kcal<div class="tl"><div>06:30 💩 B6</div><div>07:00 🍽️ Jugo</div><div>09:30 🏃 Escaleras</div><div>13:00 🍽️ Lomo</div><div>13:30 😴 Siesta</div></div></div>
+  <div class="sheet"><span>🍽️</span><span>🏃</span><span>💩</span><span>🎈</span><span>😤</span><span>⚡</span><span>💧</span><span>😴</span></div></div>
+  <p>Tu día como un diario vertical: se ve <b>qué comiste antes de hincharte</b>. La hoja de abajo siempre a mano.</p></div>
+ <div class="card"><h3><span class="num">N3</span>Panel de tarjetas</h3>
+  <div class="phone"><div class="notch"></div><div class="ph-pad"><b>Hoy</b><div class="blk" style="height:70px"></div><div style="display:flex;gap:6px"><div class="blk" style="height:60px;flex:1"></div><div class="blk" style="height:60px;flex:1"></div></div><div class="blk" style="height:60px"></div><div class="blk" style="height:60px"></div></div>
+  <div class="tabbar"><span>Hoy</span><span>Calendario</span><span>Análisis</span><span>Perfil</span></div></div>
+  <p>Estilo Fitia. Familiar, pero <b>es lo que hacen todas</b>.</p></div>
+</div>
+
+<h2>🎨 Paleta <small>un color dominante + un acento · contraste AA verificado</small></h2>
+<div class="grid g3">
+ <div class="card"><h3><span class="num">P1</span>Selva <span class="tag" style="margin-left:6px">Tarapoto</span></h3>
+  <div class="sw"><div style="background:#1F4D3A;color:#fff">#1F4D3A</div><div style="background:#B84E18;color:#fff">#B84E18</div><div style="background:#F6F2E8">#F6F2E8</div><div style="background:#1C1F1A;color:#fff">#1C1F1A</div></div>
+  <div class="prev" style="background:#F6F2E8;color:#1C1F1A"><b>Meta de hoy: 1.840 kcal</b><br><span style="color:#5E6358">Proteína 116 g · fija</span><br><br><span class="btn" style="background:#1F4D3A;color:#fff">Registrar</span><span class="btn" style="background:#B84E18;color:#fff">Confirmar</span></div>
+  <p class="cr">Texto 14,9:1 · botón verde 9,6:1 · botón cocona 5,1:1 ✓<br>⚠️ el verde dominante se puede confundir con el "día verde" del semáforo</p></div>
+ <div class="card"><h3><span class="num">P2</span>Telar <span class="tag" style="margin-left:6px">textil andino</span></h3>
+  <div class="sw"><div style="background:#8E2A22;color:#fff">#8E2A22</div><div style="background:#E2A72E">#E2A72E</div><div style="background:#FBF6EE">#FBF6EE</div><div style="background:#221A16;color:#fff">#221A16</div></div>
+  <div class="prev" style="background:#FBF6EE;color:#221A16"><b>Meta de hoy: 1.840 kcal</b><br><span style="color:#6B5E55">Proteína 116 g · fija</span><br><br><span class="btn" style="background:#8E2A22;color:#fff">Registrar</span><span class="btn" style="background:#E2A72E;color:#221A16">Confirmar</span></div>
+  <p class="cr">Texto 15,9:1 · botón grana 8,4:1 · botón maíz 8,0:1 ✓<br>El maíz nunca va como texto sobre fondo claro (2:1)</p></div>
+ <div class="card"><h3><span class="num">P3</span>Noche <span class="tag" style="margin-left:6px">oscuro primero</span></h3>
+  <div class="sw"><div style="background:#1E2A44;color:#EEF0EA">#1E2A44</div><div style="background:#B8E35A">#B8E35A</div><div style="background:#121826;color:#EEF0EA">#121826</div><div style="background:#EEF0EA">#EEF0EA</div></div>
+  <div class="prev" style="background:#121826;color:#EEF0EA"><b>Meta de hoy: 1.840 kcal</b><br><span style="color:#A3AAB8">Proteína 116 g · fija</span><br><br><span class="btn" style="background:#1E2A44;color:#EEF0EA;border:1px solid #A3AAB8">Registrar</span><span class="btn" style="background:#B8E35A;color:#121826">Confirmar</span></div>
+  <p class="cr">Texto 15,4:1 · botón lima 12,0:1 ✓<br>Cómodo de noche, cuando más registras</p></div>
+</div>
+<p class="cr" style="margin-top:8px">El semáforo del calendario lleva <b>ícono y borde</b>, no solo color (daltonismo y amarillo de bajo contraste): <span class="sem" style="display:inline-flex;vertical-align:middle"><i style="background:#2E7D4F"></i><i style="background:#C9A227"></i><i style="background:#B3392F"></i><i style="background:#B9B6AE"></i></span></p>
+
+<h2>🔤 Tipografía <small>títulos + texto · todas con acentos y ñ</small></h2>
+<div class="grid g3">
+ <div class="card type"><h3><span class="num">T1</span>Fraunces + Atkinson Hyperlegible</h3><div class="t" style="font-family:Fraunces,serif;font-weight:700">Hoy comiste bien, Oscar</div><div class="b" style="font-family:'Atkinson Hyperlegible',sans-serif">Proteína 116 g · Hinchazón: como siempre · Sueño 7 h 10 min</div><p class="cr">Cálida y humana; el texto está hecho para leerse fácil</p></div>
+ <div class="card type"><h3><span class="num">T2</span>Bricolage Grotesque + Figtree</h3><div class="t" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700">Hoy comiste bien, Oscar</div><div class="b" style="font-family:Figtree,sans-serif">Proteína 116 g · Hinchazón: como siempre · Sueño 7 h 10 min</div><p class="cr">Moderna con carácter, sin ser fría</p></div>
+ <div class="card type"><h3><span class="num">T3</span>Instrument Serif + Manrope</h3><div class="t" style="font-family:'Instrument Serif',serif">Hoy comiste bien, Oscar</div><div class="b" style="font-family:Manrope,sans-serif">Proteína 116 g · Hinchazón: como siempre · Sueño 7 h 10 min</div><p class="cr">Editorial, tipo revista; elegante</p></div>
+</div>
+
+<h2>✨ Elemento firma <small>lo que hace reconocible a Kawsay</small></h2>
+<div class="grid g3">
+ <div class="card"><h3><span class="num">S1</span>La manta del mes</h3>
+  <svg width="240" height="130" viewBox="0 0 240 130" role="img" aria-label="Calendario como tejido">
+   <rect x="0" y="0" width="240" height="130" fill="#FBF6EE"/>
+   <g transform="translate(8,8)">
+    <!-- 5 weeks x 7 days, each day a woven stripe pattern -->
+    <g fill="#2E7D4F"><rect x="0" y="0" width="30" height="20"/><rect x="66" y="0" width="30" height="20"/><rect x="132" y="0" width="30" height="20"/><rect x="33" y="23" width="30" height="20"/><rect x="99" y="23" width="30" height="20"/><rect x="0" y="46" width="30" height="20"/><rect x="165" y="46" width="30" height="20"/><rect x="66" y="69" width="30" height="20"/><rect x="198" y="69" width="26" height="20"/><rect x="132" y="92" width="30" height="20"/></g>
+    <g fill="#C9A227"><rect x="33" y="0" width="30" height="20"/><rect x="198" y="0" width="26" height="20"/><rect x="66" y="23" width="30" height="20"/><rect x="132" y="46" width="30" height="20"/><rect x="0" y="69" width="30" height="20"/><rect x="99" y="92" width="30" height="20"/></g>
+    <g fill="#B3392F"><rect x="99" y="0" width="30" height="20"/><rect x="165" y="23" width="30" height="20"/><rect x="99" y="46" width="30" height="20"/><rect x="33" y="92" width="30" height="20"/></g>
+    <g fill="#B9B6AE"><rect x="165" y="0" width="30" height="20"/><rect x="132" y="23" width="30" height="20"/><rect x="198" y="23" width="26" height="20"/><rect x="33" y="46" width="30" height="20"/><rect x="66" y="46" width="30" height="20"/><rect x="198" y="46" width="26" height="20"/><rect x="33" y="69" width="30" height="20"/><rect x="99" y="69" width="30" height="20"/><rect x="132" y="69" width="30" height="20"/><rect x="165" y="69" width="30" height="20"/><rect x="0" y="92" width="30" height="20"/><rect x="66" y="92" width="30" height="20"/><rect x="165" y="92" width="30" height="20"/><rect x="198" y="92" width="26" height="20"/></g>
+    <g stroke="#221A16" stroke-opacity=".25" stroke-width="1.5"><path d="M0 7h224M0 14h224M0 30h224M0 37h224M0 53h224M0 60h224M0 76h224M0 83h224M0 99h224M0 106h224"/></g>
+    <g fill="none" stroke="#221A16" stroke-opacity=".35" stroke-width="1"><path d="M3 3l6 4-6 4M36 26l6 4-6 4M69 49l6 4-6 4M102 72l6 4-6 4M135 95l6 4-6 4"/></g>
+   </g>
+  </svg>
+  <p>El calendario como un <b>tejido andino</b>: cada día es una franja de la "manta" (idea de "Year in Pixels", con identidad peruana). Al tocar un día, sus hilos muestran comida, actividad, sueño y síntomas.</p></div>
+ <div class="card"><h3><span class="num">S2</span>El anillo que respira</h3>
+  <svg width="200" height="150" viewBox="0 0 200 150" role="img" aria-label="Anillo de meta dinámica">
+   <circle cx="100" cy="75" r="55" fill="none" stroke="#E7E2D6" stroke-width="16"/>
+   <circle cx="100" cy="75" r="55" fill="none" stroke="#1F4D3A" stroke-width="16" stroke-dasharray="86 260" transform="rotate(-90 100 75)"/>
+   <circle cx="100" cy="75" r="55" fill="none" stroke="#B84E18" stroke-width="16" stroke-dasharray="0 88 120 260" transform="rotate(-90 100 75)"/>
+   <circle cx="100" cy="75" r="72" fill="none" stroke="#B84E18" stroke-width="3" stroke-dasharray="4 5" opacity=".7"/>
+   <text x="100" y="72" text-anchor="middle" font-size="18" font-weight="700" fill="#1C1F1A">1.830</text>
+   <text x="100" y="90" text-anchor="middle" font-size="10" fill="#5E6358">+150 por pesas</text>
+  </svg>
+  <p>La meta como anillo: el tramo de <b>proteína no cambia</b>; el resto <b>se estira</b> cuando registras actividad. Muestra a simple vista lo que Kawsay hace distinto.</p></div>
+ <div class="card"><h3><span class="num">S3</span>La línea del día</h3>
+  <svg width="260" height="120" viewBox="0 0 260 120" role="img" aria-label="Línea de tiempo del día">
+   <line x1="10" y1="60" x2="250" y2="60" stroke="#CFC8B8" stroke-width="2"/>
+   <rect x="10" y="52" width="55" height="16" rx="4" fill="#1E2A44" opacity=".8"/><rect x="130" y="52" width="20" height="16" rx="4" fill="#1E2A44" opacity=".8"/>
+   <circle cx="75" cy="60" r="6" fill="#B84E18"/><circle cx="125" cy="60" r="6" fill="#B84E18"/><circle cx="205" cy="60" r="6" fill="#B84E18"/>
+   <rect x="95" y="40" width="20" height="10" rx="3" fill="#2E7D4F"/>
+   <path d="M10 95 C40 92 70 80 90 85 S130 100 150 90 200 70 250 80" fill="none" stroke="#C9A227" stroke-width="3"/>
+   <text x="10" y="20" font-size="10" fill="#5E6358">😴 sueño · 🍽️ comida · 🏃 actividad · 〰️ hinchazón</text>
+   <text x="10" y="114" font-size="9" fill="#5E6358">0 h</text><text x="232" y="114" font-size="9" fill="#5E6358">24 h</text>
+  </svg>
+  <p>Tu día de 0 a 24 h en una sola línea: sueño, comidas, actividad y cómo se movió la barriga. <b>Ves la causa y el efecto juntos.</b></p></div>
+</div>
+
+<h2>🧩 Componentes clave <small>los resuelvo como las referencias, con tu identidad</small></h2>
+<div class="grid">
+ <div class="card"><h3>Registro rápido</h3><p>Rejilla de íconos tipo Daylio: un toque abre lo justo. Meta: ≤ 2 toques.</p></div>
+ <div class="card"><h3>Selector Bristol</h3><p>7 dibujos propios, sencillos, sin asco; + "solo gases".</p></div>
+ <div class="card"><h3>Actividad por defecto</h3><p>Tarjeta "Sentado y caminatas breves · <i>sin confirmar</i>" con un botón Confirmar grande.</p></div>
+ <div class="card"><h3>Hallazgo</h3><p>Tarjeta con frase simple + nivel de confianza (●●○) + "no es diagnóstico".</p></div>
+</div>
+
+<h2>🎞️ Movimiento</h2>
+<div class="grid">
+ <div class="card"><h3><span class="num">M1</span>Mínimo con sentido</h3><ul><li>El anillo se estira al registrar actividad</li><li>Rebote corto al confirmar</li><li>Fundido al cambiar color de un día</li><li>Nada más; respeta "reducir movimiento"</li></ul></div>
+ <div class="card"><h3><span class="num">M2</span>Vivo</h3><ul><li>Todo lo de M1</li><li>Transiciones entre pantallas compartidas</li><li>Micro-animaciones en cada ícono</li><li>Más encanto, más batería y más trabajo</li></ul></div>
+</div>
+
+<p class="cr" style="margin-top:28px">Prohibidos por defecto (estándar §9): Inter/Roboto/Arial · degradado morado-azul · tres tarjetas centradas · emojis como íconos finales · efecto vidrio. Los emojis de este tablero son solo marcadores; la app usará íconos propios.</p>
+</main>
+</body>
+</html>

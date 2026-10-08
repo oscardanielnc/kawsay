@@ -1,0 +1,28 @@
+# Conventions
+
+What the linter cannot enforce. Tooling versions: ADR 0012.
+
+## Commands
+
+| Command | Does |
+| --- | --- |
+| `pnpm install` | Install every workspace (Node 24, pnpm 12) |
+| `pnpm test` | Run every package's tests through Turborepo |
+| `pnpm check` | lint → typecheck → test → build, the same gate as CI |
+| `pnpm --filter @kawsay/core test:watch` | TDD loop on `core` |
+
+## Repository
+
+- Conventional Commits (`feat:`, `fix:`, `test:`, `refactor:`, `chore:`, `docs:`), scope = package or app: `feat(core): …`
+- Hooks: `pre-commit` runs gitleaks and lint-staged; `commit-msg` strips AI trailers
+- Docs change in the same commit as the code they describe
+
+## packages/core
+
+- Pure functions, no imports outside the package (lint rule in `eslint.config.mjs`)
+- One file per rule, test next to it: `bmr.ts` + `bmr.test.ts`. No barrel files: consumers import
+  `@kawsay/core/<folder>/<file>`
+- Units in names: `weightKg`, `heightCm`, `hours`, `kcal`. Numbers stay unrounded unless a rule classifies on a
+  rounded value (BMI, waist-to-height); rounding for display belongs to the screen
+- Labels are codes (`overweight`, `increased`), never Spanish text: the app translates them (ADR 0006)
+- Tests come from the feature acceptance criteria; a criterion's example appears verbatim in a test name

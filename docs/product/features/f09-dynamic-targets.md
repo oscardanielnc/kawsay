@@ -1,0 +1,21 @@
+# F09. Dynamic targets
+
+- Release: v0.1
+- Status: Approved 2026-10-07
+
+## What
+
+Targets follow the day's activity and the real weight trend.
+
+## Rules
+
+- Formulas and default values: ADR 0009
+- Protein: 1.6 g per kg of reference weight, fixed all day
+- Fat: 25% of the day target; carbohydrates take the remainder (warning below 130 g)
+- The target never goes below BMR
+- With ≥ 14 days of weights, compare the real trend with the expected one and recalibrate the base, at most ±10% per step
+
+## Acceptance criteria
+
+- [ ] Logging an activity raises calories, fat and carbohydrates; protein does not change
+- [ ] Male, 30 y, 170 cm, 80 kg, default activity, −0.5 kg/week → ≈ 1,840 kcal · 116 g protein · 51 g fat · 230 g carbohydrates

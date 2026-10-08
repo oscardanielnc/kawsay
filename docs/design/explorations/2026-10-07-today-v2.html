@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kawsay · Hoy v2 (prototipo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#F6F2E8;--surface:#FFFFFF;--ink:#1C1F1A;--muted:#5E6358;--line:#E4DFD3;
+ --brand:#1F4D3A;--accent:#B84E18;
+ --g50:#EEF6F0;--g100:#D5EBDB;--g200:#B4DBBF;--g300:#86C497;--g400:#5BA66E;--g700:#255E3B;
+ --amber:#EBC867;--amberText:#9A6B00;--red:#E58B7A;--redText:#B3392F;--grey:#B9B6AE;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+button,input{font-family:inherit}
+html,body{margin:0;background:#E9E4D8}
+body{font:15px/22px Figtree,system-ui,sans-serif;color:var(--ink)}
+.stage{min-height:100vh;display:flex;justify-content:center;padding:16px 0}
+.phone{width:390px;max-width:100%;background:var(--bg);border-radius:28px;overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.12);height:844px;display:flex;flex-direction:column}
+@media (max-width:430px){.stage{padding:0}.phone{border-radius:0;height:100vh;box-shadow:none}}
+.scroll{flex:1;overflow-y:auto;padding:0 16px 130px;scroll-behavior:smooth}
+h1,h2,h3,.num{font-family:"Bricolage Grotesque",Figtree,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 0 8px}
+header h1{margin:0;font-size:22px;line-height:28px}
+header small{display:block;color:var(--muted);font-size:13px}
+.iconbtn{width:44px;height:44px;border:none;border-radius:50%;background:var(--surface);display:grid;place-items:center;cursor:pointer}
+.card{background:var(--surface);border-radius:14px;padding:16px;margin:12px 0;transition:box-shadow .3s}
+.card.pending{box-shadow:0 0 0 2px var(--accent)}
+.card h2{margin:0 0 10px;font-size:17px;line-height:22px;font-weight:600;display:flex;align-items:center;gap:8px}
+.card h2 .right{margin-left:auto;font:600 13px Figtree;color:var(--muted)}
+.muted{color:var(--muted);font-size:13px}
+.lbl{display:flex;align-items:center;gap:8px;font:600 14px Figtree;margin-bottom:6px}
+.ib{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex:none}
+/* summary rings */
+.sum{display:flex;gap:14px;align-items:center}
+.rings{position:relative;width:150px;height:150px;flex:none}
+.rings svg{width:150px;height:150px;transform:rotate(-90deg)}
+.rings .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.rings .num{font-size:30px;line-height:32px;font-weight:700}
+.seg{transition:stroke .35s}
+.arc{transition:stroke-dasharray .5s cubic-bezier(.2,.8,.2,1)}
+.leg{flex:1;font-size:13px;line-height:18px}
+.leg .it{display:flex;align-items:center;gap:6px;padding:3px 0;cursor:pointer;border:none;background:none;font:inherit;color:inherit;width:100%;text-align:left}
+.dot{width:10px;height:10px;border-radius:50%;flex:none}
+.move{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+.move b{font-family:"Bricolage Grotesque";font-size:18px}
+/* ranges */
+.rb{margin:14px 0 2px}
+.rb .top{display:flex;align-items:baseline;gap:8px;font-size:14px}
+.rb .top b{font-weight:700}
+.rb .top .v{margin-left:auto;font:700 15px "Bricolage Grotesque"}
+.rb .top .st{font:700 12px Figtree;min-width:92px;text-align:right}
+.track{position:relative;height:10px;border-radius:999px;display:flex;margin-top:8px}
+.track i{height:100%}
+.track i:first-child{border-radius:999px 0 0 999px}.track i:last-child{border-radius:0 999px 999px 0}
+.marker{position:absolute;top:-5px;width:4px;height:20px;border-radius:3px;background:var(--ink);transform:translateX(-2px);transition:left .5s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.edges{position:relative;height:16px;font:600 10px Figtree;color:var(--g700)}
+.edges span{position:absolute;top:2px;transform:translateX(-50%)}
+/* chips & buttons */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:44px;border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 10px;font:600 14px Figtree;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:transform .18s}
+.chip:active{transform:scale(.94)}
+.chip.on{background:var(--g100);border-color:var(--g700);color:var(--g700)}
+.chip.add{border-style:dashed;color:var(--accent);border-color:var(--accent)}
+.chip small{font-weight:400;color:var(--muted)}
+.btn{min-height:44px;border:none;border-radius:10px;padding:10px 16px;font:700 15px Figtree;cursor:pointer;background:var(--accent);color:#fff;transition:transform .18s}
+.btn:active{transform:scale(.95)}.btn:disabled{opacity:.45;cursor:default}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn.block{width:100%}
+.link{border:none;background:none;color:var(--accent);font:700 13px Figtree;cursor:pointer;padding:8px 0;min-height:44px}
+/* meals */
+.meal{padding:10px 0;border-top:1px solid var(--line)}
+.meal:first-of-type{border-top:none}
+.meal .head{display:flex;align-items:center;gap:10px}
+.meal .head b{flex:1}
+.meal .kcal{font:700 13px Figtree;color:var(--muted)}
+.plus{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--accent);background:var(--surface);color:var(--accent);font:700 22px Figtree;cursor:pointer}
+.items{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.fchip{display:inline-flex;align-items:center;gap:6px;background:var(--bg);border-radius:999px;padding:3px 10px 3px 3px;font:600 13px Figtree;border:none;cursor:pointer}
+.fchip .fi{width:30px;height:30px}
+/* food tiles */
+.ftiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ftile{border:none;background:var(--surface);border-radius:14px;padding:10px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;font:600 12px/15px Figtree;color:var(--ink);transition:transform .18s;min-height:104px}
+.ftile:active{transform:scale(.93)}
+.ftile small{color:var(--muted);font-weight:400}
+.fi{width:48px;height:48px;border-radius:14px;display:grid;place-items:center}
+.tabs{display:flex;gap:6px;margin-bottom:10px}
+/* activity */
+.noact{display:flex;align-items:center;gap:12px;border:1.5px dashed var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;background:none;width:100%;text-align:left;font:inherit;color:inherit;min-height:56px}
+.noact.on{border:1.5px solid var(--g700);background:var(--g100)}
+.actrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.actrow:first-child{border-top:none}
+.actrow .t{flex:1}.actrow .t small{display:block;color:var(--muted);font-size:12px}
+.x{width:44px;height:44px;border:none;background:none;color:var(--muted);font-size:20px;cursor:pointer}
+/* water */
+.glasses{display:flex;gap:4px;flex-wrap:wrap}
+.glass{width:34px;height:44px;border:none;background:none;padding:0;cursor:pointer}
+.glass .fill{transition:transform .3s cubic-bezier(.2,.8,.2,1);transform-origin:50% 100%}
+/* scales */
+.row{margin:14px 0}
+.scale{display:flex;gap:6px}
+.face{flex:1;min-height:58px;border:2px solid transparent;border-radius:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:700 11px Figtree;transition:transform .18s,border-color .18s}
+.face.on{border-color:var(--ink);transform:scale(1.06)}
+.bath{background:#F3E7DC;border-color:#E2CDB9;color:#6B3E1E}
+.bristol{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.bristol button{min-height:76px;border:2px solid transparent;border-radius:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;font:700 11px Figtree}
+.bristol button.on{border-color:var(--ink)}
+/* sleep */
+.sleep{padding:12px 0;border-top:1px solid var(--line)}
+.sleep:first-of-type{border-top:none}
+.sleep .tline{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.sleep input[type=time]{border:1.5px solid var(--line);border-radius:10px;padding:8px 6px;width:118px;font:600 15px Figtree;min-height:44px;background:var(--surface);color:var(--ink)}
+.moons{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.moons button{width:40px;height:44px;border:none;background:none;cursor:pointer;padding:0;color:#D9D4C8;transition:transform .18s}
+.moons button.on{color:#3D4C8C}
+.moons button:active{transform:scale(.85)}
+/* private */
+.locked{display:flex;align-items:center;gap:12px;cursor:pointer}
+.counter{display:flex;align-items:center;gap:10px;padding:8px 0}
+.counter button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);font:700 20px Figtree;cursor:pointer}
+.counter b{min-width:20px;text-align:center;font:700 18px "Bricolage Grotesque"}
+/* review, nav, sheet */
+.review{position:sticky;bottom:88px;display:flex;justify-content:center;pointer-events:none;margin-top:8px}
+.review .btn{pointer-events:auto;box-shadow:0 6px 16px rgba(184,78,24,.35)}
+nav{position:absolute;left:0;right:0;bottom:0;height:76px;background:var(--surface);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;padding-bottom:8px}
+nav a{display:flex;flex-direction:column;align-items:center;gap:2px;font:600 11px Figtree;color:var(--muted);text-decoration:none;min-width:56px}
+nav a.on{color:var(--brand)}
+nav .fab{width:56px;height:56px;border-radius:50%;background:var(--accent);display:grid;place-items:center;margin-top:-26px;box-shadow:0 6px 14px rgba(184,78,24,.35);border:none;cursor:pointer}
+.scrim{position:absolute;inset:0;background:rgba(28,31,26,.35);opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.open{opacity:1;pointer-events:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--bg);border-radius:22px 22px 0 0;padding:10px 16px 24px;transform:translateY(105%);transition:transform .4s cubic-bezier(.2,.8,.2,1);max-height:86%;overflow-y:auto}
+.sheet.open{transform:none}
+.sheet .grab{width:40px;height:5px;border-radius:3px;background:var(--grey);margin:0 auto 12px}
+.sheet h3{margin:0 0 12px;font-size:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tile{min-height:80px;border:2px solid transparent;border-radius:14px;background:var(--surface);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font:600 12px Figtree;color:var(--ink);transition:transform .18s}
+.tile:active{transform:scale(.93)}
+.tile.on{border-color:var(--g700);background:var(--g100)}
+input.txt{width:100%;min-height:44px;border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;font:600 15px Figtree;background:var(--surface)}
+.ex{display:flex;align-items:center;gap:8px;padding:6px 0}
+.ex input{flex:1}
+.ex .sr{width:80px;flex:none}
+.note{font-size:11px;color:var(--muted);text-align:center;margin:18px 0 0}
+.toast{position:absolute;left:50%;bottom:96px;transform:translate(-50%,20px);background:var(--brand);color:#fff;border-radius:999px;padding:8px 14px;font:600 13px Figtree;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;z-index:5}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="stage"><div class="phone">
+<div class="scroll" id="scroll">
+ <header>
+  <button class="iconbtn" aria-label="Día anterior"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <div style="text-align:center"><h1>Hoy</h1><small>martes 7 de octubre</small></div>
+  <button class="iconbtn" aria-label="Elegir fecha"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></button>
+ </header>
+
+ <section class="card" aria-label="Resumen del día">
+  <div class="sum">
+   <div class="rings">
+    <svg viewBox="0 0 150 150" aria-hidden="true" id="ringSvg"></svg>
+    <div class="center"><span class="num" id="done">0/6</span><span class="muted">registrado</span></div>
+   </div>
+   <div class="leg" id="legend"></div>
+  </div>
+  <div id="ranges"></div>
+ </section>
+
+ <section class="card" id="c-meals"><h2><span class="ib" style="background:#FBE9DF" id="ic-meals"></span>Comidas</h2><div id="meals"></div></section>
+
+ <section class="card pending" id="c-activity"><h2><span class="ib" style="background:#E3EFE6" id="ic-act"></span>Actividad física<span class="right" id="actSum"></span></h2><div id="activity"></div></section>
+
+ <section class="card pending" id="c-water"><h2><span class="ib" style="background:#E2EEF6" id="ic-water"></span>Agua<span class="right" id="waterTxt"></span></h2>
+  <div class="glasses" id="glasses"></div>
+  <div class="chips" style="margin-top:10px"><button class="chip" id="sunChip" onclick="toggleSun()"></button></div>
+ </section>
+
+ <section class="card pending" id="c-body"><h2><span class="ib" style="background:#F6EBD6" id="ic-body"></span>Cuerpo y ánimo</h2><div id="body"></div></section>
+
+ <section class="card pending" id="c-sleep"><h2><span class="ib" style="background:#E4E6F3" id="ic-sleep"></span>Sueño<span class="right" id="sleepTotal"></span></h2><div id="sleeps"></div></section>
+
+ <section class="card"><h2><span class="ib" style="background:#EEE" id="ic-sym"></span>Tus síntomas</h2><div class="chips" id="syms"></div></section>
+
+ <section class="card"><div class="locked" onclick="S.unlocked=!S.unlocked;render()"><span class="ib" style="background:#E3EFE6;width:40px;height:40px" id="ic-lock"></span><div style="flex:1"><b>Privado</b><div class="muted" id="lockTxt"></div></div></div><div id="private"></div></section>
+
+ <div class="review"><button class="btn" id="reviewBtn" onclick="review()"></button></div>
+ <p class="note">Prototipo · datos de ejemplo, no son valores nutricionales reales</p>
+</div>
+
+<nav aria-label="Navegación">
+ <a href="#" class="on"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2" stroke-linecap="round"/></svg>Hoy</a>
+ <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 9.5h16M4 14.5h16M9.5 4v16M14.5 4v16"/></svg>Calendario</a>
+ <button class="fab" aria-label="Registrar" onclick="openSheet('quick')"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+ <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Análisis</a>
+ <a href="#"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" stroke-linecap="round"/></svg>Perfil</a>
+</nav>
+<div class="scrim" id="scrim" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true"><div class="grab"></div><div id="sheetBody"></div></div>
+<div class="toast" id="toast"></div>
+</div></div>
+
+<script>
+/* ===== icon set (colour, simple shapes) ===== */
+const FI={
+ sopa:{bg:'#FBE9DF',s:'<path d="M7 22h34a17 17 0 0 1-34 0z" fill="#E08A4F"/><path d="M7 22h34" stroke="#8A3E14" stroke-width="2.5"/><path d="M18 9c0 3 3 3 3 6M26 9c0 3 3 3 3 6" stroke="#B9B6AE" stroke-width="2.5" stroke-linecap="round" fill="none"/>'},
+ plato:{bg:'#FBEFD8',s:'<circle cx="24" cy="26" r="15" fill="#fff" stroke="#C9A227" stroke-width="2.5"/><circle cx="24" cy="26" r="8" fill="#E9C46A"/><path d="M6 10v10M4 10v6M8 10v6M42 10v20" stroke="#6B5E55" stroke-width="2.2" stroke-linecap="round"/>'},
+ arroz:{bg:'#F4F1EA',s:'<path d="M8 26h32a16 16 0 0 1-32 0z" fill="#B3392F"/><path d="M10 26c2-9 26-9 28 0z" fill="#fff" stroke="#D9D4C8" stroke-width="2"/>'},
+ hoja:{bg:'#E3EFE6',s:'<path d="M10 34c0-14 12-24 28-24 0 16-10 28-24 28" fill="#3E8A55"/><path d="M14 34l18-18" stroke="#D5EBDB" stroke-width="2.2" stroke-linecap="round"/><circle cx="25" cy="27" r="5" fill="#E9C46A"/>'},
+ brocheta:{bg:'#F8E3DD',s:'<path d="M8 40L40 8" stroke="#8A6A4A" stroke-width="2.5" stroke-linecap="round"/><rect x="13" y="25" width="10" height="10" rx="3" transform="rotate(-45 18 30)" fill="#9E2B25"/><rect x="21" y="17" width="10" height="10" rx="3" transform="rotate(-45 26 22)" fill="#B84E18"/><rect x="29" y="9" width="9" height="9" rx="3" transform="rotate(-45 33 13)" fill="#9E2B25"/>'},
+ fruta:{bg:'#FBE4E1',s:'<path d="M24 15c-9-4-15 3-13 11 2 10 8 15 13 11 5 4 11-1 13-11 2-8-4-15-13-11z" fill="#D9473B"/><path d="M24 15c0-4 2-6 6-7" stroke="#3E8A55" stroke-width="2.5" stroke-linecap="round" fill="none"/>'},
+ jugo:{bg:'#FFF1D6',s:'<path d="M14 12h20l-3 28H17z" fill="#F2A541" stroke="#B87A1E" stroke-width="2"/><path d="M28 12l5-7" stroke="#3E8A55" stroke-width="2.5" stroke-linecap="round"/><path d="M15 20h18" stroke="#fff" stroke-width="2"/>'},
+ pan:{bg:'#F6EBD6',s:'<path d="M8 22c0-7 7-10 16-10s16 3 16 10c0 2-2 3-3 3v11H11V25c-1 0-3-1-3-3z" fill="#D9A15A" stroke="#9A6B00" stroke-width="2"/>'},
+ huevo:{bg:'#FFF8E1',s:'<ellipse cx="24" cy="26" rx="15" ry="12" fill="#fff" stroke="#D9D4C8" stroke-width="2"/><circle cx="24" cy="26" r="6" fill="#F2B705"/>'},
+ pescado:{bg:'#E2EEF6',s:'<path d="M8 24c6-9 18-11 26 0-8 11-20 9-26 0z" fill="#5B8DB8"/><path d="M34 24l8-7v14z" fill="#5B8DB8"/><circle cx="15" cy="22" r="1.8" fill="#fff"/>'},
+ dulce:{bg:'#F8E3EE',s:'<path d="M12 24h24l-3 14H15z" fill="#C46A9A"/><path d="M12 24c0-7 5-11 12-11s12 4 12 11z" fill="#F4C6DC"/><circle cx="24" cy="10" r="3" fill="#D9473B"/>'},
+ nuez:{bg:'#F3E7DC',s:'<ellipse cx="18" cy="26" rx="8" ry="11" fill="#B07A47"/><ellipse cx="30" cy="22" rx="8" ry="11" fill="#C99460"/>'},
+};
+const foodIcon=(k,sz=48)=>`<span class="fi" style="background:${FI[k].bg};width:${sz}px;height:${sz}px"><svg width="${sz*.78}" height="${sz*.78}" viewBox="0 0 48 48">${FI[k].s}</svg></span>`;
+const ic=(p,c,s=18)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const AI={ /* activity icons */
+ caminar:['#3E8A55','<circle cx="13" cy="4" r="2"/><path d="M9 21l2-6 3 2v4M8 12l3-4 3 1 3 4M11 15l-1-5"/>'],
+ pesas:['#B84E18','<path d="M3 9v6M6 7v10M18 7v10M21 9v6M6 12h12"/>'],
+ escaleras:['#5B8DB8','<path d="M3 20h5v-5h5v-5h5V5h3"/>'],
+ cardio:['#D9473B','<path d="M3 12h4l2-5 4 10 2-5h6"/>'],
+ moto:['#6B5E55','<circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M6 17l4-6h5l3 6M12 11l-1-3h3"/>'],
+ casa:['#9A6B00','<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/>'],
+ deporte:['#3D4C8C','<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16M12 4c-3 3-3 13 0 16"/>'],
+ bici:['#255E3B','<circle cx="6" cy="16" r="4"/><circle cx="18" cy="16" r="4"/><path d="M6 16l4-8h5l3 8M9 8h3"/>'],
+};
+const actIcon=(k,sz=40)=>`<span class="ib" style="background:${AI[k][0]}22;width:${sz}px;height:${sz}px;border-radius:12px">${ic(AI[k][1],AI[k][0],sz*.6)}</span>`;
+/* ===== data (synthetic) ===== */
+const BASE=1700,PROT=95,FAT_PCT=.25,BMR=1650,MOVE_GOAL=30;
+let FOODS=[
+ {n:'Jugo de papaya',i:'jugo',k:280,p:18,f:6,c:38,slot:'des'},{n:'Pan con huevo',i:'pan',k:310,p:14,f:12,c:34,slot:'des'},
+ {n:'Lomo saltado',i:'plato',k:720,p:38,f:28,c:78,slot:'alm'},{n:'Sopa de pollo',i:'sopa',k:240,p:18,f:7,c:24,slot:'alm'},
+ {n:'Juane mediano',i:'hoja',k:650,p:28,f:24,c:80,slot:'cen'},{n:'Anticucho',i:'brocheta',k:520,p:30,f:22,c:46,slot:'cen'},
+ {n:'Chaufa',i:'arroz',k:600,p:22,f:18,c:84,slot:'cen'},{n:'Pescado frito',i:'pescado',k:450,p:32,f:22,c:20,slot:'alm'},
+ {n:'Manzana',i:'fruta',k:80,p:0,f:0,c:21,slot:'sna'},{n:'Maní',i:'nuez',k:170,p:7,f:14,c:5,slot:'sna'},{n:'Pionono',i:'dulce',k:260,p:4,f:9,c:40,slot:'sna'},{n:'Huevo duro',i:'huevo',k:78,p:6,f:5,c:1,slot:'sna'}];
+const ACTTYPES=[['caminar','Caminar',3.3],['pesas','Pesas',3.5],['escaleras','Escaleras',4.0],['cardio','Cardio',6.0],['moto','Moto en ciudad',2.0],['casa','Tareas de casa',3.0],['deporte','Deporte',6.0],['bici','Bicicleta',6.0]];
+let ROUTINES=[
+ {id:1,n:'Fuerza A',i:'pesas',m:35,int:'Media',ex:[['Sentadilla goblet','3×15'],['Press de suelo','3×15'],['Remo inclinado','3×15'],['Puente de glúteo','3×15'],['Plancha','3×30″']]},
+ {id:2,n:'Fuerza B',i:'pesas',m:35,int:'Media',ex:[['Zancada estática','3×10'],['Peso muerto rumano','3×15'],['Pájaro','3×15'],['Bicho muerto','3×10'],['Plancha lateral','3×20″']]},
+ {id:3,n:'Escaleras',i:'escaleras',m:25,int:'Media',ex:[['Subir 1.º → 3.º y bajar','8 vueltas']]}];
+const SLOTS=[['des','Desayuno','sopa'],['alm','Almuerzo','plato'],['cen','Cena','arroz'],['sna','Snacks','fruta']];
+const BANDS=['Madrugada','Mañana','Mediodía','Tarde','Noche'];
+const S={meals:{des:[],alm:[],cen:[],sna:[]},acts:[],noAct:false,water:0,sun:false,bath:[],noBath:false,bloat:null,stress:null,energy:null,mood:null,
+ sleeps:[{name:'Noche',from:'23:00',to:'06:00',q:0,nm:false},{name:'Siesta',from:'13:30',to:'15:00',q:0,nm:false}],syms:{'Dolor de cabeza':false,'Acidez':false},priv:{a:0,b:0},unlocked:false};
+/* ===== calc ===== */
+const kcalOf=(met,m)=>Math.round((met-1)*(BMR/24)*(m/60)*1.1);
+const intF=x=>x==='Suave'?.8:x==='Fuerte'?1.25:1;
+function totals(){let k=0,p=0,f=0,c=0;Object.values(S.meals).flat().forEach(x=>{k+=x.k;p+=x.p;f+=x.f;c+=x.c});return{k,p,f,c};}
+function targets(){const bonus=S.acts.reduce((s,a)=>s+a.kcal,0);const kcal=BASE+bonus;const fat=Math.round(kcal*FAT_PCT/9);const carbs=Math.round((kcal-PROT*4-fat*9)/4);return{kcal,bonus,prot:PROT,fat,carbs};}
+const hrs=(a,b)=>{let [h1,m1]=a.split(':').map(Number),[h2,m2]=b.split(':').map(Number);let d=(h2*60+m2)-(h1*60+m1);if(d<0)d+=1440;return Math.round(d/6)/10;};
+/* ===== render ===== */
+const AREAS=[['meals','Comidas','#E08A4F'],['activity','Actividad','#3E8A55'],['water','Agua','#5B8DB8'],['body','Cuerpo y ánimo','#C9A227'],['sleep','Sueño','#3D4C8C'],['weight','Peso','#6B5E55']];
+function areaDone(){return{meals:Object.values(S.meals).filter(a=>a.length).length>=2,activity:S.noAct||S.acts.length>0,water:S.water>0,
+ body:(S.bath.length>0||S.noBath)&&[S.bloat,S.stress,S.energy,S.mood].every(v=>v!==null),sleep:S.sleeps.every(s=>s.q>0),weight:!!S.weight};}
+function ringSvg(done,moveMin){
+ const R=66,C=2*Math.PI*R,n=6,gap=6,segLen=C/n-gap;let s='';
+ AREAS.forEach(([k,,col],i)=>{s+=`<circle class="seg" cx="75" cy="75" r="${R}" fill="none" stroke="${done[k]?col:'#ECE7DB'}" stroke-width="12" stroke-dasharray="${segLen} ${C-segLen}" stroke-dashoffset="${-i*(C/n)}" stroke-linecap="round"/>`});
+ const r2=48,C2=2*Math.PI*r2,frac=Math.min(moveMin/MOVE_GOAL,1);
+ s+=`<circle cx="75" cy="75" r="${r2}" fill="none" stroke="#E3EFE6" stroke-width="10"/><circle class="arc" cx="75" cy="75" r="${r2}" fill="none" stroke="#B84E18" stroke-width="10" stroke-linecap="round" stroke-dasharray="${frac*C2} ${C2}" style="opacity:${moveMin?1:0}"/>`;
+ return s;}
+function bar(label,val,tgt,unit,kind){
+ const g=kind==='p'?[.9,1.3]:kind==='k'?[.9,1.1]:[.8,1.2], y=kind==='p'?[.7,1.6]:kind==='k'?[.8,1.2]:[.65,1.35];
+ const segs=[[0,y[0],'red'],[y[0],g[0],'amber'],[g[0],g[1],'g300'],[g[1],y[1],'amber'],[y[1],2,'red']];
+ const ratio=tgt?val/tgt:0,pos=Math.min(ratio,2)/2*100;
+ let st,col;
+ if(!val){st='Sin registros';col='var(--muted)';}
+ else if(ratio<g[0]){st=`Faltan ${Math.round(tgt*g[0]-val)} ${unit}`;col='var(--muted)';}
+ else if(ratio<=g[1]){st='En rango';col='var(--g700)';}
+ else if(ratio<=y[1]){st='Algo alto';col='var(--amberText)';}
+ else{st='Muy alto';col='var(--redText)';}
+ const lo=Math.round(tgt*g[0]),hi=Math.round(tgt*g[1]);
+ return `<div class="rb"><div class="top"><b>${label}</b><span class="v">${val.toLocaleString('es-PE')} ${unit}</span><span class="st" style="color:${col}">${st}</span></div>
+ <div class="track" role="img" aria-label="${label} ${st}, rango ${lo} a ${hi} ${unit}">${segs.map(s=>`<i style="width:${(s[1]-s[0])/2*100}%;background:var(--${s[2]})"></i>`).join('')}<span class="marker" style="left:${pos}%;opacity:${val?1:0}"></span></div>
+ <div class="edges"><span style="left:${g[0]/2*100}%">${lo.toLocaleString('es-PE')}</span><span style="left:${g[1]/2*100}%">${hi.toLocaleString('es-PE')}</span></div></div>`;}
+function face(level,palette,label,on,onclick){
+ const mouths=['M8 16c1.5-2 6.5-2 8 0','M8 15.5c1.5-1 6.5-1 8 0','M8 15h8','M8 14.5c1.5 1 6.5 1 8 0','M8 14c1.5 2 6.5 2 8 0'];
+ const [bg,fg]=palette;
+ return `<button class="face ${on?'on':''}" style="background:${bg};color:${fg}" onclick="${onclick}"><svg width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="${fg}" opacity=".18"/><circle cx="12" cy="12" r="9" fill="none" stroke="${fg}" stroke-width="2"/><circle cx="9" cy="10" r="1.2" fill="${fg}"/><circle cx="15" cy="10" r="1.2" fill="${fg}"/><path d="${mouths[level]}" stroke="${fg}" stroke-width="2" fill="none" stroke-linecap="round"/></svg>${label}</button>`;}
+const PAL5=[['#FBE4E1','#B3392F'],['#FDEBD8','#A85414'],['#F1EEE6','#5E6358'],['#E6F2E9','#2E7346'],['#D5EBDB','#1F4D3A']];
+const POOP='<path d="M6 19h12c2 0 3-1.5 3-3s-1-2.5-2-3c.5-1.8-.8-3.2-2.4-3.2C16.6 7.5 15 6 13 6c-.3-1.5-1-2-2-2 .5 1.5-.5 2-1.5 2.5C8 7 7.4 8.6 8 10c-1.8.2-3 1.5-3 3-1 .5-2 1.5-2 3s1 3 3 3z" fill="#9A5B2E" stroke="#6B3E1E" stroke-width="1.2"/><circle cx="10" cy="14.5" r="1" fill="#fff"/><circle cx="14" cy="14.5" r="1" fill="#fff"/>';
+const poopIcon=(s=22)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24">${POOP}</svg>`;
+function bristolIcon(n){const sh={1:'<circle cx="7" cy="12" r="2.6"/><circle cx="12.5" cy="10" r="2.6"/><circle cx="17.5" cy="13" r="2.6"/><circle cx="12" cy="15.5" r="2.2"/>',2:'<path d="M3 12c0-2.5 2-3.5 4.5-3.5s2.5 2 4.5 2 2.5-2 4.5-2S21 9.5 21 12s-2 3.5-4.5 3.5-2.5-2-4.5-2-2.5 2-4.5 2S3 14.5 3 12z"/>',3:'<rect x="3" y="9" width="18" height="6.5" rx="3.2"/>',4:'<path d="M3 13.5c2.5-4 6.5-4 9.5-3s6.5 1 8.5-1.5v3c-2 2.5-5.5 2.5-8.5 1.5S5.5 12.5 3 16.5z"/>',5:'<ellipse cx="7" cy="12.5" rx="3.3" ry="2.4"/><ellipse cx="13.5" cy="11" rx="3.3" ry="2.4"/><ellipse cx="18.5" cy="14" rx="2.6" ry="2"/>',6:'<path d="M3.5 14c1-3 3-1 4-2.5s2.5-3 4.5-1 2.5-2 4.5 0 3.5 2 4 1.5c0 3-3 4-8.5 4s-8.5-.5-8.5-2z"/>',7:'<path d="M3 14c3-2.5 5.5 2 9 0s6-2.5 9 0c-2 3-6 4-9 4s-7-1-9-4z" opacity=".7"/>'};
+ const col=n<=2?'#6B3E1E':n<=4?'#8A5A2B':n<=6?'#B07A47':'#C99460';return `<svg width="38" height="28" viewBox="0 0 24 24" fill="${col}">${sh[n]}</svg>`;}
+const BRISTOL={1:'Bolitas duras',2:'Grumosa',3:'Con grietas',4:'Lisa · ideal',5:'Trozos blandos',6:'Pastosa',7:'Líquida'};
+const BBG={1:'#F1E4D6',2:'#F1E4D6',3:'#E6F2E9',4:'#D5EBDB',5:'#F6EBD6',6:'#FBE9DF',7:'#FBE4E1'};
+function render(){
+ const t=totals(),T=targets(),done=areaDone(),moveMin=S.acts.reduce((s,a)=>s+a.m,0),nDone=Object.values(done).filter(Boolean).length;
+ document.getElementById('ringSvg').innerHTML=ringSvg(done,moveMin);
+ document.getElementById('done').textContent=`${nDone}/6`;
+ document.getElementById('legend').innerHTML=AREAS.map(([k,n,c])=>`<button class="it" onclick="go('${k}')"><span class="dot" style="background:${done[k]?c:'#ECE7DB'};border:1.5px solid ${c}"></span>${n}${done[k]?' ✓':''}</button>`).join('')+
+  `<div class="move"><span class="dot" style="display:inline-block;background:#B84E18"></span> Movimiento<br><b>${moveMin}</b> <span class="muted">de ${MOVE_GOAL} min</span></div>`;
+ document.getElementById('ranges').innerHTML=bar('Calorías',t.k,T.kcal,'kcal','k')+bar('Proteína',t.p,T.prot,'g','p')+bar('Grasa',t.f,T.fat,'g','f')+bar('Carbohidratos',t.c,T.carbs,'g','c');
+ document.getElementById('ic-meals').innerHTML=ic('<path d="M4 11h16a8 8 0 0 1-16 0z"/><path d="M9 7c0-2 2-2 2-4M14 7c0-2 2-2 2-4"/>','#B84E18');
+ document.getElementById('meals').innerHTML=SLOTS.map(([id,name])=>{const it=S.meals[id];const k=it.reduce((s,x)=>s+x.k,0);
+  return `<div class="meal"><div class="head"><b>${name}</b>${k?`<span class="kcal">${k} kcal</span>`:''}<button class="plus" aria-label="Agregar a ${name}" onclick="openSheet('meal','${id}')">+</button></div>${it.length?`<div class="items">${it.map((x,i)=>`<button class="fchip" onclick="S.meals['${id}'].splice(${i},1);render()" aria-label="Quitar ${x.n}">${foodIcon(x.i,30)}${x.n}</button>`).join('')}</div>`:''}</div>`}).join('');
+ // activity
+ document.getElementById('ic-act').innerHTML=ic(AI.caminar[1],'#3E8A55');
+ const routinesHtml=`<div class="row" style="margin:12px 0 4px"><div class="lbl" style="justify-content:space-between"><span>Tus rutinas</span><button class="link" onclick="openSheet('routines')">Gestionar</button></div><div class="chips">${ROUTINES.map(r=>`<button class="chip" ${S.noAct?'disabled':''} onclick="openSheet('routine',${r.id})">${actIcon(r.i,28)}${r.n} <small>${r.m}′</small></button>`).join('')}</div></div>`;
+ document.getElementById('activity').innerHTML=
+  (S.acts.length?S.acts.map((a,i)=>`<div class="actrow">${actIcon(a.i)}<div class="t"><b>${a.n}</b>${a.part&&a.part<100?` <span class="muted">(${a.part}%)</span>`:''}<small>${a.m}′ · ${a.int} · ${a.band} · +${a.kcal} kcal</small></div><button class="x" aria-label="Quitar" onclick="S.acts.splice(${i},1);render()">×</button></div>`).join(''):
+  `<button class="noact ${S.noAct?'on':''}" onclick="S.noAct=!S.noAct;render()">${actIcon('casa')}<div style="flex:1"><b>Sin actividad física</b><div class="muted">${S.noAct?'Día en casa, sin ejercicio ✓ · toca para deshacer':'En casa, sin ejercicio. Tu meta base'}</div></div></button>`)+
+  (S.noAct?'':`<button class="btn ghost block" style="margin-top:10px" onclick="openSheet('act')">+ Agregar actividad</button>`)+(S.noAct?'':routinesHtml);
+ document.getElementById('actSum').textContent=moveMin?`${moveMin} min · +${T.bonus} kcal`:'';
+ // water
+ document.getElementById('ic-water').innerHTML=ic('<path d="M6 3h12l-1.5 17a2 2 0 0 1-2 1.8h-5a2 2 0 0 1-2-1.8z"/>','#5B8DB8');
+ const goal=S.sun?10:8;
+ document.getElementById('glasses').innerHTML=Array.from({length:goal},(_,i)=>`<button class="glass" aria-label="Vaso ${i+1}" onclick="S.water=S.water===${i+1}?${i}:${i+1};render()"><svg width="34" height="44" viewBox="0 0 24 32"><path d="M4 3h16l-2 26H6z" fill="#F4F8FB" stroke="${i<S.water?'#5B8DB8':'#D3D8DE'}" stroke-width="2" stroke-linejoin="round"/><path class="fill" d="M5.4 12h13.2l-1.4 16H6.8z" fill="#7FB3DA" style="transform:scaleY(${i<S.water?1:0})"/></svg></button>`).join('');
+ document.getElementById('waterTxt').textContent=`${S.water} de ${goal} vasos`;
+ const sc=document.getElementById('sunChip');sc.className='chip'+(S.sun?' on':'');sc.innerHTML=`${ic('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>','#C9A227')} Salí al sol / calor ${S.sun?'· +2 vasos':''}`;
+ // body
+ document.getElementById('ic-body').innerHTML=ic('<circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1.8 2 5.2 2 7 0"/>','#9A6B00');
+ const scale=(key,labels,inv)=>`<div class="scale">${labels.map((l,i)=>face(i,PAL5[inv?4-i:i],l,S[key]===i,`S.${key}=${i};render()`)).join('')}</div>`;
+ document.getElementById('body').innerHTML=`
+  <div class="row" style="margin-top:4px"><div class="lbl"><span class="ib" style="background:#F3E7DC">${poopIcon()}</span>Idas al baño</div>
+   <div class="chips">${S.bath.map((b,i)=>`<button class="chip bath" onclick="S.bath.splice(${i},1);render()">${b.t==='gas'?ic('<path d="M5 15c2-3 4 0 6-2s4-4 6-1 2 3 2 3"/>','#6B3E1E',22):bristolIcon(b.t)} ${b.t==='gas'?'Gases':BRISTOL[b.t]} <small>${b.band}</small></button>`).join('')}
+   <button class="chip add" onclick="openSheet('bath')">${poopIcon(18)} + Ida al baño</button>${!S.bath.length?`<button class="chip ${S.noBath?'on':''}" onclick="S.noBath=!S.noBath;render()">No fui hoy</button>`:''}</div></div>
+  <div class="row"><div class="lbl"><span class="ib" style="background:#FFF1D6">${ic('<circle cx="12" cy="13" r="7"/><path d="M12 6V3M9 3h6"/>','#C9A227')}</span>Hinchazón comparada con tu normal</div>
+   <div class="scale">${face(4,PAL5[4],'Mejor',S.bloat===0,'S.bloat=0;render()')}${face(2,PAL5[2],'Como siempre',S.bloat===1,'S.bloat=1;render()')}${face(0,PAL5[0],'Peor',S.bloat===2,'S.bloat=2;render()')}</div></div>
+  <div class="row"><div class="lbl"><span class="ib" style="background:#FBE4E1">${ic('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>','#B3392F')}</span>Máximo estrés que sentiste hoy</div>${scale('stress',['Nada','Poco','Medio','Alto','Máximo'],true)}<div class="muted" style="margin-top:4px">El pico del día, aunque luego te calmaras</div></div>
+  <div class="row"><div class="lbl"><span class="ib" style="background:#E3EFE6">${ic('<rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 11v2M6 10v4M9 10v4"/>','#2E7346')}</span>Energía</div>${scale('energy',['Agotado','Baja','Normal','Buena','Mucha'],false)}</div>
+  <div class="row" style="margin-bottom:0"><div class="lbl"><span class="ib" style="background:#E4E6F3">${ic('<circle cx="12" cy="12" r="9"/><path d="M8.5 14c1.8 2 5.2 2 7 0M9 9.5h.01M15 9.5h.01"/>','#3D4C8C')}</span>Ánimo</div>${scale('mood',['Mal','Bajo','Normal','Bien','Feliz'],false)}</div>`;
+ // sleep
+ document.getElementById('ic-sleep').innerHTML=ic('<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>','#3D4C8C');
+ const QL=['','Muy mala','Mala','Regular','Buena','Excelente'];
+ document.getElementById('sleeps').innerHTML=S.sleeps.map((s,i)=>`<div class="sleep">
+  <div class="tline"><b style="min-width:52px">${s.name}</b><input type="time" value="${s.from}" aria-label="Desde" onchange="S.sleeps[${i}].from=this.value;render()"><span>→</span><input type="time" value="${s.to}" aria-label="Hasta" onchange="S.sleeps[${i}].to=this.value;render()"><span class="muted">${hrs(s.from,s.to)} h</span>${i>0?`<button class="x" aria-label="Quitar" onclick="S.sleeps.splice(${i},1);render()">×</button>`:''}</div>
+  <div class="muted" style="margin:8px 0 0">Calidad del sueño · <b style="color:${s.q?'#3D4C8C':'var(--accent)'}">${s.q?QL[s.q]:'toca una luna para calificar'}</b></div>
+  <div class="moons">${[1,2,3,4,5].map(q=>`<button class="${q<=s.q?'on':''}" aria-label="Calidad ${QL[q]}" onclick="S.sleeps[${i}].q=${q};render()">${ic('<path d="M19 14A7 7 0 1 1 10 5a5.5 5.5 0 0 0 9 9z"/>','currentColor',26).replace('fill="none"','fill="currentColor"')}</button>`).join('')}
+   <button class="chip ${s.nm?'on':''}" style="margin-left:auto" onclick="S.sleeps[${i}].nm=!S.sleeps[${i}].nm;render()">Pesadilla</button></div></div>`).join('')+
+  `<button class="link" onclick="S.sleeps.push({name:'Siesta',from:'14:00',to:'14:30',q:0,nm:false});render()">+ Agregar siesta</button><div class="muted">Las horas vienen de tu horario habitual; ajústalas si cambiaron.</div>`;
+ const tot=S.sleeps.reduce((a,s)=>a+hrs(s.from,s.to),0);document.getElementById('sleepTotal').textContent=`${Math.round(tot*10)/10} h en total`;
+ // symptoms + private
+ document.getElementById('ic-sym').innerHTML=ic('<path d="M12 5v14M5 12h14"/>','#5E6358');
+ document.getElementById('syms').innerHTML=Object.entries(S.syms).map(([k,v])=>`<button class="chip ${v?'on':''}" onclick="S.syms['${k}']=!S.syms['${k}'];render()">${k}</button>`).join('')+`<button class="chip add" onclick="toast('Crear síntoma propio')">+ Crear</button>`;
+ document.getElementById('ic-lock').innerHTML=ic('<rect x="5" y="10" width="14" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>','#1F4D3A',22);
+ document.getElementById('lockTxt').textContent=S.unlocked?'Toca para bloquear':'Toca para desbloquear con tu huella';
+ document.getElementById('private').innerHTML=S.unlocked?`<div class="counter"><span style="flex:1">Relación sexual</span><button onclick="S.priv.a=Math.max(0,S.priv.a-1);render()">−</button><b>${S.priv.a}</b><button onclick="S.priv.a++;render()">+</button></div><div class="counter"><span style="flex:1">Masturbación</span><button onclick="S.priv.b=Math.max(0,S.priv.b-1);render()">−</button><b>${S.priv.b}</b><button onclick="S.priv.b++;render()">+</button></div><p class="muted">Nunca se envía a la IA. No cambia tus calorías.</p>`:'';
+ // pending
+ ['activity','water','body','sleep'].forEach(k=>document.getElementById('c-'+k).classList.toggle('pending',!done[k]));
+ const n=['meals','activity','water','body','sleep'].filter(k=>!done[k]).length;
+ const rb=document.getElementById('reviewBtn');rb.textContent=n?`Repasar mi día · faltan ${n}`:'Día completo ✓';rb.disabled=!n;
+}
+/* ===== actions ===== */
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1600);}
+function go(k){if(k==='weight'){S.weight=true;render();toast('Peso registrado');return;}document.getElementById('c-'+k).scrollIntoView({block:'center'});}
+function review(){const d=areaDone();const k=['meals','activity','water','body','sleep'].find(x=>!d[x]);if(k)go(k);}
+function bandNow(){const h=new Date().getHours();return h<6?'Madrugada':h<12?'Mañana':h<15?'Mediodía':h<19?'Tarde':'Noche';}
+let C={};
+function openSheet(kind,arg){C={kind,arg,band:bandNow(),pick:null,dur:30,int:'Media',part:100,tab:'rec',icon:'plato',name:''};draw();document.getElementById('scrim').classList.add('open');document.getElementById('sheet').classList.add('open');}
+function closeSheet(){document.getElementById('scrim').classList.remove('open');document.getElementById('sheet').classList.remove('open');}
+const bandChips=()=>`<div class="row"><div class="lbl">¿Cuándo? <span class="muted">(aproximado)</span></div><div class="chips">${BANDS.map(b=>`<button class="chip ${C.band===b?'on':''}" onclick="C.band='${b}';draw()">${b}</button>`).join('')}<button class="chip" onclick="toast('Hora exacta opcional')">Hora exacta</button></div></div>`;
+function draw(){const b=document.getElementById('sheetBody'),k=C.kind;
+ if(k==='quick'){b.innerHTML=`<h3>¿Qué quieres registrar?</h3><div class="grid4">${[
+  ['Comida',foodIcon('plato',40),"openSheet('meal','alm')"],['Baño',`<span class="fi" style="background:#F3E7DC;width:40px;height:40px">${poopIcon(30)}</span>`,"openSheet('bath')"],
+  ['Actividad',actIcon('caminar'),"openSheet('act')"],['Agua',`<span class="fi" style="background:#E2EEF6;width:40px;height:40px">${ic('<path d="M6 3h12l-1.5 17h-9z"/>','#5B8DB8',26)}</span>`,"closeSheet();S.water++;render()"],
+  ['Ánimo',`<span class="fi" style="background:#E4E6F3;width:40px;height:40px">${ic('<circle cx="12" cy="12" r="9"/><path d="M8.5 14c1.8 2 5.2 2 7 0"/>','#3D4C8C',26)}</span>`,"closeSheet();go('body')"],
+  ['Sueño',`<span class="fi" style="background:#E4E6F3;width:40px;height:40px">${ic('<path d="M19 14A7 7 0 1 1 10 5a5.5 5.5 0 0 0 9 9z"/>','#3D4C8C',26)}</span>`,"closeSheet();go('sleep')"],
+  ['Peso',`<span class="fi" style="background:#F1EEE6;width:40px;height:40px">${ic('<path d="M5 20h14l-2-12H7zM9 8a3 3 0 0 1 6 0"/>','#6B5E55',26)}</span>`,"closeSheet();go('weight')"],
+  ['Escribir',`<span class="fi" style="background:#FBE9DF;width:40px;height:40px">${ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>','#B84E18',26)}</span>`,"toast('Atajo de texto (v0.2)')"]].map(([n,i,a])=>`<button class="tile" onclick="${a}">${i}${n}</button>`).join('')}</div>`;}
+ if(k==='meal'){const sl=SLOTS.find(s=>s[0]===C.arg);const list=C.tab==='rec'?FOODS.filter(f=>f.slot===sl[0]).concat(FOODS.filter(f=>f.slot!==sl[0])):FOODS;
+  b.innerHTML=`<h3>${sl[1]}</h3><div class="tabs"><button class="chip ${C.tab==='rec'?'on':''}" onclick="C.tab='rec';draw()">Recientes</button><button class="chip ${C.tab==='all'?'on':''}" onclick="C.tab='all';draw()">Mis platos</button><button class="chip add" onclick="C.kind='create';draw()">+ Crear plato</button></div>
+  <div class="ftiles">${list.map(f=>`<button class="ftile" onclick="addFood('${f.n}')">${foodIcon(f.i)}${f.n}<small>${f.k} kcal</small></button>`).join('')}</div>`;}
+ if(k==='create'){b.innerHTML=`<h3>Crear plato</h3><div class="lbl">Elige un ícono</div><div class="grid4" style="grid-template-columns:repeat(6,1fr)">${Object.keys(FI).map(x=>`<button class="tile ${C.icon===x?'on':''}" style="min-height:58px;padding:4px" aria-label="${x}" onclick="C.icon='${x}';draw()">${foodIcon(x,40)}</button>`).join('')}</div>
+  <div class="row"><div class="lbl">Nombre</div><input class="txt" id="dname" placeholder="Ej.: Tacacho con cecina" value="${C.name}" oninput="C.name=this.value"></div>
+  <p class="muted">Siguiente paso: ingredientes y gramos del catálogo (v0.1) o descríbelo y la IA los propone (v0.2).</p>
+  <button class="btn block" onclick="createDish()">Guardar plato</button>`;}
+ if(k==='act'){b.innerHTML=`<h3>Agregar actividad</h3><div class="grid4">${ACTTYPES.map(([key,n])=>`<button class="tile ${C.pick===key?'on':''}" onclick="C.pick='${key}';draw()">${actIcon(key)}${n}</button>`).join('')}</div>
+  <div class="row"><div class="lbl">Duración</div><div class="chips">${[15,30,45,60,90].map(d=>`<button class="chip ${C.dur===d?'on':''}" onclick="C.dur=${d};draw()">${d}′</button>`).join('')}</div></div>
+  <div class="row"><div class="lbl">Intensidad</div><div class="scale">${[['Suave',PAL5[3]],['Media',PAL5[2]],['Fuerte',PAL5[1]]].map(([x,p])=>`<button class="face ${C.int===x?'on':''}" style="background:${p[0]};color:${p[1]}" onclick="C.int='${x}';draw()">${x}</button>`).join('')}</div></div>${bandChips()}
+  <button class="btn block" ${C.pick?'':'disabled'} onclick="addAct()">Agregar</button>`;}
+ if(k==='routine'){const r=ROUTINES.find(x=>x.id===C.arg);b.innerHTML=`<h3>${r.n}</h3><p class="muted" style="margin-top:-6px">${r.m}′ · ${r.int} · ${r.ex.map(e=>e[0]).join(' · ')}</p>
+  <div class="row"><div class="lbl">¿Cuánto hiciste?</div><div class="scale">${[[100,'Completa'],[75,'Casi toda'],[50,'La mitad'],[25,'Un poco']].map(([p,l],i)=>`<button class="face ${C.part===p?'on':''}" style="background:${PAL5[4-i][0]};color:${PAL5[4-i][1]}" onclick="C.part=${p};draw()">${p}%<br>${l}</button>`).join('')}</div></div>${bandChips()}
+  <button class="btn block" onclick="addRoutine(${r.id})">Registrar ${r.n}</button><button class="link" onclick="C.kind='edit';draw()">Editar esta rutina</button>`;}
+ if(k==='routines'){b.innerHTML=`<h3>Tus rutinas</h3>${ROUTINES.map(r=>`<div class="actrow">${actIcon(r.i)}<div class="t"><b>${r.n}</b><small>${r.m}′ · ${r.int} · ${r.ex.length} ejercicios</small></div><button class="link" onclick="C.kind='edit';C.arg=${r.id};draw()">Editar</button></div>`).join('')}
+  <button class="btn ghost block" style="margin-top:10px" onclick="ROUTINES.push({id:Date.now(),n:'Nueva rutina',i:'pesas',m:30,int:'Media',ex:[['Ejercicio','3×10']]});C.kind='edit';C.arg=ROUTINES[ROUTINES.length-1].id;draw()">+ Crear rutina</button>`;}
+ if(k==='edit'){const r=ROUTINES.find(x=>x.id===C.arg);b.innerHTML=`<h3>Editar rutina</h3>
+  <div class="row"><div class="lbl">Nombre</div><input class="txt" value="${r.n}" oninput="ROUTINES.find(x=>x.id===${r.id}).n=this.value"></div>
+  <div class="row"><div class="lbl">Tipo</div><div class="chips">${['pesas','escaleras','cardio','caminar'].map(t=>`<button class="chip ${r.i===t?'on':''}" onclick="ROUTINES.find(x=>x.id===${r.id}).i='${t}';draw()">${actIcon(t,26)}</button>`).join('')}</div></div>
+  <div class="row"><div class="lbl">Duración habitual</div><div class="chips">${[20,25,30,35,45,60].map(d=>`<button class="chip ${r.m===d?'on':''}" onclick="ROUTINES.find(x=>x.id===${r.id}).m=${d};draw()">${d}′</button>`).join('')}</div></div>
+  <div class="row"><div class="lbl">Ejercicios</div>${r.ex.map((e,i)=>`<div class="ex"><input class="txt" value="${e[0]}" oninput="ROUTINES.find(x=>x.id===${r.id}).ex[${i}][0]=this.value"><input class="txt sr" value="${e[1]}" oninput="ROUTINES.find(x=>x.id===${r.id}).ex[${i}][1]=this.value"><button class="x" onclick="ROUTINES.find(x=>x.id===${r.id}).ex.splice(${i},1);draw()">×</button></div>`).join('')}
+  <button class="link" onclick="ROUTINES.find(x=>x.id===${r.id}).ex.push(['',''] );draw()">+ Ejercicio</button></div>
+  <button class="btn block" onclick="closeSheet();render();toast('Rutina guardada')">Guardar</button>`;}
+ if(k==='bath'){b.innerHTML=`<h3>${poopIcon(24)} Ida al baño</h3><div class="bristol">${[1,2,3,4,5,6,7].map(n=>`<button class="${C.pick===n?'on':''}" style="background:${BBG[n]};color:#6B3E1E" onclick="C.pick=${n};draw()">${bristolIcon(n)}${n} · ${BRISTOL[n]}</button>`).join('')}<button class="${C.pick==='gas'?'on':''}" style="background:#F1EEE6;color:#5E6358" onclick="C.pick='gas';draw()">${ic('<path d="M5 15c2-3 4 0 6-2s4-4 6-1 2 3 2 3"/>','#5E6358',28)}Solo gases</button></div>${bandChips()}
+  <button class="btn block" ${C.pick?'':'disabled'} onclick="S.bath.push({t:C.pick,band:C.band});S.noBath=false;closeSheet();render()">Guardar</button>`;}
+}
+function addFood(n){const f=FOODS.find(x=>x.n===n);S.meals[C.arg].push(f);closeSheet();render();toast(`${f.n} agregado`);}
+function createDish(){const n=(C.name||'Plato nuevo').trim();FOODS.unshift({n,i:C.icon,k:400,p:20,f:15,c:45,slot:C.arg});C.kind='meal';C.tab='rec';draw();toast('Plato creado');}
+function addAct(){const [key,n,met]=ACTTYPES.find(a=>a[0]===C.pick);const m=met*intF(C.int);S.acts.push({n,i:key,m:C.dur,int:C.int,band:C.band,kcal:kcalOf(m,C.dur)});S.noAct=false;closeSheet();render();toast(`+${kcalOf(m,C.dur)} kcal a tu meta`);}
+function addRoutine(id){const r=ROUTINES.find(x=>x.id===id);const met=(ACTTYPES.find(a=>a[0]===r.i)||[0,0,3.5])[2];const m=Math.round(r.m*C.part/100);S.acts.push({n:r.n,i:r.i,m,int:r.int,band:C.band,part:C.part,kcal:kcalOf(met,m)});S.noAct=false;closeSheet();render();toast(`${r.n} registrada`);}
+render();
+</script>
+</body>
+</html>

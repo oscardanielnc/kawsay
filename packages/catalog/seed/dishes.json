@@ -1,0 +1,2637 @@
+{
+ "version": "2026-10-07",
+ "dishes": [
+  {
+   "id": "mini-juane-pollo",
+   "name": "Mini juane de pollo (calle)",
+   "group": "breakfast",
+   "icon": "hoja",
+   "confidence": "medium",
+   "serving": "1 juane chico",
+   "servings": 1,
+   "items": [
+    {
+     "food": "arroz-cocido",
+     "grams": 160
+    },
+    {
+     "food": "pollo-carne",
+     "grams": 30
+    },
+    {
+     "food": "huevo",
+     "grams": 12
+    },
+    {
+     "food": "aceituna",
+     "grams": 6
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 8
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 10
+    },
+    {
+     "food": "ajo",
+     "grams": 2
+    },
+    {
+     "food": "palillo",
+     "grams": 1
+    },
+    {
+     "food": "sachaculantro",
+     "grams": 1
+    }
+   ],
+   "note": "Street size: ~1 cup of rice, ~1/32 chicken"
+  },
+  {
+   "id": "juane-gallina",
+   "name": "Juane de gallina (selva)",
+   "group": "breakfast",
+   "icon": "hoja",
+   "confidence": "medium",
+   "serving": "1 juane grande",
+   "servings": 1,
+   "items": [
+    {
+     "food": "arroz-cocido",
+     "grams": 250
+    },
+    {
+     "food": "gallina",
+     "grams": 120
+    },
+    {
+     "food": "huevo",
+     "grams": 50
+    },
+    {
+     "food": "aceituna",
+     "grams": 8
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 12
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 20
+    },
+    {
+     "food": "ajo",
+     "grams": 3
+    },
+    {
+     "food": "palillo",
+     "grams": 2
+    },
+    {
+     "food": "sachaculantro",
+     "grams": 2
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "chaufa-calle",
+   "name": "Arroz chaufa (calle)",
+   "group": "breakfast",
+   "icon": "arroz",
+   "confidence": "medium",
+   "serving": "1 porción",
+   "servings": 1,
+   "items": [
+    {
+     "food": "arroz-cocido",
+     "grams": 160
+    },
+    {
+     "food": "pollo-carne",
+     "grams": 30
+    },
+    {
+     "food": "huevo",
+     "grams": 25
+    },
+    {
+     "food": "cebolla-china",
+     "grams": 15
+    },
+    {
+     "food": "sillao",
+     "grams": 10
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 10
+    },
+    {
+     "food": "kion",
+     "grams": 2
+    },
+    {
+     "food": "ajo",
+     "grams": 2
+    }
+   ],
+   "note": "Street size: ~1 cup of rice"
+  },
+  {
+   "id": "tacacho",
+   "name": "Tacacho",
+   "group": "breakfast",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "2 bolas",
+   "servings": 1,
+   "items": [
+    {
+     "food": "platano-verde-asado",
+     "grams": 200
+    },
+    {
+     "food": "manteca-cerdo",
+     "grams": 15
+    },
+    {
+     "food": "chicharron-cerdo",
+     "grams": 25
+    }
+   ],
+   "note": "Without cecina; log it apart"
+  },
+  {
+   "id": "anticucho-pollo",
+   "name": "Anticucho de pollo",
+   "group": "breakfast",
+   "icon": "brocheta",
+   "confidence": "medium",
+   "serving": "3 palitos",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pollo-carne",
+     "grams": 150
+    },
+    {
+     "food": "aji-panca",
+     "grams": 10
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 5
+    },
+    {
+     "food": "ajo",
+     "grams": 3
+    },
+    {
+     "food": "vinagre",
+     "grams": 5
+    }
+   ],
+   "note": "Salad and ají de cocona logged apart"
+  },
+  {
+   "id": "anticucho-corazon",
+   "name": "Anticucho de corazón",
+   "group": "breakfast",
+   "icon": "brocheta",
+   "confidence": "high",
+   "serving": "3 palitos",
+   "servings": 1,
+   "items": [
+    {
+     "food": "res-corazon",
+     "grams": 150
+    },
+    {
+     "food": "aji-panca",
+     "grams": 10
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 5
+    },
+    {
+     "food": "ajo",
+     "grams": 3
+    },
+    {
+     "food": "vinagre",
+     "grams": 5
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "pan-con-pollo",
+   "name": "Pan con pollo",
+   "group": "breakfast",
+   "icon": "pan",
+   "confidence": "high",
+   "serving": "1 pan",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pan-frances",
+     "grams": 35
+    },
+    {
+     "food": "pollo-pechuga",
+     "grams": 50
+    },
+    {
+     "food": "lechuga",
+     "grams": 10
+    },
+    {
+     "food": "mayonesa",
+     "grams": 10
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "pan-con-carne",
+   "name": "Pan con carne",
+   "group": "breakfast",
+   "icon": "pan",
+   "confidence": "medium",
+   "serving": "1 pan",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pan-frances",
+     "grams": 35
+    },
+    {
+     "food": "res-carne",
+     "grams": 50
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 10
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 3
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "pan-con-mantequilla",
+   "name": "Pan con mantequilla",
+   "group": "breakfast",
+   "icon": "pan",
+   "confidence": "high",
+   "serving": "1 pan",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pan-frances",
+     "grams": 35
+    },
+    {
+     "food": "mantequilla",
+     "grams": 7
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "pan-con-huevo",
+   "name": "Pan con huevo",
+   "group": "breakfast",
+   "icon": "pan",
+   "confidence": "high",
+   "serving": "1 pan",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pan-frances",
+     "grams": 35
+    },
+    {
+     "food": "huevo",
+     "grams": 50
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 5
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "huevo-frito",
+   "name": "Huevo frito",
+   "group": "breakfast",
+   "icon": "huevo",
+   "confidence": "high",
+   "serving": "1 huevo",
+   "servings": 1,
+   "items": [
+    {
+     "food": "huevo",
+     "grams": 50
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 7
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "huevo-sancochado",
+   "name": "Huevo sancochado",
+   "group": "breakfast",
+   "icon": "huevo",
+   "confidence": "high",
+   "serving": "1 huevo",
+   "servings": 1,
+   "items": [
+    {
+     "food": "huevo",
+     "grams": 50
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "huevos-revueltos",
+   "name": "Huevos revueltos",
+   "group": "breakfast",
+   "icon": "huevo",
+   "confidence": "high",
+   "serving": "2 huevos",
+   "servings": 1,
+   "items": [
+    {
+     "food": "huevo",
+     "grams": 100
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 7
+    },
+    {
+     "food": "leche-entera",
+     "grams": 10
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "chorizo-con-papa",
+   "name": "Chorizo frito con papa",
+   "group": "breakfast",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "chorizo",
+     "grams": 80
+    },
+    {
+     "food": "papa-sancochada",
+     "grams": 150
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 8
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "pescado-con-maduro",
+   "name": "Pescado frito con maduro",
+   "group": "breakfast",
+   "icon": "pescado",
+   "confidence": "medium",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pescado-rio",
+     "grams": 150
+    },
+    {
+     "food": "harina-trigo",
+     "grams": 8
+    },
+    {
+     "food": "platano-maduro",
+     "grams": 120
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 23
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "sopa-casera",
+   "name": "Sopa casera",
+   "group": "soup",
+   "icon": "sopa",
+   "confidence": "low",
+   "serving": "1 plato hondo",
+   "servings": 1,
+   "items": [
+    {
+     "food": "fideo-cocido",
+     "grams": 60
+    },
+    {
+     "food": "papa-sancochada",
+     "grams": 60
+    },
+    {
+     "food": "pollo-carne",
+     "grams": 30
+    },
+    {
+     "food": "zanahoria",
+     "grams": 30
+    },
+    {
+     "food": "zapallo",
+     "grams": 30
+    },
+    {
+     "food": "choclo",
+     "grams": 30
+    },
+    {
+     "food": "apio",
+     "grams": 10
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 10
+    },
+    {
+     "food": "agua",
+     "grams": 250
+    }
+   ],
+   "note": "Varies a lot by cook"
+  },
+  {
+   "id": "caldo-gallina",
+   "name": "Caldo de gallina",
+   "group": "soup",
+   "icon": "sopa",
+   "confidence": "medium",
+   "serving": "1 plato hondo",
+   "servings": 1,
+   "items": [
+    {
+     "food": "gallina",
+     "grams": 120
+    },
+    {
+     "food": "fideo-cocido",
+     "grams": 80
+    },
+    {
+     "food": "papa-amarilla-sancochada",
+     "grams": 100
+    },
+    {
+     "food": "huevo",
+     "grams": 50
+    },
+    {
+     "food": "cebolla-china",
+     "grams": 5
+    },
+    {
+     "food": "kion",
+     "grams": 2
+    },
+    {
+     "food": "agua",
+     "grams": 300
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "sopa-res",
+   "name": "Sopa de res",
+   "group": "soup",
+   "icon": "sopa",
+   "confidence": "low",
+   "serving": "1 plato hondo",
+   "servings": 1,
+   "items": [
+    {
+     "food": "res-carne",
+     "grams": 80
+    },
+    {
+     "food": "papa-sancochada",
+     "grams": 80
+    },
+    {
+     "food": "fideo-cocido",
+     "grams": 40
+    },
+    {
+     "food": "choclo",
+     "grams": 40
+    },
+    {
+     "food": "zanahoria",
+     "grams": 30
+    },
+    {
+     "food": "col",
+     "grams": 30
+    },
+    {
+     "food": "agua",
+     "grams": 300
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "crema-alverjas",
+   "name": "Sopa crema de alverjas",
+   "group": "soup",
+   "icon": "sopa",
+   "confidence": "low",
+   "serving": "1 plato hondo",
+   "servings": 1,
+   "items": [
+    {
+     "food": "alverja-seca",
+     "grams": 150
+    },
+    {
+     "food": "papa-sancochada",
+     "grams": 40
+    },
+    {
+     "food": "leche-evaporada",
+     "grams": 20
+    },
+    {
+     "food": "mantequilla",
+     "grams": 5
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 10
+    },
+    {
+     "food": "agua",
+     "grams": 150
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "crema-rocoto",
+   "name": "Crema de rocoto",
+   "group": "soup",
+   "icon": "sopa",
+   "confidence": "low",
+   "serving": "1 plato hondo",
+   "servings": 1,
+   "items": [
+    {
+     "food": "papa-sancochada",
+     "grams": 100
+    },
+    {
+     "food": "rocoto",
+     "grams": 20
+    },
+    {
+     "food": "leche-evaporada",
+     "grams": 30
+    },
+    {
+     "food": "queso-fresco",
+     "grams": 20
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 15
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 5
+    },
+    {
+     "food": "agua",
+     "grams": 150
+    }
+   ],
+   "note": "Non-standard recipe: review"
+  },
+  {
+   "id": "lomo-saltado",
+   "name": "Lomo saltado",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "high",
+   "serving": "1 plato con arroz",
+   "servings": 1,
+   "items": [
+    {
+     "food": "res-carne",
+     "grams": 120
+    },
+    {
+     "food": "papa-frita",
+     "grams": 100
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 60
+    },
+    {
+     "food": "tomate",
+     "grams": 60
+    },
+    {
+     "food": "aji-amarillo",
+     "grams": 10
+    },
+    {
+     "food": "sillao",
+     "grams": 10
+    },
+    {
+     "food": "vinagre",
+     "grams": 5
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 12
+    },
+    {
+     "food": "culantro",
+     "grams": 3
+    },
+    {
+     "food": "arroz-cocido",
+     "grams": 160
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "saltado-pollo",
+   "name": "Saltado de pollo",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "high",
+   "serving": "1 plato con arroz",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pollo-pechuga",
+     "grams": 120
+    },
+    {
+     "food": "papa-frita",
+     "grams": 100
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 60
+    },
+    {
+     "food": "tomate",
+     "grams": 60
+    },
+    {
+     "food": "aji-amarillo",
+     "grams": 10
+    },
+    {
+     "food": "sillao",
+     "grams": 10
+    },
+    {
+     "food": "vinagre",
+     "grams": 5
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 12
+    },
+    {
+     "food": "culantro",
+     "grams": 3
+    },
+    {
+     "food": "arroz-cocido",
+     "grams": 160
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "aeropuerto",
+   "name": "Aeropuerto",
+   "group": "main",
+   "icon": "arroz",
+   "confidence": "medium",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "arroz-cocido",
+     "grams": 150
+    },
+    {
+     "food": "fideo-cocido",
+     "grams": 80
+    },
+    {
+     "food": "pollo-carne",
+     "grams": 40
+    },
+    {
+     "food": "huevo",
+     "grams": 25
+    },
+    {
+     "food": "brote-soya",
+     "grams": 20
+    },
+    {
+     "food": "cebolla-china",
+     "grams": 15
+    },
+    {
+     "food": "sillao",
+     "grams": 12
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 15
+    },
+    {
+     "food": "kion",
+     "grams": 2
+    }
+   ],
+   "note": "Chicken fried rice with noodles"
+  },
+  {
+   "id": "arroz-con-pollo",
+   "name": "Arroz con pollo",
+   "group": "main",
+   "icon": "arroz",
+   "confidence": "high",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "arroz-cocido",
+     "grams": 200
+    },
+    {
+     "food": "pollo-carne",
+     "grams": 120
+    },
+    {
+     "food": "culantro",
+     "grams": 10
+    },
+    {
+     "food": "alverja-verde",
+     "grams": 30
+    },
+    {
+     "food": "zanahoria",
+     "grams": 20
+    },
+    {
+     "food": "pimiento",
+     "grams": 10
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 10
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 25
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    }
+   ],
+   "note": "With sarsa criolla"
+  },
+  {
+   "id": "pachamanca-pollo",
+   "name": "Pachamanca de pollo",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pollo-carne",
+     "grams": 150
+    },
+    {
+     "food": "papa-sancochada",
+     "grams": 120
+    },
+    {
+     "food": "camote-sancochado",
+     "grams": 100
+    },
+    {
+     "food": "habas",
+     "grams": 50
+    },
+    {
+     "food": "choclo",
+     "grams": 80
+    },
+    {
+     "food": "manteca-cerdo",
+     "grams": 8
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 5
+    }
+   ],
+   "note": "Humita approximated as corn + lard"
+  },
+  {
+   "id": "pachamanca-cerdo",
+   "name": "Pachamanca de chancho",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "cerdo-carne",
+     "grams": 150
+    },
+    {
+     "food": "papa-sancochada",
+     "grams": 120
+    },
+    {
+     "food": "camote-sancochado",
+     "grams": 100
+    },
+    {
+     "food": "habas",
+     "grams": 50
+    },
+    {
+     "food": "choclo",
+     "grams": 80
+    },
+    {
+     "food": "manteca-cerdo",
+     "grams": 8
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 5
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "chicharron",
+   "name": "Chicharrón de chancho",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "chicharron-cerdo",
+     "grams": 150
+    },
+    {
+     "food": "camote-sancochado",
+     "grams": 100
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 30
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    }
+   ],
+   "note": "With sweet potato and sarsa; no rice"
+  },
+  {
+   "id": "chuleta-con-papas",
+   "name": "Chuleta con papas",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 plato con arroz",
+   "servings": 1,
+   "items": [
+    {
+     "food": "cerdo-chuleta",
+     "grams": 120
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 8
+    },
+    {
+     "food": "papa-frita",
+     "grams": 120
+    },
+    {
+     "food": "arroz-cocido",
+     "grams": 150
+    },
+    {
+     "food": "lechuga",
+     "grams": 25
+    },
+    {
+     "food": "tomate",
+     "grams": 25
+    },
+    {
+     "food": "pepino",
+     "grams": 20
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 3
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "churrasco",
+   "name": "Churrasco con papas fritas",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 plato con arroz",
+   "servings": 1,
+   "items": [
+    {
+     "food": "res-carne",
+     "grams": 180
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 8
+    },
+    {
+     "food": "papa-frita",
+     "grams": 150
+    },
+    {
+     "food": "arroz-cocido",
+     "grams": 150
+    },
+    {
+     "food": "lechuga",
+     "grams": 25
+    },
+    {
+     "food": "tomate",
+     "grams": 25
+    },
+    {
+     "food": "pepino",
+     "grams": 20
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 3
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "pollo-frito-arroz",
+   "name": "Pollo frito con arroz",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pollo-carne",
+     "grams": 150
+    },
+    {
+     "food": "harina-trigo",
+     "grams": 10
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 15
+    },
+    {
+     "food": "arroz-cocido",
+     "grams": 160
+    },
+    {
+     "food": "lechuga",
+     "grams": 25
+    },
+    {
+     "food": "tomate",
+     "grams": 25
+    },
+    {
+     "food": "pepino",
+     "grams": 20
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 3
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "tilapia-frita",
+   "name": "Tilapia frita",
+   "group": "main",
+   "icon": "pescado",
+   "confidence": "medium",
+   "serving": "1 plato con arroz",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pescado-tilapia",
+     "grams": 150
+    },
+    {
+     "food": "harina-trigo",
+     "grams": 8
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 15
+    },
+    {
+     "food": "arroz-cocido",
+     "grams": 150
+    },
+    {
+     "food": "lechuga",
+     "grams": 25
+    },
+    {
+     "food": "tomate",
+     "grams": 25
+    },
+    {
+     "food": "pepino",
+     "grams": 20
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 3
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "pescado-rio-frito",
+   "name": "Pescado de río frito",
+   "group": "main",
+   "icon": "pescado",
+   "confidence": "medium",
+   "serving": "1 plato con arroz y yuca",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pescado-rio",
+     "grams": 150
+    },
+    {
+     "food": "harina-trigo",
+     "grams": 8
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 15
+    },
+    {
+     "food": "arroz-cocido",
+     "grams": 150
+    },
+    {
+     "food": "yuca-sancochada",
+     "grams": 80
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "pescado-mar-frito",
+   "name": "Pescado de mar frito",
+   "group": "main",
+   "icon": "pescado",
+   "confidence": "medium",
+   "serving": "1 plato con arroz",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pescado-mar",
+     "grams": 150
+    },
+    {
+     "food": "harina-trigo",
+     "grams": 8
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 15
+    },
+    {
+     "food": "arroz-cocido",
+     "grams": 150
+    },
+    {
+     "food": "lechuga",
+     "grams": 25
+    },
+    {
+     "food": "tomate",
+     "grams": 25
+    },
+    {
+     "food": "pepino",
+     "grams": 20
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 3
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "ceviche-toyo",
+   "name": "Ceviche de toyo",
+   "group": "main",
+   "icon": "pescado",
+   "confidence": "high",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "toyo",
+     "grams": 150
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 60
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 40
+    },
+    {
+     "food": "aji-amarillo",
+     "grams": 5
+    },
+    {
+     "food": "culantro",
+     "grams": 2
+    },
+    {
+     "food": "camote-sancochado",
+     "grams": 100
+    },
+    {
+     "food": "choclo",
+     "grams": 50
+    },
+    {
+     "food": "lechuga",
+     "grams": 10
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "ceviche-pota",
+   "name": "Ceviche de pota",
+   "group": "main",
+   "icon": "pescado",
+   "confidence": "high",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pota",
+     "grams": 150
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 60
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 40
+    },
+    {
+     "food": "aji-amarillo",
+     "grams": 5
+    },
+    {
+     "food": "culantro",
+     "grams": 2
+    },
+    {
+     "food": "camote-sancochado",
+     "grams": 100
+    },
+    {
+     "food": "choclo",
+     "grams": 50
+    },
+    {
+     "food": "lechuga",
+     "grams": 10
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "tallarin-verde",
+   "name": "Tallarín verde",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "fideo-cocido",
+     "grams": 250
+    },
+    {
+     "food": "espinaca",
+     "grams": 30
+    },
+    {
+     "food": "albahaca",
+     "grams": 15
+    },
+    {
+     "food": "queso-fresco",
+     "grams": 20
+    },
+    {
+     "food": "leche-evaporada",
+     "grams": 30
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 10
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 15
+    }
+   ],
+   "note": "Chicken piece logged apart"
+  },
+  {
+   "id": "causa-rellena",
+   "name": "Causa rellena",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 tajada",
+   "servings": 1,
+   "items": [
+    {
+     "food": "papa-amarilla-sancochada",
+     "grams": 150
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 10
+    },
+    {
+     "food": "aji-amarillo",
+     "grams": 10
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    },
+    {
+     "food": "pollo-pechuga",
+     "grams": 50
+    },
+    {
+     "food": "mayonesa",
+     "grams": 15
+    },
+    {
+     "food": "palta",
+     "grams": 25
+    },
+    {
+     "food": "huevo",
+     "grams": 12
+    },
+    {
+     "food": "aceituna",
+     "grams": 6
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "papa-huancaina",
+   "name": "Papa a la huancaína",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "high",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "papa-sancochada",
+     "grams": 200
+    },
+    {
+     "food": "queso-fresco",
+     "grams": 40
+    },
+    {
+     "food": "leche-evaporada",
+     "grams": 40
+    },
+    {
+     "food": "aji-amarillo",
+     "grams": 20
+    },
+    {
+     "food": "galleta-soda",
+     "grams": 8
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 15
+    },
+    {
+     "food": "huevo",
+     "grams": 25
+    },
+    {
+     "food": "aceituna",
+     "grams": 6
+    },
+    {
+     "food": "lechuga",
+     "grams": 10
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "arroz-con-mariscos",
+   "name": "Arroz con mariscos",
+   "group": "main",
+   "icon": "arroz",
+   "confidence": "medium",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "arroz-cocido",
+     "grams": 200
+    },
+    {
+     "food": "mariscos-mix",
+     "grams": 100
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 12
+    },
+    {
+     "food": "aji-panca",
+     "grams": 10
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 20
+    },
+    {
+     "food": "alverja-verde",
+     "grams": 20
+    },
+    {
+     "food": "pimiento",
+     "grams": 10
+    },
+    {
+     "food": "queso-fresco",
+     "grams": 5
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "escabeche-pollo",
+   "name": "Escabeche de pollo",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 plato con arroz",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pollo-carne",
+     "grams": 120
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 100
+    },
+    {
+     "food": "vinagre",
+     "grams": 15
+    },
+    {
+     "food": "aji-amarillo",
+     "grams": 10
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 12
+    },
+    {
+     "food": "camote-sancochado",
+     "grams": 80
+    },
+    {
+     "food": "huevo",
+     "grams": 25
+    },
+    {
+     "food": "aceituna",
+     "grams": 6
+    },
+    {
+     "food": "arroz-cocido",
+     "grams": 150
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "lentejas-arroz",
+   "name": "Lentejas con arroz",
+   "group": "main",
+   "icon": "arroz",
+   "confidence": "high",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "lentejas",
+     "grams": 200
+    },
+    {
+     "food": "arroz-cocido",
+     "grams": 150
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 8
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 15
+    },
+    {
+     "food": "ajo",
+     "grams": 2
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "frejoles-arroz",
+   "name": "Frejoles con arroz",
+   "group": "main",
+   "icon": "arroz",
+   "confidence": "high",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "frejol-canario",
+     "grams": 180
+    },
+    {
+     "food": "arroz-cocido",
+     "grams": 150
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 8
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 15
+    },
+    {
+     "food": "ajo",
+     "grams": 2
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "pollo-brasa-octavo",
+   "name": "Pollo a la brasa ⅛",
+   "group": "weekly",
+   "icon": "plato",
+   "confidence": "high",
+   "serving": "⅛ con papas y ensalada",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pollo-carne",
+     "grams": 120
+    },
+    {
+     "food": "papa-frita",
+     "grams": 120
+    },
+    {
+     "food": "lechuga",
+     "grams": 30
+    },
+    {
+     "food": "tomate",
+     "grams": 20
+    },
+    {
+     "food": "pepino",
+     "grams": 20
+    },
+    {
+     "food": "zanahoria",
+     "grams": 15
+    }
+   ],
+   "note": "Sauces logged apart"
+  },
+  {
+   "id": "pollo-brasa-cuarto",
+   "name": "Pollo a la brasa ¼",
+   "group": "weekly",
+   "icon": "plato",
+   "confidence": "high",
+   "serving": "¼ con papas y ensalada",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pollo-carne",
+     "grams": 240
+    },
+    {
+     "food": "papa-frita",
+     "grams": 200
+    },
+    {
+     "food": "lechuga",
+     "grams": 30
+    },
+    {
+     "food": "tomate",
+     "grams": 20
+    },
+    {
+     "food": "pepino",
+     "grams": 20
+    },
+    {
+     "food": "zanahoria",
+     "grams": 15
+    }
+   ],
+   "note": "Sauces logged apart"
+  },
+  {
+   "id": "broaster",
+   "name": "Pollo broaster",
+   "group": "weekly",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 presa con papas",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pollo-broaster",
+     "grams": 180
+    },
+    {
+     "food": "papa-frita",
+     "grams": 150
+    }
+   ],
+   "note": "Sauces logged apart"
+  },
+  {
+   "id": "salchipapa",
+   "name": "Salchipapa",
+   "group": "weekly",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 porción",
+   "servings": 1,
+   "items": [
+    {
+     "food": "papa-frita",
+     "grams": 200
+    },
+    {
+     "food": "salchicha",
+     "grams": 80
+    }
+   ],
+   "note": "Sauces logged apart"
+  },
+  {
+   "id": "parrillada",
+   "name": "Parrillada mixta",
+   "group": "weekly",
+   "icon": "brocheta",
+   "confidence": "low",
+   "serving": "1 persona",
+   "servings": 1,
+   "items": [
+    {
+     "food": "res-carne",
+     "grams": 120
+    },
+    {
+     "food": "chorizo",
+     "grams": 60
+    },
+    {
+     "food": "pollo-carne",
+     "grams": 100
+    },
+    {
+     "food": "res-corazon",
+     "grams": 50
+    },
+    {
+     "food": "papa-frita",
+     "grams": 120
+    },
+    {
+     "food": "lechuga",
+     "grams": 25
+    },
+    {
+     "food": "tomate",
+     "grams": 25
+    }
+   ],
+   "note": "Highly variable"
+  },
+  {
+   "id": "pizza-tajada",
+   "name": "Pizza",
+   "group": "weekly",
+   "icon": "pan",
+   "confidence": "medium",
+   "serving": "1 tajada",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pizza",
+     "grams": 110
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "maki-acevichado",
+   "name": "Maki acevichado",
+   "group": "weekly",
+   "icon": "pescado",
+   "confidence": "medium",
+   "serving": "1 rollo (10 piezas)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "arroz-cocido",
+     "grams": 180
+    },
+    {
+     "food": "azucar",
+     "grams": 8
+    },
+    {
+     "food": "vinagre",
+     "grams": 5
+    },
+    {
+     "food": "langostino",
+     "grams": 60
+    },
+    {
+     "food": "pan-rallado",
+     "grams": 10
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 8
+    },
+    {
+     "food": "palta",
+     "grams": 30
+    },
+    {
+     "food": "queso-crema",
+     "grams": 20
+    },
+    {
+     "food": "mayonesa",
+     "grams": 20
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    },
+    {
+     "food": "sillao",
+     "grams": 10
+    }
+   ],
+   "note": "Default variety"
+  },
+  {
+   "id": "maki-furai",
+   "name": "Maki furai",
+   "group": "weekly",
+   "icon": "pescado",
+   "confidence": "low",
+   "serving": "1 rollo (10 piezas)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "arroz-cocido",
+     "grams": 180
+    },
+    {
+     "food": "azucar",
+     "grams": 8
+    },
+    {
+     "food": "vinagre",
+     "grams": 5
+    },
+    {
+     "food": "langostino",
+     "grams": 40
+    },
+    {
+     "food": "queso-crema",
+     "grams": 25
+    },
+    {
+     "food": "palta",
+     "grams": 20
+    },
+    {
+     "food": "pan-rallado",
+     "grams": 20
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 20
+    },
+    {
+     "food": "sillao",
+     "grams": 15
+    }
+   ],
+   "note": "Whole roll fried"
+  },
+  {
+   "id": "maki-parrillero",
+   "name": "Maki parrillero",
+   "group": "weekly",
+   "icon": "pescado",
+   "confidence": "low",
+   "serving": "1 rollo (10 piezas)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "arroz-cocido",
+     "grams": 180
+    },
+    {
+     "food": "azucar",
+     "grams": 8
+    },
+    {
+     "food": "vinagre",
+     "grams": 5
+    },
+    {
+     "food": "res-carne",
+     "grams": 50
+    },
+    {
+     "food": "palta",
+     "grams": 20
+    },
+    {
+     "food": "queso-crema",
+     "grams": 20
+    },
+    {
+     "food": "mayonesa",
+     "grams": 15
+    },
+    {
+     "food": "aji-panca",
+     "grams": 5
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "maki-california",
+   "name": "Maki California",
+   "group": "weekly",
+   "icon": "pescado",
+   "confidence": "medium",
+   "serving": "1 rollo (10 piezas)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "arroz-cocido",
+     "grams": 180
+    },
+    {
+     "food": "azucar",
+     "grams": 8
+    },
+    {
+     "food": "vinagre",
+     "grams": 5
+    },
+    {
+     "food": "kanikama",
+     "grams": 40
+    },
+    {
+     "food": "palta",
+     "grams": 30
+    },
+    {
+     "food": "pepino",
+     "grams": 20
+    },
+    {
+     "food": "ajonjoli",
+     "grams": 3
+    },
+    {
+     "food": "mayonesa",
+     "grams": 10
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "papa-dorada",
+   "name": "Papa dorada",
+   "group": "side",
+   "icon": "plato",
+   "confidence": "high",
+   "serving": "1 porción",
+   "servings": 1,
+   "items": [
+    {
+     "food": "papa-sancochada",
+     "grams": 150
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 8
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "maduro-frito",
+   "name": "Plátano maduro frito",
+   "group": "side",
+   "icon": "plato",
+   "confidence": "high",
+   "serving": "1 plátano",
+   "servings": 1,
+   "items": [
+    {
+     "food": "platano-maduro",
+     "grams": 120
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 8
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "ensalada-fresca",
+   "name": "Ensalada fresca",
+   "group": "salad",
+   "icon": "fruta",
+   "confidence": "high",
+   "serving": "1 plato chico",
+   "servings": 1,
+   "items": [
+    {
+     "food": "lechuga",
+     "grams": 40
+    },
+    {
+     "food": "tomate",
+     "grams": 40
+    },
+    {
+     "food": "pepino",
+     "grams": 40
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 5
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "ensalada-criolla",
+   "name": "Ensalada criolla (sarsa)",
+   "group": "salad",
+   "icon": "fruta",
+   "confidence": "high",
+   "serving": "1 porción",
+   "servings": 1,
+   "items": [
+    {
+     "food": "cebolla-roja",
+     "grams": 50
+    },
+    {
+     "food": "tomate",
+     "grams": 30
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 10
+    },
+    {
+     "food": "culantro",
+     "grams": 2
+    },
+    {
+     "food": "aji-amarillo",
+     "grams": 3
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "ensalada-rusa",
+   "name": "Ensalada rusa",
+   "group": "salad",
+   "icon": "fruta",
+   "confidence": "high",
+   "serving": "1 porción",
+   "servings": 1,
+   "items": [
+    {
+     "food": "papa-sancochada",
+     "grams": 60
+    },
+    {
+     "food": "beterraga",
+     "grams": 60
+    },
+    {
+     "food": "zanahoria",
+     "grams": 40
+    },
+    {
+     "food": "alverja-verde",
+     "grams": 20
+    },
+    {
+     "food": "mayonesa",
+     "grams": 15
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "ensalada-palta",
+   "name": "Ensalada de palta",
+   "group": "salad",
+   "icon": "fruta",
+   "confidence": "high",
+   "serving": "1 porción",
+   "servings": 1,
+   "items": [
+    {
+     "food": "palta",
+     "grams": 70
+    },
+    {
+     "food": "tomate",
+     "grams": 40
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 20
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "jugo-papaya",
+   "name": "Jugo de papaya",
+   "group": "drink",
+   "icon": "jugo",
+   "confidence": "medium",
+   "serving": "1 vaso grande",
+   "servings": 1,
+   "items": [
+    {
+     "food": "papaya",
+     "grams": 250
+    },
+    {
+     "food": "azucar",
+     "grams": 12
+    },
+    {
+     "food": "agua",
+     "grams": 100
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "jugo-surtido",
+   "name": "Jugo surtido",
+   "group": "drink",
+   "icon": "jugo",
+   "confidence": "medium",
+   "serving": "1 vaso grande",
+   "servings": 1,
+   "items": [
+    {
+     "food": "papaya",
+     "grams": 100
+    },
+    {
+     "food": "pina",
+     "grams": 60
+    },
+    {
+     "food": "platano-seda",
+     "grams": 60
+    },
+    {
+     "food": "naranja-jugo",
+     "grams": 60
+    },
+    {
+     "food": "azucar",
+     "grams": 12
+    },
+    {
+     "food": "agua",
+     "grams": 80
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "batido-papaya-yogurt-whey",
+   "name": "Batido de papaya, yogurt y whey",
+   "group": "drink",
+   "icon": "jugo",
+   "confidence": "medium",
+   "serving": "1 vaso grande",
+   "servings": 1,
+   "items": [
+    {
+     "food": "papaya",
+     "grams": 200
+    },
+    {
+     "food": "yogurt-griego",
+     "grams": 100
+    },
+    {
+     "food": "whey",
+     "grams": 15
+    },
+    {
+     "food": "agua",
+     "grams": 100
+    }
+   ],
+   "note": "Add banana when used"
+  },
+  {
+   "id": "chicha-morada",
+   "name": "Chicha morada",
+   "group": "drink",
+   "icon": "jugo",
+   "confidence": "medium",
+   "serving": "1 vaso",
+   "servings": 1,
+   "items": [
+    {
+     "food": "maiz-morado",
+     "grams": 5
+    },
+    {
+     "food": "azucar",
+     "grams": 20
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    },
+    {
+     "food": "agua",
+     "grams": 230
+    }
+   ],
+   "note": "Cross-check with INS group S"
+  },
+  {
+   "id": "refresco-maracuya",
+   "name": "Refresco de maracuyá",
+   "group": "drink",
+   "icon": "jugo",
+   "confidence": "medium",
+   "serving": "1 vaso",
+   "servings": 1,
+   "items": [
+    {
+     "food": "maracuya-pulpa",
+     "grams": 30
+    },
+    {
+     "food": "azucar",
+     "grams": 20
+    },
+    {
+     "food": "agua",
+     "grams": 220
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "frappe-cafe",
+   "name": "Frappé de café",
+   "group": "drink",
+   "icon": "jugo",
+   "confidence": "low",
+   "serving": "1 vaso (350 ml)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "leche-entera",
+     "grams": 200
+    },
+    {
+     "food": "azucar",
+     "grams": 25
+    },
+    {
+     "food": "cafe-soluble",
+     "grams": 3
+    },
+    {
+     "food": "crema-leche",
+     "grams": 20
+    },
+    {
+     "food": "agua",
+     "grams": 80
+    }
+   ],
+   "note": "Varies by shop"
+  },
+  {
+   "id": "frappe-fresa",
+   "name": "Frappé de fresa",
+   "group": "drink",
+   "icon": "jugo",
+   "confidence": "low",
+   "serving": "1 vaso (350 ml)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "fresa",
+     "grams": 100
+    },
+    {
+     "food": "leche-entera",
+     "grams": 150
+    },
+    {
+     "food": "azucar",
+     "grams": 25
+    },
+    {
+     "food": "helado-crema",
+     "grams": 50
+    },
+    {
+     "food": "agua",
+     "grams": 50
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "frappe-chocolate",
+   "name": "Frappé de chocolate",
+   "group": "drink",
+   "icon": "jugo",
+   "confidence": "low",
+   "serving": "1 vaso (350 ml)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "leche-entera",
+     "grams": 200
+    },
+    {
+     "food": "cocoa",
+     "grams": 10
+    },
+    {
+     "food": "azucar",
+     "grams": 25
+    },
+    {
+     "food": "helado-crema",
+     "grams": 50
+    },
+    {
+     "food": "agua",
+     "grams": 50
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "pionono",
+   "name": "Pionono",
+   "group": "sweet",
+   "icon": "dulce",
+   "confidence": "medium",
+   "serving": "1 tajada",
+   "servings": 1,
+   "items": [
+    {
+     "food": "bizcocho",
+     "grams": 50
+    },
+    {
+     "food": "manjar-blanco",
+     "grams": 20
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "torta-galleta",
+   "name": "Torta de galleta",
+   "group": "sweet",
+   "icon": "dulce",
+   "confidence": "low",
+   "serving": "1 tajada",
+   "servings": 1,
+   "items": [
+    {
+     "food": "galleta-vainilla",
+     "grams": 30
+    },
+    {
+     "food": "leche-condensada",
+     "grams": 20
+    },
+    {
+     "food": "crema-leche",
+     "grams": 15
+    },
+    {
+     "food": "chocolate",
+     "grams": 5
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "papa-rellena",
+   "name": "Papa rellena",
+   "group": "sweet",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 papa rellena",
+   "servings": 1,
+   "items": [
+    {
+     "food": "papa-sancochada",
+     "grams": 150
+    },
+    {
+     "food": "res-molida",
+     "grams": 40
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 10
+    },
+    {
+     "food": "huevo",
+     "grams": 10
+    },
+    {
+     "food": "aceituna",
+     "grams": 3
+    },
+    {
+     "food": "harina-trigo",
+     "grams": 5
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 12
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "salsa-golf",
+   "name": "Salsa golf",
+   "group": "sauce",
+   "icon": "nuez",
+   "confidence": "high",
+   "serving": "1 porción (40 g)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "mayonesa",
+     "grams": 27
+    },
+    {
+     "food": "ketchup",
+     "grams": 13
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "salsa-tartara",
+   "name": "Salsa tártara",
+   "group": "sauce",
+   "icon": "nuez",
+   "confidence": "medium",
+   "serving": "1 porción (40 g)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "mayonesa",
+     "grams": 32
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 5
+    },
+    {
+     "food": "pepino",
+     "grams": 3
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "crema-aji",
+   "name": "Crema de ají (casera)",
+   "group": "sauce",
+   "icon": "nuez",
+   "confidence": "low",
+   "serving": "1 porción (40 g)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "aji-amarillo",
+     "grams": 15
+    },
+    {
+     "food": "mayonesa",
+     "grams": 12
+    },
+    {
+     "food": "queso-fresco",
+     "grams": 5
+    },
+    {
+     "food": "leche-evaporada",
+     "grams": 5
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 3
+    }
+   ],
+   "note": "Bottled Tarí is its own food"
+  },
+  {
+   "id": "aji-cocona",
+   "name": "Ají de cocona",
+   "group": "sauce",
+   "icon": "fruta",
+   "confidence": "medium",
+   "serving": "1 porción (40 g)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "cocona",
+     "grams": 30
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 5
+    },
+    {
+     "food": "aji-charapita",
+     "grams": 1
+    },
+    {
+     "food": "culantro",
+     "grams": 1
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 3
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "salsa-acevichada",
+   "name": "Salsa acevichada",
+   "group": "sauce",
+   "icon": "nuez",
+   "confidence": "medium",
+   "serving": "1 porción (40 g)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "mayonesa",
+     "grams": 28
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 6
+    },
+    {
+     "food": "aji-amarillo",
+     "grams": 4
+    },
+    {
+     "food": "sillao",
+     "grams": 2
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "chimichurri",
+   "name": "Chimichurri",
+   "group": "sauce",
+   "icon": "hoja",
+   "confidence": "medium",
+   "serving": "1 porción (40 g)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "aceite-vegetal",
+     "grams": 20
+    },
+    {
+     "food": "perejil",
+     "grams": 10
+    },
+    {
+     "food": "vinagre",
+     "grams": 5
+    },
+    {
+     "food": "ajo",
+     "grams": 2
+    },
+    {
+     "food": "aji-charapita",
+     "grams": 2
+    },
+    {
+     "food": "oregano",
+     "grams": 1
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "crema-aceituna",
+   "name": "Crema de aceituna",
+   "group": "sauce",
+   "icon": "nuez",
+   "confidence": "low",
+   "serving": "1 porción (40 g)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "aceituna",
+     "grams": 15
+    },
+    {
+     "food": "mayonesa",
+     "grams": 15
+    },
+    {
+     "food": "leche-evaporada",
+     "grams": 8
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 2
+    }
+   ],
+   "note": "Rotisserie style"
+  }
+ ]
+}

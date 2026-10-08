@@ -1,0 +1,21 @@
+# Architecture Decision Records
+
+One decision per file (`NNNN-slug.md`, max 40 lines). Discarded attempts are recorded too, so nobody tries them again.
+Template: [template.md](template.md).
+
+| # | Title | Status |
+| --- | --- | --- |
+| [0001](0001-monorepo.md) | Monorepo: Expo app, NestJS API and shared core | Accepted |
+| [0002](0002-mobile-stack.md) | Mobile stack: Expo SDK 57 + React Native | Accepted |
+| [0003](0003-module-architecture.md) | Hexagonal API modules, feature folders on mobile | Accepted |
+| [0004](0004-offline-first-sync.md) | Offline-first: SQLite on device, push/pull sync | Accepted |
+| [0005](0005-mobile-auth.md) | Mobile authentication: secure-store refresh token | Accepted |
+| [0006](0006-i18n-spanish-ui.md) | Spanish UI through i18n from day one | Accepted |
+| [0007](0007-ai-gateway.md) | AI behind a port, DeepSeek as first adapter | Accepted |
+| [0008](0008-ai-picks-table-computes.md) | AI picks, the table computes | Accepted |
+| [0009](0009-targets-algorithm.md) | Daily targets and recalibration | Accepted |
+| [0010](0010-builds-and-updates.md) | Two app variants, development builds and over-the-air updates | Accepted |
+| [0011](0011-deployment.md) | API on the Oracle VM with Docker Compose | Accepted |
+| [0012](0012-toolchain-and-tests.md) | Toolchain versions and mobile test runner | Accepted |
+| [0013](0013-sensitive-data.md) | Sensitive data handling | Accepted |
+| [0014](0014-food-data.md) | Food data: three layers and household units | Accepted |

@@ -1,3 +1,4 @@
+import type { ActivityBlock } from '@kawsay/core/energy/activity';
 import { weightTrend } from '@kawsay/core/body/weight-trend';
 import { ageOn, goalKgPerWeek, sleepHours } from '@kawsay/core/profile/profile';
 import type { LocalDate } from '@kawsay/core/shared/local-date';
@@ -18,8 +19,16 @@ export function usualSleepHours(profile: Profile): number {
   );
 }
 
-/** Targets of a day without exercise for the stored profile at today's trend weight (ADR 0009). */
-export function profileTargets(profile: Profile, today: LocalDate, weightKg: number): DayTargets {
+/**
+ * Targets of a day for the stored profile at the trend weight (ADR 0009). Logged activities and routine sessions
+ * (stored as minutes and equivalent MET) raise them; without blocks it is a day without exercise.
+ */
+export function profileTargets(
+  profile: Profile,
+  today: LocalDate,
+  weightKg: number,
+  activities: readonly ActivityBlock[] = [],
+): DayTargets {
   return computeDayTargets({
     body: {
       sex: profile.sex,
@@ -34,7 +43,7 @@ export function profileTargets(profile: Profile, today: LocalDate, weightKg: num
       goalDate: profile.goalDate,
     }),
     sleepHours: usualSleepHours(profile),
-    activities: [],
+    activities,
     routines: [],
     expenditureFactor: profile.expenditureFactor,
     proteinGPerKg: profile.proteinGPerKg,

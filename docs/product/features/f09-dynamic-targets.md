@@ -19,5 +19,5 @@ Targets follow the day's activity and the real weight trend.
 
 ## Acceptance criteria
 
-- [ ] Logging an activity raises calories, fat and carbohydrates; protein does not change
-- [ ] Male, 30 y, 170 cm, 80 kg, default activity, −0.5 kg/week → ≈ 1,840 kcal · 116 g protein · 51 g fat · 230 g carbohydrates
+- [x] Logging an activity raises calories, fat and carbohydrates; protein does not change
+- [x] Male, 30 y, 170 cm, 80 kg, default activity, −0.5 kg/week → ≈ 1,840 kcal · 116 g protein · 51 g fat · 230 g carbohydrates

@@ -3,9 +3,11 @@ import { renderRouter } from 'expo-router/testing-library';
 import type { ReactNode } from 'react';
 import catalog from '@kawsay/catalog/catalog.json';
 import { saveProfile } from '@/features/profile/profile-db';
+import { saveWeight } from '@/features/weight/weight-db';
 import { loadCatalog } from '@/lib/db/catalog';
 import { createTestDb } from '@/lib/db/test-db';
 import type { Db, RecordEnv } from '@/lib/db/types';
+import { today } from '@/lib/today';
 
 // The routes run on a real in-memory SQLite (same migrations as the phone) instead of the native one.
 let mockDb: Db;
@@ -20,7 +22,9 @@ const mockEnv: RecordEnv = {
   })(),
 };
 jest.mock('@/lib/db/DatabaseProvider', () => {
-  const actual = jest.requireActual<typeof import('@/lib/db/DatabaseProvider')>('@/lib/db/DatabaseProvider');
+  const actual = jest.requireActual<typeof import('@/lib/db/DatabaseProvider')>(
+    '@/lib/db/DatabaseProvider',
+  );
   return {
     ...actual,
     DatabaseProvider: ({ children }: { children: ReactNode }) => (
@@ -104,5 +108,23 @@ describe('navigation (design N1, F01)', () => {
     await first.unmount();
     await renderRouter('./app', { initialUrl: '/' });
     expect(await screen.findByRole('button', { name: '1 Lomo saltado' })).toBeOnTheScreen();
+  });
+
+  it('30 min of stairs raises the day target immediately: the green range of calories moves up (F08)', async () => {
+    await saveProfile(mockDb, mockEnv, profileInput);
+    await saveWeight(mockDb, mockEnv, { date: today(), kg: 70, timeZone: 'America/Lima' });
+    await renderRouter('./app', { initialUrl: '/' });
+    const greenFrom = async () => {
+      const track = await screen.findByLabelText(/^Calorías: /);
+      const label = String(track.props.accessibilityLabel);
+      return Number(/Rango verde de ([\d,]+)/.exec(label)?.[1]?.replace(',', ''));
+    };
+    const before = await greenFrom();
+    await tap('+ Agregar actividad');
+    await tap('Escaleras');
+    await tap('Agregar');
+    expect(await screen.findByText('Escaleras')).toBeOnTheScreen();
+    await waitFor(async () => expect(await greenFrom()).toBeGreaterThan(before));
+    expect(screen.getByText('Actividad ✓')).toBeOnTheScreen();
   });
 });

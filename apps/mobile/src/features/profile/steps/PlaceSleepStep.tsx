@@ -44,7 +44,11 @@ export function SleepBlock({ draft, update }: StepProps) {
     <>
       {time(t('profile.fallAsleep'), draft.sleepStart, (sleepStart) => update({ sleepStart }))}
       {time(t('profile.wakeUp'), draft.sleepEnd, (sleepEnd) => update({ sleepEnd }))}
-      <Toggle label={t('profile.napToggle')} value={draft.nap} onChange={(nap) => update({ nap })} />
+      <Toggle
+        label={t('profile.napToggle')}
+        value={draft.nap}
+        onChange={(nap) => update({ nap })}
+      />
       {draft.nap ? (
         <>
           {time(t('profile.napFrom'), draft.napStart, (napStart) => update({ napStart }))}

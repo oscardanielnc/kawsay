@@ -43,7 +43,10 @@ export function ProfileScreen({ today, profile, weights, onSave }: Props) {
   };
   const done = () => {
     if (editor && editor !== 'about') {
-      onSave({ profile: toProfileInput(draft, today), ...(editor === 'body' && { weightKg: draft.weightKg }) });
+      onSave({
+        profile: toProfileInput(draft, today),
+        ...(editor === 'body' && { weightKg: draft.weightKg }),
+      });
     }
     setEditor(null);
   };
@@ -66,7 +69,10 @@ export function ProfileScreen({ today, profile, weights, onSave }: Props) {
       summary:
         profile.goalWeightKg === null || profile.goalDate === null
           ? t('profile.maintainSummary')
-          : t('profile.goalSummary', { kg: formatNumber(profile.goalWeightKg, 1), date: formatShortDate(profile.goalDate) }),
+          : t('profile.goalSummary', {
+              kg: formatNumber(profile.goalWeightKg, 1),
+              date: formatShortDate(profile.goalDate),
+            }),
     },
     {
       key: 'targets',
@@ -92,7 +98,11 @@ export function ProfileScreen({ today, profile, weights, onSave }: Props) {
           {t('tabs.profile')}
         </Text>
         <Text style={[type.caption, styles.muted]}>{t('profile.localOnly')}</Text>
-        <StatusCard weightKg={weightKg} heightCm={profile.heightCm} goalWeightKg={profile.goalWeightKg} />
+        <StatusCard
+          weightKg={weightKg}
+          heightCm={profile.heightCm}
+          goalWeightKg={profile.goalWeightKg}
+        />
         <TargetCard
           targets={profileTargets(profile, today, weightKg)}
           movementGoalMin={profile.movementGoalMin}
@@ -103,14 +113,34 @@ export function ProfileScreen({ today, profile, weights, onSave }: Props) {
         />
         <Card title={t('profile.you')}>
           {rows.map((row) => (
-            <SettingsRow key={row.key} icon={row.icon} title={t(`profile.editors.${row.key}`)} summary={row.summary} onPress={() => open(row.key)} />
+            <SettingsRow
+              key={row.key}
+              icon={row.icon}
+              title={t(`profile.editors.${row.key}`)}
+              summary={row.summary}
+              onPress={() => open(row.key)}
+            />
           ))}
         </Card>
         <Card title={t('profile.logging')}>
-          <SettingsRow icon="🧩" title={t('profile.editors.modules')} summary={t('profile.modulesSummary', { waist: t(profile.waistEnabled ? 'profile.yes' : 'profile.no'), symptoms: t(profile.symptomsEnabled ? 'profile.yes' : 'profile.no'), intimate: t(profile.intimateEnabled ? 'profile.yes' : 'profile.no') })} onPress={() => open('modules')} />
+          <SettingsRow
+            icon="🧩"
+            title={t('profile.editors.modules')}
+            summary={t('profile.modulesSummary', {
+              waist: t(profile.waistEnabled ? 'profile.yes' : 'profile.no'),
+              symptoms: t(profile.symptomsEnabled ? 'profile.yes' : 'profile.no'),
+              intimate: t(profile.intimateEnabled ? 'profile.yes' : 'profile.no'),
+            })}
+            onPress={() => open('modules')}
+          />
         </Card>
         <Card title={t('profile.yourData')}>
-          <SettingsRow icon="📚" title={t('profile.editors.about')} summary={t('profile.aboutSummary')} onPress={() => open('about')} />
+          <SettingsRow
+            icon="📚"
+            title={t('profile.editors.about')}
+            summary={t('profile.aboutSummary')}
+            onPress={() => open('about')}
+          />
         </Card>
       </ScrollView>
       <Sheet title={editor ? t(`profile.editors.${editor}`) : null} onDone={done}>
@@ -120,7 +150,9 @@ export function ProfileScreen({ today, profile, weights, onSave }: Props) {
         {editor === 'climate' ? <ClimateBlock draft={draft} update={update} /> : null}
         {editor === 'sleep' ? <SleepBlock draft={draft} update={update} /> : null}
         {editor === 'modules' ? <ModulesStep draft={draft} update={update} /> : null}
-        {editor === 'about' ? <Text style={[type.body, styles.ink]}>{t('profile.aboutBody')}</Text> : null}
+        {editor === 'about' ? (
+          <Text style={[type.body, styles.ink]}>{t('profile.aboutBody')}</Text>
+        ) : null}
       </Sheet>
     </SafeAreaView>
   );

@@ -6,8 +6,16 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
 
-const TONE_TEXT: Record<Tone, string> = { green: color.successText, yellow: color.warningText, red: color.dangerText };
-const TONE_FILL: Record<Tone, string> = { green: color.rangeGreen, yellow: color.rangeYellow, red: color.rangeRed };
+const TONE_TEXT: Record<Tone, string> = {
+  green: color.successText,
+  yellow: color.warningText,
+  red: color.dangerText,
+};
+const TONE_FILL: Record<Tone, string> = {
+  green: color.rangeGreen,
+  yellow: color.rangeYellow,
+  red: color.rangeRed,
+};
 /** The 15–35 track of the design, zone by zone. */
 const ZONES: readonly [number, number, Tone][] = [
   [15, 17, 'red'],
@@ -16,7 +24,8 @@ const ZONES: readonly [number, number, Tone][] = [
   [25, 30, 'yellow'],
   [30, 35, 'red'],
 ];
-const position = (bmi: number) => `${Math.min(100, Math.max(0, ((bmi - 15) / 20) * 100))}%` as const;
+const position = (bmi: number) =>
+  `${Math.min(100, Math.max(0, ((bmi - 15) / 20) * 100))}%` as const;
 
 interface Props {
   weightKg: number;
@@ -35,9 +44,15 @@ export function StatusCard({ weightKg, heightCm, goalWeightKg }: Props) {
 
   let distance = t('profile.inGreen');
   if (status.kgToHealthy < 0) {
-    distance = t('profile.toGreenDown', { kg: formatNumber(-status.kgToHealthy, 1), limit: limit(HEALTHY_BMI.max) });
+    distance = t('profile.toGreenDown', {
+      kg: formatNumber(-status.kgToHealthy, 1),
+      limit: limit(HEALTHY_BMI.max),
+    });
   } else if (status.kgToHealthy > 0) {
-    distance = t('profile.toGreenUp', { kg: formatNumber(status.kgToHealthy, 1), limit: limit(HEALTHY_BMI.min) });
+    distance = t('profile.toGreenUp', {
+      kg: formatNumber(status.kgToHealthy, 1),
+      limit: limit(HEALTHY_BMI.min),
+    });
   }
 
   return (
@@ -49,7 +64,9 @@ export function StatusCard({ weightKg, heightCm, goalWeightKg }: Props) {
         <Text style={[type.label, styles.muted]}>{t('profile.bmi')}</Text>
       </View>
       <View style={styles.reading}>
-        <Text style={[type.display, { color: TONE_TEXT[status.tone] }]}>{formatNumber(status.bmi, 1)}</Text>
+        <Text style={[type.display, { color: TONE_TEXT[status.tone] }]}>
+          {formatNumber(status.bmi, 1)}
+        </Text>
         <View>
           <Text style={[type.heading, { color: TONE_TEXT[status.tone] }]}>{band(status.band)}</Text>
           <Text style={[type.caption, styles.muted]}>
@@ -85,11 +102,30 @@ export function StatusCard({ weightKg, heightCm, goalWeightKg }: Props) {
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: color.surface, borderRadius: radius.card, padding: space.lg, gap: space.md },
+  card: {
+    backgroundColor: color.surface,
+    borderRadius: radius.card,
+    padding: space.lg,
+    gap: space.md,
+  },
   header: { flexDirection: 'row', justifyContent: 'space-between' },
   reading: { flexDirection: 'row', alignItems: 'flex-end', gap: space.md },
-  track: { flexDirection: 'row', height: 14, borderRadius: radius.pill, overflow: 'visible', marginTop: space.lg },
-  marker: { position: 'absolute', top: -6, width: 4, height: 26, marginLeft: -2, borderRadius: 2, backgroundColor: color.ink },
+  track: {
+    flexDirection: 'row',
+    height: 14,
+    borderRadius: radius.pill,
+    overflow: 'visible',
+    marginTop: space.lg,
+  },
+  marker: {
+    position: 'absolute',
+    top: -6,
+    width: 4,
+    height: 26,
+    marginLeft: -2,
+    borderRadius: 2,
+    backgroundColor: color.ink,
+  },
   flag: { position: 'absolute', top: -24, marginLeft: -8, fontSize: 14 },
   note: { backgroundColor: color.green50, borderRadius: radius.chip, padding: space.md, gap: 2 },
   ink: { color: color.ink },

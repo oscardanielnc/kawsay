@@ -10,7 +10,8 @@
     "title": "Hoy",
     "previous": "Día anterior",
     "next": "Día siguiente",
-    "backToToday": "Volver a hoy"
+    "backToToday": "Volver a hoy",
+    "needWeight": "Registra tu peso en Perfil para ver tu meta del día."
   },
   "common": {
     "comingSoon": "Pronto",
@@ -309,7 +310,8 @@
     "highish": "Algo alto",
     "low": "Muy bajo",
     "high": "Muy alto",
-    "track": "{{name}}: {{label}}. Rango verde de {{from}} a {{to}} {{unit}}"
+    "track": "{{name}}: {{label}}. Rango verde de {{from}} a {{to}} {{unit}}",
+    "title": "Tu día en rangos"
   },
   "rings": {
     "logged": "registrado",

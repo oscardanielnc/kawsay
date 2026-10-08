@@ -33,7 +33,9 @@ const steady = [{ date: '2026-10-08', kg: 80 }];
 
 describe('ProfileScreen (F01)', () => {
   it('80 kg and 170 cm show BMI 27.7, "Sobrepeso", and −8.0 kg to the green range', async () => {
-    await render(<ProfileScreen today={today} profile={profile} weights={steady} onSave={jest.fn()} />);
+    await render(
+      <ProfileScreen today={today} profile={profile} weights={steady} onSave={jest.fn()} />,
+    );
     const status = screen.getByLabelText('Tu estado hoy');
     expect(within(status).getByText('27.7')).toBeOnTheScreen();
     expect(within(status).getByText('Sobrepeso')).toBeOnTheScreen();
@@ -45,7 +47,9 @@ describe('ProfileScreen (F01)', () => {
       ...Array.from({ length: 20 }, (_, i) => ({ date: addDays('2026-09-18', i), kg: 80 })),
       { date: '2026-10-08', kg: 83 },
     ];
-    await render(<ProfileScreen today={today} profile={profile} weights={weights} onSave={jest.fn()} />);
+    await render(
+      <ProfileScreen today={today} profile={profile} weights={weights} onSave={jest.fn()} />,
+    );
     expect(within(screen.getByLabelText('Tu estado hoy')).getByText('27.8')).toBeOnTheScreen();
   });
 
@@ -63,7 +67,9 @@ describe('ProfileScreen (F01)', () => {
 
   it('editing the climate saves it and keeps the protein and fat settings', async () => {
     const onSave = jest.fn();
-    await render(<ProfileScreen today={today} profile={profile} weights={steady} onSave={onSave} />);
+    await render(
+      <ProfileScreen today={today} profile={profile} weights={steady} onSave={onSave} />,
+    );
     await fireEvent.press(screen.getByRole('button', { name: /Clima/ }));
     await fireEvent.press(screen.getByRole('button', { name: /Frío/ }));
     await fireEvent.press(screen.getByRole('button', { name: 'Listo' }));

@@ -5,16 +5,24 @@ import { Stepper } from '@/components/forms/Stepper';
 import type { StepProps } from './BodyStep';
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
-const round = (value: number, decimals: number) => Math.round(value * 10 ** decimals) / 10 ** decimals;
+const round = (value: number, decimals: number) =>
+  Math.round(value * 10 ** decimals) / 10 ** decimals;
 
 /** Protein 1.2–2.2 g/kg, fat 20–35 %, daily movement (ADR 0009 ranges, WHO movement). */
 export function TargetSettingsStep({ draft, update }: StepProps) {
   const { t } = useTranslation();
   const protein = (delta: number) =>
-    update({ proteinGPerKg: clamp(round(draft.proteinGPerKg + delta, 1), PROTEIN_G_PER_KG.min, PROTEIN_G_PER_KG.max) });
+    update({
+      proteinGPerKg: clamp(
+        round(draft.proteinGPerKg + delta, 1),
+        PROTEIN_G_PER_KG.min,
+        PROTEIN_G_PER_KG.max,
+      ),
+    });
   const fat = (delta: number) =>
     update({ fatShare: clamp(round(draft.fatShare + delta, 2), FAT_SHARE.min, FAT_SHARE.max) });
-  const movement = (delta: number) => update({ movementGoalMin: clamp(draft.movementGoalMin + delta, 10, 180) });
+  const movement = (delta: number) =>
+    update({ movementGoalMin: clamp(draft.movementGoalMin + delta, 10, 180) });
   return (
     <>
       <Stepper

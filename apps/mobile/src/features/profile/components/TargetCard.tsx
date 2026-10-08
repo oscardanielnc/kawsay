@@ -15,7 +15,14 @@ interface Props {
 }
 
 /** The dark-green card: target of a day without exercise, its macros and an ⓘ with the formula (ADR 0009). */
-export function TargetCard({ targets, movementGoalMin, awakeHours, proteinGPerKg, fatShare, referenceWeightKg }: Props) {
+export function TargetCard({
+  targets,
+  movementGoalMin,
+  awakeHours,
+  proteinGPerKg,
+  fatShare,
+  referenceWeightKg,
+}: Props) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const cells = [
@@ -62,7 +69,13 @@ export function TargetCard({ targets, movementGoalMin, awakeHours, proteinGPerKg
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: color.brand, borderRadius: radius.card, padding: space.lg, gap: space.sm, alignItems: 'center' },
+  card: {
+    backgroundColor: color.brand,
+    borderRadius: radius.card,
+    padding: space.lg,
+    gap: space.sm,
+    alignItems: 'center',
+  },
   grid: { flexDirection: 'row', alignSelf: 'stretch', justifyContent: 'space-between' },
   cell: { alignItems: 'center', flex: 1 },
   onDark: { color: color.onDark, textAlign: 'center' },

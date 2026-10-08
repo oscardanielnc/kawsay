@@ -83,10 +83,19 @@ export function OnboardingScreen({ today, onFinish }: Props) {
         <TargetCard
           targets={draftTargets(draft)}
           movementGoalMin={draft.movementGoalMin}
-          awakeHours={24 - sleepHours({ start: draft.sleepStart, end: draft.sleepEnd }, draft.nap ? { start: draft.napStart, end: draft.napEnd } : null)}
+          awakeHours={
+            24 -
+            sleepHours(
+              { start: draft.sleepStart, end: draft.sleepEnd },
+              draft.nap ? { start: draft.napStart, end: draft.napEnd } : null,
+            )
+          }
           proteinGPerKg={1.6}
           fatShare={0.25}
-          referenceWeightKg={referenceWeightKg({ weightKg: draft.weightKg, heightCm: draft.heightCm })}
+          referenceWeightKg={referenceWeightKg({
+            weightKg: draft.weightKg,
+            heightCm: draft.heightCm,
+          })}
         />
         <Text style={[type.caption, styles.caveat]}>{t('profile.notMedical')}</Text>
       </>
@@ -101,9 +110,15 @@ export function OnboardingScreen({ today, onFinish }: Props) {
   return (
     <SafeAreaView style={styles.screen}>
       {step > 0 ? (
-        <View style={styles.dots} accessibilityLabel={t('onboarding.progress', { step, total: LAST })}>
+        <View
+          style={styles.dots}
+          accessibilityLabel={t('onboarding.progress', { step, total: LAST })}
+        >
           {Array.from({ length: LAST }, (_, i) => (
-            <View key={i} style={[styles.dot, i + 1 === step && styles.dotNow, i + 1 <= step && styles.dotDone]} />
+            <View
+              key={i}
+              style={[styles.dot, i + 1 === step && styles.dotNow, i + 1 <= step && styles.dotDone]}
+            />
           ))}
         </View>
       ) : null}
@@ -116,10 +131,22 @@ export function OnboardingScreen({ today, onFinish }: Props) {
         {body}
       </ScrollView>
       <View style={styles.footer}>
-        {step > 0 ? <Button variant="secondary" label={t('onboarding.back')} onPress={() => setStep(step - 1)} /> : null}
+        {step > 0 ? (
+          <Button
+            variant="secondary"
+            label={t('onboarding.back')}
+            onPress={() => setStep(step - 1)}
+          />
+        ) : null}
         <View style={styles.grow}>
           <Button
-            label={t(step === 0 ? 'onboarding.start' : step < LAST ? 'onboarding.next' : 'onboarding.finish')}
+            label={t(
+              step === 0
+                ? 'onboarding.start'
+                : step < LAST
+                  ? 'onboarding.next'
+                  : 'onboarding.finish',
+            )}
             disabled={!canGoOn}
             onPress={next}
           />
@@ -141,5 +168,10 @@ const styles = StyleSheet.create({
   grow: { flex: 1 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  caveat: { color: color.ink, backgroundColor: '#FBF3DC', borderRadius: radius.chip, padding: space.md },
+  caveat: {
+    color: color.ink,
+    backgroundColor: '#FBF3DC',
+    borderRadius: radius.chip,
+    padding: space.md,
+  },
 });

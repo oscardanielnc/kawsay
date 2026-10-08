@@ -58,6 +58,11 @@ describe('OnboardingScreen (F01)', () => {
     await tap('Empezar a registrar');
     const [[result]] = onFinish.mock.calls as [[{ weightKg: number; profile: object }]];
     expect(result.weightKg).toBe(80);
-    expect(result.profile).toMatchObject({ sex: 'male', heightCm: 170, ageYears: 30, ageSetOn: today });
+    expect(result.profile).toMatchObject({
+      sex: 'male',
+      heightCm: 170,
+      ageYears: 30,
+      ageSetOn: today,
+    });
   });
 });

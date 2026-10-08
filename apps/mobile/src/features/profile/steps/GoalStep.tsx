@@ -28,7 +28,9 @@ export function GoalStep({ draft, update, today }: StepProps & { today: LocalDat
           { value: 'maintain', label: t('profile.maintain') },
         ]}
         value={draft.goal}
-        onChange={(goal) => update({ goal, goalWeightKg: goal === 'lose' ? goalKg : draft.goalWeightKg })}
+        onChange={(goal) =>
+          update({ goal, goalWeightKg: goal === 'lose' ? goalKg : draft.goalWeightKg })
+        }
       />
       {draft.goal === 'maintain' ? (
         <Text style={[type.body, styles.muted]}>{t('profile.maintainNote')}</Text>
@@ -38,7 +40,9 @@ export function GoalStep({ draft, update, today }: StepProps & { today: LocalDat
             label={t('profile.goalWeight')}
             value={t('profile.kg', { value: formatNumber(goalKg, 1) })}
             onDecrement={() => update({ goalWeightKg: Math.max(30, round1(goalKg - 0.5)) })}
-            onIncrement={() => update({ goalWeightKg: Math.min(draft.weightKg, round1(goalKg + 0.5)) })}
+            onIncrement={() =>
+              update({ goalWeightKg: Math.min(draft.weightKg, round1(goalKg + 0.5)) })
+            }
           />
           <Stepper
             label={t('profile.inHowLong')}
@@ -55,7 +59,9 @@ export function GoalStep({ draft, update, today }: StepProps & { today: LocalDat
           </View>
           {pace.tooFast && pace.suggestedWeeks !== null ? (
             <View style={styles.caveat}>
-              <Text style={[type.body, styles.warning]}>{t('profile.tooFast', { max: maxKg })}</Text>
+              <Text style={[type.body, styles.warning]}>
+                {t('profile.tooFast', { max: maxKg })}
+              </Text>
               <Button
                 variant="secondary"
                 label={t('profile.useWeeks', {
@@ -66,7 +72,9 @@ export function GoalStep({ draft, update, today }: StepProps & { today: LocalDat
               />
             </View>
           ) : (
-            <Text style={[type.caption, styles.muted]}>{t('profile.safePace', { max: maxKg })}</Text>
+            <Text style={[type.caption, styles.muted]}>
+              {t('profile.safePace', { max: maxKg })}
+            </Text>
           )}
         </>
       )}
@@ -83,7 +91,12 @@ const styles = StyleSheet.create({
     borderRadius: radius.chip,
     padding: space.md,
   },
-  caveat: { backgroundColor: '#FBF3DC', borderRadius: radius.chip, padding: space.md, gap: space.sm },
+  caveat: {
+    backgroundColor: '#FBF3DC',
+    borderRadius: radius.chip,
+    padding: space.md,
+    gap: space.sm,
+  },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
   warning: { color: color.warningText },

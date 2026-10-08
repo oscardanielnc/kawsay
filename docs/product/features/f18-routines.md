@@ -31,6 +31,6 @@ Users define their own workouts once; calories are computed per exercise and log
 
 ## Acceptance criteria
 
-- [ ] Logging a routine at 75% records 75% of its minutes and calories
-- [ ] Adjusting stairs from 4 to 6 laps adds 2 × lap time at MET 7.5
-- [ ] Editing a routine does not change sessions already logged
+- [x] Logging a routine at 75% records 75% of its minutes and calories
+- [x] Adjusting stairs from 4 to 6 laps adds 2 × lap time at MET 7.5
+- [x] Editing a routine does not change sessions already logged

@@ -20,5 +20,5 @@ Log what you did; calories burned add to the day's target.
 
 ## Acceptance criteria
 
-- [ ] 30 min of stairs raises the day's target immediately
-- [ ] Choosing "No physical activity" hides adding; logging an activity clears it
+- [x] 30 min of stairs raises the day's target immediately
+- [x] Choosing "No physical activity" hides adding; logging an activity clears it

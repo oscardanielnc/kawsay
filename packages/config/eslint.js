@@ -29,6 +29,15 @@ export function base(rootDir) {
       ...tseslint.configs.disableTypeChecked,
     },
     {
+      // Node tool configs written in CommonJS (Babel, Metro).
+      files: ['**/babel.config.js', '**/metro.config.js'],
+      languageOptions: {
+        sourceType: 'commonjs',
+        globals: { module: 'writable', require: 'readonly', __dirname: 'readonly' },
+      },
+      rules: { '@typescript-eslint/no-require-imports': 'off' },
+    },
+    {
       rules: {
         'no-console': 'error',
         '@typescript-eslint/no-explicit-any': 'error',

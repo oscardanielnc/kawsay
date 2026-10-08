@@ -5,7 +5,7 @@ export type Nutrients<K extends string = string> = Record<K, number | null>;
 
 export interface RecipeItem<K extends string> {
   /** null while the food has no source values (unmatched or label pending). */
-  per100g: Readonly<Nutrients<K>> | null;
+  per100g: Readonly<Partial<Nutrients<K>>> | null;
   grams: number;
 }
 

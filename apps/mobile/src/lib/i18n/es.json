@@ -186,7 +186,6 @@
     "noMatch": "No hay platos con ese nombre.",
     "create": "+ Crear plato",
     "createNamed": "+ Crear plato \"{{name}}\"",
-    "createSoon": "Crear tus propios platos llega pronto (F07).",
     "howMuch": "¿Cuánto comiste?",
     "serving": "1 ración ≈ {{grams}} g · {{kcal}} kcal",
     "fraction": "Fracción de la ración",
@@ -520,5 +519,29 @@
     },
     "save": "Crear síntoma",
     "clear": "Quitar la respuesta de hoy"
+  },
+  "dish": {
+    "title": "Crear plato",
+    "name": "Nombre del plato",
+    "namePlaceholder": "Ej.: arroz con pollo de la casa",
+    "icon": "Ícono",
+    "iconLabel": "Ícono {{name}}",
+    "yields": "Rinde",
+    "servings_one": "{{count}} ración",
+    "servings_other": "{{count}} raciones",
+    "ingredients": "Ingredientes",
+    "addIngredient": "+ Ingrediente",
+    "searchFood": "Buscar ingrediente",
+    "back": "Volver al plato",
+    "inGrams": "En gramos",
+    "howMany": "Cuántos",
+    "gramsLabel": "Gramos",
+    "grams": "{{grams}} g",
+    "amountKcal": "{{amount}}: {{kcal}} kcal",
+    "kcal": "{{kcal}} kcal",
+    "remove": "Quitar {{name}}",
+    "done": "Listo",
+    "perServing": "Por ración: {{kcal}} kcal · {{protein}} g proteína · {{fat}} g grasa · {{carbs}} g carbohidratos",
+    "saveAndAdd": "Guardar y agregar 1 ración"
   }
 }

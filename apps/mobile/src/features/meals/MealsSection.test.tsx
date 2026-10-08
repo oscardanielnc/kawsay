@@ -36,6 +36,8 @@ function renderSection(overrides: Partial<Parameters<typeof MealsSection>[0]> = 
     recent: { breakfast: [panConHuevo, juane], lunch: [lomo], dinner: [lomo], snack: [] },
     onAdd: jest.fn(),
     onDelete: jest.fn(),
+    units: {},
+    onCreateDish: jest.fn(),
     ...overrides,
   };
   return { ...props, view: render(<MealsSection {...props} />) };
@@ -121,5 +123,16 @@ describe('MealsSection (F05)', () => {
     expect(screen.getByText(/Resto guardado de ayer/)).toBeOnTheScreen();
     await fireEvent.press(screen.getByRole('button', { name: 'Quitar' }));
     expect(onDelete).toHaveBeenCalledWith('e1');
+  });
+
+  it('"Create dish" opens prefilled with the search text (F07)', async () => {
+    await renderSection().view;
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar a Almuerzo' }));
+    await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'Sudado de doncella');
+    await fireEvent.press(
+      screen.getByRole('button', { name: '+ Crear plato "Sudado de doncella"' }),
+    );
+    expect(screen.getByRole('header', { name: 'Crear plato' })).toBeOnTheScreen();
+    expect(screen.getByLabelText('Nombre del plato')).toHaveDisplayValue('Sudado de doncella');
   });
 });

@@ -18,7 +18,17 @@ import { addCheckIn, deleteCheckIn } from '@/features/checkins/checkins-db';
 import { CheckInsSection } from '@/features/checkins/CheckInsSection';
 import { addDrink, deleteDrink, setSweatedALot } from '@/features/hydration/hydration-db';
 import { HydrationSection, type CaloricDrink } from '@/features/hydration/HydrationSection';
-import { addMeal, catalogItems, deleteMeal, mealAt, recentFor } from '@/features/meals/meals-db';
+import {
+  addMeal,
+  catalogItems,
+  deleteMeal,
+  foodUnits,
+  mealAt,
+  recentFor,
+  saveUserDish,
+  type Meal,
+  type NewDish,
+} from '@/features/meals/meals-db';
 import { MEALS, MealsSection, type AddMeal } from '@/features/meals/MealsSection';
 import {
   deleteRoutine,
@@ -72,20 +82,23 @@ export default function TodayRoute() {
   const setDay = (next: LocalDate) => router.setParams({ day: next });
   const { data, reload } = useLoad(
     useCallback(async () => {
-      const [dayData, items, routines, waists, symptoms, answers, ...recent] = await Promise.all([
-        loadDay(db, day),
-        catalogItems(db),
-        listRoutines(db),
-        waistsSince(db, addDays(day, -7 * 12)),
-        listSymptoms(db),
-        symptomAnswersOn(db, day),
-        ...MEALS.map((meal) => recentFor(db, meal)),
-      ]);
+      const [dayData, items, units, routines, waists, symptoms, answers, ...recent] =
+        await Promise.all([
+          loadDay(db, day),
+          catalogItems(db),
+          foodUnits(db),
+          listRoutines(db),
+          waistsSince(db, addDays(day, -7 * 12)),
+          listSymptoms(db),
+          symptomAnswersOn(db, day),
+          ...MEALS.map((meal) => recentFor(db, meal)),
+        ]);
       const [breakfast = [], lunch = [], dinner = [], snack = []] = recent;
       return {
         ...dayData,
         entries: dayData.meals,
         items,
+        units,
         routines,
         waists,
         symptoms,
@@ -192,6 +205,19 @@ export default function TodayRoute() {
         recent={data.recent}
         onAdd={addMealEntry}
         onDelete={(id) => run(() => deleteMeal(db, env, id))}
+        units={data.units}
+        onCreateDish={(meal: Meal, dish: NewDish) =>
+          run(async () => {
+            const { id } = await saveUserDish(db, env, dish);
+            await addMeal(db, env, {
+              date: day,
+              meal,
+              timeZone,
+              item: { kind: 'dish', id },
+              servings: 1,
+            });
+          })
+        }
       />
       {targets ? (
         <ActivitySection

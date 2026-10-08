@@ -14,10 +14,12 @@ interface Props {
   recent: readonly CatalogItem[];
   items: readonly CatalogItem[];
   onPick: (item: CatalogItem) => void;
+  /** Opens "Create dish" prefilled with the search text (F07). */
+  onCreate: (name: string) => void;
 }
 
 /** Search box, 12 recent dishes as tiles (filtered while typing) and the "Create dish" button (F05). */
-export function DishPicker({ recent, items, onPick }: Props) {
+export function DishPicker({ recent, items, onPick, onCreate }: Props) {
   const { t } = useTranslation();
   const [query, setQuery] = useState('');
   const shown = query.trim() ? searchCatalog(query, items).slice(0, TILES * 2) : recent;
@@ -57,11 +59,9 @@ export function DishPicker({ recent, items, onPick }: Props) {
       </View>
       <Button
         variant="secondary"
-        disabled
         label={query.trim() ? t('meals.createNamed', { name: query.trim() }) : t('meals.create')}
-        onPress={() => undefined}
+        onPress={() => onCreate(query.trim())}
       />
-      <Text style={[type.caption, styles.muted]}>{t('meals.createSoon')}</Text>
     </>
   );
 }

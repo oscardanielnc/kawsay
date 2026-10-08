@@ -6,9 +6,10 @@ import { Card } from '@/components/layout/Card';
 import { Button } from '@/components/primitives/Button';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, touch, type } from '@/lib/theme';
+import { CreateDish } from './CreateDish';
 import { DishPicker } from './DishPicker';
 import { FoodIcon } from './FoodIcon';
-import type { CatalogItem, Meal, MealEntryView } from './meals-db';
+import type { CatalogItem, Meal, MealEntryView, NewDish } from './meals-db';
 import { fractionLabel } from './portion';
 import { eatenShare, PortionPicker, type Portion } from './PortionPicker';
 
@@ -28,15 +29,28 @@ interface Props {
   recent: Record<Meal, readonly CatalogItem[]>;
   onAdd: (meal: AddMeal) => void;
   onDelete: (id: string) => void;
+  /** Household units per food, for "Create dish" (F07). */
+  units: Record<string, { label: string; grams: number }[]>;
+  /** Saves the new dish and logs one serving of it in that meal (F07). */
+  onCreateDish: (meal: Meal, dish: NewDish) => void;
 }
 
 type SheetState =
   | { kind: 'pick'; meal: Meal }
   | { kind: 'portion'; meal: Meal; item: CatalogItem; portion: Portion }
-  | { kind: 'entry'; entry: MealEntryView };
+  | { kind: 'entry'; entry: MealEntryView }
+  | { kind: 'create'; meal: Meal; name: string };
 
 /** The four meals of the day with their chips, and the add flow: pick a dish → portion (F05). */
-export function MealsSection({ entries, items, recent, onAdd, onDelete }: Props) {
+export function MealsSection({
+  entries,
+  items,
+  recent,
+  onAdd,
+  onDelete,
+  units,
+  onCreateDish,
+}: Props) {
   const { t } = useTranslation();
   const [sheet, setSheet] = useState<SheetState | null>(null);
   const mealName = (meal: Meal) => t(`meals.slots.${meal}`);
@@ -62,8 +76,24 @@ export function MealsSection({ entries, items, recent, onAdd, onDelete }: Props)
             portion: { servings: 1, grams: '', saveRest: false },
           })
         }
+        onCreate={(name) => setSheet({ kind: 'create', meal: sheet.meal, name })}
       />
     );
+  } else if (sheet?.kind === 'create') {
+    const { meal, name } = sheet;
+    title = t('dish.title');
+    body = (
+      <CreateDish
+        initialName={name}
+        foods={items.filter((i) => i.kind === 'food')}
+        units={units}
+        onSave={(dish) => {
+          onCreateDish(meal, dish);
+          setSheet(null);
+        }}
+      />
+    );
+    footer = <View />;
   } else if (sheet?.kind === 'portion') {
     const { meal, item, portion } = sheet;
     title = t('meals.howMuch');

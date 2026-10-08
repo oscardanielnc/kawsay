@@ -1,7 +1,8 @@
+import { recipeTotals } from '@kawsay/core/food/recipe-totals';
 import { addDays, type LocalDate } from '@kawsay/core/shared/local-date';
 import { and, asc, desc, eq, isNull } from 'drizzle-orm';
 import { newRecord } from '@/lib/db/record';
-import { dish, food, foodUnit, mealEntry } from '@/lib/db/schema';
+import { dish, food, foodUnit, mealEntry, userDish, userDishItem } from '@/lib/db/schema';
 import { inTransaction } from '@/lib/db/transaction';
 import type { Db, RecordEnv } from '@/lib/db/types';
 import type { Searchable } from './search';
@@ -54,16 +55,45 @@ const GROUPS_FOR: Record<Meal, string[]> = {
 };
 const RECENT = 12;
 
-/** Every dish and food, dishes first, for the add sheet and search (F05, F06). */
+/** Every dish and food, dishes first (the user's own before the seed), for the add sheet and search (F05–F07). */
 export async function catalogItems(db: Db): Promise<CatalogItem[]> {
-  const [dishes, foods, units] = await Promise.all([
+  const [dishes, foods, units, ownDishes, ownItems] = await Promise.all([
     db.select().from(dish),
     db.select().from(food),
     db.select().from(foodUnit).orderBy(asc(foodUnit.position)),
+    db.select().from(userDish).where(isNull(userDish.deletedAt)).orderBy(asc(userDish.name)),
+    db
+      .select()
+      .from(userDishItem)
+      .where(isNull(userDishItem.deletedAt))
+      .orderBy(asc(userDishItem.position)),
   ]);
   const firstUnit = new Map<string, { label: string; grams: number | null }>();
   for (const unit of units) if (!firstUnit.has(unit.foodId)) firstUnit.set(unit.foodId, unit);
+  const foodById = new Map(foods.map((f) => [f.id, f]));
   return [
+    ...ownDishes.flatMap((d) => {
+      const items = ownItems
+        .filter((i) => i.userDishId === d.id)
+        .map((i) => ({ per100g: foodById.get(i.foodId)?.per100g ?? null, grams: i.grams }));
+      if (items.length === 0) return [];
+      const keys = [...new Set(items.flatMap((i) => Object.keys(i.per100g ?? {})))];
+      const totals = recipeTotals(items, d.servings, keys);
+      return [
+        {
+          kind: 'dish' as const,
+          id: d.id,
+          name: d.name,
+          source: 'user',
+          icon: d.icon,
+          group: 'user',
+          servingGrams: totals.servingGrams,
+          kcalPerServing: totals.perServing.energyKcal ?? null,
+          isDrink: d.icon === 'jugo',
+          per100g: totals.per100g,
+        },
+      ];
+    }),
     ...dishes.map((d) => ({
       kind: 'dish' as const,
       id: d.id,
@@ -95,6 +125,48 @@ export async function catalogItems(db: Db): Promise<CatalogItem[]> {
       };
     }),
   ];
+}
+
+/** Household units of every food with a known weight, for the ingredient amounts of a new dish (F07). */
+export async function foodUnits(
+  db: Db,
+): Promise<Record<string, { label: string; grams: number }[]>> {
+  const rows = await db.select().from(foodUnit).orderBy(asc(foodUnit.position));
+  const units: Record<string, { label: string; grams: number }[]> = {};
+  for (const { foodId, label, grams } of rows) {
+    if (grams !== null) (units[foodId] ??= []).push({ label, grams });
+  }
+  return units;
+}
+
+export interface NewDish {
+  name: string;
+  icon: string;
+  servings: number;
+  items: { foodId: string; grams: number; unitLabel: string | null; unitCount: number | null }[];
+}
+
+/** Saves a dish built from catalog foods (F07). */
+export async function saveUserDish(
+  db: Db,
+  env: RecordEnv,
+  input: NewDish,
+): Promise<{ id: string }> {
+  const name = input.name.trim();
+  if (!name || input.items.length === 0)
+    throw new Error('a dish needs a name and at least one ingredient');
+  return inTransaction(db, async () => {
+    const record = newRecord(env);
+    await db
+      .insert(userDish)
+      .values({ ...record, name, icon: input.icon, servings: input.servings });
+    for (const [position, item] of input.items.entries()) {
+      await db
+        .insert(userDishItem)
+        .values({ ...newRecord(env), userDishId: record.id, position, ...item });
+    }
+    return { id: record.id };
+  });
 }
 
 const keyOf = (kind: string, id: string) => `${kind}:${id}`;

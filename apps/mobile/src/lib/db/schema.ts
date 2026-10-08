@@ -213,6 +213,33 @@ export const routineExercise = sqliteTable(
   (t) => [index('routine_exercise_by_routine').on(t.routineId)],
 );
 
+/**
+ * Dishes the user builds from catalog foods (F07). Synced, unlike the seed catalog; nutrients are computed from the
+ * current catalog when read, so a catalog update reaches them too.
+ */
+export const userDish = sqliteTable('user_dish', {
+  ...synced,
+  name: text('name').notNull(),
+  icon: text('icon').notNull(),
+  /** The recipe yields this many servings (default 1). */
+  servings: real('servings').notNull(),
+});
+
+export const userDishItem = sqliteTable(
+  'user_dish_item',
+  {
+    ...synced,
+    userDishId: text('user_dish_id').notNull(),
+    foodId: text('food_id').notNull(),
+    grams: real('grams').notNull(),
+    /** The household unit it was entered in ("1/8 de pollo") and how many; null when entered in grams. */
+    unitLabel: text('unit_label'),
+    unitCount: real('unit_count'),
+    position: integer('position').notNull(),
+  },
+  (t) => [index('user_dish_item_by_dish').on(t.userDishId)],
+);
+
 // Catalog (ADR 0014): loaded from @kawsay/catalog, replaced when its version changes. Not synced.
 
 export const food = sqliteTable('food', {

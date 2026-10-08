@@ -25,6 +25,6 @@ Build dishes the catalog lacks, or a personal version of a seed dish.
 
 ## Acceptance criteria
 
-- [ ] A saved dish is logged with one tap and portion 1
+- [x] A saved dish is logged with one tap and portion 1
 - [ ] An AI-built dish shows each ingredient with its catalog source before saving
-- [ ] Changing chicken from 1/8 to 1/16 updates the totals before saving
+- [x] Changing chicken from 1/8 to 1/16 updates the totals before saving

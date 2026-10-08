@@ -173,4 +173,20 @@ describe('navigation (design N1, F01)', () => {
     await fireEvent.press(screen.getByText('Calendario'));
     expect(await screen.findByRole('button', { name: `${name}: Sin datos` })).toBeOnTheScreen();
   });
+
+  it('a dish built in the app is saved and logged with one tap at portion 1, then offered again (F07)', async () => {
+    await saveProfile(mockDb, mockEnv, profileInput);
+    await renderRouter('./app', { initialUrl: '/' });
+    await tap('Agregar a Almuerzo');
+    await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'Huevos de la casa');
+    await tap('+ Crear plato "Huevos de la casa"');
+    await tap('+ Ingrediente');
+    await fireEvent.changeText(screen.getByLabelText('Buscar ingrediente'), 'huevo');
+    await tap('Huevo de gallina');
+    await tap('Listo');
+    await tap('Guardar y agregar 1 ración');
+    expect(await screen.findByRole('button', { name: '1 Huevos de la casa' })).toBeOnTheScreen();
+    await tap('Agregar a Cena');
+    expect(await screen.findByRole('button', { name: 'Huevos de la casa' })).toBeOnTheScreen();
+  });
 });

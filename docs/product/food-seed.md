@@ -1,6 +1,6 @@
 # Food seed
 
-- Status: Draft 2026-10-07 · 77 dishes · 128 foods · data in `packages/catalog/seed/` (ADR 0014)
+- Status: Draft 2026-10-07 · 78 dishes · 133 foods · data in `packages/catalog/seed/` (ADR 0014)
 - Review once: amounts are typical servings, grams as eaten; nutrients are computed at import from INS / USDA / labels
 - Confidence: 🟢 standard recipe · 🟡 typical, varies by cook · 🔴 rough, check first
 - **Sauces and creams: 1 portion = 40 g** (½ portion = 20 g); bottled ones are foods with the same portions
@@ -100,7 +100,7 @@
 | --- | --- | --- | --- |
 | Jugo de papaya | 1 vaso grande | papaya 250 · azúcar blanca 12 · agua 100 | 🟡 |
 | Jugo surtido | 1 vaso grande | papaya 100 · piña 60 · plátano de seda 60 · naranja 60 · azúcar blanca 12 · agua 80 | 🟡 |
-| Batido de papaya, yogurt y whey | 1 vaso grande | papaya 200 · yogurt griego natural 100 · proteína whey 15 · agua 100 | 🟡 |
+| Batido de papaya, yogurt y whey | 1 vaso grande | papaya 200 · yogurt griego laive 100 · proteína whey 15 · agua 100 | 🟡 |
 | Chicha morada | 1 vaso | maíz morado 5 · azúcar blanca 20 · limón 5 · agua 230 | 🟡 |
 | Refresco de maracuyá | 1 vaso | maracuyá 30 · azúcar blanca 20 · agua 220 | 🟡 |
 | Frappé de café | 1 vaso (350 ml) | leche fresca entera 200 · azúcar blanca 25 · café soluble 3 · crema de leche 20 · agua 80 | 🔴 |
@@ -111,6 +111,7 @@
 
 | Dish | Serving | Ingredients (g) | |
 | --- | --- | --- | --- |
+| Frutos secos (mix) | 1 puñado (30 g) | maní tostado 9 · almendra 6 · nuez 5 · arándano deshidratado 6 · pasas 4 — mix de Plaza Vea | 🟡 |
 | Pionono | 1 tajada | bizcocho 50 · manjar blanco 20 | 🟡 |
 | Torta de galleta | 1 tajada | galleta de vainilla 30 · leche condensada 20 · crema de leche 15 · chocolate de taza / cobertura 5 | 🔴 |
 | Papa rellena | 1 papa rellena | papa blanca sancochada 150 · carne molida de res cocida 40 · cebolla roja 10 · huevo de gallina 10 · aceituna de botija 3 · harina de trigo 5 · aceite vegetal 12 | 🟡 |
@@ -129,21 +130,21 @@
 
 ## Foods
 
-All 128 foods can also be logged on their own (fruit, vegetables, sauces…). Full list with household units: `packages/catalog/seed/foods.json`.
+All 133 foods can also be logged on their own (fruit, vegetables, sauces…). Full list with household units: `packages/catalog/seed/foods.json`.
 
 ## Branded items (values from the package label)
 
 | Item | Status |
 | --- | --- |
 | Yogurt bebible | 📷 needs a label photo |
-| Yogurt griego natural | 📷 needs a label photo |
+| Yogurt griego Laive (frutos rojos, sin azúcar añadida) | ✅ 161 kcal per 200 g |
 | Helado de paleta | 📷 needs a label photo |
 | Proteína whey (polvo) | 📷 needs a label photo |
 | Mayonesa sabor palta | 📷 needs a label photo |
 | Tarí (crema de ají Alacena) | 🟡 70 kcal per serving, serving size missing: read it on the package |
 | Galleta de vainilla | 📷 needs a label photo |
 | Chokosoda (Field) | ✅ 170 kcal per 36 g |
-| Galleta con chispas de chocolate | 📷 needs a label photo |
+| Choco Chips (galleta con chispas de chocolate) | ✅ 162 kcal per 34 g |
 | Oreo chocolate | ✅ 170 kcal per 36 g |
 | Morochas (Nestlé) | ✅ 98 kcal per 16 g |
 | Galleta de kiwicha | 📷 needs a label photo |

@@ -168,6 +168,9 @@ const ICONS: Record<string, { bg: string; shape: ReactElement }> = {
   },
 };
 
+/** Icon names, in the order the dish editor offers them (F07). */
+export const FOOD_ICONS = Object.keys(ICONS);
+
 /** A dish icon in its coloured tile; decorative, so screen readers skip it (the name is next to it). */
 export function FoodIcon({ icon, size = 48 }: { icon: string; size?: number }) {
   const { bg, shape } = ICONS[icon] ?? ICONS.plato!;

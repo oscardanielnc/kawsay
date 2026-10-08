@@ -22,6 +22,8 @@ releases of several datasets.
 - INS: 1,125 foods (groups A–U) extracted with `pdfplumber`; "•" stays empty; asterisk marks become
   `imputed_from`. Group S (567 preparations by stratum) goes to its own file for cross-checks
 - USDA: SR Legacy, slimmed to the 22 columns Kawsay uses
+- INEI ENCONUT 2013 microdata (the survey behind group S, 1,646 Lima kitchens weighed): summarised per dish to
+  know how many establishments back each group S value
 
 ## Consequences
 

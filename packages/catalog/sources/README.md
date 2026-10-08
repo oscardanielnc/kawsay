@@ -3,11 +3,12 @@
 Raw nutrient tables, per 100 g of edible portion, converted once from the official releases. The importer (next
 step) matches `seed/foods.json` against them. Never edit these files by hand: re-run the script.
 
-| Folder                     | Source                                                                                                                            | Licence                                                                                          | Rows                         |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------- |
-| `ins-2023/foods.csv`       | INS/CENAN, _Tablas Peruanas de Composición de Alimentos_, 2023 digital version, 11th edition (March 2025), ISBN 978-612-310-178-7 | "Se autoriza su reproducción total o parcial, siempre y cuando se cite la fuente" (credits page) | 1,125 foods, groups A–U      |
-| `ins-2023/prepared.csv`    | Same document, group S: preparations eaten away from home (INEI survey, mostly Lima and Callao)                                   | Same                                                                                             | 567 preparations, 1,103 rows |
-| `usda-sr-legacy/foods.csv` | USDA FoodData Central, SR Legacy (April 2018)                                                                                     | CC0 1.0                                                                                          | 7,793 foods                  |
+| Folder                             | Source                                                                                                                                          | Licence                                                                                          | Rows                                                                               |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| `ins-2023/foods.csv`               | INS/CENAN, _Tablas Peruanas de Composición de Alimentos_, 2023 digital version, 11th edition (March 2025), ISBN 978-612-310-178-7               | "Se autoriza su reproducción total o parcial, siempre y cuando se cite la fuente" (credits page) | 1,125 foods, groups A–U                                                            |
+| `ins-2023/prepared.csv`            | Same document, group S: preparations eaten away from home (INEI survey, mostly Lima and Callao)                                                 | Same                                                                                             | 567 preparations, 1,103 rows                                                       |
+| `inei-enconut-2013/components.csv` | INEI, _Encuesta para medir la composición nutricional de los principales alimentos consumidos fuera del hogar_ (ENCONUT 2013), public microdata | Public microdata, cite INEI                                                                      | 522 menu components: establishments, median plate weight, kcal range across strata |
+| `usda-sr-legacy/foods.csv`         | USDA FoodData Central, SR Legacy (April 2018)                                                                                                   | CC0 1.0                                                                                          | 7,793 foods                                                                        |
 
 ## Regenerate
 
@@ -18,6 +19,11 @@ curl -L -o tpca.pdf https://repositorio.ins.gob.pe/server/api/core/bitstreams/6c
 pip install pdfplumber
 python scripts/extract_ins.py tpca.pdf sources/ins-2023/foods.csv
 python scripts/extract_ins_prepared.py tpca.pdf sources/ins-2023/prepared.csv
+
+# INEI ENCONUT 2013: SPSS modules 737 (cooked components) and 738 (energy per menu component)
+for m in 737 738; do curl -LO https://proyectos.inei.gob.pe/iinei/srienaho/descarga/SPSS/500-Modulo$m.zip; unzip 500-Modulo$m.zip -d enconut; done
+pip install pyreadstat
+python scripts/extract_enconut.py enconut sources/inei-enconut-2013/components.csv
 
 # USDA
 curl -L -o sr.zip https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip

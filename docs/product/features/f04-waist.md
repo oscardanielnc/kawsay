@@ -9,7 +9,8 @@ Optional weekly waist measurement with a tape, to see fat loss when the scale st
 
 ## Rules
 
-- Off by default; when on, a weekly reminder on the day the user picks
+- Off by default; when on, a weekly reminder on the day the user picks (v0.1: a card on Today that day; a phone
+  notification comes with the notifications module)
 - Measuring rule shown every time: on waking, after the bathroom, at the navel, tape snug but not tight
 - Centimetres; one value per week (editing replaces it)
 - Progress chart with weekly points; not part of the day ring or the day colour
@@ -18,6 +19,6 @@ Optional weekly waist measurement with a tape, to see fat loss when the scale st
 
 ## Acceptance criteria
 
-- [ ] With the reminder on, the week's measurement takes one input
-- [ ] Weeks without a measurement leave a gap, not a zero
-- [ ] 92 cm at 170 cm shows 0.54 in yellow, "Riesgo aumentado"
+- [x] With the reminder on, the week's measurement takes one input
+- [x] Weeks without a measurement leave a gap, not a zero
+- [x] 92 cm at 170 cm shows 0.54 in yellow, "Riesgo aumentado"

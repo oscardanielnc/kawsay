@@ -26,12 +26,14 @@ interface Props {
   today: LocalDate;
   profile: Profile;
   weights: readonly { date: LocalDate; kg: number }[];
+  /** Last weekly waist (F04), when measured. */
+  waistCm?: number | null;
   /** `weightKg` only when the body editor changed today's weight. */
   onSave: (change: { profile: ProfileInput; weightKg?: number }) => void;
 }
 
 /** Profile tab (F01): status today, daily target, and the settings that feed every target. */
-export function ProfileScreen({ today, profile, weights, onSave }: Props) {
+export function ProfileScreen({ today, profile, weights, waistCm = null, onSave }: Props) {
   const { t } = useTranslation();
   const weightKg = trendWeightKg(weights) ?? 0;
   const [editor, setEditor] = useState<Editor | null>(null);
@@ -102,6 +104,7 @@ export function ProfileScreen({ today, profile, weights, onSave }: Props) {
           weightKg={weightKg}
           heightCm={profile.heightCm}
           goalWeightKg={profile.goalWeightKg}
+          waistCm={waistCm}
         />
         <TargetCard
           targets={profileTargets(profile, today, weightKg)}

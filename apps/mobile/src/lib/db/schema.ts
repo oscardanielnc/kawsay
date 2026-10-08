@@ -56,6 +56,17 @@ export const weightEntry = sqliteTable(
   ],
 );
 
+/** Weekly waist (F04): one value per week, keyed by the week's Monday; editing replaces it. */
+export const waistEntry = sqliteTable(
+  'waist_entry',
+  { ...synced, ...dated, weekStart: text('week_start').notNull(), cm: real('cm').notNull() },
+  (t) => [
+    uniqueIndex('waist_entry_one_per_week')
+      .on(t.weekStart)
+      .where(sql`deleted_at is null`),
+  ],
+);
+
 export const mealEntry = sqliteTable(
   'meal_entry',
   {

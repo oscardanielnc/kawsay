@@ -1,7 +1,7 @@
 import { drinksGoalGlasses, GLASS_ML } from '@kawsay/core/day/drinks';
 import { activityKcal } from '@kawsay/core/energy/activity';
 import type { ActivityKind } from '@kawsay/core/energy/activity-types';
-import type { LocalDate } from '@kawsay/core/shared/local-date';
+import { addDays, type LocalDate } from '@kawsay/core/shared/local-date';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -32,6 +32,8 @@ import { SleepSection, type SleepChange } from '@/features/sleep/SleepSection';
 import { DayRings } from '@/features/today/DayRings';
 import { RangeRows } from '@/features/today/RangeRows';
 import { TodayScreen } from '@/features/today/TodayScreen';
+import { saveWaist, waistsSince } from '@/features/waist/waist-db';
+import { WaistCard } from '@/features/waist/WaistCard';
 import { WeightCard } from '@/features/weight/WeightCard';
 import { saveWeight } from '@/features/weight/weight-db';
 import { Card } from '@/components/layout/Card';
@@ -63,10 +65,11 @@ export default function TodayRoute() {
   const setDay = (next: LocalDate) => router.setParams({ day: next });
   const { data, reload } = useLoad(
     useCallback(async () => {
-      const [dayData, items, routines, ...recent] = await Promise.all([
+      const [dayData, items, routines, waists, ...recent] = await Promise.all([
         loadDay(db, day),
         catalogItems(db),
         listRoutines(db),
+        waistsSince(db, addDays(day, -7 * 12)),
         ...MEALS.map((meal) => recentFor(db, meal)),
       ]);
       const [breakfast = [], lunch = [], dinner = [], snack = []] = recent;
@@ -75,6 +78,7 @@ export default function TodayRoute() {
         entries: dayData.meals,
         items,
         routines,
+        waists,
         recent: { breakfast, lunch, dinner, snack },
       };
     }, [db, day]),
@@ -239,6 +243,15 @@ export default function TodayRoute() {
           }
           onSave={saveSleepChange}
           onDelete={(id) => run(() => deleteSleep(db, env, id))}
+        />
+      ) : null}
+      {data.profile?.waistEnabled ? (
+        <WaistCard
+          day={day}
+          waists={data.waists.filter((w) => w.weekStart <= day)}
+          heightCm={data.profile.heightCm}
+          reminderDay={data.profile.waistReminderDay}
+          onSave={(cm) => run(() => saveWaist(db, env, { date: day, cm, timeZone }))}
         />
       ) : null}
       <WeightCard

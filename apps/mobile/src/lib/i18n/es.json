@@ -483,5 +483,22 @@
       "weight": "Peso: tendencia de {{from}} a {{to}} kg",
       "empty": "{{name}}: sin datos este mes"
     }
+  },
+  "waist": {
+    "title": "Cintura",
+    "due": "Hoy toca medir tu cintura",
+    "thisWeek": "Cintura de esta semana",
+    "cm": "{{cm}} cm",
+    "rule": "Al despertar, después del baño, en el ombligo, con la cinta firme pero sin apretar.",
+    "save": "Guardar cintura",
+    "edit": "Editar cintura",
+    "ratio": "{{ratio}} · {{band}}",
+    "bands": {
+      "healthy": "Riesgo bajo",
+      "increased": "Riesgo aumentado",
+      "high": "Riesgo alto"
+    },
+    "chart": "{{count}} semanas medidas de las últimas {{weeks}}",
+    "profileLine": "Cintura / estatura"
   }
 }

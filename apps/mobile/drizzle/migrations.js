@@ -6,6 +6,7 @@ import m0001 from './0001_profile_modules.sql';
 import m0002 from './0002_dish_totals_and_leftovers.sql';
 import m0003 from './0003_routines.sql';
 import m0004 from './0004_check_ins.sql';
+import m0005 from './0005_waist.sql';
 
 export default {
   journal,
@@ -15,5 +16,6 @@ export default {
     m0002,
     m0003,
     m0004,
+    m0005,
   },
 };

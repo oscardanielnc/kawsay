@@ -1,4 +1,5 @@
 import { bmiStatus, HEALTHY_BMI, weightAtBmi, type BmiBand } from '@kawsay/core/body/bmi';
+import { waistToHeight } from '@kawsay/core/body/waist-to-height';
 import type { Tone } from '@kawsay/core/shared/tone';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -31,15 +32,18 @@ interface Props {
   weightKg: number;
   heightCm: number;
   goalWeightKg: number | null;
+  /** The last weekly waist (F04), for the waist-to-height ratio. */
+  waistCm?: number | null;
 }
 
 /** "Your status today" (F01): BMI from the trend weight, its WHO band and colour, kg to green, the goal flag. */
-export function StatusCard({ weightKg, heightCm, goalWeightKg }: Props) {
+export function StatusCard({ weightKg, heightCm, goalWeightKg, waistCm = null }: Props) {
   const { t } = useTranslation();
   const [info, setInfo] = useState(false);
   const status = bmiStatus({ weightKg, heightCm });
   const band = (code: BmiBand) => t(`profile.bands.${code}`);
   const goal = goalWeightKg === null ? null : bmiStatus({ weightKg: goalWeightKg, heightCm });
+  const waist = waistCm === null ? null : waistToHeight({ waistCm, heightCm });
   const limit = (bmi: number) => formatNumber(weightAtBmi(bmi, heightCm), 1);
 
   let distance = t('profile.inGreen');
@@ -93,6 +97,17 @@ export function StatusCard({ weightKg, heightCm, goalWeightKg }: Props) {
           </Text>
         ) : null}
       </View>
+      {waist ? (
+        <View style={styles.waist}>
+          <Text style={[type.label, styles.muted]}>{t('waist.profileLine')}</Text>
+          <Text style={[type.heading, { color: TONE_TEXT[waist.tone] }]}>
+            {t('waist.ratio', {
+              ratio: formatNumber(waist.ratio, 2),
+              band: t(`waist.bands.${waist.band}`),
+            })}
+          </Text>
+        </View>
+      ) : null}
       <Pressable accessibilityRole="button" onPress={() => setInfo(!info)}>
         <Text style={[type.label, styles.brand]}>{t('profile.bmiInfo')}</Text>
       </Pressable>
@@ -127,6 +142,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.ink,
   },
   flag: { position: 'absolute', top: -24, marginLeft: -8, fontSize: 14 },
+  waist: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
   note: { backgroundColor: color.green50, borderRadius: radius.chip, padding: space.md, gap: 2 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },

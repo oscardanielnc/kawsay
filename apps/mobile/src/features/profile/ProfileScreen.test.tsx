@@ -76,4 +76,17 @@ describe('ProfileScreen (F01)', () => {
     const [[saved]] = onSave.mock.calls as [[{ profile: Record<string, unknown> }]];
     expect(saved.profile).toMatchObject({ climate: 'cold', proteinGPerKg: 1.8, fatShare: 0.3 });
   });
+
+  it('92 cm at 170 cm shows 0.54 in yellow, "Riesgo aumentado" (F04)', async () => {
+    await render(
+      <ProfileScreen
+        today={today}
+        profile={{ ...profile, heightCm: 170 }}
+        weights={steady}
+        waistCm={92}
+        onSave={jest.fn()}
+      />,
+    );
+    expect(screen.getByText('0.54 · Riesgo aumentado')).toBeOnTheScreen();
+  });
 });

@@ -69,6 +69,8 @@ export const mealEntry = sqliteTable(
     grams: real('grams'),
     /** Drinks logged as food also count toward hydration (F05, F10). */
     volumeMl: real('volume_ml'),
+    /** Set on the entry pre-added to tomorrow's breakfast by "save the rest" (F05): the entry it came from. */
+    leftoverOf: text('leftover_of'),
   },
   (t) => [index('meal_entry_by_date').on(t.date)],
 );
@@ -166,6 +168,10 @@ export const dish = sqliteTable('dish', {
   icon: text('icon').notNull(),
   serving: text('serving').notNull(),
   servings: real('servings').notNull(),
+  /** Grams in one serving, and its nutrients per serving and per 100 g (computed by @kawsay/catalog). */
+  servingGrams: real('serving_grams'),
+  perServing: text('per_serving', { mode: 'json' }).$type<Record<string, number | null> | null>(),
+  per100g: text('per_100g', { mode: 'json' }).$type<Record<string, number | null> | null>(),
   /** null for seed dishes; user dishes (F07) arrive with their own synced table. */
   owner: text('owner'),
 });

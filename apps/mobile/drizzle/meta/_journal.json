@@ -15,6 +15,13 @@
       "when": 1791485713275,
       "tag": "0001_profile_modules",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791486774468,
+      "tag": "0002_dish_totals_and_leftovers",
+      "breakpoints": true
     }
   ]
 }

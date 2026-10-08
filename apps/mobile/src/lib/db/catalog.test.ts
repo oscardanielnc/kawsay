@@ -68,4 +68,19 @@ describe('loadCatalog', () => {
       bundled.version,
     );
   });
+
+  it('stores each dish with its serving weight and nutrients per serving', async () => {
+    const db = await createTestDb();
+    await loadCatalog(db, bundled);
+    const [broth] = await db.select().from(dish).where(eq(dish.id, 'caldo-pollo-menu'));
+    expect(broth?.servingGrams).toBe(565);
+    expect(broth?.perServing?.energyKcal).toBeGreaterThan(200);
+    expect(broth?.per100g?.energyKcal).toBeCloseTo((broth?.perServing?.energyKcal ?? 0) / 5.65, 6);
+  });
+
+  it('reloads when the loader changes, even if the catalog data did not', async () => {
+    const db = await createTestDb();
+    await db.insert(meta).values({ key: 'catalogVersion', value: bundled.version });
+    expect(await loadCatalog(db, bundled)).toBe('loaded');
+  });
 });

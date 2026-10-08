@@ -1,4 +1,3 @@
-import { eq } from 'drizzle-orm';
 import { dish, dishItem, food, foodUnit, meta } from './schema';
 import { inTransaction } from './transaction';
 import type { Db } from './types';
@@ -22,10 +21,17 @@ export interface BundledCatalog {
     serving: string;
     servings: number;
     items: { food: string; grams: number }[];
+    totals: {
+      grams: number;
+      perServing: Record<string, number | null>;
+      per100g: Record<string, number | null>;
+    };
   }[];
 }
 
 const CHUNK = 200;
+/** Bump when the loader stores something new, so phones reload a catalog whose data did not change. */
+export const LOADER_VERSION = '2';
 
 async function insertChunked<T>(
   rows: T[],
@@ -39,8 +45,13 @@ export async function loadCatalog(
   db: Db,
   catalog: BundledCatalog,
 ): Promise<'loaded' | 'up-to-date'> {
-  const current = await db.select().from(meta).where(eq(meta.key, 'catalogVersion'));
-  if (current[0]?.value === catalog.version) return 'up-to-date';
+  const stored = new Map((await db.select().from(meta)).map((row) => [row.key, row.value]));
+  if (
+    stored.get('catalogVersion') === catalog.version &&
+    stored.get('catalogLoader') === LOADER_VERSION
+  ) {
+    return 'up-to-date';
+  }
 
   await inTransaction(db, async () => {
     for (const table of [dishItem, dish, foodUnit, food]) await db.delete(table);
@@ -62,13 +73,16 @@ export async function loadCatalog(
       (rows) => db.insert(foodUnit).values(rows),
     );
     await insertChunked(
-      catalog.dishes.map(({ id, name, group, icon, serving, servings }) => ({
+      catalog.dishes.map(({ id, name, group, icon, serving, servings, totals }) => ({
         id,
         name,
         group,
         icon,
         serving,
         servings,
+        servingGrams: totals.grams,
+        perServing: totals.perServing,
+        per100g: totals.per100g,
       })),
       (rows) => db.insert(dish).values(rows),
     );
@@ -83,10 +97,15 @@ export async function loadCatalog(
       ),
       (rows) => db.insert(dishItem).values(rows),
     );
-    await db
-      .insert(meta)
-      .values({ key: 'catalogVersion', value: catalog.version })
-      .onConflictDoUpdate({ target: meta.key, set: { value: catalog.version } });
+    for (const [key, value] of [
+      ['catalogVersion', catalog.version],
+      ['catalogLoader', LOADER_VERSION],
+    ] as const) {
+      await db
+        .insert(meta)
+        .values({ key, value })
+        .onConflictDoUpdate({ target: meta.key, set: { value } });
+    }
   });
   return 'loaded';
 }

@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+build/
+coverage/
+.turbo/
+*.tsbuildinfo
+
+# Expo (apps/mobile, later)
+.expo/
+android/
+ios/
+
+# Environment (only .env.example is committed)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Signing material
+*.keystore
+*.jks

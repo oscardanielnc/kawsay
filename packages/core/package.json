@@ -1,0 +1,27 @@
+{
+  "name": "@kawsay/core",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Pure business rules shared by the mobile app and the API",
+  "exports": {
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@kawsay/config": "workspace:*",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.3"
+  }
+}

@@ -1,0 +1,7 @@
+dist
+coverage
+.turbo
+pnpm-lock.yaml
+# Hand-written content kept byte for byte
+docs/
+packages/catalog/seed/

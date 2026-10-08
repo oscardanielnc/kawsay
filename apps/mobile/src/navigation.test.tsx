@@ -4,12 +4,19 @@ import { renderRouter } from 'expo-router/testing-library';
 import type { ReactNode } from 'react';
 import catalog from '@kawsay/catalog/catalog.json';
 import { setNoActivity } from '@/features/activity/activity-db';
+import { addIntimate } from '@/features/private/private-db';
 import { saveProfile } from '@/features/profile/profile-db';
 import { saveWeight } from '@/features/weight/weight-db';
 import { loadCatalog } from '@/lib/db/catalog';
 import { createTestDb } from '@/lib/db/test-db';
 import type { Db, RecordEnv } from '@/lib/db/types';
 import { today } from '@/lib/today';
+
+jest.mock('expo-local-authentication', () => ({
+  SecurityLevel: { NONE: 0, BIOMETRIC_STRONG: 3 },
+  getEnrolledLevelAsync: () => Promise.resolve(3),
+  authenticateAsync: () => Promise.resolve({ success: true }),
+}));
 
 // The routes run on a real in-memory SQLite (same migrations as the phone) instead of the native one.
 let mockDb: Db;
@@ -188,5 +195,18 @@ describe('navigation (design N1, F01)', () => {
     expect(await screen.findByRole('button', { name: '1 Huevos de la casa' })).toBeOnTheScreen();
     await tap('Agregar a Cena');
     expect(await screen.findByRole('button', { name: 'Huevos de la casa' })).toBeOnTheScreen();
+  });
+
+  it('the private log appears in no screen until it is unlocked (F12)', async () => {
+    await saveProfile(mockDb, mockEnv, { ...profileInput, intimateEnabled: true });
+    await addIntimate(mockDb, mockEnv, { date: today(), timeZone: 'America/Lima', kind: 'sex' });
+    await renderRouter('./app', { initialUrl: '/' });
+    await screen.findByText('Privado');
+    expect(screen.queryByText(/Relación sexual/)).toBeNull();
+    await fireEvent.press(screen.getByText('Calendario'));
+    expect(screen.queryByText(/Relación sexual/)).toBeNull();
+    await fireEvent.press(screen.getByText('Hoy'));
+    await tap('Desbloquear con tu huella o PIN');
+    expect(await screen.findByRole('button', { name: 'Quitar Relación sexual' })).toBeOnTheScreen();
   });
 });

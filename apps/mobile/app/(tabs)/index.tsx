@@ -2,7 +2,7 @@ import { drinksGoalGlasses, GLASS_ML } from '@kawsay/core/day/drinks';
 import { activityKcal } from '@kawsay/core/energy/activity';
 import type { ActivityKind } from '@kawsay/core/energy/activity-types';
 import { addDays, type LocalDate } from '@kawsay/core/shared/local-date';
-import { router, useLocalSearchParams } from 'expo-router';
+import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text } from 'react-native';
@@ -49,6 +49,8 @@ import {
   symptomAnswersOn,
 } from '@/features/symptoms/symptoms-db';
 import { SymptomsSection } from '@/features/symptoms/SymptomsSection';
+import { addIntimate, deleteIntimate, intimateOn } from '@/features/private/private-db';
+import { PrivateSection } from '@/features/private/PrivateSection';
 import { saveWaist, waistsSince } from '@/features/waist/waist-db';
 import { WaistCard } from '@/features/waist/WaistCard';
 import { WeightCard } from '@/features/weight/WeightCard';
@@ -60,6 +62,7 @@ import { deviceTimeZone } from '@/lib/time-zone';
 import { today } from '@/lib/today';
 import { useLoad } from '@/lib/use-load';
 import { useReloadOnFocus } from '@/lib/use-reload-on-focus';
+import { unlockWithDevice } from '@/lib/unlock';
 import { color, type } from '@/lib/theme';
 
 function hourIn(timeZone: string): number {
@@ -109,6 +112,12 @@ export default function TodayRoute() {
   );
 
   useReloadOnFocus(reload);
+  // F12: the private log is read only while unlocked, and locks again when Today loses focus.
+  const [privateOpen, setPrivateOpen] = useState(false);
+  const { data: intimate, reload: reloadIntimate } = useLoad(
+    useCallback(async () => (privateOpen ? intimateOn(db, day) : null), [db, day, privateOpen]),
+  );
+  useFocusEffect(useCallback(() => () => setPrivateOpen(false), []));
   const isToday = day === today();
   const hour = hourIn(timeZone);
   const defaultBand = bandAt(hour);
@@ -290,6 +299,19 @@ export default function TodayRoute() {
             run(() => answerSymptom(db, env, { date: day, timeZone, symptomId, value }))
           }
           onCreate={(symptom) => run(() => createSymptom(db, env, symptom))}
+        />
+      ) : null}
+      {data.profile?.intimateEnabled ? (
+        <PrivateSection
+          entries={privateOpen ? (intimate ?? []) : null}
+          onUnlock={() =>
+            void unlockWithDevice(t('private.prompt')).then((ok) => ok && setPrivateOpen(true))
+          }
+          onLock={() => setPrivateOpen(false)}
+          onAdd={(kind) =>
+            void addIntimate(db, env, { date: day, timeZone, kind }).then(reloadIntimate)
+          }
+          onDelete={(id) => void deleteIntimate(db, env, id).then(reloadIntimate)}
         />
       ) : null}
       {data.profile?.waistEnabled ? (

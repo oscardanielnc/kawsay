@@ -17,4 +17,4 @@ Optional private log of sexual activity and masturbation.
 
 ## Acceptance criteria
 
-- [ ] Without unlocking, it appears in no screen, total or chart
+- [x] Without unlocking, it appears in no screen, total or chart

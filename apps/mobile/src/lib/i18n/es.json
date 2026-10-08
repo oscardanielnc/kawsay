@@ -543,5 +543,21 @@
     "done": "Listo",
     "perServing": "Por ración: {{kcal}} kcal · {{protein}} g proteína · {{fat}} g grasa · {{carbs}} g carbohidratos",
     "saveAndAdd": "Guardar y agregar 1 ración"
+  },
+  "private": {
+    "title": "Privado",
+    "unlock": "Desbloquear con tu huella o PIN",
+    "lock": "Bloquear",
+    "unlockHint": "Toca para desbloquear con tu huella",
+    "lockHint": "Toca para bloquear",
+    "prompt": "Desbloquear tu registro privado",
+    "kinds": {
+      "sex": "Relación sexual",
+      "masturbation": "Masturbación"
+    },
+    "add": "Agregar {{kind}}",
+    "remove": "Quitar {{kind}}",
+    "note": "Solo tú lo ves. No cuenta en tus metas, nunca se envía a la IA y solo se exporta si lo marcas.",
+    "noLock": "Activa un bloqueo de pantalla (huella o PIN) en tu celular para usar el registro privado."
   }
 }

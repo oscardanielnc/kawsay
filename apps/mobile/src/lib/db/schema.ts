@@ -182,6 +182,16 @@ export const symptomEntry = sqliteTable(
   (t) => [index('symptom_entry_by_date').on(t.date)],
 );
 
+/**
+ * Private intimate log (F12): read only after the user unlocks it, never sent to the AI, exported only when chosen.
+ * Not part of any total, ring, colour or chart.
+ */
+export const intimateEntry = sqliteTable(
+  'intimate_entry',
+  { ...synced, ...dated, kind: text('kind', { enum: ['sex', 'masturbation'] }).notNull() },
+  (t) => [index('intimate_entry_by_date').on(t.date)],
+);
+
 /** User routines (F18); exercises live in routine_exercise. */
 export const routine = sqliteTable('routine', {
   ...synced,

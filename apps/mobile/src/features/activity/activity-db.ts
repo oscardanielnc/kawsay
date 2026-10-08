@@ -5,7 +5,16 @@ import { activityEntry, dayStatus } from '@/lib/db/schema';
 import { inTransaction } from '@/lib/db/transaction';
 import type { Db, RecordEnv } from '@/lib/db/types';
 
-export type TimeBand = 'morning' | 'midday' | 'afternoon' | 'evening' | 'night';
+export type TimeBand = 'early' | 'morning' | 'midday' | 'afternoon' | 'night';
+
+/** The design's bands (Today v3): madrugada < 6 h, mañana < 12 h, mediodía < 15 h, tarde < 19 h, noche. */
+export function bandAt(hour: number): TimeBand {
+  if (hour < 6) return 'early';
+  if (hour < 12) return 'morning';
+  if (hour < 15) return 'midday';
+  if (hour < 19) return 'afternoon';
+  return 'night';
+}
 export type ActivityEntry = Pick<
   typeof activityEntry.$inferSelect,
   'id' | 'kind' | 'intensity' | 'minutes' | 'met' | 'timeBand' | 'routineId'

@@ -193,5 +193,50 @@
     "entryKcal": "{{kcal}} kcal en {{meal}}",
     "leftover": "Resto guardado de ayer",
     "remove": "Quitar"
+  },
+  "activity": {
+    "title": "Actividad física",
+    "summary": "{{minutes}} min · +{{kcal}} kcal a tu meta",
+    "kinds": {
+      "walking": "Caminar",
+      "weights": "Pesas",
+      "stairs": "Escaleras",
+      "jogging": "Trotar",
+      "motorbike": "Moto en ciudad",
+      "housework": "Tareas de casa",
+      "football": "Fútbol",
+      "cycling": "Bicicleta",
+      "routine": "Rutina"
+    },
+    "duration": "Duración",
+    "intensity": "Intensidad",
+    "intensities": {
+      "light": "Suave",
+      "medium": "Media",
+      "hard": "Fuerte"
+    },
+    "talk": {
+      "light": "Puedes conversar",
+      "medium": "Hablas entrecortado",
+      "hard": "Casi no puedes hablar"
+    },
+    "preview": "+{{kcal}} kcal · MET {{met}}",
+    "how": "ⓘ cómo se calcula",
+    "formula": "kcal extra = (MET − 1) × (basal ÷ 24) × horas × 1.10\n• MET: cuánto cansa la actividad comparada con estar sentado quieto (= 1), del Compendio de Actividades Físicas 2024, según tipo e intensidad\n• Se resta 1 porque tu reposo ya está en la meta base\n• Basal ÷ 24: lo que gastas en una hora en reposo (tu basal: {{bmr}} kcal/día)\n• × 1.10: el 10 % extra que cuesta digerir lo que comes para reponer\n• Cada 2 semanas, tu peso real corrige el cálculo",
+    "when": "¿Cuándo? (aproximado)",
+    "bands": {
+      "early": "Madrugada",
+      "morning": "Mañana",
+      "midday": "Mediodía",
+      "afternoon": "Tarde",
+      "night": "Noche"
+    },
+    "add": "Agregar",
+    "addButton": "+ Agregar actividad",
+    "addTitle": "Agregar actividad",
+    "remove": "Quitar {{name}}",
+    "noActivity": "Sin actividad física",
+    "noActivityOff": "En casa, sin ejercicio. Tu meta base",
+    "noActivityOn": "Día en casa, sin ejercicio ✓ · toca para deshacer"
   }
 }

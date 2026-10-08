@@ -89,7 +89,7 @@ export const activityEntry = sqliteTable(
      */
     met: real('met').notNull(),
     routineId: text('routine_id'),
-    timeBand: text('time_band', { enum: ['morning', 'midday', 'afternoon', 'evening', 'night'] }),
+    timeBand: text('time_band', { enum: ['early', 'morning', 'midday', 'afternoon', 'night'] }),
   },
   (t) => [index('activity_entry_by_date').on(t.date)],
 );

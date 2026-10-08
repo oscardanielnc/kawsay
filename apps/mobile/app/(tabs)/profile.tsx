@@ -1,4 +1,5 @@
 import { addDays } from '@kawsay/core/shared/local-date';
+import { router } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { TREND_DAYS } from '@/compose/day';
 import { ProfileScreen } from '@/features/profile/ProfileScreen';
@@ -41,6 +42,7 @@ export default function ProfileRoute() {
       profile={data.profile}
       weights={data.weights}
       waistCm={data.waist?.cm ?? null}
+      onExport={() => router.push('/export')}
       onSave={(change) => void save(change)}
     />
   );

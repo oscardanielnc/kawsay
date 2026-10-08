@@ -16,4 +16,4 @@ Export the full history to analyse it elsewhere.
 
 ## Acceptance criteria
 
-- [ ] The export can be analysed by an external AI tool without extra explanation
+- [x] The export can be analysed by an external AI tool without extra explanation

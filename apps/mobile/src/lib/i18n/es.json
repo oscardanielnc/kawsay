@@ -559,5 +559,116 @@
     "remove": "Quitar {{kind}}",
     "note": "Solo tú lo ves. No cuenta en tus metas, nunca se envía a la IA y solo se exporta si lo marcas.",
     "noLock": "Activa un bloqueo de pantalla (huella o PIN) en tu celular para usar el registro privado."
+  },
+  "export": {
+    "title": "Exportar tus datos",
+    "row": "Exportar historial",
+    "rowSummary": "JSON + CSV + README, sin internet",
+    "range": "Periodo",
+    "ranges": {
+      "30": "30 días",
+      "90": "90 días",
+      "365": "1 año"
+    },
+    "includePrivate": "Incluir registro privado",
+    "includePrivateHint": "Pide tu huella o PIN. Sin marcarlo, lo privado no sale del celular.",
+    "generate": "Generar y compartir",
+    "working": "Preparando tu archivo…",
+    "done": "Listo: {{name}}",
+    "failed": "No se pudo exportar. Inténtalo de nuevo.",
+    "explain": "Se arma en tu celular, sin internet: un ZIP con todo en JSON, un CSV por módulo y un README que explica cada columna, listo para analizar con otra herramienta.",
+    "readmeTitle": "Kawsay: tu historial exportado",
+    "readmeIntro": "Datos registrados en la app Kawsay (salud diaria, Perú). Cada día es un día calendario local (YYYY-MM-DD) en la zona horaria del celular. Las celdas vacías significan \"sin dato\", nunca cero. kawsay.json tiene todo junto: perfil, síntomas propios, cintura y un objeto por día con su resumen y sus registros. Los CSV repiten lo mismo por módulo para abrirlos en una hoja de cálculo. Energía en kcal, nutrientes en gramos, volúmenes en ml, peso en kg, cintura en cm, horas en horas decimales.",
+    "files": {
+      "days": "Un resumen por día: color del calendario, meta del día (sube con la actividad) y lo registrado.",
+      "meals": "Cada plato o alimento comido, con sus nutrientes calculados de la tabla INS 2023 o USDA.",
+      "activities": "Cada actividad física o sesión de rutina registrada.",
+      "sleep": "Cada sesión de sueño (noche o siesta); cuenta para el día en que despertaste.",
+      "drinks": "Vasos tocados en hidratación (agua, café o té sin azúcar, alcohol). Las bebidas con calorías están en meals.csv con volume_ml.",
+      "checkins": "Toques de cuerpo y ánimo, cada uno con su hora.",
+      "symptoms": "Respuestas del día a los síntomas que creaste.",
+      "weights": "Un peso por día, tomado al despertar, después del baño y antes de comer.",
+      "waist": "Una medida de cintura por semana (opcional).",
+      "private": "Registro íntimo privado; solo aparece si lo elegiste al exportar."
+    },
+    "fields": {
+      "days": {
+        "date": "Día local (YYYY-MM-DD).",
+        "colour": "Color del calendario: green (calorías y proteína en su rango verde y actividad registrada), yellow (falla una condición), red (fallan dos o más), grey (sin registros).",
+        "target_kcal": "Meta de calorías del día: gasto estimado (Mifflin-St Jeor + actividad, MET del Compendio 2024) menos el déficit del objetivo.",
+        "eaten_kcal": "Calorías comidas.",
+        "protein_g": "Proteína comida, en g.",
+        "target_protein_g": "Meta de proteína del día, en g.",
+        "fat_g": "Grasa comida, en g.",
+        "carbs_g": "Carbohidratos totales comidos, en g.",
+        "movement_min": "Minutos de actividad física registrados.",
+        "glasses": "Vasos de ≈ 250 ml bebidos (agua, sin calorías y bebidas de las comidas; el alcohol no cuenta).",
+        "sleep_h": "Horas dormidas registradas (noche + siestas); vacío si no se registró.",
+        "weight_kg": "Peso registrado ese día, en kg; vacío si no se pesó.",
+        "trend_kg": "Tendencia del peso (media móvil exponencial, α = 0.1), en kg.",
+        "ring_done": "Partes del día registradas de 6: comidas, actividad, agua, cuerpo y ánimo, sueño, peso."
+      },
+      "meals": {
+        "date": "Día local.",
+        "meal": "breakfast (desayuno), lunch (almuerzo), dinner (cena) o snack.",
+        "item_kind": "dish (plato) o food (alimento suelto).",
+        "name": "Nombre del plato o alimento.",
+        "servings": "Raciones comidas (¼ … 2); vacío si se anotó en gramos.",
+        "grams": "Gramos comidos.",
+        "kcal": "Calorías de lo comido.",
+        "protein_g": "Proteína, en g.",
+        "fat_g": "Grasa, en g.",
+        "carbs_g": "Carbohidratos totales, en g.",
+        "volume_ml": "Volumen si es bebida, en ml; vacío si no lo es."
+      },
+      "activities": {
+        "date": "Día local.",
+        "kind": "Tipo: walking, weights, stairs, jogging, motorbike, housework, football, cycling o routine.",
+        "name": "Nombre de la rutina, si kind es routine.",
+        "intensity": "light (puedes conversar), medium (frases cortas) o hard (casi no puedes hablar).",
+        "minutes": "Duración, en minutos.",
+        "met": "MET del bloque (una rutina guarda su MET equivalente ponderado por tiempo).",
+        "kcal": "Calorías sobre el reposo: (MET − 1) × (BMR / 24) × horas × 1.10.",
+        "time_band": "Franja: early (madrugada), morning, midday, afternoon o night."
+      },
+      "sleep": {
+        "date": "Día en que despertaste.",
+        "kind": "night (noche) o nap (siesta).",
+        "start": "Hora local en que te dormiste (YYYY-MM-DDTHH:MM).",
+        "end": "Hora local en que despertaste (YYYY-MM-DDTHH:MM).",
+        "hours": "Horas dormidas.",
+        "quality": "Calidad del sueño: 1 muy mala, 2 mala, 3 regular, 4 buena, 5 excelente; vacío si no se calificó.",
+        "nightmares": "true si tuviste pesadillas."
+      },
+      "drinks": {
+        "date": "Día local.",
+        "kind": "water (agua), zero-calorie (café o té sin azúcar) o alcohol (se muestra pero no cuenta).",
+        "volume_ml": "Volumen, en ml."
+      },
+      "checkins": {
+        "date": "Día local.",
+        "logged_at": "Momento del toque (ISO 8601, UTC).",
+        "kind": "bathroom (baño), bloating (hinchazón), stress (máximo estrés del día), energy (energía), mood (ánimo) o urine (color de la orina).",
+        "value": "bathroom: 1–7 escala de Bristol (1 bolitas duras … 4 ideal … 7 líquida), gas (solo gases) o none (no fue); bloating: better, usual o worse frente a lo normal; stress, energy y mood: 1 (peor) a 5 (mejor), salvo stress donde 5 es el máximo estrés; urine: clear, yellow o dark. Si hay varios del mismo tipo en el día, vale el último (salvo bathroom: cada uno es una ida)."
+      },
+      "symptoms": {
+        "date": "Día local.",
+        "symptom": "Nombre del síntoma que creaste.",
+        "scale": "yes-no, zero-five (0 a 5) o size (small, medium, large).",
+        "value": "Respuesta del día: yes, 0–5, o small / medium / large."
+      },
+      "weights": {
+        "date": "Día local.",
+        "kg": "Peso, en kg."
+      },
+      "waist": {
+        "week_start": "Lunes de la semana medida.",
+        "cm": "Cintura en el ombligo, en cm."
+      },
+      "private": {
+        "date": "Día local.",
+        "kind": "sex (relación sexual) o masturbation (masturbación)."
+      }
+    }
   }
 }

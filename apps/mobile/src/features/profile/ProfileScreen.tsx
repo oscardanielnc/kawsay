@@ -28,12 +28,21 @@ interface Props {
   weights: readonly { date: LocalDate; kg: number }[];
   /** Last weekly waist (F04), when measured. */
   waistCm?: number | null;
+  /** Opens the export screen (F15). */
+  onExport?: () => void;
   /** `weightKg` only when the body editor changed today's weight. */
   onSave: (change: { profile: ProfileInput; weightKg?: number }) => void;
 }
 
 /** Profile tab (F01): status today, daily target, and the settings that feed every target. */
-export function ProfileScreen({ today, profile, weights, waistCm = null, onSave }: Props) {
+export function ProfileScreen({
+  today,
+  profile,
+  weights,
+  waistCm = null,
+  onExport,
+  onSave,
+}: Props) {
   const { t } = useTranslation();
   const weightKg = trendWeightKg(weights) ?? 0;
   const [editor, setEditor] = useState<Editor | null>(null);
@@ -138,6 +147,14 @@ export function ProfileScreen({ today, profile, weights, waistCm = null, onSave 
           />
         </Card>
         <Card title={t('profile.yourData')}>
+          {onExport ? (
+            <SettingsRow
+              icon="📦"
+              title={t('export.row')}
+              summary={t('export.rowSummary')}
+              onPress={onExport}
+            />
+          ) : null}
           <SettingsRow
             icon="📚"
             title={t('profile.editors.about')}

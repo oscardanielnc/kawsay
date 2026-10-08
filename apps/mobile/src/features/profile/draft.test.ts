@@ -1,4 +1,4 @@
-import { draftTargets, initialDraft, shiftTime, toProfileInput, type Draft } from './draft';
+import { draftTargets, initialDraft, toProfileInput, type Draft } from './draft';
 
 const today = '2026-10-08';
 const oscarLike: Draft = {
@@ -54,16 +54,5 @@ describe('onboarding draft (F01)', () => {
 
   it('cannot be stored before the sex is chosen', () => {
     expect(() => toProfileInput({ ...oscarLike, sex: null }, today)).toThrow();
-  });
-});
-
-describe('shiftTime: usual-schedule steppers move in 15-minute steps around the clock', () => {
-  it.each([
-    ['23:00', 15, '23:15'],
-    ['23:45', 15, '00:00'],
-    ['00:00', -15, '23:45'],
-    ['07:00', -60, '06:00'],
-  ] as const)('%s %+d min → %s', (time, minutes, expected) => {
-    expect(shiftTime(time, minutes)).toBe(expected);
   });
 });

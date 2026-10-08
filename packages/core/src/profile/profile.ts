@@ -1,3 +1,4 @@
+import { minutesOf } from '../shared/clock-time';
 import { dayNumber, daysBetween, type LocalDate } from '../shared/local-date';
 
 /**
@@ -18,13 +19,6 @@ export function ageOn({
   const years = Number(today.slice(0, 4)) - Number(ageSetOn.slice(0, 4));
   const beforeAnniversary = today.slice(5) < ageSetOn.slice(5);
   return ageYears + Math.max(0, years - (beforeAnniversary ? 1 : 0));
-}
-
-/** Minutes since midnight of a local "HH:MM". */
-function minutesOf(time: string): number {
-  const match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(time);
-  if (!match) throw new RangeError(`not a time (HH:MM): ${time}`);
-  return Number(match[1]) * 60 + Number(match[2]);
 }
 
 function spanMinutes({ start, end }: { start: string; end: string }): number {

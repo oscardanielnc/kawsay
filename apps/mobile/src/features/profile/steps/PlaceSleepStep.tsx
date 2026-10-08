@@ -1,3 +1,4 @@
+import { shiftTime } from '@kawsay/core/shared/clock-time';
 import { useTranslation } from 'react-i18next';
 import { Text } from 'react-native';
 import { color, type } from '@/lib/theme';
@@ -5,7 +6,6 @@ import { Card } from '@/components/layout/Card';
 import { Segmented } from '@/components/forms/Segmented';
 import { Stepper } from '@/components/forms/Stepper';
 import { Toggle } from '@/components/forms/Toggle';
-import { shiftTime } from '../draft';
 import type { StepProps } from './BodyStep';
 
 const STEP_MIN = 15;

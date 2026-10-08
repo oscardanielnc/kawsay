@@ -109,13 +109,6 @@ export function toProfileInput(draft: Draft, today: LocalDate): ProfileInput {
   };
 }
 
-/** "HH:MM" moved by some minutes, wrapping around midnight. */
-export function shiftTime(time: string, minutes: number): string {
-  const [hours = 0, mins = 0] = time.split(':').map(Number);
-  const total = (((hours * 60 + mins + minutes) % 1440) + 1440) % 1440;
-  return `${String(Math.floor(total / 60)).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
-}
-
 /** The stored profile as an editable draft (Profile settings reuse the onboarding steps). */
 export function profileToDraft(profile: Profile, today: LocalDate, weightKg: number): Draft {
   const weeksLeft = profile.goalDate

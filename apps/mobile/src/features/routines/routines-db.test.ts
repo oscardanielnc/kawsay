@@ -1,7 +1,9 @@
 /** @jest-environment node */
 import { createTestDb } from '@/lib/db/test-db';
 import type { RecordEnv } from '@/lib/db/types';
+import { activitiesOn, addActivity } from '@/features/activity/activity-db';
 import { deleteRoutine, listRoutines, saveRoutine, type RoutineInput } from './routines-db';
+import { sessionOf } from './session';
 
 function env(): RecordEnv {
   let now = Date.UTC(2026, 9, 8, 12);
@@ -65,5 +67,32 @@ describe('routines (F18)', () => {
     const { id } = await saveRoutine(db, e, strengthA);
     await deleteRoutine(db, e, id);
     expect(await listRoutines(db)).toEqual([]);
+  });
+
+  it('editing a routine does not change sessions already logged (F18)', async () => {
+    const db = await createTestDb();
+    const e = env();
+    const { id } = await saveRoutine(db, e, strengthA);
+    const [saved] = await listRoutines(db);
+    const session = sessionOf(saved!, { completion: 1 }, 1717.5);
+    await addActivity(db, e, {
+      date: '2026-10-08',
+      timeZone: 'America/Lima',
+      kind: 'routine',
+      intensity: null,
+      minutes: session.minutes,
+      met: session.met,
+      timeBand: 'morning',
+      routineId: id,
+    });
+    await saveRoutine(db, e, {
+      ...strengthA,
+      id,
+      restSeconds: 30,
+      exercises: strengthA.exercises.slice(0, 2),
+    });
+    expect(await activitiesOn(db, '2026-10-08')).toEqual([
+      expect.objectContaining({ routineId: id, minutes: session.minutes, met: session.met }),
+    ]);
   });
 });

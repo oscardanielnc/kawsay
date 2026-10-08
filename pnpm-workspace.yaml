@@ -1,3 +1,7 @@
 packages:
   - apps/*
   - packages/*
+# Install scripts are denied unless listed here (pnpm 12 default).
+allowBuilds:
+  # Ships prebuilt binaries; its postinstall is only a fallback download.
+  unrs-resolver: false

@@ -1,0 +1,15 @@
+{
+  "tabs": {
+    "today": "Hoy",
+    "calendar": "Calendario",
+    "log": "Registrar",
+    "insights": "Análisis",
+    "profile": "Perfil"
+  },
+  "today": {
+    "title": "Hoy"
+  },
+  "common": {
+    "comingSoon": "Pronto"
+  }
+}

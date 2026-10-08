@@ -15,6 +15,12 @@ export interface ActivityBlock {
   hours: number;
 }
 
+/** A block whose kcal were already computed, e.g. a routine session (F18). */
+export interface ComputedBlock {
+  hours: number;
+  kcal: number;
+}
+
 /** kcal above rest for one block: (MET − 1) × (BMR / 24) × hours × 1.10 (ADR 0009, F08). */
 export function activityKcal({ met, hours, bmrKcal }: ActivityBlock & { bmrKcal: number }): number {
   assertPositive({ bmrKcal });
@@ -36,12 +42,12 @@ export function dayActivityKcal({
 }: {
   bmrKcal: number;
   wakingHours: number;
-  blocks: readonly ActivityBlock[];
+  blocks: readonly (ActivityBlock | ComputedBlock)[];
 }): number {
   const loggedHours = blocks.reduce((sum, block) => sum + block.hours, 0);
   const baselineHours = Math.max(0, wakingHours - loggedHours);
   return [...blocks, { met: BASELINE_MET, hours: baselineHours }].reduce(
-    (sum, block) => sum + activityKcal({ ...block, bmrKcal }),
+    (sum, block) => sum + ('kcal' in block ? block.kcal : activityKcal({ ...block, bmrKcal })),
     0,
   );
 }

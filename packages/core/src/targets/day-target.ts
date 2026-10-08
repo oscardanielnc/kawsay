@@ -19,22 +19,24 @@ export interface DayTarget {
 /**
  * Day target = expenditure − deficit, never below BMR (ADR 0009).
  * `activityKcal` comes from `dayActivityKcal`, which already includes the thermic effect of food.
- * A goal that is not a loss (`goalKgPerWeek >= 0`) means no deficit.
+ * A goal that is not a loss (`goalKgPerWeek >= 0`) means no deficit. `expenditureFactor` comes from `recalibrate`.
  */
 export function dayTarget({
   bmrKcal,
   activityKcal,
   weightKg,
   goalKgPerWeek,
+  expenditureFactor = 1,
 }: {
   bmrKcal: number;
   activityKcal: number;
   weightKg: number;
   goalKgPerWeek: number;
+  expenditureFactor?: number;
 }): DayTarget {
-  assertPositive({ bmrKcal, weightKg });
+  assertPositive({ bmrKcal, weightKg, expenditureFactor });
   assertAtLeast(0, { activityKcal });
-  const expenditureKcal = bmrKcal * THERMIC_EFFECT_OF_FOOD + activityKcal;
+  const expenditureKcal = (bmrKcal * THERMIC_EFFECT_OF_FOOD + activityKcal) * expenditureFactor;
   const deficitKcal = Math.min(
     (Math.max(0, -goalKgPerWeek) * KCAL_PER_KG) / 7,
     (MAX_WEEKLY_LOSS_SHARE * weightKg * KCAL_PER_KG) / 7,

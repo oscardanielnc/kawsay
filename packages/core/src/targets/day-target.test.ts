@@ -18,6 +18,17 @@ describe('dayTarget: expenditure − deficit, never below BMR (ADR 0009)', () =>
     expect(day.expenditureKcal).toBeCloseTo(2000 * 1.1 + 300, 10);
   });
 
+  it('scales the expenditure by the recalibration factor, but the floor stays the BMR', () => {
+    const day = dayTarget({
+      bmrKcal: 2000,
+      activityKcal: 300,
+      weightKg: 80,
+      goalKgPerWeek: 0,
+      expenditureFactor: 0.9,
+    });
+    expect(day.expenditureKcal).toBeCloseTo((2000 * 1.1 + 300) * 0.9, 10);
+  });
+
   it('caps the deficit at 1% of body weight per week', () => {
     const day = dayTarget({ bmrKcal: 2000, activityKcal: 1000, weightKg: 60, goalKgPerWeek: -1 });
     expect(day.deficitKcal).toBeCloseTo((0.6 * 7700) / 7, 10);

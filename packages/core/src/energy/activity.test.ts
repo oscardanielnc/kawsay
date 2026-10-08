@@ -45,6 +45,19 @@ describe('dayActivityKcal: unlogged waking hours count as "Sitting and short wal
     expect(withStairs - base).toBeCloseTo(((6.8 - 1.4) * bmrKcal * 0.5 * 1.1) / 24, 6);
   });
 
+  it('a block with computed kcal (a routine session) adds them as they are', () => {
+    const base = dayActivityKcal({ bmrKcal, wakingHours: 16, blocks: [] });
+    const withRoutine = dayActivityKcal({
+      bmrKcal,
+      wakingHours: 16,
+      blocks: [{ hours: 0.5, kcal: 150 }],
+    });
+    expect(withRoutine - base).toBeCloseTo(
+      150 - activityKcal({ met: 1.4, hours: 0.5, bmrKcal }),
+      10,
+    );
+  });
+
   it('logged hours beyond the waking hours leave no negative baseline', () => {
     expect(dayActivityKcal({ bmrKcal, wakingHours: 1, blocks: [{ met: 3, hours: 2 }] })).toBe(
       activityKcal({ met: 3, hours: 2, bmrKcal }),

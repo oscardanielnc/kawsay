@@ -2402,6 +2402,38 @@
    "note": ""
   },
   {
+   "id": "frutos-secos",
+   "name": "Frutos secos (mix)",
+   "group": "sweet",
+   "icon": "nuez",
+   "confidence": "medium",
+   "serving": "1 puñado (30 g)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "mani-tostado",
+     "grams": 9
+    },
+    {
+     "food": "almendra",
+     "grams": 6
+    },
+    {
+     "food": "nuez",
+     "grams": 5
+    },
+    {
+     "food": "arandano-seco",
+     "grams": 6
+    },
+    {
+     "food": "pasas",
+     "grams": 4
+    }
+   ],
+   "note": "Plaza Vea mix; a label photo of the bag would replace this recipe"
+  },
+  {
    "id": "pionono",
    "name": "Pionono",
    "group": "sweet",
@@ -2599,7 +2631,7 @@
   },
   {
    "id": "salsa-acevichada",
-   "name": "Salsa acevichada",
+   "name": "Salsa acevichada (casera)",
    "group": "sauce",
    "icon": "nuez",
    "confidence": "medium",

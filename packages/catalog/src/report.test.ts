@@ -19,8 +19,13 @@ describe('renderReport', () => {
     }
   });
 
-  it('names the unmatched food and why', () => {
-    expect(report).toMatch(/manjar-blanco.*Not in INS 2023/);
+  it('the real seed leaves nothing unmatched and no label to read', () => {
+    expect(report).toMatch(/## Unmatched\n\n_None._/);
+    expect(report).toMatch(/## Labels to read\n\n_None._/);
+  });
+
+  it('names each proxy and why', () => {
+    expect(report).toMatch(/manjar-blanco.*Leche condensada/);
   });
 
   it('shows each conversion with its source', () => {

@@ -480,6 +480,21 @@
     }
    ]
   },
+  "atun-lata": {
+   "name": "Atún en lata (escurrido)",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 lata escurrida",
+     "grams": 120
+    },
+    {
+     "label": "½ lata",
+     "grams": 60
+    }
+   ]
+  },
   "leche-evaporada": {
    "name": "Leche evaporada",
    "source": "INS",
@@ -567,7 +582,7 @@
   },
   "yogurt-bebible": {
    "name": "Yogurt bebible",
-   "source": "label",
+   "source": "INS",
    "state": "as-sold",
    "units": [
     {
@@ -577,15 +592,53 @@
    ]
   },
   "yogurt-griego": {
-   "name": "Yogurt griego natural",
+   "name": "Yogurt griego Laive (frutos rojos, sin azúcar añadida)",
    "source": "label",
    "state": "as-sold",
    "units": [
     {
+     "label": "1 porción",
+     "grams": 200
+    },
+    {
      "label": "½ taza",
      "grams": 120
+    },
+    {
+     "label": "1 envase",
+     "grams": 800
     }
-   ]
+   ],
+   "label": {
+    "servingGrams": 200,
+    "kcal": 161,
+    "fat": 4.9,
+    "saturatedFat": 2.0,
+    "transFat": 0.2,
+    "sodiumMg": 142,
+    "carbs": 19.2,
+    "sugars": 12.0,
+    "addedSugars": 0.0,
+    "protein": 10.0,
+    "calciumMg": 354,
+    "phosphorusMg": 293,
+    "magnesiumMg": 35,
+    "per100g": {
+     "kcal": 80,
+     "fat": 2.4,
+     "saturatedFat": 1.0,
+     "transFat": 0.1,
+     "sodiumMg": 71,
+     "carbs": 9.6,
+     "sugars": 6.0,
+     "addedSugars": 0.0,
+     "protein": 5.0,
+     "calciumMg": 177,
+     "phosphorusMg": 147,
+     "magnesiumMg": 17
+    },
+    "from": "package label photo (Laive), 2026-10-08"
+   }
   },
   "helado-crema": {
    "name": "Helado de crema",
@@ -599,8 +652,19 @@
    ]
   },
   "helado-paleta": {
-   "name": "Helado de paleta",
-   "source": "label",
+   "name": "Helado de paleta (de agua o fruta)",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 paleta",
+     "grams": 60
+    }
+   ]
+  },
+  "helado-paleta-chocolate": {
+   "name": "Helado de paleta con cobertura de chocolate",
+   "source": "USDA",
    "state": "as-sold",
    "units": [
     {
@@ -621,7 +685,7 @@
    ]
   },
   "whey": {
-   "name": "Proteína whey (polvo)",
+   "name": "Proteína whey chocolate (Iovate)",
    "source": "label",
    "state": "as-sold",
    "units": [
@@ -631,9 +695,25 @@
     },
     {
      "label": "1 scoop",
-     "grams": 30
+     "grams": 33
     }
-   ]
+   ],
+   "label": {
+    "servingGrams": 33,
+    "kcal": 120,
+    "fat": 2,
+    "saturatedFat": 1.5,
+    "cholesterolMg": 65,
+    "carbs": 2,
+    "sugars": 2,
+    "addedSugars": 0,
+    "protein": 24,
+    "calciumMg": 110,
+    "ironMg": 0.6,
+    "sodiumMg": 150,
+    "potassiumMg": 190,
+    "from": "package label photo, 2026-10-09"
+   }
   },
   "lentejas": {
    "name": "Lentejas cocidas",
@@ -1355,8 +1435,8 @@
    ]
   },
   "mayonesa": {
-   "name": "Mayonesa",
-   "source": "INS",
+   "name": "Mayonesa (AlaCena)",
+   "source": "label",
    "state": "as-sold",
    "units": [
     {
@@ -1371,7 +1451,20 @@
      "label": "1 cda",
      "grams": 15
     }
-   ]
+   ],
+   "label": {
+    "servingGrams": 15,
+    "kcal": 110,
+    "protein": 0,
+    "carbs": 0,
+    "sugars": 0,
+    "fiber": 0,
+    "fat": 12,
+    "saturatedFat": 2,
+    "transFat": 0,
+    "sodiumMg": 81,
+    "from": "package label photo, 2026-10-09"
+   }
   },
   "ketchup": {
    "name": "Ketchup",
@@ -1388,13 +1481,17 @@
     },
     {
      "label": "1 cda",
-     "grams": 15
+     "grams": 17
+    },
+    {
+     "label": "1 sobre",
+     "grams": 10
     }
    ]
   },
   "mostaza": {
-   "name": "Mostaza",
-   "source": "USDA",
+   "name": "Mostaza (AlaCena)",
+   "source": "label",
    "state": "as-sold",
    "units": [
     {
@@ -1406,10 +1503,34 @@
      "grams": 20
     },
     {
-     "label": "1 cda",
-     "grams": 15
+     "label": "1 cdta",
+     "grams": 5
     }
-   ]
+   ],
+   "label": {
+    "servingGrams": 5,
+    "kcal": 5,
+    "protein": 0.22,
+    "carbs": 0,
+    "sugars": 0.04,
+    "fiber": 0.2,
+    "fat": 0.25,
+    "saturatedFat": 0,
+    "transFat": 0,
+    "sodiumMg": 34,
+    "per100g": {
+     "kcal": 65,
+     "protein": 4,
+     "carbs": 0,
+     "sugars": 0.9,
+     "fiber": 4,
+     "fat": 5,
+     "saturatedFat": 0,
+     "transFat": 0,
+     "sodiumMg": 676
+    },
+    "from": "package label photo, 2026-10-09"
+   }
   },
   "sillao": {
    "name": "Sillao (salsa de soya)",
@@ -1423,7 +1544,7 @@
    ]
   },
   "mayopalta": {
-   "name": "Mayonesa sabor palta",
+   "name": "Mayopalta (Aliexperú)",
    "source": "label",
    "state": "as-sold",
    "units": [
@@ -1439,7 +1560,63 @@
      "label": "1 cda",
      "grams": 15
     }
-   ]
+   ],
+   "label": {
+    "servingGrams": 15,
+    "kcal": 110,
+    "fat": 11,
+    "saturatedFat": 3,
+    "transFat": 0,
+    "monounsaturatedFat": 7,
+    "polyunsaturatedFat": 1,
+    "cholesterolMg": 5,
+    "sodiumMg": 70,
+    "carbs": 0,
+    "fiber": 0,
+    "sugars": 0,
+    "addedSugars": 0,
+    "protein": 1,
+    "vitaminDUg": 0,
+    "calciumMg": 0,
+    "ironMg": 0,
+    "potassiumMg": 0,
+    "from": "package label photo, 2026-10-09"
+   }
+  },
+  "salsa-acevichada-envasada": {
+   "name": "Salsa acevichada (envasada)",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 40
+    },
+    {
+     "label": "½ porción",
+     "grams": 20
+    },
+    {
+     "label": "1 cda",
+     "grams": 20
+    }
+   ],
+   "label": {
+    "servingGrams": 20,
+    "kcal": 70,
+    "fat": 7,
+    "saturatedFat": 1,
+    "polyunsaturatedFat": 4,
+    "monounsaturatedFat": 2,
+    "transFat": 0,
+    "cholesterolMg": 0,
+    "sodiumMg": 121,
+    "carbs": 1,
+    "fiber": 0,
+    "sugars": 1,
+    "protein": 0,
+    "from": "package label photo, 2026-10-09"
+   }
   },
   "tari": {
    "name": "Tarí (crema de ají Alacena)",
@@ -1460,14 +1637,14 @@
     }
    ],
    "label": {
-    "servingGrams": null,
+    "servingGrams": 15,
     "kcal": 70,
     "carbs": 2,
     "sugars": 0,
     "fat": 6,
     "protein": 0,
     "sodiumMg": 160,
-    "from": "plazavea.com.pe product page, read 2026-10-07; serving size missing: read it on the package"
+    "from": "plazavea.com.pe product page, read 2026-10-07; serving size missing: read it on the package; serving size assumed 15 g (1 cda, the AlaCena standard) until the package is read"
    }
   },
   "perejil": {
@@ -1516,7 +1693,7 @@
   },
   "galleta-vainilla": {
    "name": "Galleta de vainilla",
-   "source": "label",
+   "source": "INS",
    "state": "as-sold",
    "units": [
     {
@@ -1542,29 +1719,119 @@
    "state": "as-sold",
    "units": [
     {
-     "label": "1 galleta",
+     "label": "1 Chokosoda",
      "grams": 36
     }
    ],
    "label": {
     "servingGrams": 36,
-    "kcal": 170,
-    "carbs": 25,
-    "sugars": 14,
+    "kcal": 180,
     "fat": 8,
+    "saturatedFat": 7,
+    "transFat": 0,
+    "monounsaturatedFat": 1,
+    "polyunsaturatedFat": 0,
+    "cholesterolMg": 0,
+    "sodiumMg": 125,
+    "ironMg": 1.64,
+    "carbs": 25,
+    "fiber": 0.5,
+    "sugars": 14,
     "protein": 1.5,
-    "sodiumMg": 120,
-    "from": "plazavea.com.pe product page, read 2026-10-07"
+    "from": "package label photo, 2026-10-09; fibre declared as <1 g, stored as 0.5"
    }
   },
   "galleta-chispas": {
-   "name": "Galleta con chispas de chocolate",
+   "name": "Choco Chips (galleta con chispas de chocolate)",
    "source": "label",
    "state": "as-sold",
    "units": [
     {
      "label": "1 galleta",
-     "grams": null
+     "grams": 34
+    },
+    {
+     "label": "1 paquete (6)",
+     "grams": 204
+    }
+   ],
+   "label": {
+    "servingGrams": 34,
+    "kcal": 162,
+    "fat": 7.1,
+    "saturatedFat": 3.9,
+    "transFat": 0.0,
+    "sodiumMg": 93.5,
+    "carbs": 22.1,
+    "sugars": 17.5,
+    "fiber": 0.9,
+    "protein": 2.4,
+    "per100g": {
+     "kcal": 476.4,
+     "fat": 20.8,
+     "saturatedFat": 11.4,
+     "transFat": 0.0,
+     "sodiumMg": 275.0,
+     "carbs": 65.1,
+     "sugars": 51.5,
+     "fiber": 2.6,
+     "protein": 7.2
+    },
+    "from": "package label photo, 2026-10-08"
+   }
+  },
+  "mani-tostado": {
+   "name": "Maní tostado",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 puñado",
+     "grams": 30
+    }
+   ]
+  },
+  "almendra": {
+   "name": "Almendra",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "10 almendras",
+     "grams": 12
+    }
+   ]
+  },
+  "nuez": {
+   "name": "Nuez",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "3 mitades",
+     "grams": 10
+    }
+   ]
+  },
+  "arandano-seco": {
+   "name": "Arándano deshidratado",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 10
+    }
+   ]
+  },
+  "pasas": {
+   "name": "Pasas",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 10
     }
    ]
   },
@@ -1611,12 +1878,16 @@
   },
   "galleta-kiwicha": {
    "name": "Galleta de kiwicha",
-   "source": "label",
+   "source": "INS",
    "state": "as-sold",
    "units": [
     {
+     "label": "1 galleta",
+     "grams": 10
+    },
+    {
      "label": "1 paquete",
-     "grams": null
+     "grams": 40
     }
    ]
   }

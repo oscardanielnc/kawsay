@@ -1,6 +1,6 @@
 # Food seed
 
-- Status: Draft 2026-10-07 · 78 dishes · 133 foods · data in `packages/catalog/seed/` (ADR 0014)
+- Status: Draft 2026-10-07 · 78 dishes · 136 foods · data in `packages/catalog/seed/` (ADR 0014)
 - Review once: amounts are typical servings, grams as eaten; nutrients are computed at import from INS / USDA / labels
 - Confidence: 🟢 standard recipe · 🟡 typical, varies by cook · 🔴 rough, check first
 - **Sauces and creams: 1 portion = 40 g** (½ portion = 20 g); bottled ones are foods with the same portions
@@ -124,27 +124,39 @@
 | Salsa tártara | 1 porción (40 g) | mayonesa 32 · cebolla roja 5 · pepino 3 | 🟡 |
 | Crema de ají (casera) | 1 porción (40 g) | ají amarillo 15 · mayonesa 12 · queso fresco 5 · leche evaporada 5 · aceite vegetal 3 | 🔴 |
 | Ají de cocona | 1 porción (40 g) | cocona 30 · cebolla roja 5 · ají charapita 1 · culantro 1 · limón 3 | 🟡 |
-| Salsa acevichada | 1 porción (40 g) | mayonesa 28 · limón 6 · ají amarillo 4 · sillao 2 | 🟡 |
+| Salsa acevichada (casera) | 1 porción (40 g) | mayonesa 28 · limón 6 · ají amarillo 4 · sillao 2 | 🟡 |
 | Chimichurri | 1 porción (40 g) | aceite vegetal 20 · perejil 10 · vinagre 5 · ajo 2 · ají charapita 2 · orégano seco 1 | 🟡 |
 | Crema de aceituna | 1 porción (40 g) | aceituna de botija 15 · mayonesa 15 · leche evaporada 8 · aceite vegetal 2 | 🔴 |
 
 ## Foods
 
-All 133 foods can also be logged on their own (fruit, vegetables, sauces…). Full list with household units: `packages/catalog/seed/foods.json`.
+All 136 foods can also be logged on their own (fruit, vegetables, sauces…). Full list with household units: `packages/catalog/seed/foods.json`.
 
 ## Branded items (values from the package label)
 
 | Item | Status |
 | --- | --- |
-| Yogurt bebible | 📷 needs a label photo |
 | Yogurt griego Laive (frutos rojos, sin azúcar añadida) | ✅ 161 kcal per 200 g |
-| Helado de paleta | 📷 needs a label photo |
-| Proteína whey (polvo) | 📷 needs a label photo |
-| Mayonesa sabor palta | 📷 needs a label photo |
-| Tarí (crema de ají Alacena) | 🟡 70 kcal per serving, serving size missing: read it on the package |
-| Galleta de vainilla | 📷 needs a label photo |
-| Chokosoda (Field) | ✅ 170 kcal per 36 g |
+| Proteína whey chocolate (Iovate) | ✅ 120 kcal per 33 g |
+| Mayonesa (AlaCena) | ✅ 110 kcal per 15 g |
+| Mostaza (AlaCena) | ✅ 5 kcal per 5 g |
+| Mayopalta (Aliexperú) | ✅ 110 kcal per 15 g |
+| Salsa acevichada (envasada) | ✅ 70 kcal per 20 g |
+| Tarí (crema de ají Alacena) | 🟡 70 kcal per 15 g (serving size assumed) |
+| Chokosoda (Field) | ✅ 180 kcal per 36 g |
 | Choco Chips (galleta con chispas de chocolate) | ✅ 162 kcal per 34 g |
 | Oreo chocolate | ✅ 170 kcal per 36 g |
 | Morochas (Nestlé) | ✅ 98 kcal per 16 g |
-| Galleta de kiwicha | 📷 needs a label photo |
+
+## Generic values until a label photo
+
+| Item | Source used |
+| --- | --- |
+| Ketchup | USDA 168556 Catsup |
+| Yogurt bebible | INS G26 Yogurt bebible de fresa |
+| Helado de paleta (de agua o fruta) | USDA 168813 ice pop |
+| Helado de paleta con cobertura de chocolate | USDA 171294 ice cream bar with coating |
+| Galleta de vainilla | INS A25 Galleta de vainilla (dulce) |
+| Galleta de kiwicha | INS A89 sweet oat cookie (proxy) |
+| Manjar blanco | INS G3 leche condensada (proxy) |
+| Atún en lata (any brand) | INS E19 atún en conserva |

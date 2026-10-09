@@ -169,6 +169,11 @@
   "kanikama": {
    "usda": 173702
   },
+  "atun-lata": {
+   "ins": "E19",
+   "fill": 173708,
+   "note": "Any brand: INS generic canned tuna; B12 and vitamin D from USDA light tuna in oil"
+  },
   "leche-evaporada": {
    "ins": "G7",
    "fill": 171276
@@ -197,8 +202,9 @@
    "fill": 173410
   },
   "yogurt-bebible": {
-   "label": true,
-   "insAlternative": "G17"
+   "ins": "G26",
+   "fill": 170889,
+   "note": "Generic value until a label photo arrives (INS yogurt bebible de fresa)"
   },
   "yogurt-griego": {
    "label": true,
@@ -208,10 +214,17 @@
    "usda": 167575
   },
   "helado-paleta": {
-   "label": true
+   "usda": 168813,
+   "note": "Generic value until a label photo arrives"
+  },
+  "helado-paleta-chocolate": {
+   "usda": 171294,
+   "note": "Generic value until a label photo arrives"
   },
   "manjar-blanco": {
-   "unmatched": "Not in INS 2023 nor USDA SR Legacy; read the label of a local brand"
+   "ins": "G3",
+   "fill": 171275,
+   "proxy": "Leche condensada endulzada: manjar blanco is condensed milk cooked down, similar energy"
   },
   "whey": {
    "label": true,
@@ -481,19 +494,25 @@
    "plant": true
   },
   "mayonesa": {
-   "ins": "L42"
+   "label": true,
+   "insAlternative": "L42"
   },
   "ketchup": {
-   "usda": 168556
+   "usda": 168556,
+   "note": "Generic ketchup; the red Yichang sachet (313 kcal and 65 g sugar per 100 g) was not ketchup"
   },
   "mostaza": {
-   "usda": 172234
+   "label": true,
+   "usdaAlternative": 172234
   },
   "sillao": {
    "ins": "L48",
    "plant": true
   },
   "mayopalta": {
+   "label": true
+  },
+  "salsa-acevichada-envasada": {
    "label": true
   },
   "tari": {
@@ -515,8 +534,9 @@
    "usda": 172706
   },
   "galleta-vainilla": {
-   "label": true,
-   "insAlternative": "A25"
+   "ins": "A25",
+   "plant": true,
+   "note": "Generic value until a label photo arrives"
   },
   "pizza": {
    "usda": 173295
@@ -534,7 +554,30 @@
    "label": true
   },
   "galleta-kiwicha": {
-   "label": true
+   "ins": "A89",
+   "plant": true,
+   "proxy": "Galleta dulce con avena y pasas: INS has no kiwicha cookie",
+   "note": "Generic value until a label photo arrives; package weight estimated"
+  },
+  "mani-tostado": {
+   "ins": "D16",
+   "plant": true
+  },
+  "almendra": {
+   "ins": "D10",
+   "plant": true
+  },
+  "nuez": {
+   "ins": "D22",
+   "plant": true
+  },
+  "arandano-seco": {
+   "usda": 171723,
+   "note": "INS has no dried cranberry; USDA sweetened dried cranberries"
+  },
+  "pasas": {
+   "ins": "C60",
+   "plant": true
   }
  },
  "groupS": {

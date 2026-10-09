@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { ActivityIcon } from '@/components/data-display/ActivityIcon';
 import { Stepper } from '@/components/forms/Stepper';
+import { Toggle } from '@/components/forms/Toggle';
 import { Button } from '@/components/primitives/Button';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
@@ -45,6 +46,12 @@ export function RoutineEditor({
         value={`${draft.restSeconds} s`}
         onDecrement={() => onChange({ ...draft, restSeconds: Math.max(0, draft.restSeconds - 15) })}
         onIncrement={() => onChange({ ...draft, restSeconds: draft.restSeconds + 15 })}
+      />
+      <Toggle
+        label={t('routines.byRounds')}
+        description={t('routines.byRoundsHint')}
+        value={draft.byRounds ?? false}
+        onChange={(byRounds) => onChange({ ...draft, byRounds })}
       />
       {draft.exercises.map((item, index) => {
         const energy = totals.perExercise[index];

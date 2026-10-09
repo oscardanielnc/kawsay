@@ -7,9 +7,10 @@ import { Toggle } from '@/components/forms/Toggle';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
 import type { Routine } from './routines-db';
+import { ROUND_CHOICES } from '@kawsay/core/energy/routine';
 import { plannedAmount, sessionOf } from './session';
 
-export type LogChoice = { completion: number } | { done: number[] };
+export type LogChoice = { completion: number } | { done: number[] } | { rounds: number };
 
 const SHARES = [1, 0.75, 0.5, 0.25] as const;
 
@@ -24,10 +25,15 @@ export function LogRoutine({
   onChange: (choice: LogChoice) => void;
 }) {
   const { t } = useTranslation();
+  const [rounds, setRounds] = useState(1);
   const [share, setShare] = useState(1);
   const [adjust, setAdjust] = useState(false);
   const [done, setDone] = useState(() => routine.exercises.map((e) => plannedAmount(e.exercise)));
-  const choice: LogChoice = adjust ? { done } : { completion: share };
+  const choice: LogChoice = routine.byRounds
+    ? { rounds }
+    : adjust
+      ? { done }
+      : { completion: share };
   const session = sessionOf(routine, choice, bmrKcal);
   const update = (next: { share?: number; adjust?: boolean; done?: number[] }) => {
     const nextShare = next.share ?? share;
@@ -46,6 +52,36 @@ export function LogRoutine({
           ? 'routines.unitMinutes'
           : 'routines.unitSets',
     );
+
+  const preview = (
+    <Text style={[type.heading, styles.preview]}>
+      {t('routines.logPreview', {
+        kcal: formatNumber(session.kcal),
+        minutes: formatNumber(session.minutes),
+      })}
+    </Text>
+  );
+
+  if (routine.byRounds) {
+    const at = ROUND_CHOICES.indexOf(rounds);
+    const pick = (index: number) => {
+      const next = ROUND_CHOICES[Math.min(ROUND_CHOICES.length - 1, Math.max(0, index))] ?? 1;
+      setRounds(next);
+      onChange({ rounds: next });
+    };
+    return (
+      <>
+        <Stepper
+          label={t('routines.roundsDone')}
+          hint={t('routines.roundsHint')}
+          value={formatNumber(rounds, rounds % 1 ? 1 : 0)}
+          onDecrement={() => pick(at - 1)}
+          onIncrement={() => pick(at + 1)}
+        />
+        {preview}
+      </>
+    );
+  }
 
   return (
     <>
@@ -76,12 +112,7 @@ export function LogRoutine({
             />
           ))
         : null}
-      <Text style={[type.heading, styles.preview]}>
-        {t('routines.logPreview', {
-          kcal: formatNumber(session.kcal),
-          minutes: formatNumber(session.minutes),
-        })}
-      </Text>
+      {preview}
     </>
   );
 }

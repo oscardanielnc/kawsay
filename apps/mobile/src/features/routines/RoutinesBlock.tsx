@@ -13,7 +13,10 @@ import { LogRoutine, type LogChoice } from './LogRoutine';
 import { RoutineEditor } from './RoutineEditor';
 import type { Routine, RoutineInput } from './routines-db';
 import { routineTotals, sessionOf } from './session';
-import { EXERCISE_TEMPLATES } from './templates';
+import { EXERCISE_TEMPLATES, ROUTINE_TEMPLATES, routineFromTemplate } from './templates';
+
+/** Order of the kinds in "+ Exercise". */
+const KIND_ORDER = ['weights', 'bodyweight', 'circuit', 'isometric', 'stairs', 'mobility'] as const;
 
 type Band = 'early' | 'morning' | 'midday' | 'afternoon' | 'night';
 const BANDS: readonly Band[] = ['early', 'morning', 'midday', 'afternoon', 'night'];
@@ -38,6 +41,7 @@ interface Props {
 type Mode =
   | { kind: 'log'; routine: Routine; choice: LogChoice; band: Band }
   | { kind: 'manage' }
+  | { kind: 'new' }
   | { kind: 'edit'; draft: RoutineInput }
   | { kind: 'templates'; draft: RoutineInput }
   | { kind: 'exercise'; draft: RoutineInput; index: number }
@@ -79,7 +83,13 @@ export function RoutinesBlock({ routines, bmrKcal, defaultBand, onLog, onSave, o
           const session = sessionOf(routine, choice, bmrKcal);
           const planned = routineTotals(routine, bmrKcal).minutes;
           const share =
-            'completion' in choice ? choice.completion : planned ? session.minutes / planned : 1;
+            'completion' in choice
+              ? choice.completion
+              : 'rounds' in choice
+                ? choice.rounds
+                : planned
+                  ? session.minutes / planned
+                  : 1;
           onLog({ routine, minutes: session.minutes, met: session.met, share, timeBand: band });
           close();
         }}
@@ -103,8 +113,56 @@ export function RoutinesBlock({ routines, bmrKcal, defaultBand, onLog, onSave, o
         <Button
           variant="secondary"
           label={t('routines.create')}
-          onPress={() => setMode({ kind: 'edit', draft: NEW_ROUTINE })}
+          onPress={() => setMode({ kind: 'new' })}
         />
+      </>
+    );
+    footer = <View />;
+  } else if (mode?.kind === 'new') {
+    title = t('routines.newTitle');
+    body = (
+      <>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t('routines.empty')}
+          onPress={() => setMode({ kind: 'edit', draft: NEW_ROUTINE })}
+          style={styles.row}
+        >
+          <Text style={[type.title, styles.accent]}>+</Text>
+          <View style={styles.grow}>
+            <Text style={[type.heading, styles.ink]}>{t('routines.empty')}</Text>
+            <Text style={[type.caption, styles.muted]}>{t('routines.emptyHint')}</Text>
+          </View>
+        </Pressable>
+        <Text style={[type.label, styles.muted]}>{t('routines.fromTemplate')}</Text>
+        {ROUTINE_TEMPLATES.map((template) => {
+          const minutes = routineTotals(
+            { id: '', ...template, exercises: [...template.exercises] },
+            bmrKcal,
+          ).minutes;
+          const summary = t(
+            template.byRounds ? 'routines.templateRounds' : 'routines.templateSummary',
+            {
+              count: template.exercises.length,
+              minutes: formatNumber(minutes),
+            },
+          );
+          return (
+            <Pressable
+              key={template.name}
+              accessibilityRole="button"
+              accessibilityLabel={`${template.name}. ${summary}`}
+              onPress={() => setMode({ kind: 'edit', draft: routineFromTemplate(template) })}
+              style={styles.row}
+            >
+              <ActivityIcon kind={template.exercises[0]?.exercise.kind ?? 'weights'} />
+              <View style={styles.grow}>
+                <Text style={[type.heading, styles.ink]}>{template.name}</Text>
+                <Text style={[type.caption, styles.muted]}>{summary}</Text>
+              </View>
+            </Pressable>
+          );
+        })}
       </>
     );
     footer = <View />;
@@ -139,20 +197,36 @@ export function RoutinesBlock({ routines, bmrKcal, defaultBand, onLog, onSave, o
   } else if (mode?.kind === 'templates') {
     const { draft } = mode;
     title = t('routines.addExerciseTitle');
-    body = EXERCISE_TEMPLATES.map((template) => (
-      <Pressable
-        key={template.name}
-        accessibilityRole="button"
-        accessibilityLabel={`${template.name}. ${t(`routines.kinds.${template.exercise.kind}`)}`}
-        onPress={() =>
-          setMode({ kind: 'edit', draft: { ...draft, exercises: [...draft.exercises, template] } })
-        }
-        style={styles.row}
-      >
-        <ActivityIcon kind={template.exercise.kind} />
-        <Text style={[type.heading, styles.ink, styles.grow]}>{template.name}</Text>
-        <Text style={[type.title, styles.accent]}>+</Text>
-      </Pressable>
+    body = KIND_ORDER.map((kind) => (
+      <View key={kind} style={styles.group}>
+        <Text style={[type.label, styles.muted]}>{t(`routines.kinds.${kind}`)}</Text>
+        {EXERCISE_TEMPLATES.filter((template) => template.exercise.kind === kind).map(
+          (template) => (
+            <Pressable
+              key={template.name}
+              accessibilityRole="button"
+              accessibilityLabel={`${template.name}. ${t(`routines.kinds.${kind}`)}`}
+              onPress={() =>
+                setMode({
+                  kind: 'edit',
+                  draft: {
+                    ...draft,
+                    exercises: [
+                      ...draft.exercises,
+                      { name: template.name, exercise: { ...template.exercise } },
+                    ],
+                  },
+                })
+              }
+              style={styles.row}
+            >
+              <ActivityIcon kind={kind} />
+              <Text style={[type.heading, styles.ink, styles.grow]}>{template.name}</Text>
+              <Text style={[type.title, styles.accent]}>+</Text>
+            </Pressable>
+          ),
+        )}
+      </View>
     ));
     footer = <View />;
   } else if (mode?.kind === 'exercise' || mode?.kind === 'stopwatch') {
@@ -244,6 +318,7 @@ export function RoutinesBlock({ routines, bmrKcal, defaultBand, onLog, onSave, o
 
 const styles = StyleSheet.create({
   block: { gap: space.sm },
+  group: { gap: space.sm },
   row: { flexDirection: 'row', alignItems: 'center', gap: space.md },
   grow: { flex: 1 },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },

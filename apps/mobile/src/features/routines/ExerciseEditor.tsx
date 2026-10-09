@@ -59,19 +59,25 @@ export function ExerciseEditor({ item, restSeconds, bmrKcal, onChange, onMeasure
         </>
       ) : null}
       {e.kind === 'mobility' ? step(t('routines.minutes'), e.minutes, '', 'minutes', 1, 1) : null}
-      {e.kind === 'weights' || e.kind === 'bodyweight' || e.kind === 'isometric'
+      {e.kind === 'weights' ||
+      e.kind === 'bodyweight' ||
+      e.kind === 'circuit' ||
+      e.kind === 'isometric'
         ? step(t('routines.sets'), e.sets, '', 'sets', 1, 1)
         : null}
       {e.kind === 'isometric'
         ? step(t('routines.seconds'), e.seconds, ' s', 'seconds', 5, 5)
         : null}
-      {e.kind === 'weights' || e.kind === 'bodyweight' ? (
+      {e.kind === 'weights' || e.kind === 'bodyweight' || e.kind === 'circuit' ? (
         <>
           {step(t('routines.reps'), e.reps, '', 'reps', 1, 1)}
           {step(t('routines.secondsPerRep'), e.secondsPerRep, ' s', 'secondsPerRep', 1, 1)}
         </>
       ) : null}
-      {e.kind === 'weights' || e.kind === 'bodyweight' || e.kind === 'isometric' ? (
+      {e.kind === 'weights' ||
+      e.kind === 'bodyweight' ||
+      e.kind === 'circuit' ||
+      e.kind === 'isometric' ? (
         <Toggle
           label={t('routines.perSide')}
           value={e.perSide ?? false}

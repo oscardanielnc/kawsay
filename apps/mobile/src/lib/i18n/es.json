@@ -260,6 +260,7 @@
     "kinds": {
       "weights": "Pesas",
       "bodyweight": "Peso corporal",
+      "circuit": "Circuito (cardio sin parar)",
       "isometric": "Isométrico",
       "stairs": "Escaleras (subir y bajar)",
       "mobility": "Movilidad"
@@ -298,7 +299,17 @@
     "unitMinutes": "min",
     "unitSets": "series",
     "logPreview": "+{{kcal}} kcal · {{minutes}} min de movimiento",
-    "editNamed": "Editar {{name}}"
+    "editNamed": "Editar {{name}}",
+    "byRounds": "Por rondas",
+    "byRoundsHint": "Defines una ronda; al registrarla eliges cuántas hiciste",
+    "roundsDone": "Rondas hechas",
+    "roundsHint": "De ½ a 6",
+    "newTitle": "Nueva rutina",
+    "empty": "Rutina vacía",
+    "emptyHint": "Eliges cada ejercicio",
+    "fromTemplate": "Desde plantilla",
+    "templateSummary": "{{count}} ejercicios · ≈ {{minutes}} min",
+    "templateRounds": "{{count}} ejercicios · {{minutes}} min por ronda"
   },
   "ranges": {
     "calories": "Calorías",

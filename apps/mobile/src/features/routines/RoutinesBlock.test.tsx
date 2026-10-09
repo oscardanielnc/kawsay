@@ -61,6 +61,7 @@ describe('RoutinesBlock (F18)', () => {
     await rendered;
     await fireEvent.press(screen.getByRole('button', { name: 'Gestionar' }));
     await fireEvent.press(screen.getByRole('button', { name: '+ Crear rutina' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Rutina vacía' }));
     await fireEvent.changeText(screen.getByLabelText('Nombre'), 'Escaleras + core');
     await fireEvent.press(screen.getByRole('button', { name: '+ Ejercicio' }));
     await fireEvent.press(screen.getByRole('button', { name: /^Escaleras/ }));
@@ -72,6 +73,51 @@ describe('RoutinesBlock (F18)', () => {
     expect(saved.exercises).toEqual([
       { name: 'Escaleras', exercise: { kind: 'stairs', laps: 8, lapSeconds: 70 } },
     ]);
+  });
+
+  it('"+ Crear rutina → Desde plantilla" copies Fuerza A into an editable routine', async () => {
+    const { onSave, rendered } = renderBlock([]);
+    await rendered;
+    await fireEvent.press(screen.getByRole('button', { name: 'Gestionar' }));
+    await fireEvent.press(screen.getByRole('button', { name: '+ Crear rutina' }));
+    await fireEvent.press(screen.getByRole('button', { name: /^Fuerza A\. 5 ejercicios/ }));
+    expect(screen.getByDisplayValue('Fuerza A')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('button', { name: 'Guardar rutina' }));
+    const [[saved]] = onSave.mock.calls as [[{ name: string; exercises: unknown[] }]];
+    expect(saved.name).toBe('Fuerza A');
+    expect(saved.exercises).toHaveLength(5);
+  });
+
+  it('a routine by rounds asks how many rounds were done; 3 rounds log 3 × its minutes', async () => {
+    const cardio = {
+      id: 'c1',
+      name: 'Cardio en el cuarto',
+      restSeconds: 20,
+      byRounds: true,
+      exercises: [
+        {
+          name: 'Marcha en el sitio',
+          exercise: {
+            kind: 'circuit' as const,
+            sets: 1,
+            reps: 40,
+            secondsPerRep: 1,
+            intensity: 'medium' as const,
+          },
+        },
+      ],
+    };
+    const { onLog, rendered } = renderBlock([cardio]);
+    await rendered;
+    await fireEvent.press(screen.getByRole('button', { name: /^Cardio en el cuarto/ }));
+    expect(screen.queryByText('¿Cuánto hiciste?')).toBeNull();
+    await fireEvent.press(screen.getByRole('button', { name: 'Más Rondas hechas' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Más Rondas hechas' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Más Rondas hechas' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Más Rondas hechas' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Guardar' }));
+    const [[logged]] = onLog.mock.calls as [[{ minutes: number }]];
+    expect(logged.minutes).toBeCloseTo(3, 10);
   });
 
   it('the editor explains each MET with its Compendium code', async () => {

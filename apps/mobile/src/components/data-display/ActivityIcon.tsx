@@ -33,6 +33,10 @@ const ICONS: Record<string, { color: string; shapes: Shape[] }> = {
     color: '#3D4C8C',
     shapes: [{ circle: [12, 5, 2] }, { d: 'M12 7v7M8 21l4-7 4 7M7 10h10' }],
   },
+  circuit: {
+    color: '#D9473B',
+    shapes: [{ circle: [12, 4, 2] }, { d: 'M12 6v6M12 12l-4 4M12 12l3 5M8 9l4 1 4-3' }],
+  },
   isometric: { color: '#255E3B', shapes: [{ d: 'M3 16h18M6 16l3-5h8' }, { circle: [18, 9, 2] }] },
   mobility: {
     color: '#9A6B00',

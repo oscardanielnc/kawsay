@@ -2,8 +2,18 @@ import type { ExpoConfig } from 'expo/config';
 import path from 'node:path';
 
 /** Font files embedded in the APK (design T2: Bricolage Grotesque titles, Figtree text). */
+/**
+ * Relative, with `/`: the path is part of the runtime fingerprint, so an absolute Windows path would give the build
+ * server another runtime version and OTA updates published from this PC would never reach the app.
+ */
 const font = (family: string, file: string) =>
-  path.join(path.dirname(require.resolve(`@expo-google-fonts/${family}/package.json`)), file);
+  path
+    .relative(
+      __dirname,
+      path.join(path.dirname(require.resolve(`@expo-google-fonts/${family}/package.json`)), file),
+    )
+    .split(path.sep)
+    .join('/');
 const FONTS = [
   font('bricolage-grotesque', '600SemiBold/BricolageGrotesque_600SemiBold.ttf'),
   font('bricolage-grotesque', '700Bold/BricolageGrotesque_700Bold.ttf'),

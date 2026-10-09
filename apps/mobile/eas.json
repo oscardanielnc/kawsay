@@ -4,7 +4,12 @@
     "appVersionSource": "remote"
   },
   "build": {
+    "base": {
+      "node": "24.19.0",
+      "pnpm": "12.6.0"
+    },
     "development": {
+      "extends": "base",
       "developmentClient": true,
       "distribution": "internal",
       "channel": "development",
@@ -16,6 +21,7 @@
       }
     },
     "personal": {
+      "extends": "base",
       "distribution": "internal",
       "channel": "production",
       "env": {
@@ -26,6 +32,7 @@
       }
     },
     "production": {
+      "extends": "base",
       "channel": "production",
       "env": {
         "APP_VARIANT": "production"

@@ -8,10 +8,13 @@ exposed through Cloudflare Tunnel (ADR 0011).
 | prod | `kawsay-prod` | 3100 | `https://kawsay.oscarnavarro.dev/v1` | Kawsay |
 | dev | `kawsay-dev` | 3101 | `https://kawsay-dev.oscarnavarro.dev/v1` | Kawsay Dev |
 
+Live since 2026-10-09 on the shared Oracle VM (ARM64, Oracle Linux 9), both environments, tunnel hostnames, nightly
+prod backup at 03:15 UTC (restore tested).
+
 ## Release
 
 ```bash
-./deploy/deploy.sh <user@vm> prod    # or dev
+DEPLOY_SSH_KEY=~/sentinel-prod.key ./deploy/deploy.sh opc@<vm-ip> prod    # or dev
 ```
 
 Ships the committed sources with `git archive`, builds on the VM, applies migrations on start, waits for

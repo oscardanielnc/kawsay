@@ -25,8 +25,7 @@ a permanent history: installing an APK per change, or depending on Metro, is not
   and applies the new version on the next launch
 - `runtimeVersion` uses the **appVersion** policy (2026-10-09: the fingerprint differs between Windows and the
   Linux build server in this pnpm monorepo). `src/native-manifest.test.ts` fails when a native dependency changes
-  without a version bump, so incompatible code never lands. Native changes need a new APK
-  incompatible code never lands. Native changes need a new APK, installed over the previous one
+  without a version bump, so incompatible code never lands. Native changes need a new APK, installed over the previous one
 - Native modules planned for v0.1 are added together before the first personal APK, so new APKs are rare
 
 ## Consequences

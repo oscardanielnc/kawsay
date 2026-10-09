@@ -59,7 +59,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "jest",
-    "release": "eas update --channel production --environment production --auto"
+    "release": "eas update --channel production --environment production --auto",
+    "eas-build-post-install": "pnpm --filter @kawsay/core --filter @kawsay/contracts --filter @kawsay/catalog build"
   },
   "private": true,
   "jest": {

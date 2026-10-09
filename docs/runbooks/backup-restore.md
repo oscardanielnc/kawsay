@@ -5,11 +5,12 @@ lives only on the owner's computer (ADR 0011). 30 days are kept on the VM.
 
 ## Set up (once)
 
-1. On your computer: `age-keygen -o kawsay-backup.key` (Windows: `winget install FiloSottile.age`). Keep the file in
-   your password manager; without it no backup can be read
-2. Copy the `# public key: age1…` value into `~/kawsay/deploy/backup-recipient.txt` on the VM
-3. On the VM: `sudo apt install -y age`, then `crontab -e` and add
-   `15 3 * * * ~/kawsay/deploy/backup.sh prod >> ~/kawsay-backups/backup.log 2>&1`
+1. On your computer (done 2026-10-09, `C:\Users\LENOVO\kawsay-backup.key`):
+   `docker run --rm alpine:3.22 sh -c "apk add -q age && age-keygen" > kawsay-backup.key`. Keep a copy in your
+   password manager; without it no backup can be read
+2. Copy the `age1…` public key into `~/kawsay/deploy/backup-recipient.txt` on the VM
+3. On the VM, `crontab -e`: `15 3 * * * ~/kawsay/deploy/backup.sh prod >> ~/kawsay-backups/backup.log 2>&1`.
+   `age` is not in the Oracle Linux repos: the script runs it from a small image (`deploy/age.Dockerfile`)
 4. Run `~/kawsay/deploy/backup.sh prod` once by hand and do the restore below on the dev environment
 
 ## Restore
@@ -17,7 +18,8 @@ lives only on the owner's computer (ADR 0011). 30 days are kept on the VM.
 ```bash
 # 1. Bring the backup to your computer and decrypt it there (the key never goes to the VM)
 scp <user@vm>:kawsay-backups/prod/<file>.dump.age .
-age --decrypt -i kawsay-backup.key -o kawsay.dump <file>.dump.age
+docker run --rm -v "$PWD:/w" alpine:3.22 sh -c \
+  "apk add -q age && age --decrypt -i /w/kawsay-backup.key -o /w/kawsay.dump /w/<file>.dump.age"
 
 # 2. Send the plain dump to the VM, restore it into the target environment, delete it
 scp kawsay.dump <user@vm>:/tmp/kawsay.dump

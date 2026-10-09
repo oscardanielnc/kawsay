@@ -13,11 +13,14 @@ RECIPIENT_FILE="deploy/backup-recipient.txt"
 DEST="$HOME/kawsay-backups/$ENVIRONMENT"
 [ -s "$RECIPIENT_FILE" ] || { echo "missing $RECIPIENT_FILE (age public key)" >&2; exit 1; }
 mkdir -p "$DEST"
+# age runs in a small image built once from deploy/age.Dockerfile (it is not in the Oracle Linux repos).
+docker image inspect kawsay-age >/dev/null 2>&1 || docker build -q -t kawsay-age -f deploy/age.Dockerfile deploy >/dev/null
+RECIPIENT="$(grep -v '^#' "$RECIPIENT_FILE" | head -1)"
 
 FILE="$DEST/kawsay-$ENVIRONMENT-$(date -u +%Y%m%dT%H%M%SZ).dump.age"
 docker compose -p "kawsay-$ENVIRONMENT" --env-file "deploy/$ENVIRONMENT.env" -f deploy/compose.yml \
   exec -T postgres pg_dump -U kawsay -d kawsay --format=custom \
-  | age --recipients-file "$RECIPIENT_FILE" > "$FILE.partial"
+  | docker run --rm -i kawsay-age --recipient "$RECIPIENT" > "$FILE.partial"
 mv "$FILE.partial" "$FILE"
 find "$DEST" -name '*.dump.age' -mtime +30 -delete
 echo "$(date -u +%FT%TZ) backup ok: $FILE ($(du -h "$FILE" | cut -f1))"

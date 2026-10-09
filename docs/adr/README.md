@@ -22,3 +22,4 @@ Template: [template.md](template.md).
 | [0015](0015-catalog-sources.md) | Catalog source files: INS 2023 from the PDF, USDA SR Legacy | Accepted |
 | [0016](0016-local-dates.md) | Days are local calendar days from the phone's time zone | Accepted |
 | [0017](0017-mobile-compose-layer.md) | A compose layer for what spans features on mobile | Accepted |
+| [0018](0018-sync-storage-and-change-tracking.md) | Sync storage on the server, change tracking on the phone | Accepted |

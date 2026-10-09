@@ -3,6 +3,8 @@ import { activityKcal } from './activity';
 import {
   equivalentMet,
   exerciseEnergy,
+  ROUND_CHOICES,
+  roundsSessionEnergy,
   routineSessionEnergy,
   withDone,
   type Exercise,
@@ -113,6 +115,51 @@ describe('routineSessionEnergy', () => {
     expect(() =>
       routineSessionEnergy({ exercises, restSeconds, bmrKcal, completion: 1.25 }),
     ).toThrow(RangeError);
+  });
+});
+
+describe('circuit: non-stop bodyweight cardio (F18)', () => {
+  it.each([
+    ['light', 3.5, '02034'],
+    ['medium', 5.0, '02035'],
+    ['hard', 6.0, '02032'],
+  ] as const)('circuit, %s → MET %d (%s)', (intensity, met, code) => {
+    const result = exerciseEnergy(
+      { kind: 'circuit', sets: 1, reps: 40, secondsPerRep: 1, intensity },
+      { restSeconds: 20, bmrKcal },
+    );
+    expect(result).toMatchObject({ met, code });
+  });
+
+  it('measures time like bodyweight: 1 × (10 reps × 2 s × 2 sides + 20 s rest) = 1 min', () => {
+    const circuit = exerciseEnergy(
+      { kind: 'circuit', sets: 1, reps: 10, secondsPerRep: 2, intensity: 'medium', perSide: true },
+      { restSeconds: 20, bmrKcal },
+    );
+    expect(circuit.minutes).toBe(1);
+  });
+});
+
+describe('roundsSessionEnergy: routines by rounds (F18)', () => {
+  const round: Exercise[] = [
+    { kind: 'circuit', sets: 1, reps: 40, secondsPerRep: 1, intensity: 'medium' },
+    { kind: 'circuit', sets: 1, reps: 10, secondsPerRep: 4, intensity: 'medium' },
+  ];
+
+  it('3 rounds record 3 × the minutes and kcal of one round', () => {
+    const one = routineSessionEnergy({ exercises: round, restSeconds: 20, bmrKcal, completion: 1 });
+    const three = roundsSessionEnergy({ exercises: round, restSeconds: 20, bmrKcal, rounds: 3 });
+    expect(three.minutes).toBeCloseTo(one.minutes * 3, 10);
+    expect(three.kcal).toBeCloseTo(one.kcal * 3, 10);
+  });
+
+  it('rounds go from ½ to 6 in halves', () => {
+    expect(ROUND_CHOICES).toEqual([0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6]);
+    for (const rounds of [0, 0.25, 6.5]) {
+      expect(() =>
+        roundsSessionEnergy({ exercises: round, restSeconds: 20, bmrKcal, rounds }),
+      ).toThrow(RangeError);
+    }
   });
 });
 

@@ -1,0 +1,2 @@
+# Env files with secrets are created on the VM and never committed.
+*.env

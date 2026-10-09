@@ -12,4 +12,5 @@ One line per file: what it holds and when to read it.
 | [design/direction.md](design/direction.md)               | Before building any UI: chosen direction, Today screen layout, time-entry rule      |
 | [design/tokens.md](design/tokens.md)                     | When styling: colors with contrast ratios, type, spacing, radii, motion             |
 | [conventions.md](conventions.md)                         | Before writing code: commands, commit rules, `core` rules                           |
-| runbooks/ *(at first deploy)*                            | Operating the system                                                                |
+| [runbooks/deploy.md](runbooks/deploy.md)                 | Releasing the API, first-time tunnel and account setup                              |
+| [runbooks/backup-restore.md](runbooks/backup-restore.md) | Setting up encrypted backups or restoring one                                       |

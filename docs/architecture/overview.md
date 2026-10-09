@@ -25,7 +25,7 @@
 | --- | --- | --- |
 | `packages/core` | Pure functions and value objects: BMR, MET → kcal, targets, weight trend, recalibration, day colour | nothing |
 | `packages/catalog` | Versioned seed data: INS/USDA foods, household units, seed dishes (ADR 0014) | nothing |
-| `packages/contracts` | Zod schemas for every API request/response and sync payload | `core` (types only) |
+| `packages/contracts` | Zod schemas for every API request/response and every synced record (ADR 0018) | nothing |
 | `packages/ui` | React Native components + Storybook | nothing app-specific |
 | `apps/mobile` | Feature folders, local DB, sync engine, i18n | `core`, `contracts`, `ui` |
 | `apps/api` | Hexagonal modules, Prisma, AI gateway | `core`, `contracts` |

@@ -1,0 +1,57 @@
+# API + Postgres on the Oracle VM (ADR 0011). One project per environment:
+#   docker compose -p kawsay-prod --env-file deploy/prod.env -f deploy/compose.yml up -d --build
+#   docker compose -p kawsay-dev  --env-file deploy/dev.env  -f deploy/compose.yml up -d --build
+# Cloudflare Tunnel reaches the API on 127.0.0.1:${API_PORT}; nothing listens on a public interface.
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: kawsay
+      # No default: compose fails loudly instead of starting with a guessable password.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in the env file}
+      POSTGRES_DB: kawsay
+    # Not published: only the API reaches it, over the compose network.
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U kawsay']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    pids_limit: 200
+
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      API_PORT: '3000'
+      DATABASE_URL: postgresql://kawsay:${POSTGRES_PASSWORD}@postgres:5432/kawsay
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:?set JWT_ACCESS_SECRET in the env file}
+    # Loopback only: an app reachable by the VM's IP would skip Cloudflare (the August 2026 incident on this VM).
+    ports:
+      - '127.0.0.1:${API_PORT:?set API_PORT in the env file}:3000'
+    # Hardening from that incident: immutable filesystem, no privilege gain, no capabilities, resource ceilings.
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=32m
+    mem_limit: 384m
+    cpus: 0.5
+    pids_limit: 100
+
+volumes:
+  pgdata:

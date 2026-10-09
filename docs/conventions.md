@@ -35,6 +35,17 @@ What the linter cannot enforce. Tooling versions: ADR 0012.
 - Schema change: edit `src/lib/db/schema.ts`, run `pnpm exec drizzle-kit generate --name <what>`, commit the
   `.sql`; DB tests use `createTestDb()` (real SQLite with the same migrations)
 
+- Sync (ADR 0018): a new synced table needs its schema in `packages/contracts/src/records.ts` (a test compares
+  both) and its outbox triggers in the migration that creates it
+
+## apps/api
+
+- Hexagonal modules (`domain` · `application` · `infrastructure` · `presentation`), ports as abstract classes
+- Unit tests `*.spec.ts` next to the code; e2e tests in `test/` run on a throwaway Postgres (Docker needed)
+- Request bodies are parsed with the `packages/contracts` schema (`ZodValidationPipe`)
+- Health data never reaches a log: unexpected errors are logged by name and code only (ADR 0013)
+- Local database: `docker compose up -d` (port 5433), then `pnpm --filter @kawsay/api db:migrate`
+
 ## packages/core
 
 - Pure functions, no imports outside the package (lint rule in `eslint.config.mjs`)

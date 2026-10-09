@@ -299,6 +299,16 @@ export const dishItem = sqliteTable(
   (t) => [index('dish_item_by_dish').on(t.dishId)],
 );
 
+/**
+ * Records changed on this phone and not yet pushed (ADR 0018). Filled by SQLite triggers on every synced table, so
+ * no feature code knows about sync; skipped while a pull is applied (`meta` key `sync.applying`).
+ */
+export const syncOutbox = sqliteTable('sync_outbox', {
+  seq: integer('seq').primaryKey({ autoIncrement: true }),
+  collection: text('collection').notNull(),
+  recordId: text('record_id').notNull(),
+});
+
 /** Key/value facts about the local database, e.g. the catalog version loaded. */
 export const meta = sqliteTable('meta', {
   key: text('key').primaryKey(),

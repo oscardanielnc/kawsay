@@ -2,6 +2,7 @@
 # Deploys the API to the Oracle VM (ADR 0011, runbook docs/runbooks/deploy.md).
 #
 #   ./deploy/deploy.sh <user@vm> [prod|dev]
+#   DEPLOY_SSH_KEY=~/sentinel-prod.key ./deploy/deploy.sh opc@<ip> prod
 #
 # Ships the committed API sources (never the working tree), builds the image on the VM, applies migrations on
 # start and waits for /v1/health. Idempotent: run it again for every release.
@@ -16,6 +17,7 @@ case "$ENVIRONMENT" in
 esac
 
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
+SSH=(ssh ${DEPLOY_SSH_KEY:+-i "$DEPLOY_SSH_KEY"})
 if ! git diff --quiet HEAD -- apps/api packages/contracts packages/config deploy; then
   echo "Uncommitted API changes: commit first, the VM only gets what is committed." >&2
   exit 1
@@ -25,10 +27,10 @@ echo "==> Shipping $(git rev-parse --short HEAD) to $TARGET:~/kawsay"
 git archive --format=tar HEAD \
   package.json pnpm-lock.yaml pnpm-workspace.yaml .dockerignore \
   packages/config packages/contracts apps/api deploy \
-  | ssh "$TARGET" 'mkdir -p ~/kawsay && tar -xf - -C ~/kawsay'
+  | "${SSH[@]}" "$TARGET" 'mkdir -p ~/kawsay && tar -xf - -C ~/kawsay'
 
 echo "==> Building and starting kawsay-$ENVIRONMENT on 127.0.0.1:$PORT"
-ssh "$TARGET" ENVIRONMENT="$ENVIRONMENT" PORT="$PORT" 'bash -s' <<'REMOTE'
+"${SSH[@]}" "$TARGET" ENVIRONMENT="$ENVIRONMENT" PORT="$PORT" 'bash -s' <<'REMOTE'
 set -euo pipefail
 cd ~/kawsay
 ENV_FILE="deploy/$ENVIRONMENT.env"

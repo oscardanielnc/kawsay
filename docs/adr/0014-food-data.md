@@ -20,7 +20,8 @@ nutrient numbers, and people think in "1 egg" or "⅛ chicken", not grams.
 - Missing values stay null; totals carry a coverage ratio
 - Gap filling: an INS food may link to its closest USDA food; only the nutrients INS lacks (e.g. B12) are taken
   from it, marked with their source
-- Branded foods (cookies, ice cream, sauces): values from the package label, source "label" with the date read
+- Branded foods (cookies, ice cream, sauces): values from the package label, source "label" with the date read;
+  its own per 100 g column wins over scaling the serving, which labels round
 - Seed data lives in `packages/catalog` as versioned JSON plus a build script; every row keeps its source code
 - An "About the data" screen cites INS (reproduction authorised with attribution) and USDA
 

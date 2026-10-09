@@ -125,6 +125,68 @@ describe('resolveFood', () => {
     expect(resolved.per100g?.ironMg).toBeNull();
   });
 
+  it('reads fiber, fats, cholesterol and minerals from the label', () => {
+    const resolved = resolveFood(
+      'yogur',
+      food({
+        source: 'label',
+        label: {
+          servingGrams: 200,
+          kcal: 160,
+          fiber: 2,
+          saturatedFat: 2,
+          transFat: 0.2,
+          cholesterolMg: 10,
+          calciumMg: 354,
+          ironMg: 1,
+          potassiumMg: 300,
+          from: 'pack',
+        },
+      }),
+      { label: true },
+      sources,
+    );
+    expect(resolved.per100g).toMatchObject({
+      fiberG: 1,
+      saturatedFatG: 1,
+      transFatG: 0.1,
+      cholesterolMg: 5,
+      calciumMg: 177,
+      ironMg: 0.5,
+      potassiumMg: 150,
+    });
+  });
+
+  it('uses the per 100 g column when the label prints one, instead of scaling the serving', () => {
+    const resolved = resolveFood(
+      'sal-light',
+      food({
+        source: 'label',
+        label: {
+          servingGrams: 5,
+          kcal: 5,
+          sodiumMg: 34,
+          per100g: { kcal: 65, sodiumMg: 676, fiber: 4 },
+          from: 'pack',
+        },
+      }),
+      { label: true },
+      sources,
+    );
+    expect(resolved.per100g).toMatchObject({ energyKcal: 65, sodiumMg: 676, fiberG: 4 });
+    expect(resolved.per100g?.proteinG).toBeNull();
+  });
+
+  it('a label with only the per 100 g column is ready', () => {
+    const resolved = resolveFood(
+      'x',
+      food({ source: 'label', label: { servingGrams: null, per100g: { kcal: 90 }, from: 'pack' } }),
+      { label: true },
+      sources,
+    );
+    expect(resolved).toMatchObject({ status: 'ok', per100g: { energyKcal: 90 } });
+  });
+
   it('a label without its serving size waits to be read', () => {
     const pending = resolveFood('tari', food({ source: 'label' }), { label: true }, sources);
     expect(pending).toMatchObject({ status: 'label-pending', per100g: null });

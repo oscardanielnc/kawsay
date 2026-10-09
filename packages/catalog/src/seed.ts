@@ -5,14 +5,27 @@ export interface Unit {
   grams: number | null;
 }
 
-export interface LabelFacts {
-  servingGrams: number | null;
+/** Values printed on a package label, per serving (or per 100 g in `per100g`). */
+export interface LabelValues {
   kcal?: number;
   carbs?: number;
   sugars?: number;
+  fiber?: number;
   fat?: number;
+  saturatedFat?: number;
+  transFat?: number;
+  cholesterolMg?: number;
   protein?: number;
   sodiumMg?: number;
+  calciumMg?: number;
+  ironMg?: number;
+  potassiumMg?: number;
+}
+
+export interface LabelFacts extends LabelValues {
+  servingGrams: number | null;
+  /** The label's own per 100 g column: used as printed instead of scaling the serving. */
+  per100g?: LabelValues;
   from: string;
 }
 

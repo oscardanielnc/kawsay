@@ -5,7 +5,7 @@ import {
   type NutrientKey,
   type Nutrients,
 } from './nutrients.ts';
-import type { FoodMatch, SeedFood, Unit } from './seed.ts';
+import type { FoodMatch, LabelValues, SeedFood, Unit } from './seed.ts';
 
 export interface Sources {
   /** INS rows by code (A1…U87). */
@@ -49,20 +49,36 @@ function cooked(raw: Nutrients, factor: number): Nutrients {
   return out;
 }
 
+/** Label field → nutrient; the label's grams and milligrams match the nutrient units. */
+const LABEL_NUTRIENTS: readonly [keyof LabelValues, NutrientKey][] = [
+  ['kcal', 'energyKcal'],
+  ['protein', 'proteinG'],
+  ['fat', 'fatG'],
+  ['saturatedFat', 'saturatedFatG'],
+  ['transFat', 'transFatG'],
+  ['cholesterolMg', 'cholesterolMg'],
+  ['carbs', 'carbsTotalG'],
+  ['fiber', 'fiberG'],
+  ['sodiumMg', 'sodiumMg'],
+  ['calciumMg', 'calciumMg'],
+  ['ironMg', 'ironMg'],
+  ['potassiumMg', 'potassiumMg'],
+];
+
+/** Per 100 g from the label's own column when printed; otherwise the serving scaled up. */
 function fromLabel(food: SeedFood): Nutrients | null {
   const label = food.label;
-  const serving = label?.servingGrams;
-  if (!label || !serving) return null;
-  const per100 = (value: number | undefined) =>
-    value === undefined ? null : (value / serving) * 100;
-  return {
-    ...emptyNutrients(),
-    energyKcal: per100(label.kcal),
-    proteinG: per100(label.protein),
-    fatG: per100(label.fat),
-    carbsTotalG: per100(label.carbs),
-    sodiumMg: per100(label.sodiumMg),
-  };
+  if (!label) return null;
+  const serving = label.servingGrams;
+  const scale = label.per100g ? 1 : serving ? 100 / serving : null;
+  if (scale === null) return null;
+  const values = label.per100g ?? label;
+  const nutrients = emptyNutrients();
+  for (const [field, key] of LABEL_NUTRIENTS) {
+    const value = values[field];
+    if (value !== undefined) nutrients[key] = value * scale;
+  }
+  return nutrients;
 }
 
 /** One seed food with its source values per 100 g as eaten (ADR 0014). */

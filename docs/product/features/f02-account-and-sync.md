@@ -12,8 +12,11 @@ Sign in once; every entry is stored on the device first and synced when online.
 - The app works fully offline
 - Records are identified by client-generated ids; the last edit wins per record
 - Deletes are soft (tombstones) so they sync
+- First open asks to sign in, so a second phone pulls the profile instead of creating one; "Usar sin cuenta" keeps
+  the phone on its own, and signing in later from Profile pushes everything it holds
+- Accounts are created with the API's `user:create` CLI (ADR 0018)
 
 ## Acceptance criteria
 
-- [ ] Entries made in airplane mode appear on the server after reconnecting, without duplicates
-- [ ] Editing the same entry on two devices keeps the most recent edit
+- [x] Entries made in airplane mode appear on the server after reconnecting, without duplicates
+- [x] Editing the same entry on two devices keeps the most recent edit

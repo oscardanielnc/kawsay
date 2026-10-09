@@ -10,6 +10,7 @@ import { saveWeight } from '@/features/weight/weight-db';
 import { loadCatalog } from '@/lib/db/catalog';
 import { createTestDb } from '@/lib/db/test-db';
 import type { Db, RecordEnv } from '@/lib/db/types';
+import type { AccountState } from '@/lib/sync/account';
 import { today } from '@/lib/today';
 
 jest.mock('expo-local-authentication', () => ({
@@ -44,7 +45,47 @@ jest.mock('@/lib/db/DatabaseProvider', () => {
   };
 });
 
+// Sync talks to the network; the routes get a stand-in that keeps the account state in memory.
+let mockStartAccount: AccountState = { kind: 'local-only' };
+jest.mock('@/lib/sync/SyncProvider', () => {
+  const actual = jest.requireActual<typeof import('@/lib/sync/SyncProvider')>(
+    '@/lib/sync/SyncProvider',
+  );
+  const { useState } = jest.requireActual<typeof import('react')>('react');
+  return {
+    ...actual,
+    SyncProvider: ({ children }: { children: ReactNode }) => {
+      const [account, setAccount] = useState<AccountState>(mockStartAccount);
+      return (
+        <actual.SyncScope
+          value={{
+            account,
+            status: 'idle',
+            pending: 0,
+            signIn: (email) => {
+              setAccount({ kind: 'signed-in', userId: 'u1', email, lastSyncedAt: null });
+              return Promise.resolve('ok');
+            },
+            useWithoutAccount: () => {
+              setAccount({ kind: 'local-only' });
+              return Promise.resolve();
+            },
+            signOut: () => {
+              setAccount({ kind: 'local-only' });
+              return Promise.resolve();
+            },
+            syncNow: () => Promise.resolve(),
+          }}
+        >
+          {children}
+        </actual.SyncScope>
+      );
+    },
+  };
+});
+
 beforeEach(async () => {
+  mockStartAccount = { kind: 'local-only' };
   mockDb = await createTestDb();
   await loadCatalog(mockDb, catalog);
 });
@@ -75,6 +116,28 @@ async function tap(name: string | RegExp, times = 1) {
 }
 
 describe('navigation (design N1, F01)', () => {
+  it('the first open asks to sign in; using the phone alone goes on to the onboarding (F02)', async () => {
+    mockStartAccount = { kind: 'undecided' };
+    await renderRouter('./app', { initialUrl: '/' });
+    expect(await screen.findByRole('button', { name: 'Entrar' })).toBeOnTheScreen();
+    await tap('Usar sin cuenta por ahora');
+    expect(await screen.findByRole('button', { name: 'Empezar' })).toBeOnTheScreen();
+  });
+
+  it('signing in on the first open goes to Today when the history brought a profile (F02)', async () => {
+    mockStartAccount = { kind: 'undecided' };
+    await saveProfile(mockDb, mockEnv, profileInput);
+    await saveWeight(mockDb, mockEnv, { date: today(), kg: 70, timeZone: 'America/Lima' });
+    await renderRouter('./app', { initialUrl: '/' });
+    await fireEvent.changeText(await screen.findByLabelText('Correo'), 'oscar@kawsay.test');
+    await fireEvent.changeText(screen.getByLabelText('Contraseña'), 'secret');
+    await tap('Entrar');
+    expect(await screen.findByRole('header', { name: 'Hoy' })).toBeOnTheScreen();
+    await fireEvent.press(screen.getByText('Perfil'));
+    await tap(/Cuenta y sincronización/);
+    expect(await screen.findByText('Entraste como oscar@kawsay.test')).toBeOnTheScreen();
+  });
+
   it('a fresh install opens on the onboarding', async () => {
     await renderRouter('./app', { initialUrl: '/' });
     expect(await screen.findByRole('header', { name: 'Kawsay' })).toBeOnTheScreen();

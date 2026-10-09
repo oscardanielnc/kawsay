@@ -30,6 +30,8 @@ interface Props {
   waistCm?: number | null;
   /** Opens the export screen (F15). */
   onExport?: () => void;
+  /** Account and sync row (F02): its current state and what opens it. */
+  account?: { summary: string; onPress: () => void };
   /** `weightKg` only when the body editor changed today's weight. */
   onSave: (change: { profile: ProfileInput; weightKg?: number }) => void;
 }
@@ -41,6 +43,7 @@ export function ProfileScreen({
   weights,
   waistCm = null,
   onExport,
+  account,
   onSave,
 }: Props) {
   const { t } = useTranslation();
@@ -147,6 +150,14 @@ export function ProfileScreen({
           />
         </Card>
         <Card title={t('profile.yourData')}>
+          {account ? (
+            <SettingsRow
+              icon="☁️"
+              title={t('account.row')}
+              summary={account.summary}
+              onPress={account.onPress}
+            />
+          ) : null}
           {onExport ? (
             <SettingsRow
               icon="📦"

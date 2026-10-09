@@ -17,3 +17,14 @@ export function formatShortDate(date: string): string {
     timeZone: 'UTC',
   });
 }
+
+/** An instant as "9 oct., 10:42" in the given zone. */
+export function formatMoment(ms: number, timeZone: string): string {
+  return new Date(ms).toLocaleString(FORMAT_LOCALE, {
+    day: 'numeric',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone,
+  });
+}

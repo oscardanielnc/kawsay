@@ -15,6 +15,11 @@ const FONTS = [
 const variant = process.env.APP_VARIANT === 'production' ? 'production' : 'development';
 const isDev = variant === 'development';
 
+/** API of each variant (ADR 0011): the dev build syncs to the dev database, never to real data. */
+const API_URL =
+  process.env.KAWSAY_API_URL ??
+  (isDev ? 'https://kawsay-dev.oscarnavarro.dev/v1' : 'https://kawsay.oscarnavarro.dev/v1');
+
 /** EAS project on the owner's Expo account (created 2026-10-08). */
 const EAS_PROJECT_ID = '4e3941ab-d6d1-4ad5-948d-247ed4ecb796';
 
@@ -58,5 +63,5 @@ export default (): ExpoConfig => ({
     'expo-file-system',
   ],
   experiments: { typedRoutes: true },
-  extra: { variant, eas: { projectId: EAS_PROJECT_ID } },
+  extra: { variant, apiUrl: API_URL, eas: { projectId: EAS_PROJECT_ID } },
 });

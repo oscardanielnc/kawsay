@@ -17,7 +17,8 @@
   },
   "common": {
     "comingSoon": "Pronto",
-    "done": "Listo"
+    "done": "Listo",
+    "close": "Cerrar"
   },
   "db": {
     "errorTitle": "No se pudo abrir tus datos",

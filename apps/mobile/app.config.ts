@@ -52,8 +52,8 @@ export default (): ExpoConfig => ({
     },
     predictiveBackGestureEnabled: false,
   },
-  // An update only reaches builds whose native part has the same fingerprint, so incompatible JS never lands.
-  runtimeVersion: { policy: 'fingerprint' },
+  // Updates reach APKs of the same version; src/native-manifest.test.ts forces a bump when a native dependency changes.
+  runtimeVersion: { policy: 'appVersion' },
   // Download on launch in the background; the new version applies on the next launch (ADR 0010).
   updates: {
     url: `https://u.expo.dev/${EAS_PROJECT_ID}`,

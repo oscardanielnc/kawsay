@@ -1,5 +1,6 @@
 import { Redirect, Tabs } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import { TabIcon } from '@/components/data-display/TabIcon';
 import { getProfile } from '@/features/profile/profile-db';
 import { useDb } from '@/lib/db/DatabaseProvider';
 import { useSync } from '@/lib/sync/SyncProvider';
@@ -20,11 +21,41 @@ export default function TabsLayout() {
   if (profile === null) return <Redirect href="/onboarding" />;
   return (
     <Tabs screenOptions={{ headerShown: false, tabBarActiveTintColor: '#1F4D3A' }}>
-      <Tabs.Screen name="index" options={{ title: t('tabs.today') }} />
-      <Tabs.Screen name="calendar" options={{ title: t('tabs.calendar') }} />
-      <Tabs.Screen name="log" options={{ title: t('tabs.log') }} />
-      <Tabs.Screen name="insights" options={{ title: t('tabs.insights') }} />
-      <Tabs.Screen name="profile" options={{ title: t('tabs.profile') }} />
+      <Tabs.Screen
+        name="index"
+        options={{
+          tabBarIcon: ({ color }) => <TabIcon tab="index" color={color} />,
+          title: t('tabs.today'),
+        }}
+      />
+      <Tabs.Screen
+        name="calendar"
+        options={{
+          tabBarIcon: ({ color }) => <TabIcon tab="calendar" color={color} />,
+          title: t('tabs.calendar'),
+        }}
+      />
+      <Tabs.Screen
+        name="log"
+        options={{
+          tabBarIcon: ({ color }) => <TabIcon tab="log" color={color} />,
+          title: t('tabs.log'),
+        }}
+      />
+      <Tabs.Screen
+        name="insights"
+        options={{
+          tabBarIcon: ({ color }) => <TabIcon tab="insights" color={color} />,
+          title: t('tabs.insights'),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          tabBarIcon: ({ color }) => <TabIcon tab="profile" color={color} />,
+          title: t('tabs.profile'),
+        }}
+      />
     </Tabs>
   );
 }

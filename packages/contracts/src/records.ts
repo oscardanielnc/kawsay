@@ -103,13 +103,19 @@ export const RECORD_SCHEMAS = {
     value: z.string().min(1).max(20),
   }),
   intimate_entry: z.strictObject({ ...synced, ...dated, kind: z.enum(['sex', 'masturbation']) }),
-  routine: z.strictObject({ ...synced, name: text, restSeconds: z.number().int().nonnegative() }),
+  routine: z.strictObject({
+    ...synced,
+    name: text,
+    restSeconds: z.number().int().nonnegative(),
+    // Optional: phones on an older version do not send it.
+    byRounds: z.boolean().default(false),
+  }),
   routine_exercise: z.strictObject({
     ...synced,
     routineId: ref,
     position: z.number().int().nonnegative(),
     name: text,
-    kind: z.enum(['weights', 'bodyweight', 'isometric', 'stairs', 'mobility']),
+    kind: z.enum(['weights', 'bodyweight', 'circuit', 'isometric', 'stairs', 'mobility']),
     sets: z.number().int().nonnegative().nullable(),
     reps: z.number().int().nonnegative().nullable(),
     secondsPerRep: amount.nullable(),

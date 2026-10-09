@@ -1,6 +1,7 @@
 import {
   equivalentMet,
   exerciseEnergy,
+  roundsSessionEnergy,
   withDone,
   type Exercise,
   type ExerciseEnergy,
@@ -26,15 +27,29 @@ export function routineTotals(routine: Routine, bmrKcal: number) {
   };
 }
 
+export type SessionChoice =
+  { completion: number } | { done: readonly number[] } | { rounds: number };
+
 /**
- * A logged session: by share done (100 / 75 / 50 / 25 %) or by the amount done per exercise. Stored as one block
+ * A logged session: by share done (100 / 75 / 50 / 25 %), by the amount done per exercise, or, for a routine by
+ * rounds, by rounds done (minutes and kcal multiply, the MET stays). Stored as one block
  * of minutes and equivalent MET, so editing the routine later never changes it (F18).
  */
 export function sessionOf(
   routine: Routine,
-  how: { completion: number } | { done: readonly number[] },
+  how: SessionChoice,
   bmrKcal: number,
 ): { minutes: number; met: number; kcal: number } {
+  if ('rounds' in how) {
+    const one = sessionOf(routine, { completion: 1 }, bmrKcal);
+    const { minutes, kcal } = roundsSessionEnergy({
+      exercises: routine.exercises.map((e) => e.exercise),
+      restSeconds: routine.restSeconds,
+      bmrKcal,
+      rounds: how.rounds,
+    });
+    return { minutes, met: one.met, kcal };
+  }
   const energies: ExerciseEnergy[] = routine.exercises.flatMap(({ exercise }, i) => {
     const amount = 'done' in how ? (how.done[i] ?? 0) : plannedAmount(exercise) * how.completion;
     if (amount <= 0) return [];

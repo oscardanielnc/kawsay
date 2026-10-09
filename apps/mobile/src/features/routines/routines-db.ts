@@ -14,6 +14,8 @@ export interface Routine {
   id: string;
   name: string;
   restSeconds: number;
+  /** Defined as one round and logged by rounds done (F18). */
+  byRounds?: boolean;
   exercises: NamedExercise[];
 }
 
@@ -36,6 +38,7 @@ function toColumns(exercise: Exercise) {
   switch (exercise.kind) {
     case 'weights':
     case 'bodyweight':
+    case 'circuit':
       return {
         ...NO_FIELDS,
         sets: exercise.sets,
@@ -71,6 +74,7 @@ function toExercise(row: ExerciseRow): Exercise {
   switch (row.kind) {
     case 'weights':
     case 'bodyweight':
+    case 'circuit':
       return {
         kind: row.kind,
         sets: row.sets ?? 1,
@@ -107,6 +111,7 @@ export async function listRoutines(db: Db): Promise<Routine[]> {
     id: r.id,
     name: r.name,
     restSeconds: r.restSeconds,
+    byRounds: r.byRounds,
     exercises: exercises
       .filter((e) => e.routineId === r.id)
       .map((e) => ({ name: e.name, exercise: toExercise(e) })),
@@ -125,7 +130,12 @@ export async function saveRoutine(
     if (id) {
       await db
         .update(routine)
-        .set({ name: input.name, restSeconds: input.restSeconds, updatedAt: now })
+        .set({
+          name: input.name,
+          restSeconds: input.restSeconds,
+          byRounds: input.byRounds ?? false,
+          updatedAt: now,
+        })
         .where(eq(routine.id, id));
       await db
         .update(routineExercise)
@@ -134,9 +144,12 @@ export async function saveRoutine(
     } else {
       const record = newRecord(env);
       id = record.id;
-      await db
-        .insert(routine)
-        .values({ ...record, name: input.name, restSeconds: input.restSeconds });
+      await db.insert(routine).values({
+        ...record,
+        name: input.name,
+        restSeconds: input.restSeconds,
+        byRounds: input.byRounds ?? false,
+      });
     }
     for (const [position, { name, exercise }] of input.exercises.entries()) {
       await db.insert(routineExercise).values({

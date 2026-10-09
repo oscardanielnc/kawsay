@@ -71,6 +71,13 @@
       "when": 1791552365474,
       "tag": "0009_sync_outbox",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1791578713596,
+      "tag": "0010_routine_rounds",
+      "breakpoints": true
     }
   ]
 }

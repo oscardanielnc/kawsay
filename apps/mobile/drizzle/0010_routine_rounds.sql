@@ -1,0 +1,1 @@
+ALTER TABLE `routine` ADD `by_rounds` integer DEFAULT false NOT NULL;

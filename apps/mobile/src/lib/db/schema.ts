@@ -197,6 +197,8 @@ export const routine = sqliteTable('routine', {
   ...synced,
   name: text('name').notNull(),
   restSeconds: integer('rest_seconds').notNull(),
+  /** Defined as one round and logged by rounds done (F18). */
+  byRounds: integer('by_rounds', { mode: 'boolean' }).notNull().default(false),
 });
 
 /** One exercise of a routine, as the fields of core's `Exercise` for its kind. */
@@ -208,7 +210,7 @@ export const routineExercise = sqliteTable(
     position: integer('position').notNull(),
     name: text('name').notNull(),
     kind: text('kind', {
-      enum: ['weights', 'bodyweight', 'isometric', 'stairs', 'mobility'],
+      enum: ['weights', 'bodyweight', 'circuit', 'isometric', 'stairs', 'mobility'],
     }).notNull(),
     sets: integer('sets'),
     reps: integer('reps'),

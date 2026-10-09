@@ -12,6 +12,8 @@ import { FoodIcon } from './FoodIcon';
 import type { CatalogItem, Meal, MealEntryView, NewDish } from './meals-db';
 import { fractionLabel } from './portion';
 import { eatenShare, PortionPicker, type Portion } from './PortionPicker';
+import type { ItemDetail } from './catalog-detail';
+import { ItemDetailView } from './ItemDetailView';
 
 export const MEALS: readonly Meal[] = ['breakfast', 'lunch', 'dinner', 'snack'];
 
@@ -33,13 +35,20 @@ interface Props {
   units: Record<string, { label: string; grams: number }[]>;
   /** Saves the new dish and logs one serving of it in that meal (F07). */
   onCreateDish: (meal: Meal, dish: NewDish) => void;
+  /** Nutrients, source and ingredients of a dish or food (F06). */
+  loadDetail: (item: CatalogItem) => Promise<ItemDetail>;
 }
 
 type SheetState =
   | { kind: 'pick'; meal: Meal }
   | { kind: 'portion'; meal: Meal; item: CatalogItem; portion: Portion }
   | { kind: 'entry'; entry: MealEntryView }
-  | { kind: 'create'; meal: Meal; name: string };
+  | { kind: 'create'; meal: Meal; name: string }
+  | {
+      kind: 'detail';
+      back: Extract<SheetState, { kind: 'portion' }>;
+      detail: ItemDetail | null;
+    };
 
 /** The four meals of the day with their chips, and the add flow: pick a dish → portion (F05). */
 export function MealsSection({
@@ -50,6 +59,7 @@ export function MealsSection({
   onDelete,
   units,
   onCreateDish,
+  loadDetail,
 }: Props) {
   const { t } = useTranslation();
   const [sheet, setSheet] = useState<SheetState | null>(null);
@@ -104,6 +114,23 @@ export function MealsSection({
         onChange={(next) => setSheet({ ...sheet, portion: next })}
       />
     );
+    const portionSheet = sheet;
+    const openDetail = () => {
+      setSheet({ kind: 'detail', back: portionSheet, detail: null });
+      void loadDetail(item).then((detail) =>
+        setSheet((current) =>
+          current?.kind === 'detail' && current.back === portionSheet
+            ? { ...current, detail }
+            : current,
+        ),
+      );
+    };
+    body = (
+      <>
+        {body}
+        <Button variant="link" label={t('detail.open')} onPress={openDetail} />
+      </>
+    );
     const grams = portion.grams ? Number(portion.grams) : null;
     footer = (
       <Button
@@ -123,6 +150,11 @@ export function MealsSection({
         }}
       />
     );
+  } else if (sheet?.kind === 'detail') {
+    const { back, detail } = sheet;
+    title = back.item.name;
+    body = detail ? <ItemDetailView detail={detail} /> : null;
+    footer = <Button variant="secondary" label={t('detail.back')} onPress={() => setSheet(back)} />;
   } else if (sheet?.kind === 'entry') {
     const { entry } = sheet;
     title = chipLabel(entry);

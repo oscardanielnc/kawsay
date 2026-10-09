@@ -20,6 +20,6 @@ Searchable foods and dishes with nutrients, available offline.
 
 ## Acceptance criteria
 
-- [ ] Searching "plátano" returns Peruvian entries first, offline
-- [ ] "juane" returns the seed dish with its ingredients and sources
-- [ ] A food without an iron value shows "sin dato" and is left out of the iron coverage
+- [x] Searching "plátano" returns Peruvian entries first, offline
+- [x] "juane" returns the seed dish with its ingredients and sources
+- [x] A food without an iron value shows "sin dato" and is left out of the iron coverage

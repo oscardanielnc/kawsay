@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import '@/lib/i18n';
+import type { ItemDetail } from './catalog-detail';
 import type { CatalogItem, MealEntryView } from './meals-db';
 import { MealsSection } from './MealsSection';
 
@@ -28,6 +29,31 @@ const panConHuevo = item('pan-con-huevo', 'Pan con huevo', 310, {
 const lomo = item('lomo-saltado', 'Lomo saltado', 820);
 const juane = item('mini-juane-pollo', 'Mini juane de pollo (calle)', 480, { icon: 'hoja' });
 const items = [panConHuevo, lomo, juane];
+const juaneDetail: ItemDetail = {
+  source: { kind: 'dish', code: null },
+  servingGrams: 230,
+  perServing: {
+    energyKcal: 355,
+    proteinG: 12.8,
+    carbsTotalG: 43.6,
+    fatG: 14,
+    fiberG: 0.2,
+    ironMg: null,
+    calciumMg: 40,
+    sodiumMg: 78,
+  },
+  coverage: {
+    energyKcal: 1,
+    proteinG: 1,
+    carbsTotalG: 1,
+    fatG: 1,
+    fiberG: 1,
+    ironMg: 0,
+    calciumMg: 0.8,
+    sodiumMg: 1,
+  },
+  ingredients: [{ name: 'Arroz cocido', grams: 120, source: { kind: 'INS', code: 'A2' } }],
+};
 
 function renderSection(overrides: Partial<Parameters<typeof MealsSection>[0]> = {}) {
   const props = {
@@ -38,12 +64,32 @@ function renderSection(overrides: Partial<Parameters<typeof MealsSection>[0]> = 
     onDelete: jest.fn(),
     units: {},
     onCreateDish: jest.fn(),
+    loadDetail: jest.fn(() => Promise.resolve(juaneDetail)),
     ...overrides,
   };
   return { ...props, view: render(<MealsSection {...props} />) };
 }
 
 describe('MealsSection (F05)', () => {
+  it('a dish shows its ingredients and sources; an unknown value reads "sin dato" (F06)', async () => {
+    const { view } = renderSection();
+    await view;
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar a Desayuno' }));
+    await fireEvent.press(screen.getByRole('button', { name: /Mini juane/ }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Ver nutrientes y fuentes' }));
+    expect(
+      await screen.findByText('Receta del catálogo, calculada de sus ingredientes', {
+        exact: false,
+      }),
+    ).toBeOnTheScreen();
+    expect(screen.getByText('sin dato')).toBeOnTheScreen();
+    expect(screen.getByText('con datos del 80% de los ingredientes')).toBeOnTheScreen();
+    expect(screen.getByText('Arroz cocido · 120 g')).toBeOnTheScreen();
+    expect(screen.getByText('Tablas peruanas INS 2023 · A2')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('button', { name: 'Volver' }));
+    expect(screen.getByRole('button', { name: 'Agregar 1 ración' })).toBeOnTheScreen();
+  });
+
   it("repeating yesterday's breakfast takes one tap plus the portion", async () => {
     const { onAdd, view } = renderSection();
     await view;

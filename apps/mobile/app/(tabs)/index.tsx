@@ -29,6 +29,7 @@ import {
   type Meal,
   type NewDish,
 } from '@/features/meals/meals-db';
+import { itemDetail } from '@/features/meals/catalog-detail';
 import { MEALS, MealsSection, type AddMeal } from '@/features/meals/MealsSection';
 import {
   deleteRoutine,
@@ -225,6 +226,7 @@ export default function TodayRoute() {
           onAdd={addMealEntry}
           onDelete={(id) => run(() => deleteMeal(db, env, id))}
           units={data.units}
+          loadDetail={(item) => itemDetail(db, item)}
           onCreateDish={(meal: Meal, dish: NewDish) =>
             run(async () => {
               const { id } = await saveUserDish(db, env, dish);

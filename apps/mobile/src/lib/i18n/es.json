@@ -718,5 +718,43 @@
     "signOutHint": "Tus datos se quedan en este celular.",
     "localBody": "Tus datos están solo en este celular. Entra con tu cuenta para guardarlos también en tu servidor.",
     "sessionEnded": "Tu sesión terminó. Vuelve a entrar para seguir sincronizando; nada de lo que registraste se perdió."
+  },
+  "detail": {
+    "open": "Ver nutrientes y fuentes",
+    "back": "Volver",
+    "perServing": "Por porción ({{grams}} g)",
+    "per100g": "Por 100 g",
+    "noData": "sin dato",
+    "partial": "con datos del {{percent}}% de los ingredientes",
+    "ingredients": "Ingredientes",
+    "source": "Fuente: {{source}}",
+    "sources": {
+      "INS": "Tablas peruanas INS 2023",
+      "USDA": "USDA FoodData Central",
+      "label": "Etiqueta del envase",
+      "none": "Sin fuente",
+      "dish": "Receta del catálogo, calculada de sus ingredientes",
+      "user": "Tu receta, calculada de sus ingredientes"
+    },
+    "nutrients": {
+      "energyKcal": "Energía",
+      "proteinG": "Proteína",
+      "carbsTotalG": "Carbohidratos",
+      "fatG": "Grasa",
+      "fiberG": "Fibra",
+      "ironMg": "Hierro",
+      "calciumMg": "Calcio",
+      "sodiumMg": "Sodio"
+    },
+    "units": {
+      "energyKcal": "kcal",
+      "proteinG": "g",
+      "carbsTotalG": "g",
+      "fatG": "g",
+      "fiberG": "g",
+      "ironMg": "mg",
+      "calciumMg": "mg",
+      "sodiumMg": "mg"
+    }
   }
 }

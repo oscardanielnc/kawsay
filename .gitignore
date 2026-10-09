@@ -37,3 +37,6 @@ Thumbs.db
 
 # Python
 __pycache__/
+
+# Prisma client (generated on build)
+apps/api/src/generated/

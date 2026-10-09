@@ -1,0 +1,71 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+  runtime      = "nodejs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// An account. Created with the `user:create` CLI; the app only signs in (ADR 0018).
+model User {
+  id           String       @id @db.Uuid
+  /// Stored lowercased.
+  email        String       @unique
+  /// argon2id (ADR 0005).
+  passwordHash String       @map("password_hash")
+  createdAt    DateTime     @map("created_at") @db.Timestamptz(3)
+  sessions     Session[]
+  records      SyncRecord[]
+
+  @@map("users")
+}
+
+/// A sign-in on one device and every refresh token rotated from it (the "family"). Revoking it ends them all.
+model Session {
+  id            String         @id @db.Uuid
+  userId        String         @map("user_id") @db.Uuid
+  createdAt     DateTime       @map("created_at") @db.Timestamptz(3)
+  revokedAt     DateTime?      @map("revoked_at") @db.Timestamptz(3)
+  revokedReason String?        @map("revoked_reason")
+  user          User           @relation(fields: [userId], references: [id])
+  refreshTokens RefreshToken[]
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+/// Opaque refresh token `<id>.<secret>`; only the SHA-256 of the secret is stored.
+model RefreshToken {
+  id         String    @id @db.Uuid
+  sessionId  String    @map("session_id") @db.Uuid
+  secretHash String    @map("secret_hash")
+  expiresAt  DateTime  @map("expires_at") @db.Timestamptz(3)
+  /// Set when rotated. Presenting a used token again means it leaked: the session is revoked.
+  usedAt     DateTime? @map("used_at") @db.Timestamptz(3)
+  createdAt  DateTime  @map("created_at") @db.Timestamptz(3)
+  session    Session   @relation(fields: [sessionId], references: [id])
+
+  @@index([sessionId])
+  @@map("refresh_tokens")
+}
+
+/// One synced record of any collection, as the phone stores it (ADR 0018). Validated by @kawsay/contracts.
+model SyncRecord {
+  userId     String @map("user_id") @db.Uuid
+  collection String
+  id         String @db.Uuid
+  data       Json
+  /// Device clock, ms UTC: the newest edit wins.
+  updatedAt  BigInt @map("updated_at")
+  deletedAt  BigInt? @map("deleted_at")
+  /// Server order of changes; a pull returns records with seq above the client's cursor.
+  seq        BigInt @default(dbgenerated("nextval('sync_record_seq')"))
+  user       User   @relation(fields: [userId], references: [id])
+
+  @@id([userId, collection, id])
+  @@index([userId, seq])
+  @@map("sync_record")
+}

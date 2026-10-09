@@ -7,3 +7,11 @@ allowBuilds:
   esbuild: true
   # Ships prebuilt binaries; its postinstall is only a fallback download.
   unrs-resolver: false
+  # Prisma downloads its schema engine; SWC verifies its platform binary (apps/api).
+  '@prisma/engines': true
+  prisma: true
+  '@swc/core': true
+  # Optional native speedups pulled by testcontainers' Docker client; pure-JS fallbacks work.
+  cpu-features: false
+  ssh2: false
+  protobufjs: false

@@ -40,4 +40,14 @@ describe('TodayScreen', () => {
     );
     expect(screen.getByRole('button', { name: 'Día siguiente' })).toBeDisabled();
   });
+
+  it('"Review my day" names the first ring part still to log, and says so when the day is complete', async () => {
+    const now = new Date('2026-10-08T15:00:00Z');
+    const view = await render(
+      <TodayScreen now={now} timeZone="America/Lima" pending={['water', 'sleep']} />,
+    );
+    expect(screen.getByRole('button', { name: 'Revisar mi día: falta Agua' })).toBeOnTheScreen();
+    await view.rerender(<TodayScreen now={now} timeZone="America/Lima" pending={[]} />);
+    expect(screen.getByText('Tu día está completo ✓')).toBeOnTheScreen();
+  });
 });

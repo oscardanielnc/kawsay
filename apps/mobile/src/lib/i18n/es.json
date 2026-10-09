@@ -11,7 +11,9 @@
     "previous": "Día anterior",
     "next": "Día siguiente",
     "backToToday": "Volver a hoy",
-    "needWeight": "Registra tu peso en Perfil para ver tu meta del día."
+    "needWeight": "Registra tu peso en Perfil para ver tu meta del día.",
+    "review": "Revisar mi día: falta {{area}}",
+    "reviewDone": "Tu día está completo ✓"
   },
   "common": {
     "comingSoon": "Pronto",
@@ -670,5 +672,21 @@
         "kind": "sex (relación sexual) o masturbation (masturbación)."
       }
     }
+  },
+  "log": {
+    "title": "Registrar",
+    "hint": "Toca lo que quieras anotar; te llevo a su sección de Hoy.",
+    "tiles": {
+      "meals": "Comida",
+      "bathroom": "Baño",
+      "activity": "Actividad",
+      "water": "Agua",
+      "mood": "Ánimo",
+      "sleep": "Sueño",
+      "weight": "Peso",
+      "write": "Escribir"
+    },
+    "waterAdded": "+1 vaso de agua",
+    "soon": "Pronto"
   }
 }

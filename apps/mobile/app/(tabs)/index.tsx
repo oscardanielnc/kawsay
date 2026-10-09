@@ -41,7 +41,8 @@ import { deleteSleep, saveSleep } from '@/features/sleep/sleep-db';
 import { SleepSection, type SleepChange } from '@/features/sleep/SleepSection';
 import { DayRings } from '@/features/today/DayRings';
 import { RangeRows } from '@/features/today/RangeRows';
-import { TodayScreen } from '@/features/today/TodayScreen';
+import { AREAS } from '@/features/today/day-logged';
+import { TodayScreen, TodaySection } from '@/features/today/TodayScreen';
 import {
   answerSymptom,
   createSymptom,
@@ -79,7 +80,7 @@ export default function TodayRoute() {
   const { db, env } = useDb();
   const [timeZone] = useState(deviceTimeZone);
   // The shown day lives in the URL, so the calendar can open any day ("Open this day", F14).
-  const params = useLocalSearchParams<{ day?: string }>();
+  const params = useLocalSearchParams<{ day?: string; focus?: string; at?: string }>();
   const day: LocalDate =
     params.day && /^\d{4}-\d{2}-\d{2}$/.test(params.day) ? params.day : today();
   const setDay = (next: LocalDate) => router.setParams({ day: next });
@@ -194,7 +195,15 @@ export default function TodayRoute() {
     : [];
 
   return (
-    <TodayScreen now={new Date()} timeZone={timeZone} day={day} onDay={setDay}>
+    <TodayScreen
+      now={new Date()}
+      timeZone={timeZone}
+      day={day}
+      onDay={setDay}
+      pending={AREAS.filter((area) => !logged.areas[area])}
+      focus={params.focus ?? null}
+      focusKey={params.at}
+    >
       <DayRings
         areas={logged.areas}
         done={logged.done}
@@ -208,88 +217,98 @@ export default function TodayRoute() {
       ) : (
         <Text style={[type.body, { color: color.inkMuted }]}>{t('today.needWeight')}</Text>
       )}
-      <MealsSection
-        entries={data.entries}
-        items={data.items}
-        recent={data.recent}
-        onAdd={addMealEntry}
-        onDelete={(id) => run(() => deleteMeal(db, env, id))}
-        units={data.units}
-        onCreateDish={(meal: Meal, dish: NewDish) =>
-          run(async () => {
-            const { id } = await saveUserDish(db, env, dish);
-            await addMeal(db, env, {
-              date: day,
-              meal,
-              timeZone,
-              item: { kind: 'dish', id },
-              servings: 1,
-            });
-          })
-        }
-      />
+      <TodaySection id="meals">
+        <MealsSection
+          entries={data.entries}
+          items={data.items}
+          recent={data.recent}
+          onAdd={addMealEntry}
+          onDelete={(id) => run(() => deleteMeal(db, env, id))}
+          units={data.units}
+          onCreateDish={(meal: Meal, dish: NewDish) =>
+            run(async () => {
+              const { id } = await saveUserDish(db, env, dish);
+              await addMeal(db, env, {
+                date: day,
+                meal,
+                timeZone,
+                item: { kind: 'dish', id },
+                servings: 1,
+              });
+            })
+          }
+        />
+      </TodaySection>
       {targets ? (
-        <ActivitySection
-          entries={activityViews}
-          noActivity={data.status.noActivity}
-          bmrKcal={targets.bmrKcal}
-          defaultBand={defaultBand}
-          onAdd={addActivityEntry}
-          onDelete={(id) => run(() => deleteActivity(db, env, id))}
-          onNoActivity={(on) => run(() => setNoActivity(db, env, day, on))}
-        >
-          <RoutinesBlock
-            routines={data.routines}
+        <TodaySection id="activity">
+          <ActivitySection
+            entries={activityViews}
+            noActivity={data.status.noActivity}
             bmrKcal={targets.bmrKcal}
             defaultBand={defaultBand}
-            onLog={logRoutine}
-            onSave={(routine: RoutineInput) => run(() => saveRoutine(db, env, routine))}
-            onDelete={(id) => run(() => deleteRoutine(db, env, id))}
+            onAdd={addActivityEntry}
+            onDelete={(id) => run(() => deleteActivity(db, env, id))}
+            onNoActivity={(on) => run(() => setNoActivity(db, env, day, on))}
+          >
+            <RoutinesBlock
+              routines={data.routines}
+              bmrKcal={targets.bmrKcal}
+              defaultBand={defaultBand}
+              onLog={logRoutine}
+              onSave={(routine: RoutineInput) => run(() => saveRoutine(db, env, routine))}
+              onDelete={(id) => run(() => deleteRoutine(db, env, id))}
+            />
+          </ActivitySection>
+        </TodaySection>
+      ) : null}
+      {data.profile ? (
+        <TodaySection id="water">
+          <HydrationSection
+            drinks={data.drinks}
+            fromMeals={fromMeals}
+            goalGlasses={drinksGoalGlasses({
+              sex: data.profile.sex,
+              climate: data.profile.climate,
+              sweatedALot: data.status.sweatedALot,
+            })}
+            sweated={data.status.sweatedALot}
+            urine={checks.urine}
+            caloricDrinks={caloricDrinks}
+            onAdd={(kind) =>
+              run(() => addDrink(db, env, { date: day, timeZone, kind, volumeMl: GLASS_ML }))
+            }
+            onDelete={(id) => run(() => deleteDrink(db, env, id))}
+            onAddCaloric={addCaloricDrink}
+            onUrine={(value) =>
+              run(() => addCheckIn(db, env, { date: day, timeZone, kind: 'urine', value }))
+            }
+            onSweated={(on) => run(() => setSweatedALot(db, env, day, on))}
           />
-        </ActivitySection>
+        </TodaySection>
       ) : null}
-      {data.profile ? (
-        <HydrationSection
-          drinks={data.drinks}
-          fromMeals={fromMeals}
-          goalGlasses={drinksGoalGlasses({
-            sex: data.profile.sex,
-            climate: data.profile.climate,
-            sweatedALot: data.status.sweatedALot,
-          })}
-          sweated={data.status.sweatedALot}
-          urine={checks.urine}
-          caloricDrinks={caloricDrinks}
-          onAdd={(kind) =>
-            run(() => addDrink(db, env, { date: day, timeZone, kind, volumeMl: GLASS_ML }))
+      <TodaySection id="body">
+        <CheckInsSection
+          rows={data.checkIns}
+          onCheckIn={(kind, value) =>
+            run(() => addCheckIn(db, env, { date: day, timeZone, kind, value }))
           }
-          onDelete={(id) => run(() => deleteDrink(db, env, id))}
-          onAddCaloric={addCaloricDrink}
-          onUrine={(value) =>
-            run(() => addCheckIn(db, env, { date: day, timeZone, kind: 'urine', value }))
-          }
-          onSweated={(on) => run(() => setSweatedALot(db, env, day, on))}
+          onDelete={(id) => run(() => deleteCheckIn(db, env, id))}
         />
-      ) : null}
-      <CheckInsSection
-        rows={data.checkIns}
-        onCheckIn={(kind, value) =>
-          run(() => addCheckIn(db, env, { date: day, timeZone, kind, value }))
-        }
-        onDelete={(id) => run(() => deleteCheckIn(db, env, id))}
-      />
+      </TodaySection>
       {data.profile ? (
-        <SleepSection
-          sessions={data.sleep}
-          usualNight={{ start: data.profile.usualSleepStart, end: data.profile.usualSleepEnd }}
-          usualNap={
-            data.profile.usualNapStart && data.profile.usualNapEnd
-              ? { start: data.profile.usualNapStart, end: data.profile.usualNapEnd }
-              : null
-          }
-          onSave={saveSleepChange}
-          onDelete={(id) => run(() => deleteSleep(db, env, id))}
-        />
+        <TodaySection id="sleep">
+          <SleepSection
+            sessions={data.sleep}
+            usualNight={{ start: data.profile.usualSleepStart, end: data.profile.usualSleepEnd }}
+            usualNap={
+              data.profile.usualNapStart && data.profile.usualNapEnd
+                ? { start: data.profile.usualNapStart, end: data.profile.usualNapEnd }
+                : null
+            }
+            onSave={saveSleepChange}
+            onDelete={(id) => run(() => deleteSleep(db, env, id))}
+          />
+        </TodaySection>
       ) : null}
       {data.profile?.symptomsEnabled ? (
         <SymptomsSection
@@ -323,11 +342,13 @@ export default function TodayRoute() {
           onSave={(cm) => run(() => saveWaist(db, env, { date: day, cm, timeZone }))}
         />
       ) : null}
-      <WeightCard
-        day={day}
-        weights={data.weights}
-        onSave={(kg) => run(() => saveWeight(db, env, { date: day, kg, timeZone }))}
-      />
+      <TodaySection id="weight">
+        <WeightCard
+          day={day}
+          weights={data.weights}
+          onSave={(kg) => run(() => saveWeight(db, env, { date: day, kg, timeZone }))}
+        />
+      </TodaySection>
     </TodayScreen>
   );
 }

@@ -22,7 +22,9 @@ Expo SDK 57 app (Android first), offline-first (ADR 0002, 0004). Routes in `app/
 | `production`  | Play Store bundle                           | Public release (later)               |
 
 `pnpm --filter @kawsay/mobile release` publishes the current JavaScript to the `production` channel; installed apps
-download it on launch and apply it on the next launch. The fingerprint runtime policy keeps updates away from
+download it on launch and apply it on the next launch. The EAS `production` environment holds
+`APP_VARIANT=production`, so the update carries the production API URL; check it before the first release from a new
+machine (`eas env:list --environment production`). The fingerprint runtime policy keeps updates away from
 builds with a different native part.
 
 ## Rules enforced by lint

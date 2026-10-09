@@ -1876,6 +1876,39 @@
     "from": "plazavea.com.pe product page, read 2026-10-07"
    }
   },
+  "reyenito": {
+   "name": "Bizcocho Reyenito",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 unidad",
+     "grams": 37
+    }
+   ],
+   "label": {
+    "servingGrams": 37,
+    "kcal": 142.5,
+    "fat": 4.4,
+    "saturatedFat": 2.2,
+    "transFat": 0,
+    "sodiumMg": 51.5,
+    "carbs": 22.9,
+    "sugars": 11.7,
+    "protein": 3.0,
+    "per100g": {
+     "kcal": 385.1,
+     "fat": 11.8,
+     "saturatedFat": 5.9,
+     "transFat": 0,
+     "sodiumMg": 139.3,
+     "carbs": 61.8,
+     "sugars": 31.6,
+     "protein": 8.0
+    },
+    "from": "package label photo, 2026-10-09"
+   }
+  },
   "galleta-kiwicha": {
    "name": "Galleta de kiwicha",
    "source": "INS",

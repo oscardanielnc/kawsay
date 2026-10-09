@@ -5,7 +5,7 @@ const catalog = buildCatalog(readInputs(new URL('..', import.meta.url)));
 
 describe('buildCatalog on the real seed and sources', () => {
   it('resolves every seed food; every link points to an existing row', () => {
-    expect(catalog.foods).toHaveLength(136);
+    expect(catalog.foods).toHaveLength(137);
   });
 
   it('INS comes first: most foods resolve from the Peruvian table', () => {
@@ -29,8 +29,8 @@ describe('buildCatalog on the real seed and sources', () => {
     expect(egg?.per100g?.vitaminB12Ug).toBe(0.89);
   });
 
-  it('computes all 78 seed dishes', () => {
-    expect(catalog.dishes).toHaveLength(78);
+  it('computes all 79 seed dishes', () => {
+    expect(catalog.dishes).toHaveLength(79);
     const juane = catalog.dishes.find((d) => d.id === 'mini-juane-pollo');
     expect(juane?.totals.perServing.energyKcal).toBeGreaterThan(200);
   });

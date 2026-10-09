@@ -2306,6 +2306,30 @@
    "note": ""
   },
   {
+   "id": "refresco-limon",
+   "name": "Refresco de limón (limonada)",
+   "group": "drink",
+   "icon": "jugo",
+   "confidence": "medium",
+   "serving": "1 vaso",
+   "servings": 1,
+   "items": [
+    {
+     "food": "limon-jugo",
+     "grams": 30
+    },
+    {
+     "food": "azucar",
+     "grams": 20
+    },
+    {
+     "food": "agua",
+     "grams": 200
+    }
+   ],
+   "note": ""
+  },
+  {
    "id": "frappe-cafe",
    "name": "Frappé de café",
    "group": "drink",

@@ -1,7 +1,7 @@
 import type { ClockTime } from '@kawsay/core/shared/clock-time';
 import type { LocalDate } from '@kawsay/core/shared/local-date';
 import { sessionHours, sessionStamps, type SleepStamps } from '@kawsay/core/sleep/sleep-session';
-import { and, asc, eq, isNull } from 'drizzle-orm';
+import { and, asc, desc, eq, isNull, ne } from 'drizzle-orm';
 import { newRecord } from '@/lib/db/record';
 import { sleepSession } from '@/lib/db/schema';
 import type { Db, RecordEnv } from '@/lib/db/types';
@@ -33,23 +33,57 @@ export interface SleepSession {
   nightmares: boolean;
 }
 
+/**
+ * Saves a session. A day has one night (F11): saving a night without an id edits that day's night, so two quick
+ * taps on the draft never create two; saving a night also removes any extra night the day still holds.
+ */
 export async function saveSleep(
   db: Db,
   env: RecordEnv,
   input: SleepInput,
 ): Promise<{ id: string }> {
-  const { id, start, end, ...rest } = input;
+  const { id: givenId, start, end, ...rest } = input;
   const stamps = sessionStamps(input.date, { start, end });
+  const id =
+    givenId ?? (input.kind === 'night' ? (await nightsOn(db, input.date))[0]?.id : undefined);
+  const now = env.now();
   if (id) {
     await db
       .update(sleepSession)
-      .set({ ...rest, ...stamps, updatedAt: env.now() })
+      .set({ ...rest, ...stamps, updatedAt: now })
       .where(eq(sleepSession.id, id));
-    return { id };
   }
-  const record = newRecord(env);
-  await db.insert(sleepSession).values({ ...record, ...rest, ...stamps });
-  return { id: record.id };
+  const saved = id ?? newRecord(env).id;
+  if (!id) await db.insert(sleepSession).values({ id: saved, updatedAt: now, ...rest, ...stamps });
+  if (input.kind === 'night') {
+    await db
+      .update(sleepSession)
+      .set({ deletedAt: now, updatedAt: now })
+      .where(
+        and(
+          eq(sleepSession.date, input.date),
+          eq(sleepSession.kind, 'night'),
+          isNull(sleepSession.deletedAt),
+          ne(sleepSession.id, saved),
+        ),
+      );
+  }
+  return { id: saved };
+}
+
+/** The day's live nights, latest edit first (normally one). */
+function nightsOn(db: Db, date: LocalDate) {
+  return db
+    .select({ id: sleepSession.id })
+    .from(sleepSession)
+    .where(
+      and(
+        eq(sleepSession.date, date),
+        eq(sleepSession.kind, 'night'),
+        isNull(sleepSession.deletedAt),
+      ),
+    )
+    .orderBy(desc(sleepSession.updatedAt));
 }
 
 /** The day's sessions, night first, then naps by start. */
@@ -59,7 +93,15 @@ export async function sleepOn(db: Db, date: LocalDate): Promise<SleepSession[]> 
     .from(sleepSession)
     .where(and(eq(sleepSession.date, date), isNull(sleepSession.deletedAt)))
     .orderBy(asc(sleepSession.start));
+  // A day shows one night: the latest edit, if an older copy is still there (it goes on the next save).
+  const night = rows
+    .filter((row) => row.kind === 'night')
+    .reduce<(typeof rows)[number] | null>(
+      (latest, row) => (!latest || row.updatedAt > latest.updatedAt ? row : latest),
+      null,
+    );
   return rows
+    .filter((row) => row.kind === 'nap' || row === night)
     .map((row) => {
       const stamps = { start: row.start, end: row.end };
       return {

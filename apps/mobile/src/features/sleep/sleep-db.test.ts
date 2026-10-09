@@ -1,4 +1,8 @@
 /** @jest-environment node */
+import { sessionStamps } from '@kawsay/core/sleep/sleep-session';
+import { and, eq, isNull } from 'drizzle-orm';
+import { newRecord } from '@/lib/db/record';
+import { sleepSession } from '@/lib/db/schema';
 import { createTestDb } from '@/lib/db/test-db';
 import type { RecordEnv } from '@/lib/db/types';
 import { deleteSleep, saveSleep, sleepOn } from './sleep-db';
@@ -34,6 +38,40 @@ describe('sleep sessions (F11)', () => {
         nightmares: false,
       }),
     ]);
+  });
+
+  it('one night per day: two quick taps on the draft night save one night, not two', async () => {
+    const db = await createTestDb();
+    const e = env();
+    await saveSleep(db, e, { ...night, quality: 3 });
+    await saveSleep(db, e, { ...night, quality: 5 });
+    expect(await sleepOn(db, today)).toEqual([
+      expect.objectContaining({ kind: 'night', quality: 5 }),
+    ]);
+  });
+
+  it('a day that already holds two nights shows one, and the next save removes the extra', async () => {
+    const db = await createTestDb();
+    const e = env();
+    for (const quality of [2, 4]) {
+      await db.insert(sleepSession).values({
+        ...newRecord(e),
+        ...sessionStamps(today, { start: '23:00', end: '07:00' }),
+        date: today,
+        kind: 'night',
+        timeZone: 'America/Lima',
+        quality,
+        nightmares: false,
+      });
+    }
+    expect(await sleepOn(db, today)).toEqual([expect.objectContaining({ quality: 4 })]);
+    const [shown] = await sleepOn(db, today);
+    await saveSleep(db, e, { ...night, id: shown?.id, quality: 1 });
+    const live = await db
+      .select()
+      .from(sleepSession)
+      .where(and(eq(sleepSession.date, today), isNull(sleepSession.deletedAt)));
+    expect(live).toEqual([expect.objectContaining({ quality: 1 })]);
   });
 
   it('saving with an id edits that session instead of adding one', async () => {

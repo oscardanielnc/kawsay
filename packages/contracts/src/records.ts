@@ -136,6 +136,7 @@ export const RECORD_SCHEMAS = {
     unitCount: amount.nullable(),
     position: z.number().int().nonnegative(),
   }),
+  day_note: z.strictObject({ ...synced, ...dated, text: z.string().trim().min(1).max(4000) }),
 };
 
 export type Collection = keyof typeof RECORD_SCHEMAS;

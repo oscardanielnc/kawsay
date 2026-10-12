@@ -192,6 +192,13 @@ export const intimateEntry = sqliteTable(
   (t) => [index('intimate_entry_by_date').on(t.date)],
 );
 
+/** Free notes about the day (F21): health and emotional wellbeing in the user's own words. */
+export const dayNote = sqliteTable(
+  'day_note',
+  { ...synced, ...dated, text: text('text').notNull() },
+  (t) => [index('day_note_by_date').on(t.date)],
+);
+
 /** User routines (F18); exercises live in routine_exercise. */
 export const routine = sqliteTable('routine', {
   ...synced,

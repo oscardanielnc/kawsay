@@ -19,6 +19,7 @@ export const SYNCED_TABLES = {
   routine_exercise: schema.routineExercise,
   user_dish: schema.userDish,
   user_dish_item: schema.userDishItem,
+  day_note: schema.dayNote,
 } satisfies Record<Collection, unknown>;
 
 /**

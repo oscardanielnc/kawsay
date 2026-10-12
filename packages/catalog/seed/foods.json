@@ -1113,6 +1113,17 @@
     }
    ]
   },
+  "cebada-tostada": {
+   "name": "Cebada tostada (refresco)",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 vaso",
+     "grams": 5
+    }
+   ]
+  },
   "mandarina": {
    "name": "Mandarina",
    "source": "INS",

@@ -380,6 +380,11 @@
    "ins": "C34",
    "plant": true
   },
+  "cebada-tostada": {
+   "ins": "A12",
+   "plant": true,
+   "note": "Only the toasted grain; the boiled drink keeps a fraction of it, counted like chicha morada"
+  },
   "maiz-morado": {
    "ins": "A38",
    "plant": true,

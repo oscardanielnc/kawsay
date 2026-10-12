@@ -2354,6 +2354,34 @@
    "note": ""
   },
   {
+   "id": "refresco-cebada",
+   "name": "Refresco de cebada",
+   "group": "drink",
+   "icon": "jugo",
+   "confidence": "medium",
+   "serving": "1 vaso",
+   "servings": 1,
+   "items": [
+    {
+     "food": "cebada-tostada",
+     "grams": 5
+    },
+    {
+     "food": "azucar",
+     "grams": 20
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    },
+    {
+     "food": "agua",
+     "grams": 230
+    }
+   ],
+   "note": ""
+  },
+  {
    "id": "frappe-cafe",
    "name": "Frappé de café",
    "group": "drink",

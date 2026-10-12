@@ -1,6 +1,6 @@
 # Food seed
 
-- Status: Draft 2026-10-07 · 80 dishes · 139 foods · data in `packages/catalog/seed/` (ADR 0014)
+- Status: Draft 2026-10-07 · 81 dishes · 140 foods · data in `packages/catalog/seed/` (ADR 0014)
 - Review once: amounts are typical servings, grams as eaten; nutrients are computed at import from INS / USDA / labels
 - Confidence: 🟢 standard recipe · 🟡 typical, varies by cook · 🔴 rough, check first
 - **Sauces and creams: 1 portion = 40 g** (½ portion = 20 g); bottled ones are foods with the same portions
@@ -105,6 +105,7 @@
 | Refresco de maracuyá | 1 vaso | maracuyá 30 · azúcar blanca 20 · agua 220 | 🟡 |
 | Refresco de limón (limonada) | 1 vaso | limón 30 · azúcar blanca 20 · agua 200 | 🟡 |
 | Refresco de uva | 1 vaso | uva 80 · azúcar blanca 15 · agua 180 | 🟡 |
+| Refresco de cebada | 1 vaso | cebada tostada 5 · azúcar blanca 20 · limón 5 · agua 230 — the grain is strained; only a fraction counts, like chicha morada | 🟡 |
 | Frappé de café | 1 vaso (350 ml) | leche fresca entera 200 · azúcar blanca 25 · café soluble 3 · crema de leche 20 · agua 80 | 🔴 |
 | Frappé de fresa | 1 vaso (350 ml) | fresa 100 · leche fresca entera 150 · azúcar blanca 25 · helado de crema 50 · agua 50 | 🔴 |
 | Frappé de chocolate | 1 vaso (350 ml) | leche fresca entera 200 · cocoa en polvo 10 · azúcar blanca 25 · helado de crema 50 · agua 50 | 🔴 |
@@ -132,7 +133,7 @@
 
 ## Foods
 
-All 139 foods can also be logged on their own (fruit, vegetables, sauces…). Full list with household units: `packages/catalog/seed/foods.json`.
+All 140 foods can also be logged on their own (fruit, vegetables, sauces…). Full list with household units: `packages/catalog/seed/foods.json`.
 
 ## Branded items (values from the package label)
 

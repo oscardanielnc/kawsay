@@ -396,11 +396,11 @@
     "kinds": {
       "water": "Agua",
       "zero-calorie": "Café o té",
-      "alcohol": "Alcohol"
+      "alcohol": "Alcohol",
+      "caloric": "Con calorías"
     },
     "add": "Agregar un vaso de {{kind}}",
-    "remove": "Quitar vaso de {{kind}}",
-    "removeAlcohol": "Quitar vaso de {{kind}} (no suma)",
+    "remove": "Quitar un vaso de {{kind}}",
     "caloric": "Con calorías",
     "caloricTitle": "Bebida con calorías",
     "caloricHint": "Se anota en la comida de ahora, así sus calorías cuentan una sola vez.",
@@ -413,7 +413,11 @@
     },
     "sweated": "Sudé mucho hoy",
     "sweatedHint": "Sol, calor fuerte o ejercicio largo: +2 vasos",
-    "note": "Un vaso ≈ 250 ml. La meta sale de tu sexo y el clima de tu perfil. La comida aporta otro 20–30 % y no se cuenta. El alcohol no suma."
+    "note": "Un vaso ≈ 250 ml. La meta sale de tu sexo y el clima de tu perfil. La comida aporta otro 20–30 % y no se cuenta. El alcohol no suma.",
+    "addCaloric": "Agregar bebida con calorías",
+    "bucket": "Cubeta de {{goal}} vasos: {{contents}}",
+    "notCounted": "(no suma)",
+    "fromMealsOnly": "desde comidas"
   },
   "sleep": {
     "title": "Sueño",

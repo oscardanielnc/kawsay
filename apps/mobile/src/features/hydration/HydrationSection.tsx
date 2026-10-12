@@ -2,13 +2,13 @@ import { drunkGlasses, GLASS_ML } from '@kawsay/core/day/drinks';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
+import Svg, { ClipPath, Defs, G, Line, Path, Rect } from 'react-native-svg';
 import { Sheet } from '@/components/feedback/Sheet';
-import { Segmented } from '@/components/forms/Segmented';
 import { Toggle } from '@/components/forms/Toggle';
 import { Card } from '@/components/layout/Card';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, touch, type } from '@/lib/theme';
+import { bucketLayers, type BucketGlasses, type BucketKind } from './bucket';
 import type { Drink, DrinkKind } from './hydration-db';
 
 /** A caloric drink from the catalog; tapping it logs it in the current meal (F10 ↔ F05). */
@@ -34,10 +34,13 @@ interface Props {
 }
 
 const KINDS: readonly DrinkKind[] = ['water', 'zero-calorie', 'alcohol'];
-const KIND_COLOR: Record<DrinkKind, string> = {
-  water: '#5B8DB8',
-  'zero-calorie': '#8A5A2B',
-  alcohol: '#C46A9A',
+const BUCKET_KINDS: readonly BucketKind[] = ['water', 'zero-calorie', 'alcohol', 'caloric'];
+/** Water blue, coffee brown, wine for alcohol, juice orange for every caloric drink. */
+const KIND_COLOR: Record<BucketKind, string> = {
+  water: '#4FA3D9',
+  'zero-calorie': '#7A4A26',
+  alcohol: '#9B2D4F',
+  caloric: '#F0A23B',
 };
 const URINE = [
   { value: 'clear', bg: '#FFF6C8' },
@@ -45,85 +48,183 @@ const URINE = [
   { value: 'dark', bg: '#C98A1B' },
 ] as const;
 
-function Glass({ fill, dashed }: { fill: string | null; dashed?: boolean }) {
+const asGlasses = (ml: number) => ml / GLASS_ML;
+const glassText = (n: number) => formatNumber(n, n % 1 ? 1 : 0);
+
+/** Pail outline in a 100 × 112 box: open top at y 28, curved bottom down to y 108. */
+const BODY = 'M8 28 L92 28 L82 101 Q50 112 18 101 Z';
+const TOP = 28;
+const BOTTOM = 108;
+/** Two pressed rings around the pail, as on a metal bucket. */
+const RINGS = [52, 80];
+
+/** The day's drinks as layers in a bucket sized to the goal; full and proportional once the goal is passed. */
+function Bucket({ glasses, goalGlasses }: { glasses: BucketGlasses; goalGlasses: number }) {
+  const { capacity, layers } = bucketLayers(glasses, goalGlasses);
+  const y = (share: number) => BOTTOM - share * (BOTTOM - TOP);
+  const marks = Math.ceil(capacity);
+  const ticks = marks <= 24 ? Array.from({ length: marks - 1 }, (_, i) => (i + 1) / capacity) : [];
+  const surface = layers.at(-1);
   return (
-    <Svg width={26} height={32} viewBox="0 0 24 24">
-      <Path
-        d="M6 3h12l-1.5 17h-9z"
-        fill={fill ?? 'none'}
-        stroke={fill ?? color.inkMuted}
-        strokeWidth={1.8}
-        strokeDasharray={dashed ? '3 2' : undefined}
-        strokeLinejoin="round"
-      />
+    <Svg width="100%" height="100%" viewBox="0 0 100 112">
+      <Defs>
+        <ClipPath id="bucket-body">
+          <Path d={BODY} />
+        </ClipPath>
+      </Defs>
+      <Path d="M12 34 Q50 -12 88 34" fill="none" stroke={color.inkMuted} strokeWidth={3} />
+      <Rect x={5} y={30} width={7} height={9} rx={2} fill={color.inkMuted} />
+      <Rect x={88} y={30} width={7} height={9} rx={2} fill={color.inkMuted} />
+      <Path d={BODY} fill={color.surface} />
+      <G clipPath="url(#bucket-body)">
+        {layers.map((layer) => (
+          <Rect
+            key={layer.kind}
+            x={0}
+            y={y(layer.to)}
+            width={100}
+            height={y(layer.from) - y(layer.to)}
+            fill={KIND_COLOR[layer.kind]}
+          />
+        ))}
+        {surface ? (
+          <Rect
+            x={0}
+            y={y(surface.to)}
+            width={100}
+            height={2}
+            fill={color.onDark}
+            opacity={0.45}
+          />
+        ) : null}
+        {RINGS.map((ring) => (
+          <Line
+            key={ring}
+            x1={0}
+            x2={100}
+            y1={ring}
+            y2={ring}
+            stroke={color.ink}
+            strokeOpacity={0.12}
+            strokeWidth={3}
+          />
+        ))}
+        {ticks.map((share) => (
+          <Line
+            key={share}
+            x1={74}
+            x2={92}
+            y1={y(share)}
+            y2={y(share)}
+            stroke={color.ink}
+            strokeOpacity={0.2}
+            strokeWidth={1}
+          />
+        ))}
+      </G>
+      <Path d={BODY} fill="none" stroke={color.ink} strokeWidth={2.5} strokeLinejoin="round" />
+      <Rect x={4} y={24} width={92} height={7} rx={3.5} fill={color.ink} />
     </Svg>
   );
 }
 
-/** Hydration (F10): glasses by drink type, caloric drinks through meals, urine colour and the sweat switch. */
+/**
+ * Hydration (F10): a bucket of the day's goal on the left, filled bottom-up with caloric drinks, alcohol, coffee or
+ * tea and water; − / + per drink on the right. Then urine colour and the sweat switch.
+ */
 export function HydrationSection(props: Props) {
   const { drinks, fromMeals, goalGlasses, sweated, urine, caloricDrinks } = props;
   const { t } = useTranslation();
-  const [kind, setKind] = useState<DrinkKind>('water');
   const [caloric, setCaloric] = useState(false);
   const glasses = drunkGlasses([
     ...drinks.map((d) => ({ ml: d.volumeMl, alcohol: d.kind === 'alcohol' })),
     ...fromMeals.map((d) => ({ ml: d.volumeMl, alcohol: false })),
   ]);
-  const kindName = (k: DrinkKind) => t(`hydration.kinds.${k}`);
+  const kindName = (k: BucketKind) => t(`hydration.kinds.${k}`);
+  const sumOf = (k: DrinkKind) =>
+    asGlasses(drinks.filter((d) => d.kind === k).reduce((ml, d) => ml + d.volumeMl, 0));
+  const byKind: BucketGlasses = {
+    water: sumOf('water'),
+    'zero-calorie': sumOf('zero-calorie'),
+    alcohol: sumOf('alcohol'),
+    caloric: asGlasses(fromMeals.reduce((ml, d) => ml + d.volumeMl, 0)),
+  };
+  const contents = BUCKET_KINDS.map((k) =>
+    [kindName(k), glassText(byKind[k]), k === 'alcohol' ? t('hydration.notCounted') : null]
+      .filter(Boolean)
+      .join(' '),
+  ).join(', ');
 
   return (
     <Card title={t('hydration.title')}>
       <Text style={[type.heading, styles.ink]}>
-        {t('hydration.progress', {
-          glasses: formatNumber(glasses, glasses % 1 ? 1 : 0),
-          goal: goalGlasses,
-        })}
+        {t('hydration.progress', { glasses: glassText(glasses), goal: goalGlasses })}
       </Text>
-      <Segmented
-        options={KINDS.map((k) => ({ value: k, label: kindName(k) }))}
-        value={kind}
-        onChange={setKind}
-      />
-      <View style={styles.glasses}>
-        {drinks.map((d) => (
-          <Pressable
-            key={d.id}
-            accessibilityRole="button"
-            accessibilityLabel={t(
-              d.kind === 'alcohol' ? 'hydration.removeAlcohol' : 'hydration.remove',
-              {
-                kind: kindName(d.kind),
-              },
-            )}
-            onPress={() => props.onDelete(d.id)}
-            style={styles.glass}
-          >
-            <Glass fill={KIND_COLOR[d.kind]} />
-          </Pressable>
-        ))}
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t('hydration.add', { kind: kindName(kind) })}
-          onPress={() => props.onAdd(kind)}
-          style={styles.glass}
+      <View style={styles.split}>
+        <View
+          accessible
+          accessibilityLabel={t('hydration.bucket', { goal: goalGlasses, contents })}
+          style={styles.bucket}
         >
-          <Glass fill={null} dashed />
-        </Pressable>
-        <Pressable
-          accessibilityRole="button"
-          onPress={() => setCaloric(true)}
-          style={styles.caloric}
-        >
-          <Text style={[type.label, styles.accent]}>{t('hydration.caloric')}</Text>
-        </Pressable>
+          <Bucket glasses={byKind} goalGlasses={goalGlasses} />
+        </View>
+        <View style={styles.controls}>
+          {KINDS.map((k) => {
+            const ofKind = drinks.filter((d) => d.kind === k);
+            const last = ofKind.at(-1);
+            return (
+              <View key={k} style={styles.control}>
+                <View style={[styles.dot, { backgroundColor: KIND_COLOR[k] }]} />
+                <Text style={[type.label, styles.ink, styles.grow]} numberOfLines={1}>
+                  {kindName(k)}
+                </Text>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={t('hydration.remove', { kind: kindName(k) })}
+                  accessibilityState={{ disabled: !last }}
+                  disabled={!last}
+                  onPress={() => last && props.onDelete(last.id)}
+                  style={[styles.step, !last && styles.off]}
+                >
+                  <Text style={[type.heading, styles.ink]}>−</Text>
+                </Pressable>
+                <Text style={[type.heading, styles.ink, styles.count]}>{ofKind.length}</Text>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={t('hydration.add', { kind: kindName(k) })}
+                  onPress={() => props.onAdd(k)}
+                  style={[styles.step, { borderColor: KIND_COLOR[k] }]}
+                >
+                  <Text style={[type.heading, { color: KIND_COLOR[k] }]}>+</Text>
+                </Pressable>
+              </View>
+            );
+          })}
+          <View style={styles.control}>
+            <View style={[styles.dot, { backgroundColor: KIND_COLOR.caloric }]} />
+            <Text style={[type.label, styles.ink, styles.grow]} numberOfLines={1}>
+              {kindName('caloric')}
+            </Text>
+            <Text style={[type.heading, styles.ink, styles.count]}>
+              {glassText(byKind.caloric)}
+            </Text>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t('hydration.addCaloric')}
+              onPress={() => setCaloric(true)}
+              style={[styles.step, { borderColor: KIND_COLOR.caloric }]}
+            >
+              <Text style={[type.heading, styles.accent]}>+</Text>
+            </Pressable>
+          </View>
+        </View>
       </View>
       {fromMeals.map((d, i) => (
         <Text key={`${d.name}-${i}`} style={[type.caption, styles.muted]}>
           {t('hydration.fromMeal', {
             name: d.name,
             meal: d.from,
-            glasses: formatNumber(d.volumeMl / GLASS_ML, (d.volumeMl / GLASS_ML) % 1 ? 1 : 0),
+            glasses: glassText(asGlasses(d.volumeMl)),
           })}
         </Text>
       ))}
@@ -173,9 +274,24 @@ export function HydrationSection(props: Props) {
 }
 
 const styles = StyleSheet.create({
-  glasses: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: space.xs },
-  glass: { width: touch, height: touch, alignItems: 'center', justifyContent: 'center' },
-  caloric: { minHeight: touch, justifyContent: 'center', paddingHorizontal: space.sm },
+  split: { flexDirection: 'row', alignItems: 'center', gap: space.md },
+  bucket: { width: '32%', aspectRatio: 100 / 112 },
+  controls: { flex: 1, gap: space.xs },
+  control: { flexDirection: 'row', alignItems: 'center', gap: space.xs, minHeight: touch },
+  dot: { width: 12, height: 12, borderRadius: radius.pill },
+  grow: { flex: 1 },
+  step: {
+    width: touch - 4,
+    height: touch - 4,
+    borderRadius: radius.pill,
+    borderWidth: 1.5,
+    borderColor: color.line,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: color.surface,
+  },
+  off: { opacity: 0.35 },
+  count: { minWidth: 28, textAlign: 'center' },
   urine: { flexDirection: 'row', gap: space.sm },
   urineOption: {
     flex: 1,

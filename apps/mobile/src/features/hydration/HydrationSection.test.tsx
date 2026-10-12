@@ -17,17 +17,34 @@ const base = {
 };
 
 describe('HydrationSection (F10)', () => {
-  it('a glass of water is one tap; a coffee is two (kind, then glass)', async () => {
+  it('each drink is one tap on its +; coffee or tea too', async () => {
     const onAdd = jest.fn();
     await render(<HydrationSection {...base} onAdd={onAdd} />);
     await fireEvent.press(screen.getByRole('button', { name: 'Agregar un vaso de Agua' }));
     expect(onAdd).toHaveBeenLastCalledWith('water');
-    await fireEvent.press(screen.getByRole('button', { name: 'Café o té' }));
     await fireEvent.press(screen.getByRole('button', { name: 'Agregar un vaso de Café o té' }));
     expect(onAdd).toHaveBeenLastCalledWith('zero-calorie');
   });
 
-  it('a juice from breakfast fills its glasses here, marked with its meal; alcohol is shown but not counted', async () => {
+  it('at 0 glasses of water the − is disabled; with glasses it removes the last one', async () => {
+    const onDelete = jest.fn();
+    await render(
+      <HydrationSection
+        {...base}
+        drinks={[
+          { id: 'w1', kind: 'water', volumeMl: 250 },
+          { id: 'c1', kind: 'zero-calorie', volumeMl: 250 },
+          { id: 'w2', kind: 'water', volumeMl: 250 },
+        ]}
+        onDelete={onDelete}
+      />,
+    );
+    expect(screen.getByRole('button', { name: 'Quitar un vaso de Alcohol' })).toBeDisabled();
+    await fireEvent.press(screen.getByRole('button', { name: 'Quitar un vaso de Agua' }));
+    expect(onDelete).toHaveBeenCalledWith('w2');
+  });
+
+  it('the bucket shows every drink, caloric ones from meals included; alcohol is shown but not counted', async () => {
     await render(
       <HydrationSection
         {...base}
@@ -41,27 +58,16 @@ describe('HydrationSection (F10)', () => {
     expect(screen.getByText('3 de 8 vasos')).toBeOnTheScreen();
     expect(screen.getByText('Jugo de papaya · del Desayuno · 2 vasos')).toBeOnTheScreen();
     expect(
-      screen.getByRole('button', { name: 'Quitar vaso de Alcohol (no suma)' }),
+      screen.getByLabelText(
+        'Cubeta de 8 vasos: Agua 1, Café o té 0, Alcohol 1.3 (no suma), Con calorías 2',
+      ),
     ).toBeOnTheScreen();
-  });
-
-  it('tapping a logged glass removes it', async () => {
-    const onDelete = jest.fn();
-    await render(
-      <HydrationSection
-        {...base}
-        drinks={[{ id: 'w', kind: 'water', volumeMl: 250 }]}
-        onDelete={onDelete}
-      />,
-    );
-    await fireEvent.press(screen.getByRole('button', { name: 'Quitar vaso de Agua' }));
-    expect(onDelete).toHaveBeenCalledWith('w');
   });
 
   it('a caloric drink is two taps and goes to the meal', async () => {
     const onAddCaloric = jest.fn();
     await render(<HydrationSection {...base} onAddCaloric={onAddCaloric} />);
-    await fireEvent.press(screen.getByRole('button', { name: 'Con calorías' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar bebida con calorías' }));
     await fireEvent.press(screen.getByRole('button', { name: 'Chicha morada' }));
     expect(onAddCaloric).toHaveBeenCalledWith(base.caloricDrinks[0]);
   });

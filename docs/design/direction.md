@@ -28,7 +28,7 @@ Prototype: [explorations/2026-10-07-today-v3.html](explorations/2026-10-07-today
    - **"No physical activity"** button = the base day (home, no exercise). Choosing it hides adding; logging any activity clears it
    - **"+ Add activity":** colour icon grid, duration chips, intensity (light / medium / hard), time band
    - **Your routines:** one-tap chips; tapping asks **how much was done** (100 / 75 / 50 / 25%) and when; "Manage" opens the routine editor (name, type, usual duration, exercises with sets × reps)
-6. **Hydration:** one entry, two views — a juice logged at breakfast shows its glasses here automatically (badge with the meal); water and zero-calorie drinks are tapped here; tapping a caloric drink here also creates its food entry. Alcohol is shown but does not count. **Urine colour** (clear / yellow / dark) as the main check. Goal = base from sex + climate from the profile; a "**I sweated a lot today**" switch adds 2 glasses. Water from food (20–30%) is not counted
+6. **Hydration:** a **pail of the day's goal** on the left (about a third of the width) fills bottom-up: caloric drinks (orange) · alcohol (wine) · coffee or tea (brown) · water (blue, on top); past the goal it stays full and each drink keeps its share of everything drunk. On the right, one row per drink with **− count +** (− disabled at 0, removes the last glass) and "Caloric" with its count and +. One entry, two views — a juice logged at breakfast shows its glasses here automatically (badge with the meal); water and zero-calorie drinks are tapped here; tapping a caloric drink here also creates its food entry. Alcohol is shown but does not count. **Urine colour** (clear / yellow / dark) as the main check. Goal = base from sex + climate from the profile; a "**I sweated a lot today**" switch adds 2 glasses. Water from food (20–30%) is not counted
 7. **Body and mood**, with colour icons and colour faces: bathroom (Bristol drawings + "gas only" + "didn't go today"), bloating vs usual, **highest stress felt today** (the peak, even if it calmed later), energy, mood
 8. **Sleep:** per session: name and hours on one line; "fell asleep → woke up" times side by side; "Sleep quality · Good" over the moons; a "**I had nightmares**" switch; "+ Add nap"
 9. **Custom symptoms** and the **private** card (locked)
@@ -100,6 +100,8 @@ weight trend, weekly waist (if enabled), drinks and bloating.
 - Monthly chart, one metric at a time (chips): bars for calories, protein, movement and drinks, coloured dark green when inside **that day's** range; dots + trend line (moving average) for weight and waist; hover/tap tooltip per day
 
 ## Change history
+
+- 2026-10-12 — Hydration pail with − / + per drink (Oscar's idea)
 
 - 2026-10-12 — Range rows redesigned after Oscar's review ("the most important element, looks basic, limits overlap"): fixed-width zones, value large, state pill; ranges move above the rings
 

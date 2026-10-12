@@ -29,7 +29,7 @@ describe('SleepSection (F11)', () => {
         onDelete={jest.fn()}
       />,
     );
-    expect(screen.getByText('8.5 h en total')).toBeOnTheScreen();
+    expect(screen.getByText('8h 30m en total')).toBeOnTheScreen();
   });
 
   it('prefills the night from the usual schedule; one tap on a moon saves it', async () => {
@@ -72,7 +72,7 @@ describe('SleepSection (F11)', () => {
       />,
     );
     await fireEvent.press(screen.getByRole('button', { name: '+ Agregar siesta' }));
-    expect(screen.getByText('9 h en total')).toBeOnTheScreen();
+    expect(screen.getByText('9h en total')).toBeOnTheScreen();
     await fireEvent.press(screen.getAllByRole('button', { name: 'Quitar siesta' })[0]!);
     expect(onDelete).toHaveBeenCalledWith('p');
   });

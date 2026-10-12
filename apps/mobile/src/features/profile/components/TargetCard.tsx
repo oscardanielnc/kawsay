@@ -2,7 +2,7 @@ import type { DayTargets } from '@kawsay/core/targets/compute-day-targets';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { formatNumber } from '@/lib/format';
+import { formatDuration, formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
 
 interface Props {
@@ -54,7 +54,7 @@ export function TargetCard({
         <Text style={[type.caption, styles.onDark]}>
           {t('profile.howBody', {
             bmr: formatNumber(targets.bmrKcal),
-            awake: formatNumber(awakeHours, 1),
+            awake: formatDuration(awakeHours),
             expenditure: formatNumber(targets.expenditureKcal),
             target: formatNumber(targets.targetKcal),
             protein: formatNumber(proteinGPerKg, 1),

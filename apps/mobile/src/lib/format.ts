@@ -38,3 +38,11 @@ export function formatTime(ms: number, timeZone: string): string {
     timeZone,
   });
 }
+
+/** Hours as a person says them: 8.25 → "8h 15m", 9 → "9h", 0.5 → "30m" (rounded to the minute). */
+export function formatDuration(hours: number): string {
+  const total = Math.round(hours * 60);
+  const [h, m] = [Math.floor(total / 60), total % 60];
+  if (h === 0) return `${m}m`;
+  return m === 0 ? `${h}h` : `${h}h ${String(m).padStart(2, '0')}m`;
+}

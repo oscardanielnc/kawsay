@@ -8,7 +8,7 @@ import { Stepper } from '@/components/forms/Stepper';
 import { Toggle } from '@/components/forms/Toggle';
 import { Card } from '@/components/layout/Card';
 import { Button } from '@/components/primitives/Button';
-import { formatNumber } from '@/lib/format';
+import { formatDuration } from '@/lib/format';
 import { color, radius, space, touch, type } from '@/lib/theme';
 import type { SleepKind, SleepSession } from './sleep-db';
 
@@ -108,7 +108,7 @@ export function SleepSection({ sessions, usualNight, usualNap, onSave, onDelete 
   return (
     <Card title={t('sleep.title')}>
       <Text style={[type.heading, styles.ink]}>
-        {t('sleep.total', { hours: formatNumber(total, total % 1 ? 1 : 0) })}
+        {t('sleep.total', { hours: formatDuration(total) })}
       </Text>
       {shown.map((s) => {
         const hours = sleepHours(s);
@@ -119,7 +119,7 @@ export function SleepSection({ sessions, usualNight, usualNap, onSave, onDelete 
                 {t(`sleep.kinds.${s.kind}`)}
               </Text>
               <Text style={[type.label, styles.muted]}>
-                {t('sleep.hours', { hours: formatNumber(hours, hours % 1 ? 1 : 0) })}
+                {t('sleep.hours', { hours: formatDuration(hours) })}
               </Text>
               {s.kind === 'nap' ? (
                 <Pressable

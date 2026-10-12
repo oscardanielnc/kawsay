@@ -49,3 +49,12 @@ export class WeakPasswordError extends DomainError {
     super('Passwords need 12 to 128 characters');
   }
 }
+
+/** No account with that email (server CLI only; the API never tells which emails exist). */
+export class UserNotFoundError extends DomainError {
+  readonly code = 'user.not_found';
+
+  constructor() {
+    super('No user with this email');
+  }
+}

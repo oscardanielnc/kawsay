@@ -11,6 +11,8 @@ export abstract class SessionRepository {
   abstract createSession(session: SessionRecord): Promise<void>;
   abstract findSession(id: string): Promise<SessionRecord | null>;
   abstract revokeSession(id: string, reason: string, at: Date): Promise<void>;
+  /** Ends every open session of the user, e.g. after a password change. */
+  abstract revokeAllSessions(userId: string, reason: string, at: Date): Promise<void>;
   abstract saveRefreshToken(token: RefreshTokenRecord): Promise<void>;
   abstract findRefreshToken(id: string): Promise<RefreshTokenRecord | null>;
   /**

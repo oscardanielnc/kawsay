@@ -71,6 +71,13 @@ export class PrismaSessionRepository extends SessionRepository {
     });
   }
 
+  async revokeAllSessions(userId: string, reason: string, at: Date): Promise<void> {
+    await this.tx.session.updateMany({
+      where: { userId, revokedAt: null },
+      data: { revokedAt: at, revokedReason: reason },
+    });
+  }
+
   async saveRefreshToken(token: RefreshTokenRecord): Promise<void> {
     await this.tx.refreshToken.create({ data: token });
   }

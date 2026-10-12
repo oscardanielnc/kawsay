@@ -32,6 +32,15 @@ Ships the committed sources with `git archive`, builds on the VM, applies migrat
    ```
 3. **Backups:** follow [backup-restore.md](backup-restore.md) and run one restore before storing real data
 
+## New password for an account
+
+No reset by email yet. On the VM, typed by the account owner (the password never goes in an argument or the history);
+it also closes that account's open sessions, so the phone asks to sign in again:
+
+```bash
+cd ~/kawsay && read -s -p "Nueva contraseña (12+ caracteres): " p && echo && printf '%s' "$p" |   docker compose -p kawsay-prod --env-file deploy/prod.env -f deploy/compose.yml   exec -T api node dist/modules/identity/presentation/cli/set-password.cli.js <email>; unset p
+```
+
 ## Checks
 
 - `curl https://kawsay.oscarnavarro.dev/v1/health` → `{"status":"ok"}`

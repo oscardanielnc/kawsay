@@ -34,6 +34,11 @@ export class User {
     return new User({ ...props });
   }
 
+  /** The same account with a new password hash. */
+  withPasswordHash(passwordHash: string): User {
+    return new User({ ...this.props, passwordHash });
+  }
+
   get id(): string {
     return this.props.id;
   }

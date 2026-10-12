@@ -16,6 +16,7 @@ import { CreateUserUseCase } from './application/use-cases/create-user.use-case'
 import { LoginUseCase } from './application/use-cases/login.use-case';
 import { LogoutUseCase } from './application/use-cases/logout.use-case';
 import { RefreshSessionUseCase } from './application/use-cases/refresh-session.use-case';
+import { SetPasswordUseCase } from './application/use-cases/set-password.use-case';
 import { Argon2PasswordHasher, NodeOpaqueTokenSecrets } from './infrastructure/crypto/auth-crypto';
 import { JwtAccessTokens } from './infrastructure/crypto/jwt-access-tokens';
 import {
@@ -57,9 +58,15 @@ import { AuthController } from './presentation/http/auth.controller';
     LoginUseCase,
     RefreshSessionUseCase,
     LogoutUseCase,
+    SetPasswordUseCase,
     AccessTokenGuard,
   ],
   // Public API of the module: other modules guard their routes with these, never touch the repositories.
-  exports: [AccessTokenGuard, AuthenticateAccessTokenUseCase, CreateUserUseCase],
+  exports: [
+    AccessTokenGuard,
+    AuthenticateAccessTokenUseCase,
+    CreateUserUseCase,
+    SetPasswordUseCase,
+  ],
 })
 export class IdentityModule {}

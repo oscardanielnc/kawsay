@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { ArcGauge } from '@/components/data-display/ArcGauge';
-import { piecewise, TWO_SIDED, UPPER_LIMIT } from '@/components/data-display/gauge';
+import { piecewise, UPPER_LIMIT } from '@/components/data-display/gauge';
+import { BMI_BANDS, bmiPosition } from './bmi-gauge';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
 
@@ -19,15 +20,6 @@ const TONE_PILL: Record<Tone, string> = {
   yellow: color.warning50,
   red: color.danger50,
 };
-/** BMI limits (WHO) on the two-sided gauge: 15 · 17 · 18.5 · 25 · 30 · 35 at the ends of the sevenths. */
-const BMI_POINTS: readonly [number, number][] = [
-  [15, 0],
-  [17, 2 / 7],
-  [18.5, 3 / 7],
-  [25, 4 / 7],
-  [30, 5 / 7],
-  [35, 1],
-];
 /** Waist-to-height (NICE) on the upper-limit gauge: green below 0.5, yellow to 0.6, red above. */
 const WAIST_POINTS: readonly [number, number][] = [
   [0.35, 0],
@@ -84,15 +76,15 @@ export function StatusCard({ weightKg, heightCm, goalWeightKg, waistCm = null }:
         <View style={[styles.gauge, !waist && styles.single]}>
           <Text style={[type.label, styles.ink, styles.centered]}>{t('profile.bmiName')}</Text>
           <ArcGauge
-            bands={TWO_SIDED}
+            bands={BMI_BANDS}
             limits={[
-              { at: 2 / 7, text: '17' },
-              { at: 3 / 7, text: formatNumber(18.5, 1), strong: true },
-              { at: 4 / 7, text: '25', strong: true },
-              { at: 5 / 7, text: '30' },
+              { at: bmiPosition(17), text: '17' },
+              { at: bmiPosition(18.5), text: formatNumber(18.5, 1), strong: true },
+              { at: bmiPosition(25), text: '25', strong: true },
+              { at: bmiPosition(30), text: '30' },
             ]}
-            needle={piecewise(status.bmi, BMI_POINTS)}
-            flag={goal ? piecewise(goal.bmi, BMI_POINTS) : null}
+            needle={bmiPosition(status.bmi)}
+            flag={goal ? bmiPosition(goal.bmi) : null}
             value={formatNumber(status.bmi, 1)}
             unit={t('profile.bmi')}
             accessibilityLabel={t('profile.bmiGauge', {

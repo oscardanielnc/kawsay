@@ -120,7 +120,7 @@
     "movementMin": "min mov.",
     "targetNote": "Sube los días que te mueves. Se recalibra con tu peso cada 2 semanas.",
     "how": "ⓘ ¿Cómo se calcula?",
-    "howBody": "Basal (Mifflin-St Jeor): {{bmr}} kcal\n+ despierto {{awake}} h “sentado y caminatas breves” (MET 1.4)\n× 1.10 digestión = gasto {{expenditure}} kcal\n− déficit por tu ritmo (7,700 kcal/kg, máx. 1 % del peso/sem y 25 % del gasto)\n= {{target}} kcal, nunca bajo tu basal\nProteína {{protein}} g × {{reference}} kg de referencia (tu peso o el de IMC 25, el menor) · grasa {{fat}} % · carbos el resto",
+    "howBody": "Basal (Mifflin-St Jeor): {{bmr}} kcal\n+ despierto {{awake}} “sentado y caminatas breves” (MET 1.4)\n× 1.10 digestión = gasto {{expenditure}} kcal\n− déficit por tu ritmo (7,700 kcal/kg, máx. 1 % del peso/sem y 25 % del gasto)\n= {{target}} kcal, nunca bajo tu basal\nProteína {{protein}} g × {{reference}} kg de referencia (tu peso o el de IMC 25, el menor) · grasa {{fat}} % · carbos el resto",
     "lowCarbs": "⚠ Carbohidratos bajo 130 g",
     "notMedical": "🩺 Kawsay no es una app médica ni da diagnósticos. Si tienes una enfermedad renal, acuerda tu proteína con un médico.",
     "localOnly": "Guardado solo en este teléfono (la cuenta y la nube llegan pronto)",
@@ -427,8 +427,8 @@
   },
   "sleep": {
     "title": "Sueño",
-    "total": "{{hours}} h en total",
-    "hours": "{{hours}} h",
+    "total": "{{hours}} en total",
+    "hours": "{{hours}}",
     "kinds": {
       "night": "Noche",
       "nap": "Siesta"

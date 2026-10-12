@@ -7,10 +7,15 @@ import { OpaqueTokenSecrets, SessionRepository, UserRepository } from '../ports/
 import type { User } from '../../domain/user';
 import { type IssuedTokens, SessionIssuer } from '../services/session-issuer';
 
+/** A reuse this soon after the first use is a race on the same phone, not a stolen token. */
+export const REUSE_GRACE_MS = 30_000;
+
 /**
  * Refresh token rotation with reuse detection (ADR 0005):
  *   valid, unused token  → mark used, issue a new pair in the same session
- *   token already used   → it leaked (attacker or victim used it first): revoke the whole session
+ *   used less than 30 s ago → the same phone asking twice (two requests at once, or a reply lost on the way):
+ *                          issue another pair, the session stays open
+ *   used earlier         → it leaked (attacker or victim used it first): revoke the whole session
  *   unknown/expired/revoked → sign in again
  */
 @Injectable()
@@ -37,9 +42,13 @@ export class RefreshSessionUseCase {
       if (!session || session.revokedAt || record.expiresAt <= now) return null;
 
       if (!(await this.sessions.markRefreshTokenUsed(record.id, now))) {
-        // Committed (not thrown inside the transaction, which would roll the revocation back).
-        await this.sessions.revokeSession(session.id, 'refresh_token_reuse', now);
-        return 'reuse' as const;
+        const usedAt = (await this.sessions.findRefreshToken(record.id))?.usedAt;
+        const race = usedAt && now.getTime() - usedAt.getTime() <= REUSE_GRACE_MS;
+        if (!race) {
+          // Committed (not thrown inside the transaction, which would roll the revocation back).
+          await this.sessions.revokeSession(session.id, 'refresh_token_reuse', now);
+          return 'reuse' as const;
+        }
       }
 
       const user = await this.users.findById(session.userId);

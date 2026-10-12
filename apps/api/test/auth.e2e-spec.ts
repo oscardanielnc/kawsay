@@ -3,6 +3,7 @@ import type { NestExpressApplication } from '@nestjs/platform-express';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { CreateUserUseCase } from '../src/modules/identity/application/use-cases/create-user.use-case';
+import { Clock } from '../src/shared/application/ports/clock';
 import { createTestApp } from './setup/create-test-app';
 
 const PASSWORD = 'a-long-test-password'; // gitleaks:allow (fake test password)
@@ -11,8 +12,14 @@ describe('Sign-in with rotating refresh tokens (real Postgres)', () => {
   let app: NestExpressApplication;
   const email = `auth-${Date.now()}@kawsay.test`;
 
+  /** Real time plus a shift the tests move forward. */
+  let shiftMs = 0;
+
   beforeAll(async () => {
-    app = await createTestApp();
+    app = await createTestApp({
+      customize: (builder) =>
+        builder.overrideProvider(Clock).useValue({ now: () => new Date(Date.now() + shiftMs) }),
+    });
     await app.get(CreateUserUseCase).execute({ email, password: PASSWORD });
   });
 
@@ -48,11 +55,19 @@ describe('Sign-in with rotating refresh tokens (real Postgres)', () => {
     expect(anonymous.body).toMatchObject({ code: 'auth.unauthenticated' });
   });
 
-  it('rotates the refresh token, and revokes the session when an old one is reused', async () => {
+  it('two refreshes at once from the same phone (within 30 s) both get tokens; the session stays open', async () => {
+    const first = ((await login().expect(200)).body as TokenResponse).refreshToken;
+    const [a, b] = await Promise.all([refresh(first), refresh(first)]);
+    expect([a.status, b.status]).toEqual([200, 200]);
+    await refresh((b.body as TokenResponse).refreshToken).expect(200);
+  });
+
+  it('rotates the refresh token, and revokes the session when an old one is reused after 30 s', async () => {
     const first = ((await login().expect(200)).body as TokenResponse).refreshToken;
     const rotated = (await refresh(first).expect(200)).body as TokenResponse;
     expect(rotated.refreshToken).not.toBe(first);
 
+    shiftMs += 31_000;
     const reuse = await refresh(first).expect(401);
     expect(reuse.body).toMatchObject({ code: 'auth.invalid_session' });
     await refresh(rotated.refreshToken).expect(401);

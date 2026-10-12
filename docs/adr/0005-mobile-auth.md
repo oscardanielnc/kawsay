@@ -17,3 +17,7 @@ in session families with reuse detection), except: **the refresh token lives in 
 ## Consequences
 
 - Documented exception to the standard's cookie rule, valid for native clients only
+- 2026-10-12: two requests at once on app open refreshed with the same token and the reuse detection signed Oscar
+  out (also why his phone stopped syncing on 2026-10-09). Now the phone runs **one refresh at a time** and the
+  server treats a reuse **within 30 s** of the first use as the same phone (another pair, session kept); later
+  reuses still revoke the session

@@ -8,6 +8,7 @@ import { addDays, type LocalDate } from '@kawsay/core/shared/local-date';
 import { daySleepHours } from '@kawsay/core/sleep/sleep-session';
 import { asc, isNull } from 'drizzle-orm';
 import type { Exposure, InsightsData, SymptomRef } from '@/features/insights/types';
+import { notesBetween } from '@/features/notes/notes-db';
 import { getProfile } from '@/features/profile/profile-db';
 import { trendWeightKg } from '@/features/profile/profile-targets';
 import { listSymptoms, symptomAnswersOn, type Symptom } from '@/features/symptoms/symptoms-db';
@@ -81,7 +82,10 @@ export async function loadInsights(db: Db, end: LocalDate): Promise<InsightsData
     ]);
   const dates = Array.from({ length: RELATION_DAYS }, (_, i) => addDays(from, i));
   const days = await Promise.all(dates.map((date) => loadDay(db, date, { profile, weights })));
-  const answers = await Promise.all(dates.map((date) => symptomAnswersOn(db, date)));
+  const [answers, notes] = await Promise.all([
+    Promise.all(dates.map((date) => symptomAnswersOn(db, date))),
+    notesBetween(db, from, end),
+  ]);
 
   const ingredients = new Map<string, string[]>();
   for (const i of [
@@ -212,5 +216,15 @@ export async function loadInsights(db: Db, end: LocalDate): Promise<InsightsData
       .slice(0, 5);
   }
 
-  return { from: weekFrom, to: end, week: summary, nutrients, sources, richest, relations };
+  return {
+    from: weekFrom,
+    to: end,
+    relationsFrom: from,
+    notes,
+    week: summary,
+    nutrients,
+    sources,
+    richest,
+    relations,
+  };
 }

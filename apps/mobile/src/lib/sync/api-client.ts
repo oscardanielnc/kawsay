@@ -1,4 +1,5 @@
 import { TokenResponse } from '@kawsay/contracts/auth';
+import { type AnalysisRequest, AnalysisResponse } from '@kawsay/contracts/insights';
 import { type Change, PullResponse, PushResponse } from '@kawsay/contracts/sync';
 import type { SyncApi } from './engine';
 
@@ -25,10 +26,24 @@ export class SignedOutError extends Error {
   }
 }
 
+/** A refused request with its stable problem `code` (e.g. `insights.limit_reached`). */
+export class ApiProblemError extends Error {
+  constructor(
+    readonly status: number,
+    readonly code: string | null,
+    path: string,
+  ) {
+    super(`${path} failed: ${status}`);
+    this.name = 'ApiProblemError';
+  }
+}
+
 export interface ApiClient {
   signIn(email: string, password: string): Promise<{ userId: string; email: string }>;
   signOut(): Promise<void>;
   sync: SyncApi;
+  /** On-demand AI analysis (F17). */
+  analyze(request: AnalysisRequest): Promise<AnalysisResponse>;
 }
 
 /**
@@ -87,7 +102,10 @@ export function createApiClient({
         accessToken = null;
         continue;
       }
-      if (!response.ok) throw new Error(`${path} failed: ${response.status}`);
+      if (!response.ok) {
+        const problem = (await response.json().catch(() => null)) as { code?: string } | null;
+        throw new ApiProblemError(response.status, problem?.code ?? null, path);
+      }
       return response.json();
     }
     throw new SignedOutError();
@@ -117,5 +135,10 @@ export function createApiClient({
         ),
       pull: async (since: number) => PullResponse.parse(await authed(`/sync/pull?since=${since}`)),
     },
+
+    analyze: async (request) =>
+      AnalysisResponse.parse(
+        await authed('/insights/analyze', { method: 'POST', body: JSON.stringify(request) }),
+      ),
   };
 }

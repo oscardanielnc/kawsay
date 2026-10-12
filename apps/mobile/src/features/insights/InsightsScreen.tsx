@@ -3,6 +3,8 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { InsightsData } from './types';
 import { color, radius, space, type } from '@/lib/theme';
+import { AiAnalysisCard, type AnalysisStatus } from './AiAnalysisCard';
+import type { StoredAnalysis } from './analysis-store';
 import { NutrientsCard } from './NutrientsCard';
 import { RelationsCard } from './RelationsCard';
 import { WeekCard } from './WeekCard';
@@ -13,6 +15,12 @@ interface Props {
   canNext: boolean;
   onPrev: () => void;
   onNext: () => void;
+  ai: {
+    stored: StoredAnalysis | null;
+    status: AnalysisStatus;
+    timeZone: string;
+    onAnalyze: () => void;
+  };
 }
 
 /** "6 – 12 oct." for a week inside one month, "29 sept. – 5 oct." across two. */
@@ -25,7 +33,7 @@ function weekLabel(from: string, to: string): string {
 }
 
 /** Insights tab (F17 without AI, F19, F20): the week ending on the chosen day, computed on the phone. */
-export function InsightsScreen({ data, canNext, onPrev, onNext }: Props) {
+export function InsightsScreen({ data, canNext, onPrev, onNext, ai }: Props) {
   const { t } = useTranslation();
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
@@ -63,6 +71,7 @@ export function InsightsScreen({ data, canNext, onPrev, onNext }: Props) {
               richest={data.richest}
             />
             <RelationsCard relations={data.relations} />
+            <AiAnalysisCard {...ai} />
           </>
         ) : null}
       </ScrollView>

@@ -12,7 +12,7 @@ const pct = (n: number) => `${formatNumber(n * 100)} %`;
 
 /**
  * "What lines up with your symptoms" (F17, ADR 0019): the relations counted on the phone, each with its numbers and
- * a confidence level; the AI button comes later. Never a diagnosis.
+ * a confidence level; the AI analysis has its own card. Never a diagnosis.
  */
 export function RelationsCard({ relations }: { relations: InsightsData['relations'] }) {
   const { t } = useTranslation();
@@ -79,9 +79,6 @@ export function RelationsCard({ relations }: { relations: InsightsData['relation
         {t('insights.relations.title')}
       </Text>
       {body}
-      <View accessibilityState={{ disabled: true }} style={styles.ai}>
-        <Text style={[type.label, styles.muted]}>{t('insights.relations.ai')}</Text>
-      </View>
       <Text style={[type.caption, styles.muted]}>{t('insights.relations.disclaimer')}</Text>
       <Pressable accessibilityRole="button" onPress={() => setDoctor(!doctor)}>
         <Text style={[type.label, styles.brand]}>{t('insights.relations.doctor')}</Text>
@@ -108,16 +105,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#E8EEF8',
   },
   confidenceText: { color: '#2F4A7A' },
-  ai: {
-    marginTop: space.xs,
-    minHeight: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: radius.pill,
-    borderWidth: 1.5,
-    borderStyle: 'dashed',
-    borderColor: '#D5CFC0',
-  },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
   brand: { color: color.brand },

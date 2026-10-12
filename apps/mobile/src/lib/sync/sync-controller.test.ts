@@ -29,6 +29,7 @@ function client(overrides: Partial<ApiClient['sync']> & Partial<Omit<ApiClient, 
   const api: ApiClient = {
     signIn: overrides.signIn ?? (() => Promise.resolve(oscar)),
     signOut: overrides.signOut ?? (() => Promise.resolve()),
+    analyze: overrides.analyze ?? (() => Promise.reject(new Error('not in these tests'))),
     sync: {
       push:
         overrides.push ??
@@ -55,15 +56,13 @@ function client(overrides: Partial<ApiClient['sync']> & Partial<Omit<ApiClient, 
 
 async function logWeight(db: Db, e: RecordEnv) {
   const record = newRecord(e);
-  await db
-    .insert(weightEntry)
-    .values({
-      ...record,
-      date: '2026-10-09',
-      kg: 80,
-      loggedAt: record.updatedAt,
-      timeZone: 'America/Lima',
-    });
+  await db.insert(weightEntry).values({
+    ...record,
+    date: '2026-10-09',
+    kg: 80,
+    loggedAt: record.updatedAt,
+    timeZone: 'America/Lima',
+  });
 }
 
 describe('SyncController (F02)', () => {

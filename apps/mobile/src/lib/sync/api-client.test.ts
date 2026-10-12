@@ -1,5 +1,6 @@
 /** @jest-environment node */
 import {
+  ApiProblemError,
   createApiClient,
   InvalidCredentialsError,
   SignedOutError,
@@ -109,5 +110,38 @@ describe('API client', () => {
     const { fetch } = scripted();
     await createApiClient({ baseUrl: '', fetch, tokens: store }).signOut();
     expect(store.value).toBeNull();
+  });
+
+  it('analyze (F17) posts the request with the access token and returns the analysis', async () => {
+    const analysis = { summary: 'Resumen', findings: [], suggestions: [], warningSigns: [] };
+    const { fetch, calls } = scripted(json(200, tokens(1)), json(200, { analysis, remaining: 2 }));
+    const client = createApiClient({
+      baseUrl: 'https://api.test/v1',
+      fetch,
+      tokens: memoryTokens('r0'),
+    });
+    const body = {
+      period: { from: '2026-09-01', to: '2026-10-12', loggedDays: 12 },
+      findings: [],
+      week: { green: 1, yellow: 0, red: 0, movementMinutes: 0, lowNutrients: [] },
+      notes: [],
+    };
+    await expect(client.analyze(body)).resolves.toEqual({ analysis, remaining: 2 });
+    expect(calls[1]?.url).toBe('https://api.test/v1/insights/analyze');
+  });
+
+  it('a refused analysis carries its problem code (daily limit)', async () => {
+    const { fetch } = scripted(json(200, tokens(1)), json(429, { code: 'insights.limit_reached' }));
+    const client = createApiClient({ baseUrl: 'x', fetch, tokens: memoryTokens('r0') });
+    const error = await client
+      .analyze({
+        period: { from: '2026-09-01', to: '2026-10-12', loggedDays: 12 },
+        findings: [],
+        week: { green: 1, yellow: 0, red: 0, movementMinutes: 0, lowNutrients: [] },
+        notes: [],
+      })
+      .catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(ApiProblemError);
+    expect(error).toMatchObject({ status: 429, code: 'insights.limit_reached' });
   });
 });

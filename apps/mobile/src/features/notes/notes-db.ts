@@ -1,5 +1,5 @@
 import type { LocalDate } from '@kawsay/core/shared/local-date';
-import { and, asc, eq, isNull } from 'drizzle-orm';
+import { and, asc, between, eq, isNull } from 'drizzle-orm';
 import { newRecord } from '@/lib/db/record';
 import { dayNote } from '@/lib/db/schema';
 import type { Db, RecordEnv } from '@/lib/db/types';
@@ -26,6 +26,19 @@ export async function notesOn(db: Db, date: LocalDate): Promise<DayNote[]> {
     .from(dayNote)
     .where(and(eq(dayNote.date, date), isNull(dayNote.deletedAt)))
     .orderBy(asc(dayNote.loggedAt));
+}
+
+/** Notes from `from` to `to` (inclusive), by day then by time written: what the AI analysis reads (ADR 0019). */
+export async function notesBetween(
+  db: Db,
+  from: LocalDate,
+  to: LocalDate,
+): Promise<{ date: LocalDate; text: string }[]> {
+  return db
+    .select({ date: dayNote.date, text: dayNote.text })
+    .from(dayNote)
+    .where(and(between(dayNote.date, from, to), isNull(dayNote.deletedAt)))
+    .orderBy(asc(dayNote.date), asc(dayNote.loggedAt));
 }
 
 /** Creates a note, or replaces the text of `id` (F21). Blank text throws: there is nothing to save. */

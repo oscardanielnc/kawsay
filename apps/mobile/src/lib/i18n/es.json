@@ -873,7 +873,6 @@
         "medium": "Confianza media",
         "high": "Confianza alta"
       },
-      "ai": "✨ Analizar con IA · pronto",
       "disclaimer": "No es un diagnóstico: son coincidencias en tus registros.",
       "doctor": "ⓘ Cuándo ir al médico",
       "doctorBody": "Ve al médico si tienes sangre en las heces o en el vómito, dolor de barriga fuerte o que no se va, fiebre, diarrea por más de 2 días, bajas de peso sin buscarlo, o una tristeza que no se va en 2 semanas.",
@@ -926,6 +925,29 @@
           "lowers": "→ menos {{name}}",
           "bad": "{{name}}:"
         }
+      }
+    },
+    "ai": {
+      "title": "✨ Análisis con IA",
+      "privacy": "Envía a DeepSeek tus relaciones, tu semana y tus notas de estas 6 semanas. Nunca tu registro íntimo.",
+      "run": "Analizar mis últimas 6 semanas",
+      "working": "Analizando… puede tardar unos 20 segundos",
+      "again": "Analizar de nuevo",
+      "made": "Hecho el {{moment}} · te quedan {{remaining}} hoy",
+      "findings": "Lo que encontró",
+      "suggestions": "Prueba esto",
+      "warning": "⚠️ Ve al médico si…",
+      "basedOn": {
+        "data": "📊 tus datos",
+        "notes": "📝 tus notas",
+        "both": "📊📝 datos y notas"
+      },
+      "footer": "Generado por IA a partir de tus registros. No es un diagnóstico.",
+      "errors": {
+        "limit": "Ya hiciste tus 3 análisis de las últimas 24 horas. Vuelve mañana.",
+        "offline": "Necesitas internet para analizar.",
+        "account": "Necesitas iniciar sesión con tu cuenta para usar el análisis con IA.",
+        "unavailable": "La IA no respondió. Intenta de nuevo en unos minutos."
       }
     }
   }

@@ -38,6 +38,10 @@ export interface FoodPick {
 export interface InsightsData {
   from: LocalDate;
   to: LocalDate;
+  /** First day of the six weeks the relations and the AI look at. */
+  relationsFrom: LocalDate;
+  /** Day notes of those six weeks, for the AI (ADR 0019); not shown on this tab. */
+  notes: { date: LocalDate; text: string }[];
   week: ReturnType<typeof weeklySummary>;
   nutrients: ReturnType<typeof weeklyNutrients> | null;
   /** Per nutrient: the 3 biggest sources of the week and the 5 richest catalog foods per usual portion. */

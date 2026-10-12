@@ -1,7 +1,7 @@
 /** @jest-environment node */
 import { createTestDb } from '@/lib/db/test-db';
 import type { RecordEnv } from '@/lib/db/types';
-import { deleteNote, notesOn, saveNote } from './notes-db';
+import { deleteNote, notesBetween, notesOn, saveNote } from './notes-db';
 
 const day = '2026-10-12';
 const timeZone = 'America/Lima';
@@ -60,5 +60,17 @@ describe('day notes (F21)', () => {
     await saveNote(db, e, { date: day, timeZone, text: 'primera' });
     await saveNote(db, e, { date: day, timeZone, text: 'segunda' });
     expect((await notesOn(db, day)).map((n) => n.text)).toEqual(['primera', 'segunda']);
+  });
+
+  it('notes of a period, oldest first, for the AI analysis (F17)', async () => {
+    const db = await createTestDb();
+    const e = env();
+    await saveNote(db, e, { date: '2026-10-01', timeZone, text: 'fuera' });
+    await saveNote(db, e, { date: '2026-10-11', timeZone, text: 'segunda' });
+    await saveNote(db, e, { date: '2026-10-05', timeZone, text: 'primera' });
+    expect(await notesBetween(db, '2026-10-02', '2026-10-12')).toEqual([
+      { date: '2026-10-05', text: 'primera' },
+      { date: '2026-10-11', text: 'segunda' },
+    ]);
   });
 });

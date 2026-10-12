@@ -38,6 +38,8 @@ services:
       API_PORT: '3000'
       DATABASE_URL: postgresql://kawsay:${POSTGRES_PASSWORD}@postgres:5432/kawsay
       JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:?set JWT_ACCESS_SECRET in the env file}
+      # Optional: without it the AI analysis answers "disabled" (F17).
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
     # Loopback only: an app reachable by the VM's IP would skip Cloudflare (the August 2026 incident on this VM).
     ports:
       - '127.0.0.1:${API_PORT:?set API_PORT in the env file}:3000'

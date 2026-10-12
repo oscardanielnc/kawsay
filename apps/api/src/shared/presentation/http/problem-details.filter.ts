@@ -29,6 +29,9 @@ const DOMAIN_ERROR_STATUS: Record<string, number> = {
   'user.email_taken': HttpStatus.CONFLICT,
   'user.invalid_email': HttpStatus.BAD_REQUEST,
   'user.weak_password': HttpStatus.BAD_REQUEST,
+  'insights.limit_reached': HttpStatus.TOO_MANY_REQUESTS,
+  'insights.ai_disabled': HttpStatus.SERVICE_UNAVAILABLE,
+  'insights.ai_unavailable': HttpStatus.SERVICE_UNAVAILABLE,
 };
 
 const TITLES: Record<number, string> = {
@@ -40,6 +43,7 @@ const TITLES: Record<number, string> = {
   422: 'Unprocessable Content',
   429: 'Too Many Requests',
   500: 'Internal Server Error',
+  503: 'Service Unavailable',
 };
 
 /**

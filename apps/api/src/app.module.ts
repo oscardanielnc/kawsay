@@ -4,6 +4,7 @@ import { AppConfig } from './config/app-config';
 import { ConfigModule } from './config/config.module';
 import { HealthController } from './health/health.controller';
 import { IdentityModule } from './modules/identity/identity.module';
+import { InsightsModule } from './modules/insights/insights.module';
 import { SyncModule } from './modules/sync/sync.module';
 import { ProblemDetailsFilter } from './shared/presentation/http/problem-details.filter';
 import { SharedModule } from './shared/shared.module';
@@ -13,7 +14,13 @@ export class AppModule {
   static register(config: AppConfig): DynamicModule {
     return {
       module: AppModule,
-      imports: [ConfigModule.forRoot(config), SharedModule, IdentityModule, SyncModule],
+      imports: [
+        ConfigModule.forRoot(config),
+        SharedModule,
+        IdentityModule,
+        SyncModule,
+        InsightsModule,
+      ],
       controllers: [HealthController],
       providers: [{ provide: APP_FILTER, useClass: ProblemDetailsFilter }],
     };

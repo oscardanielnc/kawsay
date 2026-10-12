@@ -11,6 +11,12 @@ export const envSchema = z.object({
   /** The phone stays signed in while it opens the app at least this often. */
   REFRESH_TOKEN_TTL_DAYS: z.coerce.number().int().min(1).max(365).default(90),
   LOGIN_RATE_LIMIT_PER_MINUTE: z.coerce.number().int().min(1).default(5),
+
+  /** DeepSeek key for AI analyses (ADR 0007); without it the analysis endpoint answers "AI disabled". */
+  DEEPSEEK_API_KEY: z.string().min(20).optional(),
+  DEEPSEEK_MODEL: z.string().min(1).default('deepseek-flash'),
+  /** AI analyses per user in any 24 h (F17). */
+  AI_DAILY_LIMIT: z.coerce.number().int().min(1).max(50).default(3),
 });
 
 export type Env = z.infer<typeof envSchema>;

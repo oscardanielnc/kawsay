@@ -19,6 +19,7 @@ model User {
   createdAt    DateTime     @map("created_at") @db.Timestamptz(3)
   sessions     Session[]
   records      SyncRecord[]
+  analyses     AiAnalysis[]
 
   @@map("users")
 }
@@ -68,4 +69,15 @@ model SyncRecord {
   @@id([userId, collection, id])
   @@index([userId, seq])
   @@map("sync_record")
+}
+
+/// When a user ran an AI analysis (F17): only the time, never its content (ADR 0013). Counts the 24 h limit.
+model AiAnalysis {
+  id        String   @id @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  createdAt DateTime @map("created_at") @db.Timestamptz(3)
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId, createdAt])
+  @@map("ai_analyses")
 }

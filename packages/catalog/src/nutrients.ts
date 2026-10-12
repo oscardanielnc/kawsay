@@ -25,6 +25,8 @@ export const NUTRIENTS = {
   folateUg: 'folate_ug',
   vitaminB12Ug: 'vitamin_b12_ug',
   vitaminDUg: 'vitamin_d_ug',
+  /** Not in the source tables: set from seed/added-sugar.json or the label (F22). */
+  addedSugarG: 'added_sugar_g',
 } as const;
 
 export type NutrientKey = keyof typeof NUTRIENTS;

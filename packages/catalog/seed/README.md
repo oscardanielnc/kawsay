@@ -6,6 +6,7 @@ importer turns it into the app database.
 | File | Holds |
 | --- | --- |
 | `foods.json` | Foods: Spanish name, source hint (`INS`, `USDA`, `label`, `none`), state (`raw`, `cooked`, `fried`, `as-sold`) and household units in grams |
+| `added-sugar.json` | Added sugar per 100 g of every packaged or prepared food (F22); INS has no sugar column. Label foods read it from their label |
 | `dishes.json` | Seed dishes: one serving each, ingredients as `{ food, grams }`, icon, group, confidence, note |
 
 ## Rules for the importer

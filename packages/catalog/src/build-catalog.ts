@@ -18,6 +18,8 @@ export interface Inputs {
   prepared: Record<string, string>[];
   /** INEI ENCONUT 2013 summary by component name. */
   survey: Map<string, Survey>;
+  /** Added sugar per 100 g of packaged and prepared foods (F22). */
+  addedSugar: Record<string, { g: number; from?: string }>;
 }
 
 export interface Catalog {
@@ -38,6 +40,7 @@ export function readInputs(root: URL): Inputs {
     foods: json<{ foods: Record<string, SeedFood> }>('seed/foods.json').foods,
     dishes: json<{ dishes: SeedDish[] }>('seed/dishes.json').dishes,
     matches: json<Inputs['matches']>('seed/matches.json'),
+    addedSugar: json<{ foods: Inputs['addedSugar'] }>('seed/added-sugar.json').foods,
     sources: {
       ins: byKey(parseCsv(text('sources/ins-2023/foods.csv')), 'code'),
       usda: byKey(parseCsv(text('sources/usda-sr-legacy/foods.csv')), 'fdc_id'),
@@ -56,12 +59,34 @@ export function readInputs(root: URL): Inputs {
   };
 }
 
+/**
+ * Added sugar per 100 g (F22): the seed list wins, then the label (added sugars, else total sugars), else none.
+ */
+function withAddedSugar(
+  resolved: ResolvedFood,
+  food: SeedFood,
+  listed: { g: number } | undefined,
+): ResolvedFood {
+  if (!resolved.per100g) return resolved;
+  const label = food.label;
+  const printed = label?.per100g ?? label;
+  const scale = label?.per100g ? 1 : label?.servingGrams ? 100 / label.servingGrams : null;
+  const fromLabel =
+    printed && scale !== null ? (printed.addedSugars ?? printed.sugars ?? null) : null;
+  const grams = listed?.g ?? (fromLabel === null ? 0 : fromLabel * (scale ?? 1));
+  return { ...resolved, per100g: { ...resolved.per100g, addedSugarG: grams } };
+}
+
 /** Seed + matches + sources → the catalog the app bundles (ADR 0014). Throws on any broken link. */
 export function buildCatalog(inputs: Inputs): Catalog {
   const foods = Object.entries(inputs.foods).map(([id, food]) => {
     const match = inputs.matches.foods[id];
     if (!match) throw new Error(`${id} has no entry in seed/matches.json`);
-    return resolveFood(id, food, match, inputs.sources);
+    return withAddedSugar(
+      resolveFood(id, food, match, inputs.sources),
+      food,
+      inputs.addedSugar[id],
+    );
   });
   const byId = new Map(foods.map((food) => [food.id, food]));
   const dishes = inputs.dishes.map((dish) => ({ ...dish, totals: dishTotals(dish, byId) }));

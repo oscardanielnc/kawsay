@@ -1,0 +1,163 @@
+{
+ "version": "2026-10-12",
+ "about": "Added (free) sugar per 100 g as eaten (F22). INS has no sugar column, so every packaged or prepared food is listed here; label foods take it from their label; any other food has none.",
+ "foods": {
+  "aceite-oliva": {
+   "g": 0
+  },
+  "aceite-vegetal": {
+   "g": 0
+  },
+  "aceituna": {
+   "g": 0
+  },
+  "agua": {
+   "g": 0
+  },
+  "agua-coco": {
+   "g": 0
+  },
+  "aji-panca": {
+   "g": 0
+  },
+  "almendra": {
+   "g": 0
+  },
+  "arandano-seco": {
+   "g": 55,
+   "from": "Sweetened dried cranberries: 65 g sugars, ~10 g from the fruit"
+  },
+  "atun-lata": {
+   "g": 0
+  },
+  "azucar": {
+   "g": 100,
+   "from": "Pure sucrose"
+  },
+  "bizcocho": {
+   "g": 20,
+   "from": "USDA 172706 pound cake: ~21 g sugars, nearly all added"
+  },
+  "cafe-soluble": {
+   "g": 0
+  },
+  "chocolate": {
+   "g": 50,
+   "from": "Drinking-chocolate tablets are about half sugar"
+  },
+  "cocoa": {
+   "g": 0
+  },
+  "crema-leche": {
+   "g": 0
+  },
+  "galleta-kiwicha": {
+   "g": 20,
+   "from": "Estimate for a sweet oat cookie, its proxy"
+  },
+  "galleta-soda": {
+   "g": 1,
+   "from": "Soda crackers: ~1 g sugars"
+  },
+  "galleta-vainilla": {
+   "g": 24,
+   "from": "Estimate for a sweet vanilla cookie; INS reports no sugars"
+  },
+  "helado-crema": {
+   "g": 15,
+   "from": "USDA 167575: 21.2 g sugars minus ~6 g lactose"
+  },
+  "helado-paleta": {
+   "g": 18,
+   "from": "USDA 168813 ice pop: 18.6 g sugars, nearly all added"
+  },
+  "helado-paleta-chocolate": {
+   "g": 18,
+   "from": "USDA 171294 coated ice cream bar: ~24 g sugars minus ~6 g lactose"
+  },
+  "kanikama": {
+   "g": 5,
+   "from": "USDA imitation crab: 5.3 g sugars, added"
+  },
+  "ketchup": {
+   "g": 18,
+   "from": "USDA 168556: 21.3 g sugars minus ~3 g from the tomato"
+  },
+  "leche-condensada": {
+   "g": 43,
+   "from": "USDA 171284 sweetened condensed milk: 54.4 g sugars minus ~11.5 g lactose of the milk solids"
+  },
+  "leche-entera": {
+   "g": 0
+  },
+  "leche-evaporada": {
+   "g": 0
+  },
+  "mani-tostado": {
+   "g": 0
+  },
+  "manjar-blanco": {
+   "g": 43,
+   "from": "Same as leche condensada, its proxy"
+  },
+  "manteca-cerdo": {
+   "g": 0
+  },
+  "mantequilla": {
+   "g": 0
+  },
+  "morochas": {
+   "g": 40,
+   "from": "Estimate until the label is read: chocolate-coated wafer, close to Oreo (39 g)"
+  },
+  "naranja-jugo": {
+   "g": 8.4,
+   "from": "Squeezed juice counts as free sugar (WHO 2015); USDA 169098: 8.4 g sugars"
+  },
+  "nuez": {
+   "g": 0
+  },
+  "oregano": {
+   "g": 0
+  },
+  "palillo": {
+   "g": 0
+  },
+  "pan-comun": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar"
+  },
+  "pan-frances": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar"
+  },
+  "pan-rallado": {
+   "g": 5,
+   "from": "USDA bread crumbs: 5.7 g sugars"
+  },
+  "pasas": {
+   "g": 0
+  },
+  "pizza": {
+   "g": 3,
+   "from": "Sugar in dough and sauce"
+  },
+  "queso-crema": {
+   "g": 0
+  },
+  "queso-fresco": {
+   "g": 0
+  },
+  "sillao": {
+   "g": 4,
+   "from": "Estimate: Peruvian soy sauce is lightly sweetened"
+  },
+  "vinagre": {
+   "g": 0
+  },
+  "yogurt-bebible": {
+   "g": 8,
+   "from": "Flavoured drinking yogurt: ~12 g sugars minus ~4 g lactose"
+  }
+ }
+}

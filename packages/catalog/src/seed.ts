@@ -10,6 +10,7 @@ export interface LabelValues {
   kcal?: number;
   carbs?: number;
   sugars?: number;
+  addedSugars?: number;
   fiber?: number;
   fat?: number;
   saturatedFat?: number;

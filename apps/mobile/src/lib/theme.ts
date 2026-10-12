@@ -12,9 +12,11 @@ export const color = {
   rangeGreen: '#86C497',
   successText: '#255E3B',
   rangeYellow: '#EBC867',
-  warningText: '#9A6B00',
+  warningText: '#8A5F00',
+  warning50: '#FDF5E1',
   rangeRed: '#E58B7A',
   dangerText: '#B3392F',
+  danger50: '#FCECE8',
   noData: '#B9B6AE',
   onDark: '#FFFFFF',
 } as const;

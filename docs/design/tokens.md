@@ -17,9 +17,11 @@ All text pairs meet WCAG AA (≥ 4.5:1); non-text indicators ≥ 3:1 or carry an
 | `day-good` (green-400) | `#5BA66E` + check icon | Calendar good day |
 | `success-text` (green-700) | `#255E3B` | "On target" labels (6.9:1 on bg) |
 | `range-yellow` | `#EBC867` | Yellow zone; never text |
-| `warning-text` | `#9A6B00` | Warning labels on white (4.7:1) |
+| `warning-text` | `#8A5F00` | Warning labels (5.7:1 on white, 5.2:1 on warning-50) |
+| `warning-50` | `#FDF5E1` | Background of a yellow state pill |
 | `range-red` | `#E58B7A` | Red zone; never text |
-| `danger-text` | `#B3392F` | Error labels (5.3:1 on bg) |
+| `danger-text` | `#B3392F` | Error labels (5.3:1 on bg, 5.2:1 on danger-50) |
+| `danger-50` | `#FCECE8` | Background of a red state pill |
 | `no-data` | `#B9B6AE` | Grey days; never text |
 
 ## Type

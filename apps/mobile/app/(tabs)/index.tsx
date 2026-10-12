@@ -205,12 +205,6 @@ export default function TodayRoute() {
       focus={params.focus ?? null}
       focusKey={params.at}
     >
-      <DayRings
-        areas={logged.areas}
-        done={logged.done}
-        movementMinutes={movementMinutes}
-        movementGoalMin={data.profile?.movementGoalMin ?? 30}
-      />
       {targets ? (
         <Card title={t('ranges.title')}>
           <RangeRows targets={targets} eaten={eaten} dayOpen={isToday} />
@@ -218,6 +212,12 @@ export default function TodayRoute() {
       ) : (
         <Text style={[type.body, { color: color.inkMuted }]}>{t('today.needWeight')}</Text>
       )}
+      <DayRings
+        areas={logged.areas}
+        done={logged.done}
+        movementMinutes={movementMinutes}
+        movementGoalMin={data.profile?.movementGoalMin ?? 30}
+      />
       <TodaySection id="meals">
         <MealsSection
           entries={data.entries}

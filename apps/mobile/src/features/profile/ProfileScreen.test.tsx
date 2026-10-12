@@ -87,6 +87,8 @@ describe('ProfileScreen (F01)', () => {
         onSave={jest.fn()}
       />,
     );
-    expect(screen.getByText('0.54 · Riesgo aumentado')).toBeOnTheScreen();
+    expect(screen.getByLabelText('0.54 · Riesgo aumentado')).toBeOnTheScreen();
+    expect(screen.getByText('0.54')).toBeOnTheScreen();
+    expect(screen.getByText('Riesgo aumentado')).toBeOnTheScreen();
   });
 });

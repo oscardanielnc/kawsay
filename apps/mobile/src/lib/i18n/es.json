@@ -172,7 +172,9 @@
     "percent": "{{value}} %",
     "movement": "Movimiento diario",
     "movementHint": "OMS: 150–300 min por semana",
-    "minutes": "{{count}} min"
+    "minutes": "{{count}} min",
+    "bmiName": "Índice de masa corporal",
+    "bmiGauge": "IMC {{bmi}}, {{band}}"
   },
   "meals": {
     "title": "Comidas",
@@ -327,8 +329,6 @@
     "title": "Tu día en rangos"
   },
   "rings": {
-    "logged": "registrado",
-    "label": "{{done}} de 6 partes del día registradas; {{minutes}} de {{goal}} minutos de movimiento",
     "areas": {
       "meals": "Comidas",
       "activity": "Actividad",
@@ -338,7 +338,13 @@
       "weight": "Peso"
     },
     "movement": "Movimiento",
-    "minutes": "{{minutes}} de {{goal}} min"
+    "minutes": "{{minutes}} / {{goal}} min",
+    "title": "Tu día registrado",
+    "count": "{{done}} de 6",
+    "done": "{{area}}: registrado",
+    "pending": "{{area}}: pendiente, toca para ir",
+    "movementLeft": "Faltan {{minutes}} min para tu meta",
+    "movementDone": "✓ Meta de movimiento cumplida"
   },
   "checkins": {
     "title": "Cuerpo y ánimo",
@@ -516,7 +522,8 @@
       "high": "Riesgo alto"
     },
     "chart": "{{count}} semanas medidas de las últimas {{weeks}}",
-    "profileLine": "Cintura / estatura"
+    "profileLine": "Cintura / estatura",
+    "unit": "cintura ÷ estatura"
   },
   "symptoms": {
     "title": "Tus síntomas",

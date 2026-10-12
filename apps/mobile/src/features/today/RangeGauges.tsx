@@ -1,11 +1,10 @@
 import { greenRange, RANGE_ZONES, rangeState, type Metric } from '@kawsay/core/day/range-state';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
-import Svg, { Circle, Line, Path } from 'react-native-svg';
 import { formatNumber } from '@/lib/format';
-import { color, font, radius, space, type } from '@/lib/theme';
-import { gaugeColorAt, gaugePoint } from './gauge';
+import { color, radius, space, type } from '@/lib/theme';
+import { ArcGauge } from '@/components/data-display/ArcGauge';
+import { TWO_SIDED } from '@/components/data-display/gauge';
 import { TRACK_STOPS, trackPosition } from './range-scale';
 
 interface Props {
@@ -36,55 +35,7 @@ const TONE: Record<Tone, { text: string; pill: string }> = {
   red: { text: color.dangerText, pill: color.danger50 },
 };
 
-/** Gauge geometry in a 240 × 136 box (prototype: docs/design/explorations/2026-10-12-range-gauges.html). */
-const W = 240;
-const H = 136;
-const CENTER = { cx: 120, cy: 112 };
-const R = 78;
-const BAND = 14;
-const SEGMENTS = 96;
 const LIMITS = ['yellowFrom', 'greenFrom', 'greenTo', 'yellowTo'] as const;
-const LABEL_W = 44;
-
-const pct = (value: number, of: number) => `${(value / of) * 100}%` as const;
-
-/** One soft band: many short arcs, each in the colour of its place, overlapping so no seam shows. */
-function Band() {
-  return Array.from({ length: SEGMENTS }, (_, i) => {
-    const a = gaugePoint(i / SEGMENTS, R, CENTER);
-    const b = gaugePoint(Math.min(1, (i + 1.6) / SEGMENTS), R, CENTER);
-    return (
-      <Path
-        key={i}
-        d={`M${a.x} ${a.y} A${R} ${R} 0 0 1 ${b.x} ${b.y}`}
-        stroke={gaugeColorAt((i + 0.5) / SEGMENTS)}
-        strokeWidth={BAND}
-        strokeLinecap={i === 0 || i === SEGMENTS - 1 ? 'round' : 'butt'}
-        fill="none"
-      />
-    );
-  });
-}
-
-/** A slim needle lying on the band, pointing at the position, like a car speedometer. */
-function Needle({ position }: { position: number }) {
-  const tip = gaugePoint(position, R + BAND / 2 - 1, CENTER);
-  const base = gaugePoint(position, R - BAND / 2 - 11, CENTER);
-  const angle = Math.PI * (1 - position);
-  const [nx, ny] = [-Math.sin(angle) * 2.2, -Math.cos(angle) * 2.2];
-  return (
-    <>
-      <Path
-        d={`M${base.x + nx} ${base.y + ny} L${tip.x} ${tip.y} L${base.x - nx} ${base.y - ny} Z`}
-        fill={color.ink}
-        stroke={color.surface}
-        strokeWidth={1.5}
-        strokeLinejoin="round"
-      />
-      <Circle cx={base.x} cy={base.y} r={2.6} fill={color.ink} />
-    </>
-  );
-}
 
 function Gauge({
   metric,
@@ -94,7 +45,9 @@ function Gauge({
   name,
   label,
   tone,
+  hero,
 }: {
+  hero: boolean;
   metric: Metric;
   value: number;
   target: number;
@@ -104,79 +57,33 @@ function Gauge({
   tone: Tone;
 }) {
   const { t } = useTranslation();
-  const [width, setWidth] = useState(W);
-  const scale = width / W;
   const zone = RANGE_ZONES[metric];
   const green = greenRange(metric, target);
   const look = TONE[tone];
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, hero && styles.hero]}>
       <Text style={[type.heading, styles.ink]} numberOfLines={1}>
         {name}
       </Text>
-      <View
-        accessible
-        accessibilityLabel={t('ranges.track', {
-          name,
-          label,
-          from: formatNumber(green.from),
-          to: formatNumber(green.to),
-          unit,
-        })}
-        onLayout={(e) => setWidth(e.nativeEvent.layout.width)}
-        style={styles.gauge}
-      >
-        <Svg width="100%" height="100%" viewBox={`0 0 ${W} ${H}`}>
-          <Band />
-          {LIMITS.map((limit) => {
-            const a = gaugePoint(TRACK_STOPS[limit], R + BAND / 2 + 2, CENTER);
-            const b = gaugePoint(TRACK_STOPS[limit], R + BAND / 2 + 6, CENTER);
-            return (
-              <Line
-                key={limit}
-                x1={a.x}
-                y1={a.y}
-                x2={b.x}
-                y2={b.y}
-                stroke={color.inkMuted}
-                strokeOpacity={0.6}
-                strokeWidth={1.2}
-              />
-            );
+      <View style={hero && styles.heroArc}>
+        <ArcGauge
+          bands={TWO_SIDED}
+          limits={LIMITS.map((limit) => ({
+            at: TRACK_STOPS[limit],
+            text: formatNumber((target * zone[limit]) / 100),
+            strong: limit === 'greenFrom' || limit === 'greenTo',
+          }))}
+          needle={value > 0 ? trackPosition((value / target) * 100, zone) : null}
+          value={formatNumber(value)}
+          unit={unit}
+          accessibilityLabel={t('ranges.track', {
+            name,
+            label,
+            from: formatNumber(green.from),
+            to: formatNumber(green.to),
+            unit,
           })}
-          {value > 0 ? <Needle position={trackPosition((value / target) * 100, zone)} /> : null}
-        </Svg>
-        {LIMITS.map((limit) => {
-          const at = TRACK_STOPS[limit];
-          const p = gaugePoint(at, R + BAND / 2 + 12, CENTER);
-          const isGreen = limit === 'greenFrom' || limit === 'greenTo';
-          const side = at < 0.4 ? 'right' : at > 0.6 ? 'left' : 'center';
-          return (
-            <Text
-              key={limit}
-              importantForAccessibility="no"
-              style={[
-                styles.limit,
-                isGreen ? styles.limitGreen : styles.muted,
-                {
-                  left: pct(p.x, W),
-                  top: pct(p.y, H),
-                  marginLeft: side === 'right' ? -LABEL_W : side === 'center' ? -LABEL_W / 2 : 0,
-                  textAlign: side,
-                  fontSize: Math.max(10, (isGreen ? 11 : 10) * scale),
-                },
-              ]}
-            >
-              {formatNumber((target * zone[limit]) / 100)}
-            </Text>
-          );
-        })}
-        <View style={[styles.center, { top: pct(CENTER.cy - 40, H) }]}>
-          <Text style={[styles.value, { fontSize: 31 * scale, lineHeight: 36 * scale }]}>
-            {formatNumber(value)}
-          </Text>
-          <Text style={[type.caption, styles.muted]}>{unit}</Text>
-        </View>
+        />
       </View>
       <View style={[styles.pill, { backgroundColor: look.pill }]}>
         <Text style={[type.label, { color: look.text }]}>{label}</Text>
@@ -197,7 +104,7 @@ export function RangeGauges({ targets, eaten, dayOpen }: Props) {
         {t('ranges.title')}
       </Text>
       <View style={styles.grid}>
-        {ROWS.map(({ metric, target: targetKey, eaten: eatenKey, unit }) => {
+        {ROWS.map(({ metric, target: targetKey, eaten: eatenKey, unit }, index) => {
           const target = targets[targetKey];
           const value = eaten[eatenKey];
           const green = greenRange(metric, target);
@@ -217,10 +124,14 @@ export function RangeGauges({ targets, eaten, dayOpen }: Props) {
               'yellow',
             ];
           else if (state === 'red')
-            [label, tone] = [`${below ? '↓' : '↑'} ${t(below ? 'ranges.low' : 'ranges.high')}`, 'red'];
+            [label, tone] = [
+              `${below ? '↓' : '↑'} ${t(below ? 'ranges.low' : 'ranges.high')}`,
+              'red',
+            ];
           return (
             <Gauge
               key={metric}
+              hero={index === 0}
               metric={metric}
               value={value}
               target={target}
@@ -251,11 +162,8 @@ const styles = StyleSheet.create({
     gap: space.xs,
     alignItems: 'stretch',
   },
-  gauge: { width: '100%', aspectRatio: W / H },
-  limit: { position: 'absolute', width: LABEL_W, marginTop: -8, fontFamily: font.body },
-  limitGreen: { color: color.successText, fontFamily: font.label },
-  center: { position: 'absolute', left: 0, right: 0, alignItems: 'center' },
-  value: { fontFamily: font.title, color: color.ink },
+  hero: { flexBasis: '100%' },
+  heroArc: { paddingHorizontal: '8%' },
   pill: {
     alignSelf: 'center',
     paddingHorizontal: space.md,
@@ -263,5 +171,4 @@ const styles = StyleSheet.create({
     borderRadius: radius.pill,
   },
   ink: { color: color.ink },
-  muted: { color: color.inkMuted },
 });

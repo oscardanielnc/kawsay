@@ -40,7 +40,7 @@ import {
 import { RoutinesBlock, type LoggedSession } from '@/features/routines/RoutinesBlock';
 import { deleteSleep, saveSleep } from '@/features/sleep/sleep-db';
 import { SleepSection, type SleepChange } from '@/features/sleep/SleepSection';
-import { DayRings } from '@/features/today/DayRings';
+import { DayChecklist } from '@/features/today/DayChecklist';
 import { RangeGauges } from '@/features/today/RangeGauges';
 import { AREAS } from '@/features/today/day-logged';
 import { TodayScreen, TodaySection } from '@/features/today/TodayScreen';
@@ -213,11 +213,12 @@ export default function TodayRoute() {
       ) : (
         <Text style={[type.body, { color: color.inkMuted }]}>{t('today.needWeight')}</Text>
       )}
-      <DayRings
+      <DayChecklist
         areas={logged.areas}
         done={logged.done}
         movementMinutes={movementMinutes}
         movementGoalMin={data.profile?.movementGoalMin ?? 30}
+        onPick={(area) => router.setParams({ focus: area, at: String(Date.now()) })}
       />
       <TodaySection id="meals">
         <MealsSection

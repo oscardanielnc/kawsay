@@ -197,26 +197,26 @@ describe('navigation (design N1, F01)', () => {
     await tap('Agregar');
     expect(await screen.findByText('Escaleras')).toBeOnTheScreen();
     await waitFor(async () => expect(await greenFrom()).toBeGreaterThan(before));
-    expect(screen.getByText('Actividad ✓')).toBeOnTheScreen();
+    expect(screen.getByRole('button', { name: 'Actividad: registrado' })).toBeOnTheScreen();
   });
 
-  it('hydration, body and sleep fill their ring parts, and a breakfast juice shows in hydration (F10, F11, F05)', async () => {
+  it('hydration, body and sleep fill their parts of the day checklist, and a breakfast juice shows in hydration (F10, F11, F05)', async () => {
     await saveProfile(mockDb, mockEnv, profileInput);
     await saveWeight(mockDb, mockEnv, { date: today(), kg: 70, timeZone: 'America/Lima' });
     await renderRouter('./app', { initialUrl: '/' });
-    expect(await screen.findByText('1/6')).toBeOnTheScreen();
+    expect(await screen.findByText('1 de 6')).toBeOnTheScreen();
     await tap('Agregar un vaso de Agua');
     await tap('Clara');
-    expect(await screen.findByText('Agua ✓')).toBeOnTheScreen();
+    expect(await screen.findByRole('button', { name: 'Agua: registrado' })).toBeOnTheScreen();
     await tap('Calidad Buena');
-    expect(await screen.findByText('Sueño ✓')).toBeOnTheScreen();
+    expect(await screen.findByRole('button', { name: 'Sueño: registrado' })).toBeOnTheScreen();
     await tap('No fui hoy');
     await tap('Hinchazón comparada con tu normal: Como siempre');
     await tap('Máximo estrés que sentiste hoy: Poco');
     await tap('Energía: Buena');
     await tap('Ánimo: Bien');
-    expect(await screen.findByText('Cuerpo y ánimo ✓')).toBeOnTheScreen();
-    expect(screen.getByText('4/6')).toBeOnTheScreen();
+    expect(await screen.findByRole('button', { name: 'Cuerpo y ánimo: registrado' })).toBeOnTheScreen();
+    expect(screen.getByText('4 de 6')).toBeOnTheScreen();
     await tap('Agregar a Desayuno');
     await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'jugo de papaya');
     await tap(/Jugo de papaya/);

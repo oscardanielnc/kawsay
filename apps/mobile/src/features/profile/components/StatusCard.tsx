@@ -4,6 +4,8 @@ import type { Tone } from '@kawsay/core/shared/tone';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { ArcGauge } from '@/components/data-display/ArcGauge';
+import { piecewise, TWO_SIDED, UPPER_LIMIT } from '@/components/data-display/gauge';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
 
@@ -12,21 +14,35 @@ const TONE_TEXT: Record<Tone, string> = {
   yellow: color.warningText,
   red: color.dangerText,
 };
-const TONE_FILL: Record<Tone, string> = {
-  green: color.rangeGreen,
-  yellow: color.rangeYellow,
-  red: color.rangeRed,
+const TONE_PILL: Record<Tone, string> = {
+  green: color.green50,
+  yellow: color.warning50,
+  red: color.danger50,
 };
-/** The 15–35 track of the design, zone by zone. */
-const ZONES: readonly [number, number, Tone][] = [
-  [15, 17, 'red'],
-  [17, 18.5, 'yellow'],
-  [18.5, 25, 'green'],
-  [25, 30, 'yellow'],
-  [30, 35, 'red'],
+/** BMI limits (WHO) on the two-sided gauge: 15 · 17 · 18.5 · 25 · 30 · 35 at the ends of the sevenths. */
+const BMI_POINTS: readonly [number, number][] = [
+  [15, 0],
+  [17, 2 / 7],
+  [18.5, 3 / 7],
+  [25, 4 / 7],
+  [30, 5 / 7],
+  [35, 1],
 ];
-const position = (bmi: number) =>
-  `${Math.min(100, Math.max(0, ((bmi - 15) / 20) * 100))}%` as const;
+/** Waist-to-height (NICE) on the upper-limit gauge: green below 0.5, yellow to 0.6, red above. */
+const WAIST_POINTS: readonly [number, number][] = [
+  [0.35, 0],
+  [0.5, 3 / 7],
+  [0.6, 5 / 7],
+  [0.7, 1],
+];
+
+function Pill({ tone, text }: { tone: Tone; text: string }) {
+  return (
+    <View style={[styles.pill, { backgroundColor: TONE_PILL[tone] }]}>
+      <Text style={[type.label, { color: TONE_TEXT[tone] }]}>{text}</Text>
+    </View>
+  );
+}
 
 interface Props {
   weightKg: number;
@@ -61,29 +77,51 @@ export function StatusCard({ weightKg, heightCm, goalWeightKg, waistCm = null }:
 
   return (
     <View accessible={false} accessibilityLabel={t('profile.statusTitle')} style={styles.card}>
-      <View style={styles.header}>
-        <Text accessibilityRole="header" style={[type.heading, styles.ink]}>
-          {t('profile.statusTitle')}
-        </Text>
-        <Text style={[type.label, styles.muted]}>{t('profile.bmi')}</Text>
-      </View>
-      <View style={styles.reading}>
-        <Text style={[type.display, { color: TONE_TEXT[status.tone] }]}>
-          {formatNumber(status.bmi, 1)}
-        </Text>
-        <View>
-          <Text style={[type.heading, { color: TONE_TEXT[status.tone] }]}>{band(status.band)}</Text>
-          <Text style={[type.caption, styles.muted]}>
-            {t('profile.bodyLine', { kg: formatNumber(weightKg, 1), cm: heightCm })}
-          </Text>
+      <Text accessibilityRole="header" style={[type.heading, styles.ink]}>
+        {t('profile.statusTitle')}
+      </Text>
+      <View style={styles.gauges}>
+        <View style={[styles.gauge, !waist && styles.single]}>
+          <Text style={[type.label, styles.ink, styles.centered]}>{t('profile.bmiName')}</Text>
+          <ArcGauge
+            bands={TWO_SIDED}
+            limits={[
+              { at: 2 / 7, text: '17' },
+              { at: 3 / 7, text: formatNumber(18.5, 1), strong: true },
+              { at: 4 / 7, text: '25', strong: true },
+              { at: 5 / 7, text: '30' },
+            ]}
+            needle={piecewise(status.bmi, BMI_POINTS)}
+            flag={goal ? piecewise(goal.bmi, BMI_POINTS) : null}
+            value={formatNumber(status.bmi, 1)}
+            unit={t('profile.bmi')}
+            accessibilityLabel={t('profile.bmiGauge', {
+              bmi: formatNumber(status.bmi, 1),
+              band: band(status.band),
+            })}
+          />
+          <Pill tone={status.tone} text={band(status.band)} />
         </View>
-      </View>
-      <View style={styles.track}>
-        {ZONES.map(([from, to, tone]) => (
-          <View key={from} style={{ flex: to - from, backgroundColor: TONE_FILL[tone] }} />
-        ))}
-        <View style={[styles.marker, { left: position(status.bmi) }]} />
-        {goal ? <Text style={[styles.flag, { left: position(goal.bmi) }]}>🚩</Text> : null}
+        {waist ? (
+          <View style={styles.gauge}>
+            <Text style={[type.label, styles.ink, styles.centered]}>{t('waist.profileLine')}</Text>
+            <ArcGauge
+              bands={UPPER_LIMIT}
+              limits={[
+                { at: 3 / 7, text: formatNumber(0.5, 2), strong: true },
+                { at: 5 / 7, text: formatNumber(0.6, 2) },
+              ]}
+              needle={piecewise(waist.ratio, WAIST_POINTS)}
+              value={formatNumber(waist.ratio, 2)}
+              unit={t('waist.unit')}
+              accessibilityLabel={t('waist.ratio', {
+                ratio: formatNumber(waist.ratio, 2),
+                band: t(`waist.bands.${waist.band}`),
+              })}
+            />
+            <Pill tone={waist.tone} text={t(`waist.bands.${waist.band}`)} />
+          </View>
+        ) : null}
       </View>
       <View style={styles.note}>
         <Text style={[type.body, styles.ink]}>{distance}</Text>
@@ -97,17 +135,11 @@ export function StatusCard({ weightKg, heightCm, goalWeightKg, waistCm = null }:
           </Text>
         ) : null}
       </View>
-      {waist ? (
-        <View style={styles.waist}>
-          <Text style={[type.label, styles.muted]}>{t('waist.profileLine')}</Text>
-          <Text style={[type.heading, { color: TONE_TEXT[waist.tone] }]}>
-            {t('waist.ratio', {
-              ratio: formatNumber(waist.ratio, 2),
-              band: t(`waist.bands.${waist.band}`),
-            })}
-          </Text>
-        </View>
-      ) : null}
+      <View style={styles.facts}>
+        <Text style={[type.caption, styles.muted]}>
+          {t('profile.bodyLine', { kg: formatNumber(weightKg, 1), cm: heightCm })}
+        </Text>
+      </View>
       <Pressable accessibilityRole="button" onPress={() => setInfo(!info)}>
         <Text style={[type.label, styles.brand]}>{t('profile.bmiInfo')}</Text>
       </Pressable>
@@ -123,26 +155,17 @@ const styles = StyleSheet.create({
     padding: space.lg,
     gap: space.md,
   },
-  header: { flexDirection: 'row', justifyContent: 'space-between' },
-  reading: { flexDirection: 'row', alignItems: 'flex-end', gap: space.md },
-  track: {
-    flexDirection: 'row',
-    height: 14,
+  gauges: { flexDirection: 'row', gap: space.sm },
+  gauge: { flex: 1, gap: space.xs },
+  single: { paddingHorizontal: '12%' },
+  centered: { textAlign: 'center' },
+  pill: {
+    alignSelf: 'center',
+    paddingHorizontal: space.md,
+    paddingVertical: space.xs,
     borderRadius: radius.pill,
-    overflow: 'visible',
-    marginTop: space.lg,
   },
-  marker: {
-    position: 'absolute',
-    top: -6,
-    width: 4,
-    height: 26,
-    marginLeft: -2,
-    borderRadius: 2,
-    backgroundColor: color.ink,
-  },
-  flag: { position: 'absolute', top: -24, marginLeft: -8, fontSize: 14 },
-  waist: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
+  facts: { flexDirection: 'row', justifyContent: 'space-between' },
   note: { backgroundColor: color.green50, borderRadius: radius.chip, padding: space.md, gap: 2 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },

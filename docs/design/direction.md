@@ -19,9 +19,7 @@
 Prototype: [explorations/2026-10-07-today-v3.html](explorations/2026-10-07-today-v3.html) (v3 adds portions, hydration, sleep layout)
 
 1. **Header:** date with ‹ › and a date picker; same screen for past days
-2. **Day rings (S2, revised):** calories are a range, not a number to fill, so the ring shows two things worth completing:
-   - **Outer ring, 6 segments = "day logged":** meals, activity, water, body and mood, sleep, weight. Each segment fills with its colour; the centre shows `4/6`. It feeds the calendar and the "Review my day" button
-   - **Inner ring = movement minutes** vs a daily goal (default 30 min, from the WHO 150–300 min/week guideline)
+2. **Your day logged** (replaces the rings, 2026-10-12; prototype [explorations/2026-10-12-gauges-checklist-profile.html](explorations/2026-10-12-gauges-checklist-profile.html)): a six-step bar and a checklist of the six parts (meals, activity, water, body and mood, sleep, weight) as chips — done ones tinted in their colour with ✓, pending ones dashed with ›; tapping one jumps to its section. Below, **movement minutes as a progress bar** against the daily goal (default 30 min, WHO 150–300 min/week) with "N min left" or "goal met"
 3. **Range gauges** (first on the screen, above the rings; prototype [explorations/2026-10-12-range-gauges.html](explorations/2026-10-12-range-gauges.html)): a 2 × 2 grid of cards for calories, protein, fat and carbohydrates. Each card: name; a **semicircle like a car speedometer** in pastel red · yellow · green · yellow · red that **blends softly** between zones; the **four zone limits outside the arc** (green ones darker); the day's amount **large in the centre** with its unit; a **slim needle** on the band; the state pill below (✓ / ↓ / ↑). Zones keep fixed angles (10 · 18 · 44 · 18 · 10 % of the arc) so limits never crowd
 4. **Meals:** four slots; logged items as icon chips with their portion (½ Juane). "+" opens a **search box** on top, the user's **12 most recent dishes** as icon tiles filtered while typing, and a **large "Create dish" button** at the bottom (prefilled with the search text). Choosing a dish asks the **portion**: ¼ ½ ¾ 1 1½ 2 of a serving **or grams**, with the calories updating live; below one serving, an option to **save the rest for tomorrow's breakfast**. Every dish has an icon chosen when it is created
 5. **Physical activity:**
@@ -55,7 +53,7 @@ Prototype: [explorations/2026-10-07-today-v3.html](explorations/2026-10-07-today
 ## First use and Profile (approved 2026-10-07) — prototype [explorations/2026-10-07-onboarding-profile.html](explorations/2026-10-07-onboarding-profile.html)
 
 - **First use, 6 steps with progress dots:** welcome → account (email + password, "I already have an account") → body (sex, age, height, today's weight with the measuring rule) → goal (lose / maintain, goal weight, weeks; live pace; above 1% of body weight per week a warning with "Use N weeks") → climate and usual sleep (night + optional nap) → what to log (six always-on modules; optional weekly waist with reminder day, own symptoms, intimate life — private: sexual activity and masturbation, explained in the toggle) → daily target (kcal, protein, fat, carbohydrates, movement minutes, ⓘ formula, "not a medical app" and kidney-disease notice)
-- **Profile tab:** avatar, email and sync status; **"Your status today" first**: BMI from the weight trend, WHO category in its colour (red < 17 · yellow 17–18.4 · green 18.5–24.9 · yellow 25–29.9 · red ≥ 30), a 15–35 track with "you" marker and 🚩 goal, kg left to the green range, waist-to-height ratio (green < 0.5 · yellow 0.5–0.59 · red ≥ 0.6) and an ⓘ on what BMI does not measure; then the dark-green target card; "You": body, goal, target settings (protein 1.2–2.2 g/kg, fat 20–35%, daily movement minutes), climate, sleep schedule; "Logging": modules, routines, my symptoms; "Your data": export (range, private only if selected, generated offline), about the data (INS, USDA, labels, Compendium, DRI/WHO), sign out
+- **Profile tab:** avatar, email and sync status; **"Your status today" first**: BMI from the weight trend, WHO category in its colour (red < 17 · yellow 17–18.4 · green 18.5–24.9 · yellow 25–29.9 · red ≥ 30), a 15–35 track with "you" marker and 🚩 goal, kg left to the green range, waist-to-height ratio (green < 0.5 · yellow 0.5–0.59 · red ≥ 0.6) and an ⓘ on what BMI does not measure; the BMI and the waist-to-height ratio as **the same speedometer gauges** side by side (BMI limits 17 · 18.5 · 25 · 30, 🚩 goal on the arc; waist 0.50 · 0.60), the kg to the green range in a note; then the dark-green target card; "You": body, goal, target settings (protein 1.2–2.2 g/kg, fat 20–35%, daily movement minutes), climate, sleep schedule; "Logging": modules, routines, my symptoms; "Your data": export (range, private only if selected, generated offline), about the data (INS, USDA, labels, Compendium, DRI/WHO), sign out
 
 ## Time entry rule
 
@@ -100,6 +98,8 @@ weight trend, weekly waist (if enabled), drinks and bloating.
 - Monthly chart, one metric at a time (chips): bars for calories, protein, movement and drinks, coloured dark green when inside **that day's** range; dots + trend line (moving average) for weight and waist; hover/tap tooltip per day
 
 ## Change history
+
+- 2026-10-12 — Gauges in sevenths; rings replaced by the day checklist and a movement bar; Profile status as gauges
 
 - 2026-10-12 — Range rows become speedometer gauges in pastel blended colours (Oscar's design)
 

@@ -144,4 +144,17 @@ describe('API client', () => {
     expect(error).toBeInstanceOf(ApiProblemError);
     expect(error).toMatchObject({ status: 429, code: 'insights.limit_reached' });
   });
+
+  it('two requests at once after opening the app refresh only once (no "reused token" sign-out)', async () => {
+    const store = memoryTokens('refresh-0');
+    const { fetch, calls } = scripted(
+      json(200, tokens(1)),
+      json(200, { changes: [], cursor: 0, more: false }),
+      json(200, { changes: [], cursor: 0, more: false }),
+    );
+    const client = createApiClient({ baseUrl: 'https://api.test/v1', fetch, tokens: store });
+    await Promise.all([client.sync.pull(0), client.sync.pull(0)]);
+    expect(calls.filter((c) => c.url.endsWith('/auth/refresh'))).toHaveLength(1);
+    expect(store.value).toBe('refresh-1');
+  });
 });

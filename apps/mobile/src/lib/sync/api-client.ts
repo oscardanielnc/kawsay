@@ -75,7 +75,16 @@ export function createApiClient({
     return issued;
   }
 
-  async function refresh(): Promise<void> {
+  /** The refresh in flight: requests that need one at the same time wait for it instead of reusing the token. */
+  let refreshing: Promise<void> | null = null;
+  function refresh(): Promise<void> {
+    refreshing ??= rotate().finally(() => {
+      refreshing = null;
+    });
+    return refreshing;
+  }
+
+  async function rotate(): Promise<void> {
     const refreshToken = await tokens.read();
     if (!refreshToken) throw new SignedOutError();
     const response = await post('/auth/refresh', { refreshToken });

@@ -106,6 +106,26 @@ describe('meal entries (F05)', () => {
     expect(totals.proteinG).toBeCloseTo(4.8, 6);
   });
 
+  it('A personal Coca-Cola (500 ml) adds 55 g of added sugar to the day (F22)', async () => {
+    const db = await seededDb();
+    const e = env();
+    await addMeal(db, e, {
+      date: today,
+      meal: 'lunch',
+      timeZone: lima,
+      item: { kind: 'food', id: 'coca-cola' },
+      grams: 500,
+    });
+    await addMeal(db, e, {
+      date: today,
+      meal: 'snack',
+      timeZone: lima,
+      item: { kind: 'food', id: 'papaya' },
+      grams: 200,
+    });
+    expect(dayTotals(await mealsOn(db, today)).addedSugarG).toBeCloseTo(55, 6);
+  });
+
   it('removing an entry is a tombstone: it leaves the day', async () => {
     const db = await seededDb();
     const e = env();

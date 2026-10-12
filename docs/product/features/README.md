@@ -23,3 +23,4 @@
 | [F19](f19-micronutrients.md) | Vitamins, minerals and fibre | v0.2 | Approved |
 | [F20](f20-weekly-summary.md) | Weekly summary | v0.2 | Approved |
 | [F21](f21-day-notes.md) | Day notes | v0.1 | Approved |
+| [F22](f22-added-sugar.md) | Added sugar | v0.1 | Approved |

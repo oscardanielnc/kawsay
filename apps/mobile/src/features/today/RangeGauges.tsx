@@ -1,15 +1,16 @@
+import { addedSugarLimits, addedSugarState } from '@kawsay/core/day/added-sugar';
 import { greenRange, RANGE_ZONES, rangeState, type Metric } from '@kawsay/core/day/range-state';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
 import { ArcGauge } from '@/components/data-display/ArcGauge';
-import { TWO_SIDED } from '@/components/data-display/gauge';
+import { piecewise, TWO_SIDED, UPPER_LIMIT } from '@/components/data-display/gauge';
 import { TRACK_STOPS, trackPosition } from './range-scale';
 
 interface Props {
   targets: { targetKcal: number; proteinG: number; fatG: number; carbsG: number };
-  eaten: { kcal: number; proteinG: number; fatG: number; carbsG: number };
+  eaten: { kcal: number; proteinG: number; fatG: number; carbsG: number; addedSugarG: number };
   /** Today is open: below green reads "N left" instead of a warning (design). */
   dayOpen: boolean;
 }
@@ -17,7 +18,7 @@ interface Props {
 const ROWS: readonly {
   metric: Metric;
   target: keyof Props['targets'];
-  eaten: keyof Props['eaten'];
+  eaten: Exclude<keyof Props['eaten'], 'addedSugarG'>;
   unit: string;
 }[] = [
   { metric: 'calories', target: 'targetKcal', eaten: 'kcal', unit: 'kcal' },
@@ -92,6 +93,46 @@ function Gauge({
   );
 }
 
+/** Added sugar (F22): a ceiling only, from the day target; green 3 · yellow 2 · red 2 sevenths. */
+function SugarGauge({ grams, targetKcal }: { grams: number; targetKcal: number }) {
+  const { t } = useTranslation();
+  const limits = addedSugarLimits(targetKcal);
+  const tone = addedSugarState(grams, limits);
+  const label = grams === 0 ? t('sugar.none') : t(`sugar.states.${tone}`, { defaultValue: '' });
+  const look = TONE[tone];
+  return (
+    <View style={styles.card}>
+      <Text style={[type.heading, styles.ink]} numberOfLines={1}>
+        {t('sugar.title')}
+      </Text>
+      <ArcGauge
+        bands={UPPER_LIMIT}
+        limits={[
+          { at: 3 / 7, text: formatNumber(limits.greenMaxG), strong: true },
+          { at: 5 / 7, text: formatNumber(limits.yellowMaxG) },
+        ]}
+        needle={piecewise(grams, [
+          [0, 0],
+          [limits.greenMaxG, 3 / 7],
+          [limits.yellowMaxG, 5 / 7],
+          [limits.yellowMaxG * 1.5, 1],
+        ])}
+        value={formatNumber(grams)}
+        unit="g"
+        accessibilityLabel={t('sugar.gauge', {
+          grams: formatNumber(grams),
+          state: label.replace(/^[✓↑] /, '').toLowerCase(),
+          green: formatNumber(limits.greenMaxG),
+          max: formatNumber(limits.yellowMaxG),
+        })}
+      />
+      <View style={[styles.pill, { backgroundColor: look.pill }]}>
+        <Text style={[type.label, { color: look.text }]}>{label}</Text>
+      </View>
+    </View>
+  );
+}
+
 /**
  * Calories and macros as speedometer-like gauges (design, 2026-10-12): pastel red · yellow · green blending softly,
  * the four zone limits outside the arc, the day's amount large in the middle, a slim needle and the state below.
@@ -142,6 +183,7 @@ export function RangeGauges({ targets, eaten, dayOpen }: Props) {
             />
           );
         })}
+        <SugarGauge grams={eaten.addedSugarG} targetKcal={targets.targetKcal} />
       </View>
     </View>
   );

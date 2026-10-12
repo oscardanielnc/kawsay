@@ -9,7 +9,7 @@ describe('RangeGauges (design: range gauges, F09)', () => {
     await render(
       <RangeGauges
         targets={targets}
-        eaten={{ kcal: 1200, proteinG: 95, fatG: 60, carbsG: 0 }}
+        eaten={{ kcal: 1200, proteinG: 95, fatG: 60, carbsG: 0, addedSugarG: 0 }}
         dayOpen
       />,
     );
@@ -24,11 +24,12 @@ describe('RangeGauges (design: range gauges, F09)', () => {
     await render(
       <RangeGauges
         targets={targets}
-        eaten={{ kcal: 1950, proteinG: 95, fatG: 60, carbsG: 0 }}
+        eaten={{ kcal: 1950, proteinG: 95, fatG: 60, carbsG: 0, addedSugarG: 0 }}
         dayOpen
       />,
     );
-    for (const limit of ['1,600', '1,800', '2,200', '2,400']) expect(screen.getByText(limit)).toBeOnTheScreen();
+    for (const limit of ['1,600', '1,800', '2,200', '2,400'])
+      expect(screen.getByText(limit)).toBeOnTheScreen();
     expect(screen.getByText('1,950')).toBeOnTheScreen();
   });
 
@@ -36,7 +37,7 @@ describe('RangeGauges (design: range gauges, F09)', () => {
     await render(
       <RangeGauges
         targets={targets}
-        eaten={{ kcal: 2300, proteinG: 170, fatG: 60, carbsG: 250 }}
+        eaten={{ kcal: 2300, proteinG: 170, fatG: 60, carbsG: 250, addedSugarG: 0 }}
         dayOpen
       />,
     );
@@ -48,10 +49,26 @@ describe('RangeGauges (design: range gauges, F09)', () => {
     await render(
       <RangeGauges
         targets={targets}
-        eaten={{ kcal: 1700, proteinG: 100, fatG: 60, carbsG: 250 }}
+        eaten={{ kcal: 1700, proteinG: 100, fatG: 60, carbsG: 250, addedSugarG: 0 }}
         dayOpen={false}
       />,
     );
     expect(screen.getByText('↓ Algo bajo')).toBeOnTheScreen();
+  });
+
+  it('added sugar (F22): 2,000 kcal → green up to 25 g, yellow up to 50 g; 31 g is "algo alto"', async () => {
+    await render(
+      <RangeGauges
+        targets={targets}
+        eaten={{ kcal: 1950, proteinG: 95, fatG: 60, carbsG: 250, addedSugarG: 31 }}
+        dayOpen
+      />,
+    );
+    expect(screen.getByText('Azúcar añadida')).toBeOnTheScreen();
+    expect(screen.getByText('25')).toBeOnTheScreen();
+    expect(screen.getByText('50')).toBeOnTheScreen();
+    expect(
+      screen.getByLabelText('Azúcar añadida: 31 g, algo alto. Ideal hasta 25 g, máximo 50 g'),
+    ).toBeOnTheScreen();
   });
 });

@@ -34,6 +34,8 @@ export interface MealEntryView {
   proteinG: number;
   fatG: number;
   carbsG: number;
+  /** Added (free) sugar, F22. */
+  addedSugarG: number;
   volumeMl: number | null;
   leftoverOf: string | null;
 }
@@ -267,6 +269,7 @@ export async function mealsOn(db: Db, date: LocalDate): Promise<MealEntryView[]>
         proteinG: of('proteinG'),
         fatG: of('fatG'),
         carbsG: of('carbsTotalG'),
+        addedSugarG: of('addedSugarG'),
         volumeMl: row.volumeMl,
         leftoverOf: row.leftoverOf,
       },
@@ -281,8 +284,9 @@ export function dayTotals(entries: readonly MealEntryView[]) {
       proteinG: sum.proteinG + e.proteinG,
       fatG: sum.fatG + e.fatG,
       carbsG: sum.carbsG + e.carbsG,
+      addedSugarG: sum.addedSugarG + e.addedSugarG,
     }),
-    { kcal: 0, proteinG: 0, fatG: 0, carbsG: 0 },
+    { kcal: 0, proteinG: 0, fatG: 0, carbsG: 0, addedSugarG: 0 },
   );
 }
 

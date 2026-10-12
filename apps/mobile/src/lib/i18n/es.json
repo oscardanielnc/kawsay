@@ -640,6 +640,7 @@
         "target_protein_g": "Meta de proteína del día, en g.",
         "fat_g": "Grasa comida, en g.",
         "carbs_g": "Carbohidratos totales comidos, en g.",
+        "added_sugar_g": "Azúcar añadida del día, en g: azúcar de mesa, la de etiquetas (gaseosas, galletas), leche condensada, manjar y jugo exprimido. No incluye la de fruta entera ni la de la leche.",
         "movement_min": "Minutos de actividad física registrados.",
         "glasses": "Vasos de ≈ 250 ml bebidos (agua, sin calorías y bebidas de las comidas; el alcohol no cuenta).",
         "sleep_h": "Horas dormidas registradas (noche + siestas); vacío si no se registró.",
@@ -799,5 +800,15 @@
       "calciumMg": "mg",
       "sodiumMg": "mg"
     }
+  },
+  "sugar": {
+    "title": "Azúcar añadida",
+    "none": "✓ Sin azúcar añadida",
+    "states": {
+      "green": "✓ Bien",
+      "yellow": "↑ Algo alto",
+      "red": "↑ Alto"
+    },
+    "gauge": "Azúcar añadida: {{grams}} g, {{state}}. Ideal hasta {{green}} g, máximo {{max}} g"
   }
 }

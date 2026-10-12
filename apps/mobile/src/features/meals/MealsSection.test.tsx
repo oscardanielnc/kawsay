@@ -159,6 +159,7 @@ describe('MealsSection (F05)', () => {
       proteinG: 10,
       fatG: 8,
       carbsG: 30,
+      addedSugarG: 0,
       volumeMl: null,
       leftoverOf: 'e0',
     };

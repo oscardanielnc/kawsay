@@ -49,6 +49,16 @@ describe('searchCatalog (F06)', () => {
     expect(searchCatalog('choco', mixed).map((x) => x.id)).toEqual(['i', 'u', 'b']);
   });
 
+  it('Spanish plurals find the singular name: "tallarines verdes" → "Tallarín verde", "uvas" → "uva"', () => {
+    const dishes: Searchable[] = [
+      { kind: 'dish', id: 'tallarin-verde', name: 'Tallarín verde', source: 'dish' },
+      { kind: 'dish', id: 'refresco-uva', name: 'Refresco de uva', source: 'dish' },
+    ];
+    const find = (query: string) => searchCatalog(query, dishes).map((x) => x.id);
+    expect(find('tallarines verdes')).toEqual(['tallarin-verde']);
+    expect(find('refresco de uvas')).toEqual(['refresco-uva']);
+  });
+
   it('an empty query returns nothing (the sheet shows recent dishes instead)', () => {
     expect(ids('  ')).toEqual([]);
   });

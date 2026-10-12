@@ -45,8 +45,15 @@ function withinOneEdit(a: string, b: string): boolean {
   return edits + (a.length - i) + (b.length - j) <= 1;
 }
 
+/** Spanish plural → singular stem, for queries only: "tallarines" → "tallarin", "uvas" → "uva". */
+function singular(word: string): string {
+  if (word.length > 4 && word.endsWith('es')) return word.slice(0, -2);
+  if (word.length > 3 && word.endsWith('s')) return word.slice(0, -1);
+  return word;
+}
+
 function wordMatches(query: string, word: string): boolean {
-  if (word.startsWith(query)) return true;
+  if (word.startsWith(query) || word.startsWith(singular(query))) return true;
   if (query.length < TYPO_FROM_LENGTH) return false;
   return withinOneEdit(query, word) || withinOneEdit(query, word.slice(0, query.length));
 }

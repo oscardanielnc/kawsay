@@ -2330,6 +2330,30 @@
    "note": ""
   },
   {
+   "id": "refresco-uva",
+   "name": "Refresco de uva",
+   "group": "drink",
+   "icon": "jugo",
+   "confidence": "medium",
+   "serving": "1 vaso",
+   "servings": 1,
+   "items": [
+    {
+     "food": "uva",
+     "grams": 80
+    },
+    {
+     "food": "azucar",
+     "grams": 15
+    },
+    {
+     "food": "agua",
+     "grams": 180
+    }
+   ],
+   "note": ""
+  },
+  {
    "id": "frappe-cafe",
    "name": "Frappé de café",
    "group": "drink",

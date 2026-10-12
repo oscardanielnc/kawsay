@@ -1,6 +1,6 @@
 # Food seed
 
-- Status: Draft 2026-10-07 · 79 dishes · 137 foods · data in `packages/catalog/seed/` (ADR 0014)
+- Status: Draft 2026-10-07 · 80 dishes · 139 foods · data in `packages/catalog/seed/` (ADR 0014)
 - Review once: amounts are typical servings, grams as eaten; nutrients are computed at import from INS / USDA / labels
 - Confidence: 🟢 standard recipe · 🟡 typical, varies by cook · 🔴 rough, check first
 - **Sauces and creams: 1 portion = 40 g** (½ portion = 20 g); bottled ones are foods with the same portions
@@ -104,6 +104,7 @@
 | Chicha morada | 1 vaso | maíz morado 5 · azúcar blanca 20 · limón 5 · agua 230 | 🟡 |
 | Refresco de maracuyá | 1 vaso | maracuyá 30 · azúcar blanca 20 · agua 220 | 🟡 |
 | Refresco de limón (limonada) | 1 vaso | limón 30 · azúcar blanca 20 · agua 200 | 🟡 |
+| Refresco de uva | 1 vaso | uva 80 · azúcar blanca 15 · agua 180 | 🟡 |
 | Frappé de café | 1 vaso (350 ml) | leche fresca entera 200 · azúcar blanca 25 · café soluble 3 · crema de leche 20 · agua 80 | 🔴 |
 | Frappé de fresa | 1 vaso (350 ml) | fresa 100 · leche fresca entera 150 · azúcar blanca 25 · helado de crema 50 · agua 50 | 🔴 |
 | Frappé de chocolate | 1 vaso (350 ml) | leche fresca entera 200 · cocoa en polvo 10 · azúcar blanca 25 · helado de crema 50 · agua 50 | 🔴 |
@@ -131,7 +132,7 @@
 
 ## Foods
 
-All 137 foods can also be logged on their own (fruit, vegetables, sauces…). Full list with household units: `packages/catalog/seed/foods.json`.
+All 139 foods can also be logged on their own (fruit, vegetables, sauces…). Full list with household units: `packages/catalog/seed/foods.json`.
 
 ## Branded items (values from the package label)
 
@@ -149,6 +150,8 @@ All 137 foods can also be logged on their own (fruit, vegetables, sauces…). Fu
 | Oreo chocolate | ✅ 170 kcal per 36 g |
 | Morochas (Nestlé) | ✅ 98 kcal per 16 g |
 | Bizcocho Reyenito | ✅ 142.5 kcal per 37 g |
+| Coca-Cola (sabor original) | ✅ 133 kcal, 33 g sugars per 300 ml (coca-cola.com/pe) |
+| Inca Kola | ✅ 84 kcal, 21 g sugars per 200 ml (coca-cola.com/pe) |
 
 ## Generic values until a label photo
 

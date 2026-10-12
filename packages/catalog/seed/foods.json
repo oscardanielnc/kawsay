@@ -1923,6 +1923,64 @@
      "grams": 40
     }
    ]
+  },
+  "coca-cola": {
+   "name": "Coca-Cola (sabor original)",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 vaso (250 ml)",
+     "grams": 250
+    },
+    {
+     "label": "1 botella personal (500 ml)",
+     "grams": 500
+    },
+    {
+     "label": "1 lata (355 ml)",
+     "grams": 355
+    }
+   ],
+   "label": {
+    "servingGrams": 300,
+    "kcal": 133,
+    "carbs": 33,
+    "sugars": 33,
+    "fat": 0,
+    "protein": 0,
+    "sodiumMg": 18,
+    "from": "coca-cola.com/pe label, 300 ml bottle, 2026-10-12"
+   }
+  },
+  "inca-kola": {
+   "name": "Inca Kola",
+   "source": "label",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 vaso (250 ml)",
+     "grams": 250
+    },
+    {
+     "label": "1 botella personal (500 ml)",
+     "grams": 500
+    },
+    {
+     "label": "1 lata (355 ml)",
+     "grams": 355
+    }
+   ],
+   "label": {
+    "servingGrams": 200,
+    "kcal": 84,
+    "carbs": 21,
+    "sugars": 21,
+    "fat": 0,
+    "protein": 0,
+    "sodiumMg": 18,
+    "from": "coca-cola.com/pe label, 200 ml serving, 2026-10-12"
+   }
   }
  }
 }

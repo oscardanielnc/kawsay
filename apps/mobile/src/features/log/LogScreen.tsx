@@ -5,7 +5,8 @@ import Svg, { Circle, Path } from 'react-native-svg';
 import { color, radius, space, type } from '@/lib/theme';
 
 /** Tiles of the quick-log grid and the Today section each opens (design N1). */
-export type LogTile = 'meals' | 'bathroom' | 'activity' | 'water' | 'mood' | 'sleep' | 'weight';
+export type LogTile =
+  'meals' | 'bathroom' | 'activity' | 'water' | 'mood' | 'sleep' | 'weight' | 'note';
 const TILES: readonly { tile: LogTile; bg: string; ink: string; d: string }[] = [
   { tile: 'meals', bg: '#FBEFD8', ink: '#C9A227', d: 'M5 12a7 7 0 0 0 14 0zM4 12h16' },
   {
@@ -24,6 +25,12 @@ const TILES: readonly { tile: LogTile; bg: string; ink: string; d: string }[] = 
   { tile: 'mood', bg: '#E4E6F3', ink: '#3D4C8C', d: 'M8.5 14c1.8 2 5.2 2 7 0' },
   { tile: 'sleep', bg: '#E4E6F3', ink: '#3D4C8C', d: 'M19 14A7 7 0 1 1 10 5a5.5 5.5 0 0 0 9 9z' },
   { tile: 'weight', bg: '#F1EEE6', ink: '#6B5E55', d: 'M5 20h14l-2-12H7zM9 8a3 3 0 0 1 6 0' },
+  {
+    tile: 'note',
+    bg: '#FBE9DF',
+    ink: '#B84E18',
+    d: 'M6 3h9l3 3v15H6zM9 10h6M9 14h6M9 18h3',
+  },
 ];
 
 /** The (+) tab: one tile per thing to log; Water adds a glass right away (Today v3 prototype). */

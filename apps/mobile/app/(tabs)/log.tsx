@@ -15,6 +15,7 @@ const SECTION: Record<LogTile, string> = {
   mood: 'body',
   sleep: 'sleep',
   weight: 'weight',
+  note: 'notes',
 };
 
 /** (+) tab: quick-log grid (design N1). */

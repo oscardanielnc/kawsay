@@ -2,6 +2,7 @@ import { drunkGlasses } from '@kawsay/core/day/drinks';
 import { activityKcal } from '@kawsay/core/energy/activity';
 import { addDays, daysBetween, type LocalDate } from '@kawsay/core/shared/local-date';
 import { daySleepHours } from '@kawsay/core/sleep/sleep-session';
+import { notesOn } from '@/features/notes/notes-db';
 import { listRoutines } from '@/features/routines/routines-db';
 import { getProfile } from '@/features/profile/profile-db';
 import { trendWeightKg } from '@/features/profile/profile-targets';
@@ -10,6 +11,7 @@ import { listSymptoms, symptomAnswersOn } from '@/features/symptoms/symptoms-db'
 import { waistsSince } from '@/features/waist/waist-db';
 import { weightsBetween } from '@/features/weight/weight-db';
 import { toCsv, type Cell } from '@/lib/csv';
+import { formatTime } from '@/lib/format';
 import type { Db } from '@/lib/db/types';
 import { loadDay, summarizeDay, TREND_DAYS } from './day';
 
@@ -49,6 +51,7 @@ export const EXPORT_COLUMNS = {
   drinks: ['date', 'kind', 'volume_ml'],
   checkins: ['date', 'logged_at', 'kind', 'value'],
   symptoms: ['date', 'symptom', 'scale', 'value'],
+  notes: ['date', 'time', 'text'],
   weights: ['date', 'kg'],
   waist: ['week_start', 'cm'],
   private: ['date', 'kind'],
@@ -88,6 +91,7 @@ export async function buildExport(
     drinks: [],
     checkins: [],
     symptoms: [],
+    notes: [],
     weights: weights.filter((w) => w.date >= from).map((w) => [w.date, w.kg]),
     waist: waists.filter((w) => w.weekStart <= to).map((w) => [w.weekStart, w.cm]),
     private: [],
@@ -98,6 +102,7 @@ export async function buildExport(
     const day = await loadDay(db, date, { profile, weights });
     const summary = summarizeDay(day);
     const answers = await symptomAnswersOn(db, date);
+    const notes = await notesOn(db, date);
     const intimate = includePrivate ? await intimateOn(db, date) : [];
     const bmrKcal = summary.targets?.bmrKcal ?? null;
     const slept = day.sleep.length ? daySleepHours(day.sleep.map((s) => s.stamps)) : null;
@@ -170,6 +175,10 @@ export async function buildExport(
       const symptom = symptomById.get(id);
       if (symptom) rows.symptoms.push([date, symptom.name, symptom.scale, value]);
     }
+    for (const n of notes) {
+      // A note is shown at the time it was written, in the zone it was written in.
+      rows.notes.push([date, formatTime(n.loggedAt, n.timeZone), n.text]);
+    }
     for (const i of intimate) rows.private.push([date, i.kind]);
 
     days.push({
@@ -191,6 +200,7 @@ export async function buildExport(
       drinks: day.drinks,
       checkIns: day.checkIns,
       symptoms: answers,
+      notes: notes.map(({ loggedAt, text }) => ({ loggedAt, text })),
       weightKg: weighed,
       ...(includePrivate && { private: intimate }),
     });

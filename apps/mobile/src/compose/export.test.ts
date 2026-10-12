@@ -2,6 +2,7 @@
 import catalog from '@kawsay/catalog/catalog.json';
 import i18n from '@/lib/i18n';
 import { addMeal } from '@/features/meals/meals-db';
+import { saveNote } from '@/features/notes/notes-db';
 import { addIntimate } from '@/features/private/private-db';
 import { saveProfile } from '@/features/profile/profile-db';
 import { saveWeight } from '@/features/weight/weight-db';
@@ -70,6 +71,7 @@ describe('export (F15)', () => {
         'days.csv',
         'drinks.csv',
         'meals.csv',
+        'notes.csv',
         'sleep.csv',
         'symptoms.csv',
         'waist.csv',
@@ -79,6 +81,24 @@ describe('export (F15)', () => {
     expect(files['days.csv']?.trim().split('\n')).toHaveLength(4);
     expect(files['meals.csv']).toContain('2026-10-07,lunch,dish,Lomo saltado');
     expect(files['weights.csv']).toContain('2026-10-06,80');
+  });
+
+  it('The export has a notes.csv with date, time and text', async () => {
+    const db = await seeded();
+    await saveNote(db, env(), {
+      date: '2026-10-07',
+      timeZone: lima,
+      text: 'Creo que me dio diarrea por comer "tal cosa", pero ya pasó',
+    });
+    const { files } = await buildExport(db, {
+      from: '2026-10-07',
+      to: '2026-10-07',
+      includePrivate: false,
+    });
+    expect(files['notes.csv']).toBe(
+      'date,time,text\n2026-10-07,07:01,"Creo que me dio diarrea por comer ""tal cosa"", pero ya pasó"\n',
+    );
+    expect(files['kawsay.json']).toContain('"notes"');
   });
 
   it('the private log is exported only when explicitly selected', async () => {

@@ -11,4 +11,11 @@ describe('LogScreen (+ tab)', () => {
     await fireEvent.press(screen.getByRole('button', { name: '+1 vaso de agua' }));
     expect(onPick).toHaveBeenLastCalledWith('water');
   });
+
+  it('"Nota" opens a day note (F21)', async () => {
+    const onPick = jest.fn();
+    await render(<LogScreen onPick={onPick} />);
+    await fireEvent.press(screen.getByRole('button', { name: 'Nota' }));
+    expect(onPick).toHaveBeenLastCalledWith('note');
+  });
 });

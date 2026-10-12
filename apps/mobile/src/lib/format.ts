@@ -28,3 +28,13 @@ export function formatMoment(ms: number, timeZone: string): string {
     timeZone,
   });
 }
+
+/** The time of an instant as "15:30" in the given zone. */
+export function formatTime(ms: number, timeZone: string): string {
+  return new Date(ms).toLocaleTimeString(FORMAT_LOCALE, {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+    timeZone,
+  });
+}

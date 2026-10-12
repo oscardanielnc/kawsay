@@ -534,6 +534,19 @@
     "save": "Crear síntoma",
     "clear": "Quitar la respuesta de hoy"
   },
+  "notes": {
+    "title": "Notas del día",
+    "empty": "Lo que pasó hoy y puede importar para tu salud o tu ánimo: una discusión, cómo te cayó una comida, cómo amaneció tu barriga.",
+    "write": "+ Escribir nota",
+    "newTitle": "Nueva nota",
+    "editTitle": "Editar nota",
+    "label": "Tu nota",
+    "placeholder": "Ej.: Mi barriga empezó hinchada, pero después de ir al baño ya no se volvió a inflar.",
+    "save": "Guardar nota",
+    "delete": "Borrar nota",
+    "editHint": "Toca para editar o borrar",
+    "count": "{{count}} / {{max}}"
+  },
   "dish": {
     "title": "Crear plato",
     "name": "Nombre del plato",
@@ -601,6 +614,7 @@
       "drinks": "Vasos tocados en hidratación (agua, café o té sin azúcar, alcohol). Las bebidas con calorías están en meals.csv con volume_ml.",
       "checkins": "Toques de cuerpo y ánimo, cada uno con su hora.",
       "symptoms": "Respuestas del día a los síntomas que creaste.",
+      "notes": "Notas del día escritas por ti, en tus palabras: salud, digestión, ánimo, relaciones.",
       "weights": "Un peso por día, tomado al despertar, después del baño y antes de comer.",
       "waist": "Una medida de cintura por semana (opcional).",
       "private": "Registro íntimo privado; solo aparece si lo elegiste al exportar."
@@ -671,6 +685,11 @@
         "scale": "yes-no, zero-five (0 a 5) o size (small, medium, large).",
         "value": "Respuesta del día: yes, 0–5, o small / medium / large."
       },
+      "notes": {
+        "date": "Día local.",
+        "time": "Hora en que escribiste la nota (HH:MM, hora local).",
+        "text": "La nota, tal como la escribiste."
+      },
       "weights": {
         "date": "Día local.",
         "kg": "Peso, en kg."
@@ -696,7 +715,8 @@
       "mood": "Ánimo",
       "sleep": "Sueño",
       "weight": "Peso",
-      "write": "Escribir"
+      "write": "Escribir",
+      "note": "Nota"
     },
     "waterAdded": "+1 vaso de agua",
     "soon": "Pronto"

@@ -51,6 +51,8 @@ import {
   symptomAnswersOn,
 } from '@/features/symptoms/symptoms-db';
 import { SymptomsSection } from '@/features/symptoms/SymptomsSection';
+import { deleteNote, notesOn, saveNote } from '@/features/notes/notes-db';
+import { NotesSection } from '@/features/notes/NotesSection';
 import { addIntimate, deleteIntimate, intimateOn } from '@/features/private/private-db';
 import { PrivateSection } from '@/features/private/PrivateSection';
 import { saveWaist, waistsSince } from '@/features/waist/waist-db';
@@ -87,7 +89,7 @@ export default function TodayRoute() {
   const setDay = (next: LocalDate) => router.setParams({ day: next });
   const { data, reload } = useLoad(
     useCallback(async () => {
-      const [dayData, items, units, routines, waists, symptoms, answers, ...recent] =
+      const [dayData, items, units, routines, waists, symptoms, answers, notes, ...recent] =
         await Promise.all([
           loadDay(db, day),
           catalogItems(db),
@@ -96,6 +98,7 @@ export default function TodayRoute() {
           waistsSince(db, addDays(day, -7 * 12)),
           listSymptoms(db),
           symptomAnswersOn(db, day),
+          notesOn(db, day),
           ...MEALS.map((meal) => recentFor(db, meal)),
         ]);
       const [breakfast = [], lunch = [], dinner = [], snack = []] = recent;
@@ -108,6 +111,7 @@ export default function TodayRoute() {
         waists,
         symptoms,
         answers,
+        notes,
         recent: { breakfast, lunch, dinner, snack },
       };
     }, [db, day]),
@@ -322,6 +326,14 @@ export default function TodayRoute() {
           onCreate={(symptom) => run(() => createSymptom(db, env, symptom))}
         />
       ) : null}
+      <TodaySection id="notes">
+        <NotesSection
+          notes={data.notes}
+          startWriting={params.focus === 'notes' ? params.at : undefined}
+          onSave={(note) => run(() => saveNote(db, env, { ...note, date: day, timeZone }))}
+          onDelete={(id) => run(() => deleteNote(db, env, id))}
+        />
+      </TodaySection>
       {data.profile?.intimateEnabled ? (
         <PrivateSection
           entries={privateOpen ? (intimate ?? []) : null}

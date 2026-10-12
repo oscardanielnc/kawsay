@@ -22,7 +22,7 @@ Prototype: [explorations/2026-10-07-today-v3.html](explorations/2026-10-07-today
 2. **Day rings (S2, revised):** calories are a range, not a number to fill, so the ring shows two things worth completing:
    - **Outer ring, 6 segments = "day logged":** meals, activity, water, body and mood, sleep, weight. Each segment fills with its colour; the centre shows `4/6`. It feeds the calendar and the "Review my day" button
    - **Inner ring = movement minutes** vs a daily goal (default 30 min, from the WHO 150–300 min/week guideline)
-3. **Range rows** (first on the screen, above the rings) for calories, protein, fat and carbohydrates: name and a **state pill** (✓ / ↓ / ↑ + text on a tint), the **value large** (calories larger still), then the `red | yellow | green | yellow | red` track with a round marker and the **green-zone limits printed small** under its edges. Zones keep **fixed widths** (10 · 18 · 44 · 18 · 10 %) instead of a linear 0–200 % scale, so the limits never crowd; the marker moves linearly inside each zone. No "108 / 95"
+3. **Range gauges** (first on the screen, above the rings; prototype [explorations/2026-10-12-range-gauges.html](explorations/2026-10-12-range-gauges.html)): a 2 × 2 grid of cards for calories, protein, fat and carbohydrates. Each card: name; a **semicircle like a car speedometer** in pastel red · yellow · green · yellow · red that **blends softly** between zones; the **four zone limits outside the arc** (green ones darker); the day's amount **large in the centre** with its unit; a **slim needle** on the band; the state pill below (✓ / ↓ / ↑). Zones keep fixed angles (10 · 18 · 44 · 18 · 10 % of the arc) so limits never crowd
 4. **Meals:** four slots; logged items as icon chips with their portion (½ Juane). "+" opens a **search box** on top, the user's **12 most recent dishes** as icon tiles filtered while typing, and a **large "Create dish" button** at the bottom (prefilled with the search text). Choosing a dish asks the **portion**: ¼ ½ ¾ 1 1½ 2 of a serving **or grams**, with the calories updating live; below one serving, an option to **save the rest for tomorrow's breakfast**. Every dish has an icon chosen when it is created
 5. **Physical activity:**
    - **"No physical activity"** button = the base day (home, no exercise). Choosing it hides adding; logging any activity clears it
@@ -100,6 +100,8 @@ weight trend, weekly waist (if enabled), drinks and bloating.
 - Monthly chart, one metric at a time (chips): bars for calories, protein, movement and drinks, coloured dark green when inside **that day's** range; dots + trend line (moving average) for weight and waist; hover/tap tooltip per day
 
 ## Change history
+
+- 2026-10-12 — Range rows become speedometer gauges in pastel blended colours (Oscar's design)
 
 - 2026-10-12 — Hydration pail with − / + per drink (Oscar's idea)
 

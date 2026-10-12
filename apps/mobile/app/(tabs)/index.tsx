@@ -41,7 +41,7 @@ import { RoutinesBlock, type LoggedSession } from '@/features/routines/RoutinesB
 import { deleteSleep, saveSleep } from '@/features/sleep/sleep-db';
 import { SleepSection, type SleepChange } from '@/features/sleep/SleepSection';
 import { DayRings } from '@/features/today/DayRings';
-import { RangeRows } from '@/features/today/RangeRows';
+import { RangeGauges } from '@/features/today/RangeGauges';
 import { AREAS } from '@/features/today/day-logged';
 import { TodayScreen, TodaySection } from '@/features/today/TodayScreen';
 import {
@@ -59,7 +59,6 @@ import { saveWaist, waistsSince } from '@/features/waist/waist-db';
 import { WaistCard } from '@/features/waist/WaistCard';
 import { WeightCard } from '@/features/weight/WeightCard';
 import { saveWeight } from '@/features/weight/weight-db';
-import { Card } from '@/components/layout/Card';
 import { loadDay, summarizeDay } from '@/compose/day';
 import { useDb } from '@/lib/db/DatabaseProvider';
 import { deviceTimeZone } from '@/lib/time-zone';
@@ -210,9 +209,7 @@ export default function TodayRoute() {
       focusKey={params.at}
     >
       {targets ? (
-        <Card title={t('ranges.title')}>
-          <RangeRows targets={targets} eaten={eaten} dayOpen={isToday} />
-        </Card>
+        <RangeGauges targets={targets} eaten={eaten} dayOpen={isToday} />
       ) : (
         <Text style={[type.body, { color: color.inkMuted }]}>{t('today.needWeight')}</Text>
       )}

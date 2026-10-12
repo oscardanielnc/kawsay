@@ -1,6 +1,6 @@
 # F19. Vitamins, minerals and fibre
 
-- Release: v0.2 (nutrients stored from v0.1)
+- Release: v0.1 (brought forward 2026-10-12)
 - Status: Approved 2026-10-07 · prototype: design/explorations/2026-10-07-dish-insights-routine.html
 
 ## What

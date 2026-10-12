@@ -23,3 +23,4 @@ Template: [template.md](template.md).
 | [0016](0016-local-dates.md) | Days are local calendar days from the phone's time zone | Accepted |
 | [0017](0017-mobile-compose-layer.md) | A compose layer for what spans features on mobile | Accepted |
 | [0018](0018-sync-storage-and-change-tracking.md) | Sync storage on the server, change tracking on the phone | Accepted |
+| [0019](0019-insights-on-phone-notes-to-ai.md) | Insights computed on the phone; day notes go to the AI as text | Accepted |

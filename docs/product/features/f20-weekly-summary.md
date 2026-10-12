@@ -1,6 +1,6 @@
 # F20. Weekly summary
 
-- Release: v0.2
+- Release: v0.1 (brought forward 2026-10-12)
 - Status: Approved 2026-10-07 · prototype: design/explorations/2026-10-07-dish-insights-routine.html
 
 ## What

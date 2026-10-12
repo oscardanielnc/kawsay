@@ -18,9 +18,9 @@
 | [F14](f14-calendar.md) | Calendar | v0.1 | Approved |
 | [F15](f15-export.md) | Export history | v0.1 | Approved |
 | [F16](f16-text-shortcut.md) | Free-text shortcut | later | Approved |
-| [F17](f17-insights.md) | On-demand insights | later | Approved |
+| [F17](f17-insights.md) | On-demand insights | v0.1 without AI · AI later | Approved |
 | [F18](f18-routines.md) | Routines | v0.1 | Approved |
-| [F19](f19-micronutrients.md) | Vitamins, minerals and fibre | v0.2 | Approved |
-| [F20](f20-weekly-summary.md) | Weekly summary | v0.2 | Approved |
+| [F19](f19-micronutrients.md) | Vitamins, minerals and fibre | v0.1 | Approved |
+| [F20](f20-weekly-summary.md) | Weekly summary | v0.1 | Approved |
 | [F21](f21-day-notes.md) | Day notes | v0.1 | Approved |
 | [F22](f22-added-sugar.md) | Added sugar | v0.1 | Approved |

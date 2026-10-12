@@ -39,10 +39,13 @@ Prototype: [explorations/2026-10-07-today-v3.html](explorations/2026-10-07-today
 - Unmatched ingredient: amber row "not in the table" with Search / Ignore; "What's missing?" adds dashed suggested rows with Add / ✕
 - Sticky dark-green footer: per-serving kcal, protein, fat, carbohydrates, fibre and iron; "Save dish"
 
-## Insights tab (v0.2)
+## Insights tab (v0.1) — prototype [explorations/2026-10-12-insights.html](explorations/2026-10-12-insights.html)
 
-1. **Your week (F20):** days 🟢 · 🟡 · 🔴, movement minutes / 150, weight trend
-2. **Vitamins, minerals and fibre (F19):** one row per nutrient, reds first, value "6.9 of 8.0 mg" + "% · state", track red | yellow | green on a 0–150% scale (sodium: green up to the limit, then yellow, red); grey hatched track for incomplete data. Tap → sheet with the % big, average vs reference, coverage, "where it came from this week", "foods richest in it" with a "you already eat it" badge first, and the caveat
+Header with ‹ › and the 7 days shown (ending today by default).
+
+1. **Your week (F20):** three tinted counters (green · yellow · red days), grey days in a line below; movement minutes as a progress bar against 150; weight trend change, or "weigh more days (n of 3)"
+2. **Vitamins, minerals and fibre (F19):** one row per nutrient, reds first: name, "6 de 8 mg al día", % pill in its colour (sodium: mg against its limit), a thin 0–150% bar with a tick at 100%; grey "datos incompletos" below 80% coverage. Tap → sheet with the % big, average vs reference, coverage, "where it came from this week", "richest per portion" with a "ya lo comes" badge first, the caveat and the blood-test disclaimer
+3. **What lines up with your symptoms (F17, no AI yet):** up to 6 relations, each "🍽️ Food → más hinchazón", the counts (bad n of m days within 48 h vs without it) and a confidence chip; a dashed "Analizar con IA · pronto" button; "not a diagnosis" and an ⓘ with when to see a doctor
 
 ## Routine editor (F18)
 
@@ -98,6 +101,8 @@ weight trend, weekly waist (if enabled), drinks and bloating.
 - Monthly chart, one metric at a time (chips): bars for calories, protein, movement and drinks, coloured dark green when inside **that day's** range; dots + trend line (moving average) for weight and waist; hover/tap tooltip per day
 
 ## Change history
+
+- 2026-10-12 — Insights tab built without AI (week, nutrients, relations)
 
 - 2026-10-12 — BMI gauge linear 15–35 (Oscar: the needle must visibly move week by week); durations read "8h 15m"
 

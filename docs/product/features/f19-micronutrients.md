@@ -50,8 +50,8 @@ Other ages: full DRI table in `packages/core`, versioned. Pregnancy and lactatio
 
 ## Acceptance criteria
 
-- [ ] A week averaging 6 mg of iron for a 25-year-old man shows 75% in yellow
-- [ ] A food without iron data lowers the coverage instead of counting as 0
-- [ ] With 3 logged days the card asks for 4
-- [ ] 2,500 mg of sodium shows red
-- [ ] Changing the day's calorie target changes the fibre reference
+- [x] A week averaging 6 mg of iron for a 25-year-old man shows 75% in yellow
+- [x] A food without iron data lowers the coverage instead of counting as 0
+- [x] With 3 logged days the card asks for 4
+- [x] 2,500 mg of sodium shows red
+- [x] Changing the day's calorie target changes the fibre reference

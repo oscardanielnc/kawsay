@@ -36,6 +36,8 @@ export interface MealEntryView {
   carbsG: number;
   /** Added (free) sugar, F22. */
   addedSugarG: number;
+  /** Nutrients per 100 g of the dish or food eaten, for the weekly view (F19). */
+  per100g: Nutrients;
   volumeMl: number | null;
   leftoverOf: string | null;
 }
@@ -270,6 +272,7 @@ export async function mealsOn(db: Db, date: LocalDate): Promise<MealEntryView[]>
         fatG: of('fatG'),
         carbsG: of('carbsTotalG'),
         addedSugarG: of('addedSugarG'),
+        per100g: item.per100g,
         volumeMl: row.volumeMl,
         leftoverOf: row.leftoverOf,
       },

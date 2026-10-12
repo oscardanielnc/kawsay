@@ -160,6 +160,7 @@ describe('MealsSection (F05)', () => {
       fatG: 8,
       carbsG: 30,
       addedSugarG: 0,
+      per100g: null,
       volumeMl: null,
       leftoverOf: 'e0',
     };

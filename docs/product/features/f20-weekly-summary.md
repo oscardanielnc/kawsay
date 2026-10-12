@@ -16,5 +16,5 @@ First card of the Insights tab: the week at a glance.
 
 ## Acceptance criteria
 
-- [ ] A week with 4 green, 2 yellow and 1 red day shows "4 · 2 · 1"
-- [ ] With 2 weights in the week, the weight tile reads "Pésate más días"
+- [x] A week with 4 green, 2 yellow and 1 red day shows "4 · 2 · 1"
+- [x] With 2 weights in the week, the weight tile reads "Pésate más días"

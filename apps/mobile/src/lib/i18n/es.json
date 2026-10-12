@@ -810,5 +810,123 @@
       "red": "↑ Alto"
     },
     "gauge": "Azúcar añadida: {{grams}} g, {{state}}. Ideal hasta {{green}} g, máximo {{max}} g"
+  },
+  "insights": {
+    "title": "Análisis",
+    "prevWeek": "Semana anterior",
+    "nextWeek": "Semana siguiente",
+    "week": {
+      "title": "Tu semana",
+      "green": "días en verde",
+      "yellow": "en amarillo",
+      "red": "en rojo",
+      "grey": "{{count}} días sin datos",
+      "movement": "🏃 Movimiento",
+      "movementValue": "{{minutes}} / {{goal}} min",
+      "weight": "⚖️ Tendencia de peso",
+      "weightMore": "Pésate más días ({{count}} de 3)"
+    },
+    "nutrients": {
+      "title": "Vitaminas y minerales",
+      "noProfile": "Completa tu perfil para ver tus referencias.",
+      "needDays": "Registra 4 días con al menos 2 comidas para ver tu semana. Llevas {{count}}.",
+      "of": "{{intake}} de {{reference}} {{unit}} al día",
+      "limit": "{{intake}} {{unit}} al día · límite {{reference}} {{unit}}",
+      "incomplete": "datos incompletos",
+      "incompleteHint": "solo el {{coverage}} de lo que comiste tiene este dato",
+      "disclaimer": "Estima lo que comes, no lo que hay en tu sangre. Eso solo lo mide un análisis.",
+      "average": "Promedio {{intake}} {{unit}} al día · referencia {{reference}} {{unit}}",
+      "averageLimit": "Promedio {{intake}} {{unit}} al día · límite {{reference}} {{unit}}",
+      "coverage": "Con dato: {{coverage}} de lo que comiste",
+      "sources": "De dónde vino esta semana",
+      "richest": "Los más ricos por porción",
+      "eaten": "ya lo comes",
+      "names": {
+        "fiberG": "Fibra",
+        "ironMg": "Hierro",
+        "zincMg": "Zinc",
+        "calciumMg": "Calcio",
+        "potassiumMg": "Potasio",
+        "vitaminARaeUg": "Vitamina A",
+        "vitaminCMg": "Vitamina C",
+        "thiaminMg": "Tiamina (B1)",
+        "riboflavinMg": "Riboflavina (B2)",
+        "niacinMg": "Niacina (B3)",
+        "folateUg": "Folato",
+        "vitaminB12Ug": "Vitamina B12",
+        "sodiumMg": "Sodio"
+      },
+      "caveats": {
+        "vitaminARaeUg": "La tabla INS da la vitamina A como equivalentes de retinol: en vegetales puede salir hasta el doble de lo real.",
+        "folateUg": "El folato se reporta como ácido fólico.",
+        "ironMg": "El hierro de las plantas se absorbe menos que el de la carne; la vitamina C en la misma comida ayuda."
+      }
+    },
+    "relations": {
+      "title": "Qué se relaciona con tus síntomas",
+      "needDays": "Registra cómo te sientes (Cuerpo y ánimo o tus síntomas) 10 días para ver relaciones. Llevas {{count}}.",
+      "none": "Aún no aparece ninguna relación clara en tus últimas 6 semanas. Sigue registrando.",
+      "detail": "{{bad}} {{exposedBad}} de {{exposedDays}} días ({{exposedPct}}) en las 48 h siguientes · sin ello, {{baselineBad}} de {{baselineDays}} ({{baselinePct}})",
+      "times": "· {{count}} veces en 6 semanas",
+      "confidence": {
+        "low": "Confianza baja",
+        "medium": "Confianza media",
+        "high": "Confianza alta"
+      },
+      "ai": "✨ Analizar con IA · pronto",
+      "disclaimer": "No es un diagnóstico: son coincidencias en tus registros.",
+      "doctor": "ⓘ Cuándo ir al médico",
+      "doctorBody": "Ve al médico si tienes sangre en las heces o en el vómito, dolor de barriga fuerte o que no se va, fiebre, diarrea por más de 2 días, bajas de peso sin buscarlo, o una tristeza que no se va en 2 semanas.",
+      "tags": {
+        "alcohol": "🍷 Alcohol",
+        "coffee-tea": "☕ Café o té",
+        "sugar-high": "🍬 Día con mucha azúcar añadida",
+        "short-sleep": "🌙 Dormir menos de 6 h",
+        "activity": "🏃 Actividad física",
+        "no-activity": "🛋️ Día sin actividad"
+      },
+      "effect": {
+        "bloating": {
+          "raises": "→ más hinchazón",
+          "lowers": "→ menos hinchazón",
+          "bad": "Hinchazón peor:"
+        },
+        "diarrhoea": {
+          "raises": "→ más diarrea",
+          "lowers": "→ menos diarrea",
+          "bad": "Diarrea:"
+        },
+        "constipation": {
+          "raises": "→ más estreñimiento",
+          "lowers": "→ menos estreñimiento",
+          "bad": "Estreñimiento:"
+        },
+        "stress": {
+          "raises": "→ más estrés",
+          "lowers": "→ menos estrés",
+          "bad": "Estrés alto:"
+        },
+        "energy": {
+          "raises": "→ menos energía",
+          "lowers": "→ más energía",
+          "bad": "Energía baja:"
+        },
+        "mood": {
+          "raises": "→ peor ánimo",
+          "lowers": "→ mejor ánimo",
+          "bad": "Ánimo bajo:"
+        },
+        "sleep": {
+          "raises": "→ peor sueño",
+          "lowers": "→ mejor sueño",
+          "bad": "Sueño malo:"
+        },
+        "own": {
+          "raises": "→ más {{name}}",
+          "lowers": "→ menos {{name}}",
+          "bad": "{{name}}:"
+        }
+      }
+    }
   }
 }

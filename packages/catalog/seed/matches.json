@@ -17,8 +17,20 @@
    "ins": "A49",
    "note": "INS has no separate 'pan común'; the everyday roll is the pan francés"
   },
+  "pan-integral-molde": {
+   "ins": "A186",
+   "plant": true
+  },
+  "tortilla-trigo": {
+   "ins": "A197",
+   "plant": true
+  },
   "harina-trigo": {
    "ins": "A63",
+   "plant": true
+  },
+  "avena": {
+   "ins": "A7",
    "plant": true
   },
   "pan-rallado": {
@@ -90,6 +102,10 @@
   },
   "pollo-broaster": {
    "usda": 172386
+  },
+  "pollo-rostizado": {
+   "usda": 171518,
+   "note": "Rotisserie, breast meat only"
   },
   "res-carne": {
    "ins": "F35",
@@ -535,6 +551,14 @@
    "ins": "D39",
    "plant": true
   },
+  "chia": {
+   "ins": "D24",
+   "plant": true
+  },
+  "canela": {
+   "ins": "L20",
+   "plant": true
+  },
   "bizcocho": {
    "usda": 172706
   },
@@ -575,6 +599,10 @@
   },
   "mani-tostado": {
    "ins": "D16",
+   "plant": true
+  },
+  "mantequilla-mani": {
+   "ins": "D48",
    "plant": true
   },
   "almendra": {

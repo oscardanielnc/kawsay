@@ -1,6 +1,6 @@
 # Food seed
 
-- Status: Draft 2026-10-07 · 81 dishes · 140 foods · data in `packages/catalog/seed/` (ADR 0014)
+- Status: Draft 2026-10-07 · 96 dishes · 147 foods · data in `packages/catalog/seed/` (ADR 0014)
 - Review once: amounts are typical servings, grams as eaten; nutrients are computed at import from INS / USDA / labels
 - Confidence: 🟢 standard recipe · 🟡 typical, varies by cook · 🔴 rough, check first
 - **Sauces and creams: 1 portion = 40 g** (½ portion = 20 g); bottled ones are foods with the same portions
@@ -24,6 +24,15 @@
 | Huevos revueltos | 2 huevos | huevo de gallina 100 · aceite vegetal 7 · leche fresca entera 10 | 🟢 |
 | Chorizo frito con papa | 1 plato | chorizo 80 · papa blanca sancochada 150 · aceite vegetal 8 | 🟡 |
 | Pescado frito con maduro | 1 plato | pescado de río 150 · harina de trigo 8 · plátano maduro 120 · aceite vegetal 23 | 🟡 |
+| Batido que llena | 1 vaso grande | yogurt griego 200 · whey 33 · avena 40 · papaya 150 · chía 10 · agua 100 | 🟢 |
+| Avena de la noche | 1 táper | avena 50 · yogurt griego 150 · agua 50 · whey 15 · chía 10 · plátano 50 · canela 1 | 🟢 |
+| Pan con atún y palta | 2 tajadas | pan de molde integral 56 · atún 60 · palta 50 · cebolla 10 · limón 5 | 🟢 |
+| Huevos revueltos con palta y pan | 1 plato | huevo 150 · aceite vegetal 5 · palta 100 · pan de molde integral 56 · tomate 60 | 🟢 |
+| Batido que llena con maní | 1 vaso grande | yogurt griego 200 · whey 33 · avena 40 · papaya 150 · chía 10 · mantequilla de maní 16 · agua 100 | 🟢 |
+| Pan con atún, palta y huevo | 2 tajadas | pan de molde integral 56 · atún 60 · palta 100 · huevo 50 · limón 5 | 🟢 |
+| Avena de la noche con nueces | 1 táper | avena 50 · yogurt griego 150 · agua 50 · whey 15 · chía 10 · plátano 50 · canela 1 · nuez 10 | 🟢 |
+| Tortilla de avena con maní | 1 tortilla | huevo 100 · avena 40 · plátano 50 · aceite vegetal 3 · mantequilla de maní 16 | 🟢 |
+| Pan con pollo rostizado y palta | 2 tajadas | pan de molde integral 56 · pollo rostizado 80 · palta 100 · tomate 40 | 🟢 |
 
 ## Sopas
 
@@ -50,6 +59,8 @@
 | Chuleta con papas | 1 plato con arroz | cerdo 120 · aceite vegetal 8 · papas fritas 120 · arroz blanco cocido 150 · lechuga 25 · tomate 25 · pepino 20 · limón 3 | 🟡 |
 | Churrasco con papas fritas | 1 plato con arroz | res 180 · aceite vegetal 8 · papas fritas 150 · arroz blanco cocido 150 · lechuga 25 · tomate 25 · pepino 20 · limón 3 | 🟡 |
 | Pollo frito con arroz | 1 plato | pollo 150 · harina de trigo 10 · aceite vegetal 15 · arroz blanco cocido 160 · lechuga 25 · tomate 25 · pepino 20 · limón 3 | 🟡 |
+| Pollo a la plancha | 1 filete grande | pechuga 150 · aceite 5 · ajo 2 · limón 5 (sides apart) | 🟢 |
+| Wrap de pollo | 1 wrap | tortilla de trigo 45 · pollo rostizado 60 · lechuga 20 · tomate 40 · mostaza 5 (light dinner, no cooking) | 🟢 |
 | Tilapia frita | 1 plato con arroz | tilapia 150 · harina de trigo 8 · aceite vegetal 15 · arroz blanco cocido 150 · lechuga 25 · tomate 25 · pepino 20 · limón 3 | 🟡 |
 | Pescado de río frito | 1 plato con arroz y yuca | pescado de río 150 · harina de trigo 8 · aceite vegetal 15 · arroz blanco cocido 150 · yuca sancochada 80 | 🟡 |
 | Pescado de mar frito | 1 plato con arroz | pescado de mar 150 · harina de trigo 8 · aceite vegetal 15 · arroz blanco cocido 150 · lechuga 25 · tomate 25 · pepino 20 · limón 3 | 🟡 |
@@ -84,6 +95,7 @@
 | --- | --- | --- | --- |
 | Papa dorada | 1 porción | papa blanca sancochada 150 · aceite vegetal 8 | 🟢 |
 | Plátano maduro frito | 1 plátano | plátano maduro 120 · aceite vegetal 8 | 🟢 |
+| Yogurt con chía y nueces | 1 bowl | yogurt griego 150 · chía 10 · nuez 10 (light dinner) | 🟢 |
 
 ## Ensaladas
 
@@ -93,6 +105,9 @@
 | Ensalada criolla (sarsa) | 1 porción | cebolla roja 50 · tomate 30 · limón 10 · culantro 2 · ají amarillo 3 | 🟢 |
 | Ensalada rusa | 1 porción | papa blanca sancochada 60 · beterraga cocida 60 · zanahoria 40 · alverja verde cocida 20 · mayonesa 15 | 🟢 |
 | Ensalada de palta | 1 porción | palta 70 · tomate 40 · cebolla roja 20 · limón 5 | 🟢 |
+| Ensalada de atún | 1 plato | atún 60 · tomate 60 · pepino 50 · cebolla roja 20 · limón 10 · aceite de oliva 5 (light dinner) | 🟢 |
+| Ensalada de pollo rostizado | 1 plato | pollo rostizado 80 · tomate 60 · pepino 50 · lechuga 30 · limón 10 · aceite de oliva 5 (light dinner) | 🟢 |
+| Huevos sancochados con ensalada | 1 plato | huevo 100 · tomate 60 · pepino 50 · limón 5 · palta 50 (light dinner) | 🟢 |
 
 ## Bebidas
 
@@ -133,7 +148,7 @@
 
 ## Foods
 
-All 140 foods can also be logged on their own (fruit, vegetables, sauces…). Full list with household units: `packages/catalog/seed/foods.json`.
+All 147 foods can also be logged on their own (fruit, vegetables, sauces…). Full list with household units: `packages/catalog/seed/foods.json`.
 
 ## Branded items (values from the package label)
 

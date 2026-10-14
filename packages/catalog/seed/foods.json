@@ -57,6 +57,32 @@
     }
    ]
   },
+  "pan-integral-molde": {
+   "name": "Pan de molde integral",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 tajada",
+     "grams": 28
+    },
+    {
+     "label": "2 tajadas",
+     "grams": 56
+    }
+   ]
+  },
+  "tortilla-trigo": {
+   "name": "Tortilla de trigo (wrap)",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 tortilla",
+     "grams": 45
+    }
+   ]
+  },
   "harina-trigo": {
    "name": "Harina de trigo",
    "source": "INS",
@@ -65,6 +91,21 @@
     {
      "label": "1 cda",
      "grams": 8
+    }
+   ]
+  },
+  "avena": {
+   "name": "Avena en hojuelas (cruda)",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "4 cdas",
+     "grams": 40
+    },
+    {
+     "label": "½ taza",
+     "grams": 45
     }
    ]
   },
@@ -259,6 +300,21 @@
     {
      "label": "1 presa",
      "grams": 180
+    }
+   ]
+  },
+  "pollo-rostizado": {
+   "name": "Pollo rostizado sin piel",
+   "source": "USDA",
+   "state": "cooked",
+   "units": [
+    {
+     "label": "1 porción",
+     "grams": 80
+    },
+    {
+     "label": "½ porción",
+     "grams": 40
     }
    ]
   },
@@ -1691,6 +1747,28 @@
     }
    ]
   },
+  "chia": {
+   "name": "Chía (semilla)",
+   "source": "INS",
+   "state": "raw",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 10
+    }
+   ]
+  },
+  "canela": {
+   "name": "Canela molida",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cdta",
+     "grams": 2
+    }
+   ]
+  },
   "bizcocho": {
    "name": "Bizcocho (queque simple)",
    "source": "USDA",
@@ -1799,6 +1877,17 @@
     {
      "label": "1 puñado",
      "grams": 30
+    }
+   ]
+  },
+  "mantequilla-mani": {
+   "name": "Mantequilla de maní",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 cda",
+     "grams": 16
     }
    ]
   },

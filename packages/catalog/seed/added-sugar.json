@@ -30,6 +30,9 @@
   "atun-lata": {
    "g": 0
   },
+  "avena": {
+   "g": 0
+  },
   "azucar": {
    "g": 100,
    "from": "Pure sucrose"
@@ -39,6 +42,12 @@
    "from": "USDA 172706 pound cake: ~21 g sugars, nearly all added"
   },
   "cafe-soluble": {
+   "g": 0
+  },
+  "canela": {
+   "g": 0
+  },
+  "chia": {
    "g": 0
   },
   "chocolate": {
@@ -106,6 +115,9 @@
   "mantequilla": {
    "g": 0
   },
+  "mantequilla-mani": {
+   "g": 0
+  },
   "morochas": {
    "g": 40,
    "from": "Estimate until the label is read: chocolate-coated wafer, close to Oreo (39 g)"
@@ -131,6 +143,10 @@
    "g": 1,
    "from": "Peruvian bread dough carries ~1% sugar"
   },
+  "pan-integral-molde": {
+   "g": 4,
+   "from": "Estimate for packaged whole-wheat sandwich bread: ~4 g added sugar per 100 g; replace with the label"
+  },
   "pan-rallado": {
    "g": 5,
    "from": "USDA bread crumbs: 5.7 g sugars"
@@ -142,6 +158,9 @@
    "g": 3,
    "from": "Sugar in dough and sauce"
   },
+  "pollo-rostizado": {
+   "g": 0
+  },
   "queso-crema": {
    "g": 0
   },
@@ -151,6 +170,10 @@
   "sillao": {
    "g": 4,
    "from": "Estimate: Peruvian soy sauce is lightly sweetened"
+  },
+  "tortilla-trigo": {
+   "g": 2,
+   "from": "Estimate for packaged wheat tortillas: ~2 g added sugar per 100 g; replace with the label"
   },
   "vinagre": {
    "g": 0

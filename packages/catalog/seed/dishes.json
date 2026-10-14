@@ -442,6 +442,322 @@
    "note": ""
   },
   {
+   "id": "batido-que-llena",
+   "name": "Batido que llena",
+   "group": "breakfast",
+   "icon": "jugo",
+   "confidence": "high",
+   "serving": "1 vaso grande",
+   "servings": 1,
+   "items": [
+    {
+     "food": "yogurt-griego",
+     "grams": 200
+    },
+    {
+     "food": "whey",
+     "grams": 33
+    },
+    {
+     "food": "avena",
+     "grams": 40
+    },
+    {
+     "food": "papaya",
+     "grams": 150
+    },
+    {
+     "food": "chia",
+     "grams": 10
+    },
+    {
+     "food": "agua",
+     "grams": 100
+    }
+   ],
+   "note": "Yogurt, whey, oats and chia keep you full; fruit alone does not"
+  },
+  {
+   "id": "avena-de-la-noche",
+   "name": "Avena de la noche",
+   "group": "breakfast",
+   "icon": "arroz",
+   "confidence": "high",
+   "serving": "1 táper",
+   "servings": 1,
+   "items": [
+    {
+     "food": "avena",
+     "grams": 50
+    },
+    {
+     "food": "yogurt-griego",
+     "grams": 150
+    },
+    {
+     "food": "agua",
+     "grams": 50
+    },
+    {
+     "food": "whey",
+     "grams": 15
+    },
+    {
+     "food": "chia",
+     "grams": 10
+    },
+    {
+     "food": "platano-seda",
+     "grams": 50
+    },
+    {
+     "food": "canela",
+     "grams": 1
+    }
+   ],
+   "note": "Mixed the night before, eaten cold"
+  },
+  {
+   "id": "pan-atun-palta",
+   "name": "Pan con atún y palta",
+   "group": "breakfast",
+   "icon": "pan",
+   "confidence": "high",
+   "serving": "2 tajadas",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pan-integral-molde",
+     "grams": 56
+    },
+    {
+     "food": "atun-lata",
+     "grams": 60
+    },
+    {
+     "food": "palta",
+     "grams": 50
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 10
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    }
+   ],
+   "note": "Half a can; the other half keeps 2 days in the fridge"
+  },
+  {
+   "id": "huevos-revueltos-palta-pan",
+   "name": "Huevos revueltos con palta y pan",
+   "group": "breakfast",
+   "icon": "huevo",
+   "confidence": "high",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "huevo",
+     "grams": 150
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 5
+    },
+    {
+     "food": "palta",
+     "grams": 100
+    },
+    {
+     "food": "pan-integral-molde",
+     "grams": 56
+    },
+    {
+     "food": "tomate",
+     "grams": 60
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "batido-que-llena-mani",
+   "name": "Batido que llena con maní",
+   "group": "breakfast",
+   "icon": "jugo",
+   "confidence": "high",
+   "serving": "1 vaso grande",
+   "servings": 1,
+   "items": [
+    {
+     "food": "yogurt-griego",
+     "grams": 200
+    },
+    {
+     "food": "whey",
+     "grams": 33
+    },
+    {
+     "food": "avena",
+     "grams": 40
+    },
+    {
+     "food": "papaya",
+     "grams": 150
+    },
+    {
+     "food": "chia",
+     "grams": 10
+    },
+    {
+     "food": "mantequilla-mani",
+     "grams": 16
+    },
+    {
+     "food": "agua",
+     "grams": 100
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "pan-atun-palta-huevo",
+   "name": "Pan con atún, palta y huevo",
+   "group": "breakfast",
+   "icon": "pan",
+   "confidence": "high",
+   "serving": "2 tajadas",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pan-integral-molde",
+     "grams": 56
+    },
+    {
+     "food": "atun-lata",
+     "grams": 60
+    },
+    {
+     "food": "palta",
+     "grams": 100
+    },
+    {
+     "food": "huevo",
+     "grams": 50
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "avena-noche-nueces",
+   "name": "Avena de la noche con nueces",
+   "group": "breakfast",
+   "icon": "arroz",
+   "confidence": "high",
+   "serving": "1 táper",
+   "servings": 1,
+   "items": [
+    {
+     "food": "avena",
+     "grams": 50
+    },
+    {
+     "food": "yogurt-griego",
+     "grams": 150
+    },
+    {
+     "food": "agua",
+     "grams": 50
+    },
+    {
+     "food": "whey",
+     "grams": 15
+    },
+    {
+     "food": "chia",
+     "grams": 10
+    },
+    {
+     "food": "platano-seda",
+     "grams": 50
+    },
+    {
+     "food": "canela",
+     "grams": 1
+    },
+    {
+     "food": "nuez",
+     "grams": 10
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "tortilla-avena-mani",
+   "name": "Tortilla de avena con maní",
+   "group": "breakfast",
+   "icon": "huevo",
+   "confidence": "high",
+   "serving": "1 tortilla",
+   "servings": 1,
+   "items": [
+    {
+     "food": "huevo",
+     "grams": 100
+    },
+    {
+     "food": "avena",
+     "grams": 40
+    },
+    {
+     "food": "platano-seda",
+     "grams": 50
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 3
+    },
+    {
+     "food": "mantequilla-mani",
+     "grams": 16
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "pan-pollo-palta",
+   "name": "Pan con pollo rostizado y palta",
+   "group": "breakfast",
+   "icon": "pan",
+   "confidence": "high",
+   "serving": "2 tajadas",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pan-integral-molde",
+     "grams": 56
+    },
+    {
+     "food": "pollo-rostizado",
+     "grams": 80
+    },
+    {
+     "food": "palta",
+     "grams": 100
+    },
+    {
+     "food": "tomate",
+     "grams": 40
+    }
+   ],
+   "note": ""
+  },
+  {
    "id": "sopa-casera",
    "name": "Sopa casera",
    "group": "soup",
@@ -1138,6 +1454,34 @@
    "note": ""
   },
   {
+   "id": "pollo-plancha",
+   "name": "Pollo a la plancha",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "high",
+   "serving": "1 filete grande",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pollo-pechuga",
+     "grams": 150
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 5
+    },
+    {
+     "food": "ajo",
+     "grams": 2
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    }
+   ],
+   "note": "Skinless breast; sides logged apart"
+  },
+  {
    "id": "tilapia-frita",
    "name": "Tilapia frita",
    "group": "main",
@@ -1642,6 +1986,38 @@
    "note": ""
   },
   {
+   "id": "wrap-pollo",
+   "name": "Wrap de pollo",
+   "group": "main",
+   "icon": "pan",
+   "confidence": "high",
+   "serving": "1 wrap",
+   "servings": 1,
+   "items": [
+    {
+     "food": "tortilla-trigo",
+     "grams": 45
+    },
+    {
+     "food": "pollo-rostizado",
+     "grams": 60
+    },
+    {
+     "food": "lechuga",
+     "grams": 20
+    },
+    {
+     "food": "tomate",
+     "grams": 40
+    },
+    {
+     "food": "mostaza",
+     "grams": 5
+    }
+   ],
+   "note": "Light dinner, no cooking"
+  },
+  {
    "id": "pollo-brasa-octavo",
    "name": "Pollo a la brasa ⅛",
    "group": "weekly",
@@ -2042,6 +2418,30 @@
    "note": ""
   },
   {
+   "id": "yogurt-chia-nueces",
+   "name": "Yogurt con chía y nueces",
+   "group": "side",
+   "icon": "nuez",
+   "confidence": "high",
+   "serving": "1 bowl",
+   "servings": 1,
+   "items": [
+    {
+     "food": "yogurt-griego",
+     "grams": 150
+    },
+    {
+     "food": "chia",
+     "grams": 10
+    },
+    {
+     "food": "nuez",
+     "grams": 10
+    }
+   ],
+   "note": "Light dinner, no cooking"
+  },
+  {
    "id": "ensalada-fresca",
    "name": "Ensalada fresca",
    "group": "salad",
@@ -2164,6 +2564,110 @@
     }
    ],
    "note": ""
+  },
+  {
+   "id": "ensalada-atun",
+   "name": "Ensalada de atún",
+   "group": "salad",
+   "icon": "fruta",
+   "confidence": "high",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "atun-lata",
+     "grams": 60
+    },
+    {
+     "food": "tomate",
+     "grams": 60
+    },
+    {
+     "food": "pepino",
+     "grams": 50
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 20
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 10
+    },
+    {
+     "food": "aceite-oliva",
+     "grams": 5
+    }
+   ],
+   "note": "Light dinner, no cooking"
+  },
+  {
+   "id": "ensalada-pollo",
+   "name": "Ensalada de pollo rostizado",
+   "group": "salad",
+   "icon": "fruta",
+   "confidence": "high",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pollo-rostizado",
+     "grams": 80
+    },
+    {
+     "food": "tomate",
+     "grams": 60
+    },
+    {
+     "food": "pepino",
+     "grams": 50
+    },
+    {
+     "food": "lechuga",
+     "grams": 30
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 10
+    },
+    {
+     "food": "aceite-oliva",
+     "grams": 5
+    }
+   ],
+   "note": "Light dinner, no cooking"
+  },
+  {
+   "id": "huevos-sancochados-ensalada",
+   "name": "Huevos sancochados con ensalada",
+   "group": "salad",
+   "icon": "huevo",
+   "confidence": "high",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "huevo",
+     "grams": 100
+    },
+    {
+     "food": "tomate",
+     "grams": 60
+    },
+    {
+     "food": "pepino",
+     "grams": 50
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    },
+    {
+     "food": "palta",
+     "grams": 50
+    }
+   ],
+   "note": "Light dinner, no cooking"
   },
   {
    "id": "jugo-papaya",

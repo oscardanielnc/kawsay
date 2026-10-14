@@ -79,6 +79,49 @@ describe('routine templates (F18, docs/product/routine-templates.md)', () => {
     ]);
   });
 
+  it('Creating a routine from the "Fuerza B" template keeps "por lado" on the single-leg bridge, dead bug and side plank', async () => {
+    const db = await createTestDb();
+    await saveRoutine(db, env(), routineFromTemplate(template('Fuerza B')));
+    const [saved] = await listRoutines(db);
+    expect(saved).toMatchObject({ name: 'Fuerza B', restSeconds: 75, byRounds: false });
+    expect(saved?.exercises).toEqual([
+      {
+        name: 'Puente de glúteo a una pierna',
+        exercise: {
+          kind: 'bodyweight',
+          sets: 3,
+          reps: 10,
+          secondsPerRep: 3,
+          intensity: 'light',
+          perSide: true,
+        },
+      },
+      {
+        name: 'Peso muerto rumano',
+        exercise: { kind: 'weights', sets: 3, reps: 15, secondsPerRep: 4, intensity: 'light' },
+      },
+      {
+        name: 'Pájaro (elevación posterior)',
+        exercise: { kind: 'weights', sets: 3, reps: 15, secondsPerRep: 3, intensity: 'light' },
+      },
+      {
+        name: 'Bicho muerto',
+        exercise: {
+          kind: 'bodyweight',
+          sets: 3,
+          reps: 10,
+          secondsPerRep: 3,
+          intensity: 'light',
+          perSide: true,
+        },
+      },
+      {
+        name: 'Plancha lateral sobre antebrazo',
+        exercise: { kind: 'isometric', sets: 3, seconds: 20, perSide: true },
+      },
+    ]);
+  });
+
   it('a copy is independent: editing it does not change the template', () => {
     const draft = routineFromTemplate(template('Fuerza B'));
     draft.exercises[0]!.name = 'Cambiado';

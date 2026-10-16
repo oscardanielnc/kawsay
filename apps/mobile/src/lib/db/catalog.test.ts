@@ -12,7 +12,7 @@ describe('loadCatalog', () => {
     const db = await createTestDb();
     expect(await loadCatalog(db, bundled)).toBe('loaded');
     expect((await db.select({ n: count() }).from(food))[0]?.n).toBe(147);
-    expect((await db.select({ n: count() }).from(dish))[0]?.n).toBe(96);
+    expect((await db.select({ n: count() }).from(dish))[0]?.n).toBe(101);
     const rice = await db.select().from(food).where(eq(food.id, 'arroz-cocido'));
     expect(rice[0]).toMatchObject({ sourceKind: 'INS', sourceCode: 'A2' });
     expect(rice[0]?.per100g?.energyKcal).toBe(115);
@@ -63,7 +63,7 @@ describe('loadCatalog', () => {
     const broken: BundledCatalog = { ...bundled, version: 'broken', foods: [first, first] };
     await expect(loadCatalog(db, broken)).rejects.toThrow();
     expect((await db.select({ n: count() }).from(food))[0]?.n).toBe(147);
-    expect((await db.select({ n: count() }).from(dish))[0]?.n).toBe(96);
+    expect((await db.select({ n: count() }).from(dish))[0]?.n).toBe(101);
     expect((await db.select().from(meta).where(eq(meta.key, 'catalogVersion')))[0]?.value).toBe(
       bundled.version,
     );

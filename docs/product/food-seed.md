@@ -1,6 +1,6 @@
 # Food seed
 
-- Status: Draft 2026-10-07 · 96 dishes · 147 foods · data in `packages/catalog/seed/` (ADR 0014)
+- Status: Draft 2026-10-07 · 101 dishes · 147 foods · data in `packages/catalog/seed/` (ADR 0014)
 - Review once: amounts are typical servings, grams as eaten; nutrients are computed at import from INS / USDA / labels
 - Confidence: 🟢 standard recipe · 🟡 typical, varies by cook · 🔴 rough, check first
 - **Sauces and creams: 1 portion = 40 g** (½ portion = 20 g); bottled ones are foods with the same portions
@@ -66,6 +66,9 @@
 | Pescado de mar frito | 1 plato con arroz | pescado de mar 150 · harina de trigo 8 · aceite vegetal 15 · arroz blanco cocido 150 · lechuga 25 · tomate 25 · pepino 20 · limón 3 | 🟡 |
 | Ceviche de toyo | 1 plato | toyo 150 · cebolla roja 60 · limón 40 · ají amarillo 5 · culantro 2 · camote sancochado 100 · choclo desgranado cocido 50 · lechuga 10 | 🟢 |
 | Ceviche de pota | 1 plato | pota 150 · cebolla roja 60 · limón 40 · ají amarillo 5 · culantro 2 · camote sancochado 100 · choclo desgranado cocido 50 · lechuga 10 | 🟢 |
+| Chicharrón de toyo | 1 porción | toyo 180 (raw) · harina de trigo 20 · aceite vegetal 20 · ajo 2 · limón 5 (yuca frita and sarsa apart) | 🟡 |
+| Leche de tigre | 1 vaso | pescado de mar 80 · limón 60 · agua 80 · cebolla roja 25 · choclo desgranado cocido 30 · apio 10 · ají amarillo 5 · ajo 3 · kion 3 · culantro 2 (starter; cancha apart) | 🟡 |
+| Chicharrón de pollo | 1 porción | pollo 150 · harina de trigo 15 · aceite vegetal 15 · sillao 5 · ajo 2 · limón 5 (sides apart) | 🟡 |
 | Tallarín verde | 1 plato | fideos / tallarín cocido 250 · espinaca 30 · albahaca 15 · queso fresco 20 · leche evaporada 30 · aceite vegetal 10 · cebolla roja 15 | 🟡 |
 | Causa rellena | 1 tajada | papa amarilla sancochada 150 · aceite vegetal 10 · ají amarillo 10 · limón 5 · pollo 50 · mayonesa 15 · palta 25 · huevo de gallina 12 · aceituna de botija 6 | 🟡 |
 | Papa a la huancaína | 1 plato | papa blanca sancochada 160 · queso fresco 24 · leche evaporada 30 · ají amarillo 15 · galleta de soda 9 · aceite vegetal 8 · huevo de gallina 20 · aceituna de botija 6 · lechuga 11 · cebolla roja 3 — punto medio casa / menú (ENCONUT, 66 locales) | 🟡 |
@@ -95,6 +98,7 @@
 | --- | --- | --- | --- |
 | Papa dorada | 1 porción | papa blanca sancochada 150 · aceite vegetal 8 | 🟢 |
 | Plátano maduro frito | 1 plátano | plátano maduro 120 · aceite vegetal 8 | 🟢 |
+| Yuca frita | 1 porción | yuca sancochada 150 · aceite vegetal 12 | 🟢 |
 | Yogurt con chía y nueces | 1 bowl | yogurt griego 150 · chía 10 · nuez 10 (light dinner) | 🟢 |
 
 ## Ensaladas
@@ -145,6 +149,7 @@
 | Salsa acevichada (casera) | 1 porción (40 g) | mayonesa 28 · limón 6 · ají amarillo 4 · sillao 2 | 🟡 |
 | Chimichurri | 1 porción (40 g) | aceite vegetal 20 · perejil 10 · vinagre 5 · ajo 2 · ají charapita 2 · orégano seco 1 | 🟡 |
 | Crema de aceituna | 1 porción (40 g) | aceituna de botija 15 · mayonesa 15 · leche evaporada 8 · aceite vegetal 2 | 🔴 |
+| Vinagreta | 1 porción (40 g) | aceite vegetal 27 · vinagre 9 · mostaza 4 (3 : 1 oil to vinegar) | 🟡 |
 
 ## Foods
 

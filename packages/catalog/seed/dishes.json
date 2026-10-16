@@ -1690,6 +1690,126 @@
    "note": ""
   },
   {
+   "id": "chicharron-toyo",
+   "name": "Chicharrón de toyo",
+   "group": "main",
+   "icon": "pescado",
+   "confidence": "medium",
+   "serving": "1 porción",
+   "servings": 1,
+   "items": [
+    {
+     "food": "toyo",
+     "grams": 180
+    },
+    {
+     "food": "harina-trigo",
+     "grams": 20
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 20
+    },
+    {
+     "food": "ajo",
+     "grams": 2
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    }
+   ],
+   "note": "Fish weighed raw; sides apart: log yuca frita and sarsa criolla"
+  },
+  {
+   "id": "leche-tigre",
+   "name": "Leche de tigre",
+   "group": "main",
+   "icon": "pescado",
+   "confidence": "medium",
+   "serving": "1 vaso",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pescado-mar",
+     "grams": 80
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 60
+    },
+    {
+     "food": "agua",
+     "grams": 80
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 25
+    },
+    {
+     "food": "choclo",
+     "grams": 30
+    },
+    {
+     "food": "apio",
+     "grams": 10
+    },
+    {
+     "food": "aji-amarillo",
+     "grams": 5
+    },
+    {
+     "food": "ajo",
+     "grams": 3
+    },
+    {
+     "food": "kion",
+     "grams": 3
+    },
+    {
+     "food": "culantro",
+     "grams": 2
+    }
+   ],
+   "note": "Starter glass: fish blended and in pieces; cancha apart"
+  },
+  {
+   "id": "chicharron-pollo",
+   "name": "Chicharrón de pollo",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 porción",
+   "servings": 1,
+   "items": [
+    {
+     "food": "pollo-carne",
+     "grams": 150
+    },
+    {
+     "food": "harina-trigo",
+     "grams": 15
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 15
+    },
+    {
+     "food": "sillao",
+     "grams": 5
+    },
+    {
+     "food": "ajo",
+     "grams": 2
+    },
+    {
+     "food": "limon-jugo",
+     "grams": 5
+    }
+   ],
+   "note": "Sides apart: log papas fritas or yuca frita"
+  },
+  {
    "id": "tallarin-verde",
    "name": "Tallarín verde",
    "group": "main",
@@ -2416,6 +2536,26 @@
     }
    ],
    "note": ""
+  },
+  {
+   "id": "yuca-frita",
+   "name": "Yuca frita",
+   "group": "side",
+   "icon": "plato",
+   "confidence": "high",
+   "serving": "1 porción",
+   "servings": 1,
+   "items": [
+    {
+     "food": "yuca-sancochada",
+     "grams": 150
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 12
+    }
+   ],
+   "note": "Boiled first, then deep-fried"
   },
   {
    "id": "yogurt-chia-nueces",
@@ -3300,6 +3440,30 @@
     }
    ],
    "note": "Rotisserie style"
+  },
+  {
+   "id": "vinagreta",
+   "name": "Vinagreta",
+   "group": "sauce",
+   "icon": "nuez",
+   "confidence": "medium",
+   "serving": "1 porción (40 g)",
+   "servings": 1,
+   "items": [
+    {
+     "food": "aceite-vegetal",
+     "grams": 27
+    },
+    {
+     "food": "vinagre",
+     "grams": 9
+    },
+    {
+     "food": "mostaza",
+     "grams": 4
+    }
+   ],
+   "note": "3 parts oil to 1 of vinegar; lemon instead of vinegar is the same"
   }
  ]
 }

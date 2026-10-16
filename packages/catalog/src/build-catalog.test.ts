@@ -29,8 +29,8 @@ describe('buildCatalog on the real seed and sources', () => {
     expect(egg?.per100g?.vitaminB12Ug).toBe(0.89);
   });
 
-  it('computes all 96 seed dishes', () => {
-    expect(catalog.dishes).toHaveLength(96);
+  it('computes all 101 seed dishes', () => {
+    expect(catalog.dishes).toHaveLength(101);
     const juane = catalog.dishes.find((d) => d.id === 'mini-juane-pollo');
     expect(juane?.totals.perServing.energyKcal).toBeGreaterThan(200);
   });

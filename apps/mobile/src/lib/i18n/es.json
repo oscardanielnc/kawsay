@@ -20,6 +20,12 @@
     "done": "Listo",
     "close": "Cerrar"
   },
+  "screenError": {
+    "title": "Algo falló en esta pantalla",
+    "body": "Tus registros siguen guardados. Prueba otra vez o vuelve al día de hoy.",
+    "retry": "Reintentar",
+    "today": "Ir a hoy"
+  },
   "db": {
     "errorTitle": "No se pudo abrir tus datos",
     "errorBody": "Tus registros siguen guardados en el teléfono. Cierra y vuelve a abrir la app; si el problema sigue, avísanos con este detalle:"

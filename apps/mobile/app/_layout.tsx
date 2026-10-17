@@ -1,6 +1,7 @@
 import '@/lib/i18n';
-import { Stack } from 'expo-router';
+import { Stack, type ErrorBoundaryProps } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { ScreenError } from '@/components/feedback/ScreenError';
 import { DatabaseProvider } from '@/lib/db/DatabaseProvider';
 import { SyncProvider } from '@/lib/sync/SyncProvider';
 
@@ -15,4 +16,9 @@ export default function RootLayout() {
       </DatabaseProvider>
     </>
   );
+}
+
+/** A screen that fails to render shows a way out instead of closing the app. */
+export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
+  return <ScreenError error={error} retry={retry} />;
 }

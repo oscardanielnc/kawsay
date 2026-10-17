@@ -435,6 +435,7 @@
     },
     "fellAsleep": "Me dormí",
     "wokeUp": "Me desperté",
+    "endBeforeStart": "Cuenta 0 h: la hora en que despertaste va antes de la hora en que te dormiste.",
     "quality": "Calidad del sueño",
     "tapMoon": "toca una luna",
     "qualityLabel": "Calidad {{name}}",

@@ -1,5 +1,6 @@
-import { minutesOf } from '../shared/clock-time';
+import type { ClockTime } from '../shared/clock-time';
 import { dayNumber, daysBetween, type LocalDate } from '../shared/local-date';
+import { clockHours } from '../sleep/sleep-session';
 
 /**
  * The age entered in onboarding, aged by the full years since the day it was entered (F01), so the BMR keeps up
@@ -21,17 +22,17 @@ export function ageOn({
   return ageYears + Math.max(0, years - (beforeAnniversary ? 1 : 0));
 }
 
-function spanMinutes({ start, end }: { start: string; end: string }): number {
-  const minutes = minutesOf(end) - minutesOf(start);
-  return minutes <= 0 ? minutes + 24 * 60 : minutes;
-}
-
-/** Hours of the usual night plus the optional nap; a night that crosses midnight counts through it. */
+/**
+ * Hours of the usual night plus the optional nap, with the session rules (F11): a night that crosses midnight counts
+ * through it, an unfinished nap counts 0, and the total stays within a day.
+ */
 export function sleepHours(
-  night: { start: string; end: string },
-  nap?: { start: string; end: string } | null,
+  night: { start: ClockTime; end: ClockTime },
+  nap?: { start: ClockTime; end: ClockTime } | null,
 ): number {
-  return (spanMinutes(night) + (nap ? spanMinutes(nap) : 0)) / 60;
+  const hours =
+    clockHours({ kind: 'night', ...night }) + (nap ? clockHours({ kind: 'nap', ...nap }) : 0);
+  return Math.min(24, hours);
 }
 
 /**

@@ -40,6 +40,23 @@ describe('sleep sessions (F11)', () => {
     ]);
   });
 
+  it('a nap whose end is before its start reads as 0 hours, even if an older version stored it across midnight', async () => {
+    const db = await createTestDb();
+    await db.insert(sleepSession).values({
+      ...newRecord(env()),
+      start: '2026-10-07T14:00',
+      end: '2026-10-08T13:30',
+      date: today,
+      kind: 'nap',
+      timeZone: 'America/Lima',
+      quality: null,
+      nightmares: false,
+    });
+    expect(await sleepOn(db, today)).toEqual([
+      expect.objectContaining({ kind: 'nap', start: '14:00', end: '13:30', hours: 0 }),
+    ]);
+  });
+
   it('one night per day: two quick taps on the draft night save one night, not two', async () => {
     const db = await createTestDb();
     const e = env();
@@ -56,7 +73,7 @@ describe('sleep sessions (F11)', () => {
     for (const quality of [2, 4]) {
       await db.insert(sleepSession).values({
         ...newRecord(e),
-        ...sessionStamps(today, { start: '23:00', end: '07:00' }),
+        ...sessionStamps(today, { kind: 'night', start: '23:00', end: '07:00' }),
         date: today,
         kind: 'night',
         timeZone: 'America/Lima',

@@ -1,12 +1,17 @@
 import type { ClockTime } from '@kawsay/core/shared/clock-time';
 import type { LocalDate } from '@kawsay/core/shared/local-date';
-import { sessionHours, sessionStamps, type SleepStamps } from '@kawsay/core/sleep/sleep-session';
+import {
+  sessionHours,
+  sessionStamps,
+  type SleepKind,
+  type SleepStamps,
+} from '@kawsay/core/sleep/sleep-session';
 import { and, asc, desc, eq, isNull, ne } from 'drizzle-orm';
 import { newRecord } from '@/lib/db/record';
 import { sleepSession } from '@/lib/db/schema';
 import type { Db, RecordEnv } from '@/lib/db/types';
 
-export type SleepKind = 'night' | 'nap';
+export type { SleepKind };
 
 export interface SleepInput {
   /** Edits that session when given. */
@@ -43,7 +48,7 @@ export async function saveSleep(
   input: SleepInput,
 ): Promise<{ id: string }> {
   const { id: givenId, start, end, ...rest } = input;
-  const stamps = sessionStamps(input.date, { start, end });
+  const stamps = sessionStamps(input.date, { kind: input.kind, start, end });
   const id =
     givenId ?? (input.kind === 'night' ? (await nightsOn(db, input.date))[0]?.id : undefined);
   const now = env.now();
@@ -103,12 +108,15 @@ export async function sleepOn(db: Db, date: LocalDate): Promise<SleepSession[]> 
   return rows
     .filter((row) => row.kind === 'nap' || row === night)
     .map((row) => {
-      const stamps = { start: row.start, end: row.end };
+      const start = row.start.slice(11);
+      const end = row.end.slice(11);
+      // Derived again from the clock, so a session saved under an older midnight rule reads with the current one.
+      const stamps = sessionStamps(date, { kind: row.kind, start, end });
       return {
         id: row.id,
         kind: row.kind,
-        start: row.start.slice(11),
-        end: row.end.slice(11),
+        start,
+        end,
         stamps,
         hours: sessionHours(stamps),
         quality: row.quality,

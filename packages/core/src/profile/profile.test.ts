@@ -27,6 +27,10 @@ describe('sleepHours: usual schedule, crossing midnight (F11)', () => {
     expect(sleepHours({ start: '01:15', end: '08:45' })).toBe(7.5);
   });
 
+  it('a nap that ends before it starts adds 0 hours', () => {
+    expect(sleepHours({ start: '23:00', end: '07:00' }, { start: '14:00', end: '13:30' })).toBe(8);
+  });
+
   it('rejects a time that is not HH:MM', () => {
     expect(() => sleepHours({ start: '25:00', end: '07:00' })).toThrow(RangeError);
   });

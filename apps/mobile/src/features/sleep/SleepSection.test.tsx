@@ -58,6 +58,22 @@ describe('SleepSection (F11)', () => {
     expect(onSave).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'n', nightmares: true }));
   });
 
+  it('a nap that ends before it starts counts 0 h and says why, instead of 23 h', async () => {
+    await render(
+      <SleepSection
+        {...usual}
+        sessions={[
+          saved({}),
+          saved({ id: 'p', kind: 'nap', start: '14:00', end: '13:30', hours: 0 }),
+        ]}
+        onSave={jest.fn()}
+        onDelete={jest.fn()}
+      />,
+    );
+    expect(screen.getByText('8h en total')).toBeOnTheScreen();
+    expect(screen.getByText(/Cuenta 0 h/)).toBeOnTheScreen();
+  });
+
   it('naps can be added and removed', async () => {
     const onDelete = jest.fn();
     await render(

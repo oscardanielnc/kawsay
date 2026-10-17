@@ -1,5 +1,5 @@
 import { shiftTime, type ClockTime } from '@kawsay/core/shared/clock-time';
-import { sleepHours } from '@kawsay/core/profile/profile';
+import { clockHours } from '@kawsay/core/sleep/sleep-session';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
@@ -84,7 +84,7 @@ export function SleepSection({ sessions, usualNight, usualNap, onSave, onDelete 
       draftOf: n,
     });
   }
-  const total = shown.reduce((sum, s) => sum + sleepHours(s), 0);
+  const total = shown.reduce((sum, s) => sum + clockHours(s), 0);
 
   const change = (s: Shown, patch: Partial<SleepChange>) => {
     const { draftOf } = s;
@@ -111,7 +111,8 @@ export function SleepSection({ sessions, usualNight, usualNap, onSave, onDelete 
         {t('sleep.total', { hours: formatDuration(total) })}
       </Text>
       {shown.map((s) => {
-        const hours = sleepHours(s);
+        const hours = clockHours(s);
+        const unfinished = hours === 0 && s.start !== s.end;
         return (
           <View key={s.key} style={styles.session}>
             <View style={styles.top}>
@@ -144,6 +145,9 @@ export function SleepSection({ sessions, usualNight, usualNap, onSave, onDelete 
               onDecrement={() => change(s, { end: shiftTime(s.end, -STEP_MIN) })}
               onIncrement={() => change(s, { end: shiftTime(s.end, STEP_MIN) })}
             />
+            {unfinished ? (
+              <Text style={[type.caption, styles.accent]}>{t('sleep.endBeforeStart')}</Text>
+            ) : null}
             <Text style={[type.label, styles.muted]}>
               {t('sleep.quality')} ·{' '}
               <Text style={s.quality ? styles.night : styles.accent}>

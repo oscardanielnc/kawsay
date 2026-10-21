@@ -258,6 +258,62 @@
    "note": ""
   },
   {
+   "id": "empanada-pollo",
+   "name": "Empanada de pollo",
+   "group": "breakfast",
+   "icon": "pan",
+   "confidence": "medium",
+   "serving": "1 empanada",
+   "servings": 1,
+   "items": [
+    {
+     "food": "harina-trigo",
+     "grams": 50
+    },
+    {
+     "food": "mantequilla",
+     "grams": 12
+    },
+    {
+     "food": "manteca-cerdo",
+     "grams": 6
+    },
+    {
+     "food": "huevo",
+     "grams": 15
+    },
+    {
+     "food": "pollo-carne",
+     "grams": 40
+    },
+    {
+     "food": "cebolla-roja",
+     "grams": 30
+    },
+    {
+     "food": "aji-panca",
+     "grams": 3
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 4
+    },
+    {
+     "food": "aceituna",
+     "grams": 5
+    },
+    {
+     "food": "pasas",
+     "grams": 4
+    },
+    {
+     "food": "azucar",
+     "grams": 3
+    }
+   ],
+   "note": "Bakery empanada (~150 g baked): egg slice, olive and raisins inside, sugar on top"
+  },
+  {
    "id": "pan-con-carne",
    "name": "Pan con carne",
    "group": "breakfast",
@@ -1810,6 +1866,58 @@
    "note": "Sides apart: log papas fritas or yuca frita"
   },
   {
+   "id": "macarrones-queso",
+   "name": "Macarrones con queso",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "1 plato",
+   "servings": 1,
+   "items": [
+    {
+     "food": "fideo-cocido",
+     "grams": 220
+    },
+    {
+     "food": "queso-cheddar",
+     "grams": 40
+    },
+    {
+     "food": "leche-entera",
+     "grams": 80
+    },
+    {
+     "food": "mantequilla",
+     "grams": 10
+    },
+    {
+     "food": "harina-trigo",
+     "grams": 8
+    }
+   ],
+   "note": "White sauce with cheddar; edam or mantecoso is close"
+  },
+  {
+   "id": "nuggets-pollo-fritos",
+   "name": "Nuggets de pollo fritos",
+   "group": "main",
+   "icon": "plato",
+   "confidence": "medium",
+   "serving": "6 nuggets",
+   "servings": 1,
+   "items": [
+    {
+     "food": "nuggets-pollo",
+     "grams": 108
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 8
+    }
+   ],
+   "note": "Frozen nuggets weighed from the bag, pan- or deep-fried; sides apart"
+  },
+  {
    "id": "tallarin-verde",
    "name": "Tallarín verde",
    "group": "main",
@@ -3200,6 +3308,130 @@
     }
    ],
    "note": ""
+  },
+  {
+   "id": "torta-chocolate",
+   "name": "Torta de chocolate",
+   "group": "sweet",
+   "icon": "dulce",
+   "confidence": "medium",
+   "serving": "1 tajada",
+   "servings": 1,
+   "items": [
+    {
+     "food": "harina-trigo",
+     "grams": 22
+    },
+    {
+     "food": "azucar",
+     "grams": 22
+    },
+    {
+     "food": "cocoa",
+     "grams": 6
+    },
+    {
+     "food": "huevo",
+     "grams": 12
+    },
+    {
+     "food": "aceite-vegetal",
+     "grams": 10
+    },
+    {
+     "food": "leche-entera",
+     "grams": 15
+    },
+    {
+     "food": "leche-condensada",
+     "grams": 15
+    },
+    {
+     "food": "chocolate",
+     "grams": 5
+    },
+    {
+     "food": "mantequilla",
+     "grams": 3
+    }
+   ],
+   "note": "Moist cake with fudge, bakery slice ~100 g"
+  },
+  {
+   "id": "torta-tres-leches",
+   "name": "Torta de tres leches",
+   "group": "sweet",
+   "icon": "dulce",
+   "confidence": "medium",
+   "serving": "1 tajada",
+   "servings": 1,
+   "items": [
+    {
+     "food": "harina-trigo",
+     "grams": 20
+    },
+    {
+     "food": "azucar",
+     "grams": 30
+    },
+    {
+     "food": "huevo",
+     "grams": 25
+    },
+    {
+     "food": "leche-evaporada",
+     "grams": 30
+    },
+    {
+     "food": "leche-condensada",
+     "grams": 30
+    },
+    {
+     "food": "crema-leche",
+     "grams": 15
+    }
+   ],
+   "note": "Sponge soaked in the three milks, meringue on top; slice ~150 g"
+  },
+  {
+   "id": "torta-maracuya",
+   "name": "Torta de maracuyá",
+   "group": "sweet",
+   "icon": "dulce",
+   "confidence": "low",
+   "serving": "1 tajada",
+   "servings": 1,
+   "items": [
+    {
+     "food": "harina-trigo",
+     "grams": 15
+    },
+    {
+     "food": "azucar",
+     "grams": 20
+    },
+    {
+     "food": "huevo",
+     "grams": 15
+    },
+    {
+     "food": "mantequilla",
+     "grams": 5
+    },
+    {
+     "food": "leche-condensada",
+     "grams": 25
+    },
+    {
+     "food": "crema-leche",
+     "grams": 20
+    },
+    {
+     "food": "maracuya-pulpa",
+     "grams": 20
+    }
+   ],
+   "note": "Sponge with passion-fruit mousse and glaze; slice ~120 g"
   },
   {
    "id": "papa-rellena",

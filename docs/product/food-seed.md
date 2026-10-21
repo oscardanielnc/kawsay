@@ -1,6 +1,6 @@
 # Food seed
 
-- Status: Draft 2026-10-07 · 101 dishes · 147 foods · data in `packages/catalog/seed/` (ADR 0014)
+- Status: Draft 2026-10-07 · 107 dishes · 151 foods · data in `packages/catalog/seed/` (ADR 0014)
 - Review once: amounts are typical servings, grams as eaten; nutrients are computed at import from INS / USDA / labels
 - Confidence: 🟢 standard recipe · 🟡 typical, varies by cook · 🔴 rough, check first
 - **Sauces and creams: 1 portion = 40 g** (½ portion = 20 g); bottled ones are foods with the same portions
@@ -16,6 +16,7 @@
 | Anticucho de pollo | 3 palitos | pollo 150 · ají panca en pasta 10 · aceite vegetal 5 · ajo 3 · vinagre 5 | 🟡 |
 | Anticucho de corazón | 3 palitos | corazón de res a la parrilla 150 · ají panca en pasta 10 · aceite vegetal 5 · ajo 3 · vinagre 5 | 🟢 |
 | Pan con pollo | 1 pan | pan francés 35 · pollo 50 · lechuga 10 · mayonesa 10 | 🟢 |
+| Empanada de pollo | 1 empanada | harina de trigo 50 · mantequilla 12 · manteca de cerdo 6 · huevo de gallina 15 · pollo 40 · cebolla roja 30 · ají panca 3 · aceite vegetal 4 · aceituna de botija 5 · pasas 4 · azúcar blanca 3 (bakery, ~150 g baked) | 🟡 |
 | Pan con carne | 1 pan | pan francés 35 · res 50 · cebolla roja 10 · aceite vegetal 3 | 🟡 |
 | Pan con mantequilla | 1 pan | pan francés 35 · mantequilla 7 | 🟢 |
 | Pan con huevo | 1 pan | pan francés 35 · huevo de gallina 50 · aceite vegetal 5 | 🟢 |
@@ -69,6 +70,8 @@
 | Chicharrón de toyo | 1 porción | toyo 180 (raw) · harina de trigo 20 · aceite vegetal 20 · ajo 2 · limón 5 (yuca frita and sarsa apart) | 🟡 |
 | Leche de tigre | 1 vaso | pescado de mar 80 · limón 60 · agua 80 · cebolla roja 25 · choclo desgranado cocido 30 · apio 10 · ají amarillo 5 · ajo 3 · kion 3 · culantro 2 (starter; cancha apart) | 🟡 |
 | Chicharrón de pollo | 1 porción | pollo 150 · harina de trigo 15 · aceite vegetal 15 · sillao 5 · ajo 2 · limón 5 (sides apart) | 🟡 |
+| Macarrones con queso | 1 plato | fideos / tallarín cocido 220 · queso cheddar 40 · leche fresca entera 80 · mantequilla 10 · harina de trigo 8 | 🟡 |
+| Nuggets de pollo fritos | 6 nuggets | nuggets de pollo 108 (from the bag) · aceite vegetal 8 (sides apart) | 🟡 |
 | Tallarín verde | 1 plato | fideos / tallarín cocido 250 · espinaca 30 · albahaca 15 · queso fresco 20 · leche evaporada 30 · aceite vegetal 10 · cebolla roja 15 | 🟡 |
 | Causa rellena | 1 tajada | papa amarilla sancochada 150 · aceite vegetal 10 · ají amarillo 10 · limón 5 · pollo 50 · mayonesa 15 · palta 25 · huevo de gallina 12 · aceituna de botija 6 | 🟡 |
 | Papa a la huancaína | 1 plato | papa blanca sancochada 160 · queso fresco 24 · leche evaporada 30 · ají amarillo 15 · galleta de soda 9 · aceite vegetal 8 · huevo de gallina 20 · aceituna de botija 6 · lechuga 11 · cebolla roja 3 — punto medio casa / menú (ENCONUT, 66 locales) | 🟡 |
@@ -126,8 +129,8 @@
 | Refresco de uva | 1 vaso | uva 80 · azúcar blanca 15 · agua 180 | 🟡 |
 | Refresco de cebada | 1 vaso | cebada tostada 5 · azúcar blanca 20 · limón 5 · agua 230 — the grain is strained; only a fraction counts, like chicha morada | 🟡 |
 | Frappé de café | 1 vaso (350 ml) | leche fresca entera 200 · azúcar blanca 25 · café soluble 3 · crema de leche 20 · agua 80 | 🔴 |
-| Frappé de fresa | 1 vaso (350 ml) | fresa 100 · leche fresca entera 150 · azúcar blanca 25 · helado de crema 50 · agua 50 | 🔴 |
-| Frappé de chocolate | 1 vaso (350 ml) | leche fresca entera 200 · cocoa en polvo 10 · azúcar blanca 25 · helado de crema 50 · agua 50 | 🔴 |
+| Frappé de fresa | 1 vaso (350 ml) | fresa 100 · leche fresca entera 150 · azúcar blanca 25 · helado de vainilla 50 · agua 50 | 🔴 |
+| Frappé de chocolate | 1 vaso (350 ml) | leche fresca entera 200 · cocoa en polvo 10 · azúcar blanca 25 · helado de vainilla 50 · agua 50 | 🔴 |
 
 ## Dulces y snacks
 
@@ -136,6 +139,9 @@
 | Frutos secos (mix) | 1 puñado (30 g) | maní tostado 9 · almendra 6 · nuez 5 · arándano deshidratado 6 · pasas 4 — mix de Plaza Vea | 🟡 |
 | Pionono | 1 tajada | bizcocho 50 · manjar blanco 20 | 🟡 |
 | Torta de galleta | 1 tajada | galleta de vainilla 30 · leche condensada 20 · crema de leche 15 · chocolate de taza / cobertura 5 | 🔴 |
+| Torta de chocolate | 1 tajada | harina de trigo 22 · azúcar blanca 22 · cocoa en polvo 6 · huevo de gallina 12 · aceite vegetal 10 · leche fresca entera 15 · leche condensada 15 · chocolate de taza / cobertura 5 · mantequilla 3 (with fudge) | 🟡 |
+| Torta de tres leches | 1 tajada | harina de trigo 20 · azúcar blanca 30 · huevo de gallina 25 · leche evaporada 30 · leche condensada 30 · crema de leche 15 (meringue on top) | 🟡 |
+| Torta de maracuyá | 1 tajada | harina de trigo 15 · azúcar blanca 20 · huevo de gallina 15 · mantequilla 5 · leche condensada 25 · crema de leche 20 · maracuyá 20 (mousse and glaze) | 🔴 |
 | Papa rellena | 1 papa rellena | papa blanca sancochada 150 · carne molida de res cocida 40 · cebolla roja 10 · huevo de gallina 10 · aceituna de botija 3 · harina de trigo 5 · aceite vegetal 12 | 🟡 |
 
 ## Salsas
@@ -153,7 +159,7 @@
 
 ## Foods
 
-All 147 foods can also be logged on their own (fruit, vegetables, sauces…). Full list with household units: `packages/catalog/seed/foods.json`.
+All 151 foods can also be logged on their own (fruit, vegetables, sauces…). Full list with household units: `packages/catalog/seed/foods.json`.
 
 ## Branded items (values from the package label)
 
@@ -182,6 +188,8 @@ All 147 foods can also be logged on their own (fruit, vegetables, sauces…). Fu
 | Yogurt bebible | INS G26 Yogurt bebible de fresa |
 | Helado de paleta (de agua o fruta) | USDA 168813 ice pop |
 | Helado de paleta con cobertura de chocolate | USDA 171294 ice cream bar with coating |
+| Helado de vainilla / chocolate / fresa (1 bola = 70 g) | USDA 167575 / 168809 / 168810 ice cream |
+| Nuggets de pollo | INS F126 nuggets de pechuga, crudo, envasado |
 | Galleta de vainilla | INS A25 Galleta de vainilla (dulce) |
 | Galleta de kiwicha | INS A89 sweet oat cookie (proxy) |
 | Manjar blanco | INS G3 leche condensada (proxy) |

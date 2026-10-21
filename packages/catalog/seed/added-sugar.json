@@ -72,9 +72,17 @@
    "g": 24,
    "from": "Estimate for a sweet vanilla cookie; INS reports no sugars"
   },
+  "helado-chocolate": {
+   "g": 20,
+   "from": "USDA 168809: 25.4 g sugars minus ~5 g lactose"
+  },
   "helado-crema": {
    "g": 15,
    "from": "USDA 167575: 21.2 g sugars minus ~6 g lactose"
+  },
+  "helado-fresa": {
+   "g": 13,
+   "from": "USDA 168810: 19.7 g sugars minus ~5 g lactose and ~2 g from the fruit"
   },
   "helado-paleta": {
    "g": 18,
@@ -129,6 +137,9 @@
   "nuez": {
    "g": 0
   },
+  "nuggets-pollo": {
+   "g": 0
+  },
   "oregano": {
    "g": 0
   },
@@ -159,6 +170,9 @@
    "from": "Sugar in dough and sauce"
   },
   "pollo-rostizado": {
+   "g": 0
+  },
+  "queso-cheddar": {
    "g": 0
   },
   "queso-crema": {

@@ -224,8 +224,8 @@ describe('meal entries (F05)', () => {
   it('lists every dish and food for search, with kcal per serving', async () => {
     const db = await seededDb();
     const items = await catalogItems(db);
-    expect(items.filter((i) => i.kind === 'dish')).toHaveLength(101);
-    expect(items.filter((i) => i.kind === 'food')).toHaveLength(147);
+    expect(items.filter((i) => i.kind === 'dish')).toHaveLength(107);
+    expect(items.filter((i) => i.kind === 'food')).toHaveLength(151);
     expect(items.find((i) => i.id === 'arroz-cocido')).toMatchObject({
       source: 'INS',
       kcalPerServing: 184,

@@ -303,6 +303,17 @@
     }
    ]
   },
+  "nuggets-pollo": {
+   "name": "Nuggets de pollo (congelados)",
+   "source": "INS",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 nugget",
+     "grams": 18
+    }
+   ]
+  },
   "pollo-rostizado": {
    "name": "Pollo rostizado sin piel",
    "source": "USDA",
@@ -610,6 +621,17 @@
     }
    ]
   },
+  "queso-cheddar": {
+   "name": "Queso cheddar",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 tajada",
+     "grams": 20
+    }
+   ]
+  },
   "crema-leche": {
    "name": "Crema de leche",
    "source": "INS",
@@ -697,7 +719,29 @@
    }
   },
   "helado-crema": {
-   "name": "Helado de crema",
+   "name": "Helado de vainilla (de crema)",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 bola",
+     "grams": 70
+    }
+   ]
+  },
+  "helado-chocolate": {
+   "name": "Helado de chocolate",
+   "source": "USDA",
+   "state": "as-sold",
+   "units": [
+    {
+     "label": "1 bola",
+     "grams": 70
+    }
+   ]
+  },
+  "helado-fresa": {
+   "name": "Helado de fresa",
    "source": "USDA",
    "state": "as-sold",
    "units": [

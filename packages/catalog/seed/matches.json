@@ -103,6 +103,10 @@
   "pollo-broaster": {
    "usda": 172386
   },
+  "nuggets-pollo": {
+   "ins": "F126",
+   "note": "Breaded breast nuggets, raw from the bag"
+  },
   "pollo-rostizado": {
    "usda": 171518,
    "note": "Rotisserie, breast meat only"
@@ -209,6 +213,9 @@
   "queso-crema": {
    "usda": 173418
   },
+  "queso-cheddar": {
+   "usda": 173414
+  },
   "crema-leche": {
    "ins": "G1",
    "fill": 170859
@@ -228,6 +235,12 @@
   },
   "helado-crema": {
    "usda": 167575
+  },
+  "helado-chocolate": {
+   "usda": 168809
+  },
+  "helado-fresa": {
+   "usda": 168810
   },
   "helado-paleta": {
    "usda": 168813,

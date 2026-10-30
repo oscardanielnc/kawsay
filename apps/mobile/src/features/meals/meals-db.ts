@@ -40,6 +40,8 @@ export interface MealEntryView {
   carbsG: number;
   /** Added (free) sugar, F22. */
   addedSugarG: number;
+  /** Carbohydrate from refined flours, F24. */
+  refinedFlourG: number;
   /** Nutrients per 100 g of the dish or food eaten, for the weekly view (F19). */
   per100g: Nutrients;
   volumeMl: number | null;
@@ -285,6 +287,7 @@ export async function mealsOn(db: Db, date: LocalDate): Promise<MealEntryView[]>
         fatG: of('fatG'),
         carbsG: of('carbsTotalG'),
         addedSugarG: of('addedSugarG'),
+        refinedFlourG: of('refinedFlourCarbsG'),
         per100g: item.per100g,
         volumeMl: row.volumeMl,
         leftoverOf: row.leftoverOf,
@@ -301,8 +304,9 @@ export function dayTotals(entries: readonly MealEntryView[]) {
       fatG: sum.fatG + e.fatG,
       carbsG: sum.carbsG + e.carbsG,
       addedSugarG: sum.addedSugarG + e.addedSugarG,
+      refinedFlourG: sum.refinedFlourG + e.refinedFlourG,
     }),
-    { kcal: 0, proteinG: 0, fatG: 0, carbsG: 0, addedSugarG: 0 },
+    { kcal: 0, proteinG: 0, fatG: 0, carbsG: 0, addedSugarG: 0, refinedFlourG: 0 },
   );
 }
 

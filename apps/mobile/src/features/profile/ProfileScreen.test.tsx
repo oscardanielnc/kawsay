@@ -28,6 +28,7 @@ const profile: Profile = {
   symptomsEnabled: false,
   intimateEnabled: false,
   expenditureFactor: 1,
+  refinedFlourShare: null,
 };
 const steady = [{ date: '2026-10-08', kg: 80 }];
 

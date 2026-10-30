@@ -43,6 +43,8 @@ export const profile = sqliteTable('profile', {
   intimateEnabled: integer('intimate_enabled', { mode: 'boolean' }).notNull().default(false),
   /** Recalibration factor (ADR 0009). */
   expenditureFactor: real('expenditure_factor').notNull(),
+  /** Personal refined-flour limit as a share of the carbohydrate target (F24); null = the default 50%. */
+  refinedFlourShare: real('refined_flour_share'),
 });
 
 export const weightEntry = sqliteTable(

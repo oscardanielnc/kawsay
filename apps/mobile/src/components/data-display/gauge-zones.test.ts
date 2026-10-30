@@ -36,17 +36,15 @@ describe('Amanecer gauge (design M3)', () => {
     expect(needleAngle(1.4)).toBe(180);
   });
 
-  it('a two-sided value inside its range sits in blue, its limits on the blue edges', () => {
-    expect(twoSidedPosition(100, 92, 122)).toBeGreaterThan(0.28);
-    expect(twoSidedPosition(92, 92, 122)).toBeCloseTo(0.28, 10);
-    expect(twoSidedPosition(122, 92, 122)).toBeCloseTo(0.72, 10);
-    expect(zoneAt(twoSidedPosition(100, 92, 122), 'two-sided')).toBe('in');
-  });
-
-  it('a two-sided value a little over its range is amber, far over it coral', () => {
-    expect(zoneAt(twoSidedPosition(130, 92, 122), 'two-sided')).toBe('near');
-    expect(zoneAt(twoSidedPosition(200, 92, 122), 'two-sided')).toBe('far');
-    expect(zoneAt(twoSidedPosition(0, 92, 122), 'two-sided')).toBe('far');
+  it('a two-sided value sits on its zone by the range thresholds: calories 90–110 % blue', () => {
+    const calories = { yellowFrom: 80, greenFrom: 90, greenTo: 110, yellowTo: 120 };
+    expect(twoSidedPosition(90, calories)).toBeCloseTo(0.28, 10);
+    expect(twoSidedPosition(110, calories)).toBeCloseTo(0.72, 10);
+    expect(zoneAt(twoSidedPosition(100, calories), 'two-sided')).toBe('in');
+    expect(zoneAt(twoSidedPosition(115, calories), 'two-sided')).toBe('near');
+    expect(zoneAt(twoSidedPosition(130, calories), 'two-sided')).toBe('far');
+    expect(zoneAt(twoSidedPosition(70, calories), 'two-sided')).toBe('far');
+    expect(twoSidedPosition(0, calories)).toBe(0);
   });
 
   it('a one-sided value is blue up to its ideal, amber up to its max, coral above', () => {

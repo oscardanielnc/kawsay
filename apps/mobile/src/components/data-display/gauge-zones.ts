@@ -59,20 +59,22 @@ export function zoneAt(position: number, kind: GaugeKind): Zone {
 }
 
 /**
- * Position of a value on a two-sided gauge whose blue zone is [low, high]: the blue zone spans 28–72 % of the arc,
- * amber reaches 15 % beyond each limit, coral 30 %.
+ * Position on a two-sided gauge of a value given as % of its target, with the metric's zone limits in % (range
+ * thresholds of design/direction.md): each limit sits on its zone edge, 0 % at the left end, 20 % past the amber
+ * ceiling at the right end.
  */
-export function twoSidedPosition(value: number, low: number, high: number): number {
-  const span = high - low;
-  const points: [number, number][] = [
-    [low - span * 0.3 - low * 0.3, 0],
-    [low - Math.max(span * 0.15, low * 0.15), 0.1],
-    [low, 0.28],
-    [high, 0.72],
-    [high + Math.max(span * 0.15, high * 0.15), 0.9],
-    [high + Math.max(span * 0.3, high * 0.3), 1],
-  ];
-  return piecewise(value, points);
+export function twoSidedPosition(
+  percent: number,
+  zone: { yellowFrom: number; greenFrom: number; greenTo: number; yellowTo: number },
+): number {
+  return piecewise(percent, [
+    [0, 0],
+    [zone.yellowFrom, 0.1],
+    [zone.greenFrom, 0.28],
+    [zone.greenTo, 0.72],
+    [zone.yellowTo, 0.9],
+    [zone.yellowTo * 1.2, 1],
+  ]);
 }
 
 /** Position on a one-sided gauge: blue up to `ideal` (3/7), amber up to `max` (5/7), coral up to 1.5 × max. */

@@ -1,0 +1,1 @@
+ALTER TABLE `profile` ADD `refined_flour_share` real;

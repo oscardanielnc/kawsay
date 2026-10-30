@@ -24,6 +24,7 @@ const profile: Profile = {
   symptomsEnabled: false,
   intimateEnabled: false,
   expenditureFactor: 1,
+  refinedFlourShare: null,
 };
 
 describe('profileTargets', () => {

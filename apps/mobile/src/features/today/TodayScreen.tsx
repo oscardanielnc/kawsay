@@ -3,6 +3,8 @@ import { createContext, useContext, useEffect, useRef, type ReactNode } from 're
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Svg, { Path } from 'react-native-svg';
+import { GradientBackground } from '@/components/layout/GradientBackground';
 import { Button } from '@/components/primitives/Button';
 import { color, radius, space, touch, type, screenPadding, tabBarSpace } from '@/lib/theme';
 import type { Area } from './day-logged';
@@ -64,7 +66,7 @@ export function TodayScreen({
     return () => clearTimeout(timer);
   }, [focus, focusKey]);
 
-  const arrow = (label: string, glyph: string, target: LocalDate, disabled: boolean) => (
+  const arrow = (label: string, path: string, target: LocalDate, disabled: boolean) => (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
@@ -73,62 +75,78 @@ export function TodayScreen({
       onPress={() => onDay?.(target)}
       style={[styles.arrow, disabled && styles.dim]}
     >
-      <Text style={[type.title, styles.brand]}>{glyph}</Text>
+      <Svg width={18} height={18} viewBox="0 0 24 24" fill="none">
+        <Path
+          d={path}
+          stroke={color.ink}
+          strokeWidth={2.2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </Svg>
     </Pressable>
   );
   const next = pending?.[0];
   return (
-    <SafeAreaView style={styles.screen}>
-      <ScrollView ref={scroll} contentContainerStyle={styles.content}>
-        <View style={styles.header}>
-          {arrow(t('today.previous'), '‹', addDays(shown, -1), false)}
-          <View style={styles.grow}>
-            <Text accessibilityRole="header" style={[type.title, styles.ink]}>
-              {isToday ? t('today.title') : formatDay(shown, i18n.language)}
-            </Text>
-            {isToday ? (
-              <Text style={[type.body, styles.muted]}>{formatDay(shown, i18n.language)}</Text>
-            ) : (
-              <Pressable accessibilityRole="button" onPress={() => onDay?.(today)} hitSlop={8}>
-                <Text style={[type.label, styles.brand]}>{t('today.backToToday')}</Text>
-              </Pressable>
-            )}
+    <GradientBackground>
+      <SafeAreaView style={styles.screen} edges={['top']}>
+        <ScrollView ref={scroll} contentContainerStyle={styles.content}>
+          <View style={styles.header}>
+            <View style={styles.grow}>
+              {isToday ? (
+                <Text style={[type.section, styles.soft]}>{formatDay(shown, i18n.language)}</Text>
+              ) : (
+                <Pressable accessibilityRole="button" onPress={() => onDay?.(today)} hitSlop={8}>
+                  <Text style={[type.section, styles.brand]}>{t('today.backToToday')}</Text>
+                </Pressable>
+              )}
+              <Text
+                accessibilityRole="header"
+                style={[isToday ? type.display : type.title, styles.ink]}
+              >
+                {isToday ? t('today.title') : formatDay(shown, i18n.language)}
+              </Text>
+            </View>
+            {arrow(t('today.previous'), 'M15 6l-6 6 6 6', addDays(shown, -1), false)}
+            {arrow(t('today.next'), 'M9 6l6 6-6 6', addDays(shown, 1), shown >= today)}
           </View>
-          {arrow(t('today.next'), '›', addDays(shown, 1), shown >= today)}
-        </View>
-        <Positions.Provider value={(id, y) => positions.current.set(id, y)}>
-          {children}
-        </Positions.Provider>
-        {pending ? (
-          next ? (
-            <Button
-              label={t('today.review', { area: t(`rings.areas.${next}`) })}
-              onPress={() => goTo(next)}
-            />
-          ) : (
-            <Text style={[type.heading, styles.done]}>{t('today.reviewDone')}</Text>
-          )
-        ) : null}
-      </ScrollView>
-    </SafeAreaView>
+          <Positions.Provider value={(id, y) => positions.current.set(id, y)}>
+            {children}
+          </Positions.Provider>
+          {pending ? (
+            next ? (
+              <Button
+                label={t('today.review', { area: t(`rings.areas.${next}`) })}
+                onPress={() => goTo(next)}
+              />
+            ) : (
+              <Text style={[type.heading, styles.done]}>{t('today.reviewDone')}</Text>
+            )
+          ) : null}
+        </ScrollView>
+      </SafeAreaView>
+    </GradientBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: color.surface2 },
+  screen: { flex: 1 },
   content: { padding: screenPadding, paddingBottom: tabBarSpace, gap: space.lg },
-  header: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
+  header: { flexDirection: 'row', alignItems: 'flex-end', gap: space.sm, paddingTop: space.md },
   arrow: {
     width: touch,
     height: touch,
     borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.8)',
+    backgroundColor: 'rgba(255,255,255,0.65)',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  dim: { opacity: 0.3 },
-  grow: { flex: 1 },
+  dim: { opacity: 0.35 },
+  grow: { flex: 1, gap: 2 },
   ink: { color: color.ink },
-  muted: { color: color.inkMuted },
+  soft: { color: color.inkSoft },
   brand: { color: color.blue700 },
   done: { color: color.blue800, textAlign: 'center' },
 });

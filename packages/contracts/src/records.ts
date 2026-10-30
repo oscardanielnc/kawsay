@@ -39,6 +39,8 @@ export const RECORD_SCHEMAS = {
     symptomsEnabled: z.boolean(),
     intimateEnabled: z.boolean(),
     expenditureFactor: amount,
+    /** Added 2026-10-30 (F24); optional so a phone with an older app still syncs its profile. */
+    refinedFlourShare: z.number().min(0.1).max(1).nullable().optional(),
   }),
   weight_entry: z.strictObject({ ...synced, ...dated, kg: amount }),
   waist_entry: z.strictObject({ ...synced, ...dated, weekStart: day, cm: amount }),

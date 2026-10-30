@@ -52,7 +52,7 @@ describe('DayChecklist (design: "your day logged")', () => {
         onPick={jest.fn()}
       />,
     );
-    expect(screen.getByText('Faltan 12 min para tu meta')).toBeOnTheScreen();
+    expect(screen.getByText('18 de 30 min · faltan 12')).toBeOnTheScreen();
     await rerender(
       <DayChecklist
         areas={areas}

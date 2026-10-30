@@ -6,8 +6,13 @@ import type { Db, RecordEnv } from '@/lib/db/types';
 export type Profile = typeof profile.$inferSelect;
 
 /** Everything the user sets; `expenditureFactor` only changes through recalibration (ADR 0009). */
-export type ProfileInput = Omit<Profile, 'id' | 'updatedAt' | 'deletedAt' | 'expenditureFactor'> & {
+export type ProfileInput = Omit<
+  Profile,
+  'id' | 'updatedAt' | 'deletedAt' | 'expenditureFactor' | 'refinedFlourShare'
+> & {
   expenditureFactor?: number;
+  /** Absent keeps the current limit (F24). */
+  refinedFlourShare?: number | null;
 };
 
 /** The one profile on this phone, or null before onboarding. */

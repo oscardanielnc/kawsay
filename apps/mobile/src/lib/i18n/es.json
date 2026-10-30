@@ -13,7 +13,8 @@
     "backToToday": "Volver a hoy",
     "needWeight": "Registra tu peso en Perfil para ver tu meta del día.",
     "review": "Revisar mi día: falta {{area}}",
-    "reviewDone": "Tu día está completo ✓"
+    "reviewDone": "Tu día está completo ✓",
+    "picker": "Elegir día"
   },
   "common": {
     "comingSoon": "Pronto",
@@ -113,7 +114,15 @@
     "optional": "Opcionales",
     "waist": "📏 Cintura semanal",
     "waistHint": "Te lo recuerda una vez por semana",
-    "weekdays": ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+    "weekdays": [
+      "Lun",
+      "Mar",
+      "Mié",
+      "Jue",
+      "Vie",
+      "Sáb",
+      "Dom"
+    ],
     "symptoms": "🩺 Síntomas propios",
     "symptomsHint": "Creas los que te importan",
     "intimate": "🔒 Vida íntima (privado)",
@@ -345,7 +354,9 @@
     "low": "Muy bajo",
     "high": "Muy alto",
     "track": "{{name}}: {{label}}. Rango verde de {{from}} a {{to}} {{unit}}",
-    "title": "Tu día en rangos"
+    "title": "Tu día en rangos",
+    "leftOpen": "Faltan ~{{amount}} · el día sigue",
+    "range": "Rango {{from}}–{{to}}{{unit}}"
   },
   "rings": {
     "areas": {
@@ -363,7 +374,8 @@
     "done": "{{area}}: registrado",
     "pending": "{{area}}: pendiente, toca para ir",
     "movementLeft": "Faltan {{minutes}} min para tu meta",
-    "movementDone": "✓ Meta de movimiento cumplida"
+    "movementDone": "✓ Meta de movimiento cumplida",
+    "movementOf": "{{minutes}} de {{goal}} min · faltan {{left}}"
   },
   "checkins": {
     "title": "Cuerpo y ánimo",
@@ -835,7 +847,8 @@
       "yellow": "↑ Algo alto",
       "red": "↑ Alto"
     },
-    "gauge": "Azúcar añadida: {{grams}} g, {{state}}. Ideal hasta {{green}} g, máximo {{max}} g"
+    "gauge": "Azúcar añadida: {{grams}} g, {{state}}. Ideal hasta {{green}} g, máximo {{max}} g",
+    "range": "Ideal ≤ {{green}} g · máx. {{max}} g"
   },
   "insights": {
     "title": "Análisis",
@@ -976,5 +989,15 @@
         "unavailable": "La IA no respondió. Intenta de nuevo en unos minutos."
       }
     }
+  },
+  "flour": {
+    "title": "Harinas",
+    "none": "✓ Sin harinas refinadas",
+    "states": {
+      "green": "✓ Bajo tu límite",
+      "yellow": "↑ Sobre tu límite",
+      "red": "↑ Muy sobre tu límite"
+    },
+    "range": "Tu límite {{limit}} g"
   }
 }

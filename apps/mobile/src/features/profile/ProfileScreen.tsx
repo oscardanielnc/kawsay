@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { formatNumber, formatShortDate } from '@/lib/format';
-import { color, space, type } from '@/lib/theme';
+import { color, space, type, screenPadding, tabBarSpace } from '@/lib/theme';
 import { Card } from '@/components/layout/Card';
 import { Sheet } from '@/components/feedback/Sheet';
 import { SettingsRow } from './components/SettingsRow';
@@ -190,8 +190,8 @@ export function ProfileScreen({
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: color.bg },
-  content: { padding: space.lg, gap: space.md },
+  screen: { flex: 1, backgroundColor: color.surface2 },
+  content: { padding: screenPadding, paddingBottom: tabBarSpace, gap: space.lg },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
 });

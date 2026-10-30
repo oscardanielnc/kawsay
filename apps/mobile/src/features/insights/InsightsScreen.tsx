@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { InsightsData } from './types';
-import { color, radius, space, type } from '@/lib/theme';
+import { color, radius, space, type, screenPadding, tabBarSpace } from '@/lib/theme';
 import { AiAnalysisCard, type AnalysisStatus } from './AiAnalysisCard';
 import type { StoredAnalysis } from './analysis-store';
 import { NutrientsCard } from './NutrientsCard';
@@ -80,19 +80,19 @@ export function InsightsScreen({ data, canNext, onPrev, onNext, ai }: Props) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: color.bg },
-  content: { padding: space.lg, gap: space.md },
+  screen: { flex: 1, backgroundColor: color.surface2 },
+  content: { padding: screenPadding, paddingBottom: tabBarSpace, gap: space.lg },
   nav: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   arrow: {
     width: 44,
     height: 44,
     borderRadius: radius.pill,
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     alignItems: 'center',
     justifyContent: 'center',
   },
   off: { opacity: 0.35 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  brand: { color: color.brand },
+  brand: { color: color.blue700 },
 });

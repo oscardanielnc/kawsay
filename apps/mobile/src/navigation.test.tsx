@@ -48,9 +48,8 @@ jest.mock('@/lib/db/DatabaseProvider', () => {
 // Sync talks to the network; the routes get a stand-in that keeps the account state in memory.
 let mockStartAccount: AccountState = { kind: 'local-only' };
 jest.mock('@/lib/sync/SyncProvider', () => {
-  const actual = jest.requireActual<typeof import('@/lib/sync/SyncProvider')>(
-    '@/lib/sync/SyncProvider',
-  );
+  const actual =
+    jest.requireActual<typeof import('@/lib/sync/SyncProvider')>('@/lib/sync/SyncProvider');
   const { useState } = jest.requireActual<typeof import('react')>('react');
   return {
     ...actual,
@@ -164,9 +163,10 @@ describe('navigation (design N1, F01)', () => {
     await renderRouter('./app', { initialUrl: '/' });
     expect(await screen.findByRole('header', { name: 'Hoy' })).toBeOnTheScreen();
     await waitFor(() => {
-      for (const tab of ['Calendario', 'Registrar', 'Análisis', 'Perfil']) {
+      for (const tab of ['Calendario', 'Análisis', 'Perfil']) {
         expect(screen.getByText(tab)).toBeOnTheScreen();
       }
+      expect(screen.getByRole('button', { name: 'Registrar' })).toBeOnTheScreen();
     });
   });
 
@@ -214,7 +214,9 @@ describe('navigation (design N1, F01)', () => {
     await tap('Máximo estrés que sentiste hoy: Poco');
     await tap('Energía: Buena');
     await tap('Ánimo: Bien');
-    expect(await screen.findByRole('button', { name: 'Cuerpo y ánimo: registrado' })).toBeOnTheScreen();
+    expect(
+      await screen.findByRole('button', { name: 'Cuerpo y ánimo: registrado' }),
+    ).toBeOnTheScreen();
     expect(screen.getByText('4 de 6')).toBeOnTheScreen();
     await tap('Agregar a Desayuno');
     await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'jugo de papaya');

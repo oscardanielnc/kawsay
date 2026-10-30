@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '@/components/primitives/Button';
-import { color, radius, space, touch, type } from '@/lib/theme';
+import { color, radius, space, touch, type, screenPadding, tabBarSpace } from '@/lib/theme';
 import type { Area } from './day-logged';
 import { formatDay } from './format-day';
 
@@ -115,8 +115,8 @@ export function TodayScreen({
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: color.bg },
-  content: { padding: space.lg, gap: space.md },
+  screen: { flex: 1, backgroundColor: color.surface2 },
+  content: { padding: screenPadding, paddingBottom: tabBarSpace, gap: space.lg },
   header: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   arrow: {
     width: touch,
@@ -129,6 +129,6 @@ const styles = StyleSheet.create({
   grow: { flex: 1 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  brand: { color: color.brand },
-  done: { color: color.successText, textAlign: 'center' },
+  brand: { color: color.blue700 },
+  done: { color: color.blue800, textAlign: 'center' },
 });

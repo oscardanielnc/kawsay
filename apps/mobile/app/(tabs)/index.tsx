@@ -91,19 +91,29 @@ export default function TodayRoute() {
   const setDay = (next: LocalDate) => router.setParams({ day: next });
   const { data, reload } = useLoad(
     useCallback(async () => {
-      const [dayData, items, units, routines, waists, symptoms, answers, ongoing, notes, ...recent] =
-        await Promise.all([
-          loadDay(db, day),
-          catalogItems(db),
-          foodUnits(db),
-          listRoutines(db),
-          waistsSince(db, addDays(day, -7 * 12)),
-          listSymptoms(db),
-          symptomAnswersOn(db, day),
-          ongoingSymptoms(db, day),
-          notesOn(db, day),
-          ...MEALS.map((meal) => recentFor(db, meal)),
-        ]);
+      const [
+        dayData,
+        items,
+        units,
+        routines,
+        waists,
+        symptoms,
+        answers,
+        ongoing,
+        notes,
+        ...recent
+      ] = await Promise.all([
+        loadDay(db, day),
+        catalogItems(db),
+        foodUnits(db),
+        listRoutines(db),
+        waistsSince(db, addDays(day, -7 * 12)),
+        listSymptoms(db),
+        symptomAnswersOn(db, day),
+        ongoingSymptoms(db, day),
+        notesOn(db, day),
+        ...MEALS.map((meal) => recentFor(db, meal)),
+      ]);
       const [breakfast = [], lunch = [], dinner = [], snack = []] = recent;
       return {
         ...dayData,
@@ -133,7 +143,14 @@ export default function TodayRoute() {
   const defaultBand = bandAt(hour);
   const run = (write: () => Promise<unknown>) => void write().then(reload);
 
-  const addMealEntry = ({ meal, item, servings, grams, saveRestForTomorrow, completes }: AddMeal) => {
+  const addMealEntry = ({
+    meal,
+    item,
+    servings,
+    grams,
+    saveRestForTomorrow,
+    completes,
+  }: AddMeal) => {
     const entry = {
       date: day,
       meal,

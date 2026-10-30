@@ -80,10 +80,8 @@ export function Sheet({ title, onDone, children, footer }: Props) {
           edges={keyboard > 0 ? [] : ['bottom']}
           style={[styles.sheet, { maxHeight: (screen - keyboard) * 0.9 }]}
         >
-          <ScrollView
-            contentContainerStyle={styles.content}
-            keyboardShouldPersistTaps="handled"
-          >
+          <View style={styles.grabber} />
+          <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
             <Text accessibilityRole="header" style={[type.title, styles.ink]}>
               {title}
             </Text>
@@ -99,12 +97,20 @@ export function Sheet({ title, onDone, children, footer }: Props) {
 }
 
 const styles = StyleSheet.create({
-  scrim: { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(28,31,26,0.4)' },
+  scrim: { flex: 1, justifyContent: 'flex-end', backgroundColor: color.scrim },
   outside: { flex: 1 },
   sheet: {
-    backgroundColor: color.bg,
-    borderTopLeftRadius: radius.card + 6,
-    borderTopRightRadius: radius.card + 6,
+    backgroundColor: color.card,
+    borderTopLeftRadius: radius.card + 4,
+    borderTopRightRadius: radius.card + 4,
+  },
+  grabber: {
+    alignSelf: 'center',
+    width: 40,
+    height: 5,
+    borderRadius: radius.pill,
+    backgroundColor: color.line,
+    marginTop: space.sm,
   },
   content: { padding: space.lg, gap: space.md },
   footer: { paddingHorizontal: space.lg, paddingBottom: space.lg },

@@ -70,7 +70,7 @@ export function TargetCard({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: color.brand,
+    backgroundColor: color.blue700,
     borderRadius: radius.card,
     padding: space.lg,
     gap: space.sm,
@@ -78,6 +78,6 @@ const styles = StyleSheet.create({
   },
   grid: { flexDirection: 'row', alignSelf: 'stretch', justifyContent: 'space-between' },
   cell: { alignItems: 'center', flex: 1 },
-  onDark: { color: color.onDark, textAlign: 'center' },
-  soft: { color: color.green100, textAlign: 'center' },
+  onDark: { color: color.white, textAlign: 'center' },
+  soft: { color: color.blue50, textAlign: 'center' },
 });

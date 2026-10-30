@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Circle, Path } from 'react-native-svg';
-import { color, radius, space, type } from '@/lib/theme';
+import { color, radius, space, type, screenPadding, tabBarSpace } from '@/lib/theme';
 
 /** Tiles of the quick-log grid and the Today section each opens (design N1). */
 export type LogTile =
@@ -80,8 +80,8 @@ export function LogScreen({ onPick }: { onPick: (tile: LogTile) => void }) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: color.bg },
-  content: { padding: space.lg, gap: space.md },
+  screen: { flex: 1, backgroundColor: color.surface2 },
+  content: { padding: screenPadding, paddingBottom: tabBarSpace, gap: space.lg },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
   tile: {
     width: '31%',
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: space.xs,
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     borderRadius: radius.card,
     padding: space.sm,
   },

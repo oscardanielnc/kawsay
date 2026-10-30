@@ -37,7 +37,9 @@ describe('SleepSection (F11)', () => {
 
   it('prefills the night from the usual schedule; one tap on a moon saves it', async () => {
     const onSave = jest.fn();
-    await render(<SleepSection {...usual} sessions={[]} onSave={onSave} onDelete={jest.fn()} newId={newId} />);
+    await render(
+      <SleepSection {...usual} sessions={[]} onSave={onSave} onDelete={jest.fn()} newId={newId} />,
+    );
     expect(screen.getByText('23:00')).toBeOnTheScreen();
     expect(screen.getByText('toca una luna')).toBeOnTheScreen();
     await fireEvent.press(screen.getByRole('button', { name: 'Calidad Buena' }));
@@ -53,7 +55,13 @@ describe('SleepSection (F11)', () => {
   it('start and end are editable on a saved session, and nightmares is a switch', async () => {
     const onSave = jest.fn();
     await render(
-      <SleepSection {...usual} sessions={[saved({})]} onSave={onSave} onDelete={jest.fn()} newId={newId} />,
+      <SleepSection
+        {...usual}
+        sessions={[saved({})]}
+        onSave={onSave}
+        onDelete={jest.fn()}
+        newId={newId}
+      />,
     );
     await fireEvent.press(screen.getByRole('button', { name: 'Más Me desperté' }));
     expect(onSave).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'n', end: '07:15' }));

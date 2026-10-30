@@ -15,12 +15,7 @@ function renderNotes(props: Partial<Parameters<typeof NotesSection>[0]> = {}) {
   const onSave = jest.fn();
   const onDelete = jest.fn();
   const rendered = render(
-    <NotesSection
-      notes={notes}
-      onSave={onSave}
-      onDelete={onDelete}
-      {...props}
-    />,
+    <NotesSection notes={notes} onSave={onSave} onDelete={onDelete} {...props} />,
   );
   return { onSave, onDelete, rendered };
 }

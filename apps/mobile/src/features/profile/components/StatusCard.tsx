@@ -11,14 +11,14 @@ import { formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
 
 const TONE_TEXT: Record<Tone, string> = {
-  green: color.successText,
-  yellow: color.warningText,
-  red: color.dangerText,
+  green: color.blue800,
+  yellow: color.amber800,
+  red: color.coral800,
 };
 const TONE_PILL: Record<Tone, string> = {
-  green: color.green50,
-  yellow: color.warning50,
-  red: color.danger50,
+  green: color.blue50,
+  yellow: color.amber50,
+  red: color.coral50,
 };
 /** Waist-to-height (NICE) on the upper-limit gauge: green below 0.5, yellow to 0.6, red above. */
 const WAIST_POINTS: readonly [number, number][] = [
@@ -142,7 +142,7 @@ export function StatusCard({ weightKg, heightCm, goalWeightKg, waistCm = null }:
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     borderRadius: radius.card,
     padding: space.lg,
     gap: space.md,
@@ -158,8 +158,8 @@ const styles = StyleSheet.create({
     borderRadius: radius.pill,
   },
   facts: { flexDirection: 'row', justifyContent: 'space-between' },
-  note: { backgroundColor: color.green50, borderRadius: radius.chip, padding: space.md, gap: 2 },
+  note: { backgroundColor: color.blue50, borderRadius: radius.chip, padding: space.md, gap: 2 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  brand: { color: color.brand },
+  brand: { color: color.blue700 },
 });

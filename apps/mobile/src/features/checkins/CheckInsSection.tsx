@@ -5,7 +5,8 @@ import { Sheet } from '@/components/feedback/Sheet';
 import { Card } from '@/components/layout/Card';
 import { color, radius, space, touch, type } from '@/lib/theme';
 import { latestCheckIns, type CheckIn, type CheckInKind } from './checkins-db';
-import { Bristol, Face, Gas } from './icons';
+import { Face } from '@/components/data-display/Face';
+import { Bristol, Gas } from './icons';
 
 interface Props {
   rows: readonly CheckIn[];
@@ -165,8 +166,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: color.line,
   },
-  add: { borderStyle: 'dashed', borderColor: color.accent },
-  on: { borderColor: color.brand, backgroundColor: color.green50 },
+  add: { borderStyle: 'dashed', borderColor: color.blue700 },
+  on: { borderColor: color.blue700, backgroundColor: color.blue50 },
   scale: { flexDirection: 'row', gap: space.xs },
   face: { flex: 1, minHeight: 64, alignItems: 'center', justifyContent: 'center', gap: 2 },
   picked: { transform: [{ scale: 1.14 }] },
@@ -184,5 +185,5 @@ const styles = StyleSheet.create({
   },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  accent: { color: color.accent },
+  accent: { color: color.blue700 },
 });

@@ -25,10 +25,10 @@ const UNIT: Record<WeeklyNutrient, string> = {
   sodiumMg: 'mg',
 };
 const LOOK = {
-  green: { bar: color.rangeGreen, pill: color.green50, ink: color.successText },
-  yellow: { bar: color.rangeYellow, pill: color.warning50, ink: color.warningText },
-  red: { bar: color.rangeRed, pill: color.danger50, ink: color.dangerText },
-  incomplete: { bar: color.line, pill: '#F1ECE1', ink: color.inkMuted },
+  green: { bar: color.blue300, pill: color.blue50, ink: color.blue800 },
+  yellow: { bar: color.amber300, pill: color.amber50, ink: color.amber800 },
+  red: { bar: color.coral300, pill: color.coral50, ink: color.coral800 },
+  incomplete: { bar: color.line, pill: color.surface2, ink: color.inkMuted },
 } as const;
 /** Nutrients with a known caveat about their source data (F19). */
 const CAVEATS = ['vitaminARaeUg', 'folateUg', 'ironMg'] as const;
@@ -188,8 +188,8 @@ function Picks({
             {p.portion ? `${p.name} · ${p.portion}` : p.name}
           </Text>
           {p.eaten ? (
-            <View style={[styles.pill, { backgroundColor: color.green50 }]}>
-              <Text style={[type.caption, { color: color.successText }]}>
+            <View style={[styles.pill, { backgroundColor: color.blue50 }]}>
+              <Text style={[type.caption, { color: color.blue800 }]}>
                 {t('insights.nutrients.eaten')}
               </Text>
             </View>
@@ -202,12 +202,17 @@ function Picks({
 }
 
 const styles = StyleSheet.create({
-  row: { gap: 2, paddingVertical: space.sm, borderBottomWidth: 1, borderBottomColor: '#EFEAE0' },
+  row: { gap: 2, paddingVertical: space.sm, borderBottomWidth: 1, borderBottomColor: color.line },
   top: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   grow: { flex: 1 },
   pill: { paddingHorizontal: space.sm, paddingVertical: 2, borderRadius: radius.pill },
   bold: { fontFamily: font.label },
-  track: { height: 6, borderRadius: radius.pill, backgroundColor: '#F1ECE1', marginTop: space.xs },
+  track: {
+    height: 6,
+    borderRadius: radius.pill,
+    backgroundColor: color.surface2,
+    marginTop: space.xs,
+  },
   fill: { position: 'absolute', left: 0, top: 0, bottom: 0, borderRadius: radius.pill },
   tick: {
     position: 'absolute',

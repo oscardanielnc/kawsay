@@ -72,7 +72,7 @@ export function DayChecklist({ areas, done, movementMinutes, movementGoalMin, on
               >
                 {name}
               </Text>
-              <Text style={[type.label, { color: isDone ? tint : color.accent }]}>
+              <Text style={[type.label, { color: isDone ? tint : color.blue700 }]}>
                 {isDone ? '✓' : '›'}
               </Text>
             </Pressable>
@@ -110,7 +110,7 @@ export function DayChecklist({ areas, done, movementMinutes, movementGoalMin, on
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     borderRadius: radius.card + 2,
     padding: space.lg,
     gap: space.sm,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.chip + 2,
     borderWidth: 1.5,
   },
-  pendingChip: { borderStyle: 'dashed', borderColor: '#D5CFC0', backgroundColor: color.surface },
+  pendingChip: { borderStyle: 'dashed', borderColor: '#D5CFC0', backgroundColor: color.card },
   grow: { flex: 1 },
   movement: {
     marginTop: space.xs,
@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
   },
   minutes: { fontFamily: font.title, fontSize: 18, color: color.ink },
   bar: { height: 10, borderRadius: radius.pill, backgroundColor: '#F1ECE1', overflow: 'hidden' },
-  fill: { height: '100%', borderRadius: radius.pill, backgroundColor: color.accent },
+  fill: { height: '100%', borderRadius: radius.pill, backgroundColor: color.blue700 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  success: { color: color.successText },
+  success: { color: color.blue800 },
 });

@@ -23,7 +23,7 @@ function Lock() {
       height={22}
       viewBox="0 0 24 24"
       fill="none"
-      stroke={color.brand}
+      stroke={color.blue700}
       strokeWidth={2}
     >
       <Rect x={5} y={10} width={14} height={10} rx={2.5} />
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: radius.chip,
-    backgroundColor: color.green50,
+    backgroundColor: color.blue50,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -109,9 +109,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: color.line,
   },
-  on: { borderColor: color.brand, backgroundColor: color.green50 },
-  add: { borderStyle: 'dashed', borderColor: color.accent },
+  on: { borderColor: color.blue700, backgroundColor: color.blue50 },
+  add: { borderStyle: 'dashed', borderColor: color.blue700 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  accent: { color: color.accent },
+  accent: { color: color.blue700 },
 });

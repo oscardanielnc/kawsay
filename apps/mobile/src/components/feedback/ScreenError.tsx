@@ -35,12 +35,12 @@ export function ScreenError({ error, retry }: Props) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: color.bg,
+    backgroundColor: color.surface2,
     padding: space.xl,
     justifyContent: 'center',
     gap: space.md,
   },
-  title: { color: color.dangerText },
+  title: { color: color.coral800 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
 });

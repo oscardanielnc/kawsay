@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: space.xs,
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     borderRadius: radius.pill,
     borderWidth: 1,
     borderColor: color.line,
@@ -337,5 +337,5 @@ const styles = StyleSheet.create({
   footer: { flexDirection: 'row', gap: space.sm },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  accent: { color: color.accent },
+  accent: { color: color.blue700 },
 });

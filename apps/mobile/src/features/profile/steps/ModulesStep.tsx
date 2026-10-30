@@ -53,8 +53,8 @@ export function ModulesStep({ draft, update }: StepProps) {
 const styles = StyleSheet.create({
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
   chip: {
-    backgroundColor: color.green100,
-    color: color.brand,
+    backgroundColor: color.blue50,
+    color: color.blue700,
     borderRadius: radius.pill,
     paddingHorizontal: space.md,
     paddingVertical: space.xs,

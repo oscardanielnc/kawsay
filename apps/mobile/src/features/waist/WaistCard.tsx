@@ -29,9 +29,9 @@ const W = 300;
 const H = 90;
 const PAD = 8;
 const TONE_TEXT = {
-  green: color.successText,
-  yellow: color.warningText,
-  red: color.dangerText,
+  green: color.blue800,
+  yellow: color.amber800,
+  red: color.coral800,
 } as const;
 
 /** Weekly waist (F04): one input on the reminder day, the waist-to-height ratio, and weekly points with gaps. */
@@ -100,7 +100,7 @@ export function WaistCard({ day, waists, heightCm, reminderDay, onSave }: Props)
                 key={run[0]?.weekStart}
                 points={run.map((w) => `${x(w.weekStart)},${y(w.cm)}`).join(' ')}
                 fill="none"
-                stroke={color.brand}
+                stroke={color.blue700}
                 strokeWidth={2}
               />
             ))}
@@ -110,7 +110,7 @@ export function WaistCard({ day, waists, heightCm, reminderDay, onSave }: Props)
                 cx={x(w.weekStart)}
                 cy={y(w.cm)}
                 r={3.5}
-                fill={color.brand}
+                fill={color.blue700}
               />
             ))}
           </Svg>
@@ -125,5 +125,5 @@ const styles = StyleSheet.create({
   grow: { flex: 1 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  accent: { color: color.accent },
+  accent: { color: color.blue700 },
 });

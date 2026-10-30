@@ -204,5 +204,5 @@ const styles = StyleSheet.create({
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
   night: { color: NIGHT_INK },
-  accent: { color: color.accent },
+  accent: { color: color.blue700 },
 });

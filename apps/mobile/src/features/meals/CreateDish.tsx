@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.chip,
     paddingHorizontal: space.md,
     color: color.ink,
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
   },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
   chip: {
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     borderColor: color.line,
   },
   icon: { padding: 2, borderRadius: radius.chip, borderWidth: 2, borderColor: 'transparent' },
-  on: { borderColor: color.brand, backgroundColor: color.green50 },
+  on: { borderColor: color.blue700, backgroundColor: color.blue50 },
   row: {
     minHeight: touch,
     justifyContent: 'center',
@@ -288,8 +288,8 @@ const styles = StyleSheet.create({
   ingredient: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   grow: { flex: 1, minHeight: touch, justifyContent: 'center' },
   remove: { width: touch, height: touch, alignItems: 'center', justifyContent: 'center' },
-  totals: { backgroundColor: color.brand, borderRadius: radius.card, padding: space.md },
+  totals: { backgroundColor: color.blue700, borderRadius: radius.card, padding: space.md },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  onDark: { color: color.onDark },
+  onDark: { color: color.white },
 });

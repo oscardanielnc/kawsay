@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'baseline',
     justifyContent: 'space-between',
-    backgroundColor: color.green50,
+    backgroundColor: color.blue50,
     borderRadius: radius.chip,
     padding: space.md,
   },
@@ -99,5 +99,5 @@ const styles = StyleSheet.create({
   },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  warning: { color: color.warningText },
+  warning: { color: color.amber800 },
 });

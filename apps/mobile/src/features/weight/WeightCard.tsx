@@ -55,7 +55,7 @@ function TrendChart({ points, day }: { points: readonly TrendPoint[]; day: Local
         <Polyline
           points={shown.map((p) => `${x(p.date)},${y(p.trendKg)}`).join(' ')}
           fill="none"
-          stroke={color.brand}
+          stroke={color.blue700}
           strokeWidth={2.5}
           strokeLinejoin="round"
           strokeLinecap="round"
@@ -116,5 +116,5 @@ const styles = StyleSheet.create({
   grow: { flex: 1 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  brand: { color: color.brand },
+  brand: { color: color.blue700 },
 });

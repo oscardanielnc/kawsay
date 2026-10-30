@@ -32,7 +32,15 @@ const pct = (value: number, of: number) => `${(value / of) * 100}%` as const;
  * A semicircle like a car speedometer: pastel zones blending softly, the zone limits outside the arc, the value large
  * in the middle and a slim needle lying on the band. It fills its width; texts scale with it.
  */
-export function ArcGauge({ bands, limits, needle, flag = null, value, unit, accessibilityLabel }: Props) {
+export function ArcGauge({
+  bands,
+  limits,
+  needle,
+  flag = null,
+  value,
+  unit,
+  accessibilityLabel,
+}: Props) {
   const [width, setWidth] = useState(W);
   const scale = width / W;
   return (
@@ -113,7 +121,9 @@ export function ArcGauge({ bands, limits, needle, flag = null, value, unit, acce
         </Text>
       )}
       <View style={[styles.center, { top: pct(CENTER.cy - 40, H) }]}>
-        <Text style={[styles.value, { fontSize: 31 * scale, lineHeight: 36 * scale }]}>{value}</Text>
+        <Text style={[styles.value, { fontSize: 31 * scale, lineHeight: 36 * scale }]}>
+          {value}
+        </Text>
         <Text style={[styles.unit, { fontSize: Math.max(11, 12 * scale) }]}>{unit}</Text>
       </View>
     </View>
@@ -131,7 +141,7 @@ function Needle({ position }: { position: number }) {
       <Path
         d={`M${base.x + nx} ${base.y + ny} L${tip.x} ${tip.y} L${base.x - nx} ${base.y - ny} Z`}
         fill={color.ink}
-        stroke={color.surface}
+        stroke={color.card}
         strokeWidth={1.5}
         strokeLinejoin="round"
       />
@@ -143,7 +153,7 @@ function Needle({ position }: { position: number }) {
 const styles = StyleSheet.create({
   box: { width: '100%', aspectRatio: W / H },
   limit: { position: 'absolute', width: LABEL_W, marginTop: -8, fontFamily: font.body },
-  strong: { color: color.successText, fontFamily: font.label },
+  strong: { color: color.blue800, fontFamily: font.label },
   muted: { color: color.inkMuted },
   flag: { position: 'absolute', fontSize: 12, marginLeft: -6, marginTop: -9 },
   center: { position: 'absolute', left: 0, right: 0, alignItems: 'center' },

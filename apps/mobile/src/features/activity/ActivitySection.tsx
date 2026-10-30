@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     borderColor: color.line,
     padding: space.md,
   },
-  noActivityOn: { borderColor: color.brand, backgroundColor: color.green50 },
+  noActivityOn: { borderColor: color.blue700, backgroundColor: color.blue50 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
 });

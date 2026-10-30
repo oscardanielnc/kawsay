@@ -1,5 +1,11 @@
-/** Pastel zone colours of the arc gauges (design: soft, never text). */
-export const GAUGE_COLORS = { red: '#F2B5A9', yellow: '#F5DE9A', green: '#A9D8B8' } as const;
+import { color } from '@/lib/theme';
+
+/** Zone colours of the arc gauges (Amanecer: blue in range, amber near, coral far; never text). */
+export const GAUGE_COLORS = {
+  red: color.coral300,
+  yellow: color.amber300,
+  green: color.blue300,
+} as const;
 
 export type GaugeTone = keyof typeof GAUGE_COLORS;
 /** A zone of the arc, from the previous band's end to `to` (0 left → 1 right). */

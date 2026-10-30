@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.chip,
     paddingHorizontal: space.md,
     color: color.ink,
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
   },
-  problem: { color: color.dangerText },
+  problem: { color: color.coral800 },
 });

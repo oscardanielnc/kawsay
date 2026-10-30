@@ -108,7 +108,7 @@ export function ExerciseEditor({ item, restSeconds, bmrKcal, onChange, onMeasure
 
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     borderRadius: radius.chip,
     borderWidth: 1,
     borderColor: color.line,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   muted: { color: color.inkMuted },
   preview: {
     color: color.ink,
-    backgroundColor: color.green50,
+    backgroundColor: color.blue50,
     borderRadius: radius.chip,
     padding: space.md,
   },

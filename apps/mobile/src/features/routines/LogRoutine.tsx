@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   muted: { color: color.inkMuted },
   preview: {
     color: color.ink,
-    backgroundColor: color.green50,
+    backgroundColor: color.blue50,
     borderRadius: radius.chip,
     padding: space.md,
   },

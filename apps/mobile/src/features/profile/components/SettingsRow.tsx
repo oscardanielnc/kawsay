@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: radius.card - 2,
-    backgroundColor: color.green50,
+    backgroundColor: color.blue50,
     alignItems: 'center',
     justifyContent: 'center',
   },

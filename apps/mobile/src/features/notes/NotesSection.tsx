@@ -53,7 +53,9 @@ export function NotesSection({ notes, onSave, onDelete, startWriting }: Props) {
             onPress={() => setDraft({ id: note.id, text: note.text })}
             style={styles.note}
           >
-            <Text style={[type.caption, styles.muted]}>{formatTime(note.loggedAt, note.timeZone)}</Text>
+            <Text style={[type.caption, styles.muted]}>
+              {formatTime(note.loggedAt, note.timeZone)}
+            </Text>
             <Text style={[type.body, styles.ink]}>{note.text}</Text>
           </Pressable>
         ))
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
     borderColor: color.line,
     borderRadius: radius.chip,
     padding: space.md,
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     color: color.ink,
   },
   count: { textAlign: 'right' },

@@ -75,7 +75,7 @@ function Bucket({ glasses, goalGlasses }: { glasses: BucketGlasses; goalGlasses:
       <Path d="M12 34 Q50 -12 88 34" fill="none" stroke={color.inkMuted} strokeWidth={3} />
       <Rect x={5} y={30} width={7} height={9} rx={2} fill={color.inkMuted} />
       <Rect x={88} y={30} width={7} height={9} rx={2} fill={color.inkMuted} />
-      <Path d={BODY} fill={color.surface} />
+      <Path d={BODY} fill={color.card} />
       <G clipPath="url(#bucket-body)">
         {layers.map((layer) => (
           <Rect
@@ -88,14 +88,7 @@ function Bucket({ glasses, goalGlasses }: { glasses: BucketGlasses; goalGlasses:
           />
         ))}
         {surface ? (
-          <Rect
-            x={0}
-            y={y(surface.to)}
-            width={100}
-            height={2}
-            fill={color.onDark}
-            opacity={0.45}
-          />
+          <Rect x={0} y={y(surface.to)} width={100} height={2} fill={color.white} opacity={0.45} />
         ) : null}
         {RINGS.map((ring) => (
           <Line
@@ -305,7 +298,7 @@ const styles = StyleSheet.create({
     borderColor: color.line,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
   },
   off: { opacity: 0.35 },
   count: { minWidth: 28, textAlign: 'center' },
@@ -329,5 +322,5 @@ const styles = StyleSheet.create({
   },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  accent: { color: color.accent },
+  accent: { color: color.blue700 },
 });

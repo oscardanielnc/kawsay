@@ -8,9 +8,9 @@ import { color, font, radius, space, type } from '@/lib/theme';
 type Week = ReturnType<typeof weeklySummary>;
 
 const COUNTS = [
-  { tone: 'green', bg: color.green50, ink: color.successText },
-  { tone: 'yellow', bg: color.warning50, ink: color.warningText },
-  { tone: 'red', bg: color.danger50, ink: color.dangerText },
+  { tone: 'green', bg: color.blue50, ink: color.blue800 },
+  { tone: 'yellow', bg: color.amber50, ink: color.amber800 },
+  { tone: 'red', bg: color.coral50, ink: color.coral800 },
 ] as const;
 
 /** "Your week" (F20): days by colour, movement minutes vs 150 and the weight trend change. */
@@ -85,8 +85,13 @@ const styles = StyleSheet.create({
     marginTop: space.sm,
   },
   divided: { borderTopWidth: 1, borderTopColor: color.line, paddingTop: space.md },
-  bar: { height: 10, borderRadius: radius.pill, backgroundColor: '#F1ECE1', overflow: 'hidden' },
-  fill: { height: '100%', borderRadius: radius.pill, backgroundColor: '#3E8A55' },
+  bar: {
+    height: 10,
+    borderRadius: radius.pill,
+    backgroundColor: color.surface2,
+    overflow: 'hidden',
+  },
+  fill: { height: '100%', borderRadius: radius.pill, backgroundColor: color.blue700 },
   weight: { fontFamily: font.title, fontSize: 20, color: color.ink },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },

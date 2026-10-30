@@ -1,6 +1,7 @@
 import { Redirect, Tabs } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { TabIcon } from '@/components/data-display/TabIcon';
+import { FloatingTabBar } from '@/components/navigation/FloatingTabBar';
 import { getProfile } from '@/features/profile/profile-db';
 import { useDb } from '@/lib/db/DatabaseProvider';
 import { useSync } from '@/lib/sync/SyncProvider';
@@ -20,7 +21,7 @@ export default function TabsLayout() {
   if (account.kind === 'undecided') return <Redirect href="/sign-in" />;
   if (profile === null) return <Redirect href="/onboarding" />;
   return (
-    <Tabs screenOptions={{ headerShown: false, tabBarActiveTintColor: '#1F4D3A' }}>
+    <Tabs tabBar={(props) => <FloatingTabBar {...props} />} screenOptions={{ headerShown: false }}>
       <Tabs.Screen
         name="index"
         options={{

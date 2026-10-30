@@ -30,9 +30,9 @@ export function SignInScreen({
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: color.bg },
+  screen: { flex: 1, backgroundColor: color.surface2 },
   content: { padding: space.xl, gap: space.lg, flexGrow: 1, justifyContent: 'center' },
-  brand: { color: color.brand },
+  brand: { color: color.blue700 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted, textAlign: 'center' },
 });

@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.noData,
     padding: 3,
   },
-  trackOn: { backgroundColor: color.brand },
-  thumb: { width: 22, height: 22, borderRadius: radius.pill, backgroundColor: color.surface },
+  trackOn: { backgroundColor: color.blue700 },
+  thumb: { width: 22, height: 22, borderRadius: radius.pill, backgroundColor: color.card },
   thumbOn: { transform: [{ translateX: 20 }] },
 });

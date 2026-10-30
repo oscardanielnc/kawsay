@@ -28,7 +28,12 @@ describe('SignInScreen (F02)', () => {
 });
 
 describe('AccountScreen (F02)', () => {
-  const actions = { onSignIn: jest.fn(), onSyncNow: jest.fn(), onSignOut: jest.fn(), timeZone: lima };
+  const actions = {
+    onSignIn: jest.fn(),
+    onSyncNow: jest.fn(),
+    onSignOut: jest.fn(),
+    timeZone: lima,
+  };
 
   it('signed in: when it last synced and what still waits to go up', async () => {
     await render(

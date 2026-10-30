@@ -16,7 +16,7 @@ import { Segmented } from '@/components/forms/Segmented';
 import { Card } from '@/components/layout/Card';
 import { Button } from '@/components/primitives/Button';
 import { formatNumber } from '@/lib/format';
-import { color, radius, space, touch, type } from '@/lib/theme';
+import { color, radius, space, touch, type, screenPadding, tabBarSpace } from '@/lib/theme';
 
 /** One past (or today's) day of the month, computed by the route. */
 export interface CalendarDay {
@@ -44,9 +44,9 @@ interface Props {
 }
 
 const BAND: Record<DayColour, { bg: string; mark: string; ink: string }> = {
-  green: { bg: color.rangeGreen, mark: '✓', ink: color.successText },
-  yellow: { bg: color.rangeYellow, mark: '•', ink: color.warningText },
-  red: { bg: color.rangeRed, mark: '×', ink: color.dangerText },
+  green: { bg: color.blue300, mark: '✓', ink: color.blue800 },
+  yellow: { bg: color.amber300, mark: '•', ink: color.amber800 },
+  red: { bg: color.coral300, mark: '×', ink: color.coral800 },
   grey: { bg: color.line, mark: '', ink: color.inkMuted },
 };
 const COLOURS: readonly DayColour[] = ['green', 'yellow', 'red', 'grey'];
@@ -118,7 +118,7 @@ function MonthChart({
           <Polyline
             points={trend.map((d) => `${x(d.date) + slot / 2},${y(d.trendKg ?? 0)}`).join(' ')}
             fill="none"
-            stroke={color.brand}
+            stroke={color.blue700}
             strokeWidth={2.5}
           />
         </Svg>
@@ -171,7 +171,7 @@ function MonthChart({
                   width={Math.max(2, slot - 2)}
                   height={H - PAD - y(v)}
                   rx={2}
-                  fill={inGreen(d) ? color.brand : color.noData}
+                  fill={inGreen(d) ? color.blue700 : color.noData}
                 />
               ) : null}
               {target ? (
@@ -180,7 +180,7 @@ function MonthChart({
                   x2={x(d.date) + slot}
                   y1={y(target)}
                   y2={y(target)}
-                  stroke={color.accent}
+                  stroke={color.blue700}
                   strokeWidth={1.5}
                 />
               ) : null}
@@ -373,8 +373,8 @@ function Row({ label, value }: { label: string; value: string }) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: color.bg },
-  content: { padding: space.lg, gap: space.md },
+  screen: { flex: 1, backgroundColor: color.surface2 },
+  content: { padding: screenPadding, paddingBottom: tabBarSpace, gap: space.lg },
   header: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   arrow: { width: touch, height: touch, alignItems: 'center', justifyContent: 'center' },
   dim: { opacity: 0.3 },
@@ -388,7 +388,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: radius.chip,
     borderWidth: 2,
-    borderColor: color.bg,
+    borderColor: color.surface2,
   },
   future: { borderStyle: 'dashed', borderColor: color.line, backgroundColor: 'transparent' },
   selected: { borderColor: color.ink },
@@ -399,10 +399,10 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: color.accent,
+    backgroundColor: color.blue700,
   },
   row: { flexDirection: 'row', alignItems: 'center', gap: space.sm, minHeight: 28 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  brand: { color: color.brand },
+  brand: { color: color.blue700 },
 });

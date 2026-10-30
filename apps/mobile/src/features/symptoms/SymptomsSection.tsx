@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     gap: space.xs,
     padding: space.md,
     borderRadius: radius.card,
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     borderWidth: 1,
     borderColor: color.line,
   },
@@ -185,8 +185,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: color.line,
   },
-  on: { borderColor: color.brand, backgroundColor: color.green50 },
-  add: { borderStyle: 'dashed', borderColor: color.accent },
+  on: { borderColor: color.blue700, backgroundColor: color.blue50 },
+  add: { borderStyle: 'dashed', borderColor: color.blue700 },
   input: {
     minHeight: touch,
     borderWidth: 1,
@@ -197,5 +197,5 @@ const styles = StyleSheet.create({
   },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  accent: { color: color.accent },
+  accent: { color: color.blue700 },
 });

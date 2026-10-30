@@ -157,13 +157,13 @@ export function OnboardingScreen({ today, onFinish }: Props) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: color.bg },
+  screen: { flex: 1, backgroundColor: color.surface2 },
   content: { padding: space.lg, gap: space.md },
   welcome: { paddingTop: 96, alignItems: 'center', gap: space.sm },
   dots: { flexDirection: 'row', gap: 6, justifyContent: 'center', paddingTop: space.md },
   dot: { width: 8, height: 8, borderRadius: radius.pill, backgroundColor: '#D9D4C8' },
   dotNow: { width: 22 },
-  dotDone: { backgroundColor: color.brand },
+  dotDone: { backgroundColor: color.blue700 },
   footer: { flexDirection: 'row', gap: space.sm, padding: space.lg },
   grow: { flex: 1 },
   ink: { color: color.ink },

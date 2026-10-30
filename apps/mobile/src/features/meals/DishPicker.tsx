@@ -92,7 +92,7 @@ export function DishPicker({
 
 const styles = StyleSheet.create({
   search: {
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     borderRadius: radius.chip,
     borderWidth: 1,
     borderColor: color.line,
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
   tile: {
     width: '31%',
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     borderRadius: radius.card,
     padding: space.sm,
     gap: space.xs,

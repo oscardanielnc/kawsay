@@ -113,7 +113,7 @@ export function RoutineEditor({
 
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     borderRadius: radius.chip,
     borderWidth: 1,
     borderColor: color.line,
@@ -124,12 +124,12 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: space.md, paddingVertical: space.xs },
   grow: { flex: 1 },
   total: {
-    backgroundColor: color.green50,
+    backgroundColor: color.blue50,
     borderRadius: radius.card,
     padding: space.md,
     gap: space.xs,
   },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  brand: { color: color.brand },
+  brand: { color: color.blue700 },
 });

@@ -44,7 +44,7 @@ export function RelationsCard({ relations }: { relations: InsightsData['relation
         >
           <Text style={[type.label, styles.ink]}>
             {`${exposureName(r.exposure)} `}
-            <Text style={{ color: good ? color.successText : color.dangerText }}>
+            <Text style={{ color: good ? color.blue800 : color.coral800 }}>
               {effect(r, r.direction)}
             </Text>
           </Text>
@@ -95,17 +95,17 @@ const styles = StyleSheet.create({
     gap: space.xs,
     padding: space.md,
     borderRadius: radius.card - 2,
-    backgroundColor: '#FBF8F2',
+    backgroundColor: color.surface2,
   },
   meta: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   confidence: {
     paddingHorizontal: space.sm,
     paddingVertical: 2,
     borderRadius: radius.pill,
-    backgroundColor: '#E8EEF8',
+    backgroundColor: color.blue50,
   },
-  confidenceText: { color: '#2F4A7A' },
+  confidenceText: { color: color.blue800 },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  brand: { color: color.brand },
+  brand: { color: color.blue700 },
 });

@@ -3,9 +3,11 @@ import { Stack, type ErrorBoundaryProps } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { ScreenError } from '@/components/feedback/ScreenError';
 import { DatabaseProvider } from '@/lib/db/DatabaseProvider';
+import { useAppFonts } from '@/lib/fonts';
 import { SyncProvider } from '@/lib/sync/SyncProvider';
 
 export default function RootLayout() {
+  useAppFonts();
   return (
     <>
       <StatusBar style="dark" />

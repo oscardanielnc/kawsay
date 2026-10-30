@@ -164,7 +164,11 @@ export function MealsSection({
         label={t('meals.pendingSave')}
         disabled={current.name.trim() === ''}
         onPress={() => {
-          onAddPending?.({ meal: current.meal, name: current.name.trim(), portion: current.portion });
+          onAddPending?.({
+            meal: current.meal,
+            name: current.name.trim(),
+            portion: current.portion,
+          });
           setSheet(null);
         }}
       />
@@ -216,7 +220,9 @@ export function MealsSection({
     const back = (
       <Button
         variant="link"
-        label={query.trim() ? t('meals.backToResults', { query: query.trim() }) : t('meals.backToPick')}
+        label={
+          query.trim() ? t('meals.backToResults', { query: query.trim() }) : t('meals.backToPick')
+        }
         onPress={() => setSheet({ kind: 'pick', meal, query, ...(completes && { completes }) })}
       />
     );
@@ -368,17 +374,17 @@ const styles = StyleSheet.create({
     width: touch,
     height: touch,
     borderRadius: radius.pill,
-    backgroundColor: color.accent,
+    backgroundColor: color.blue700,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  onAccent: { color: color.onDark },
+  onAccent: { color: color.white },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
   chip: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: space.xs,
-    backgroundColor: color.green50,
+    backgroundColor: color.blue50,
     borderRadius: radius.pill,
     paddingRight: space.md,
     paddingLeft: 3,
@@ -388,13 +394,13 @@ const styles = StyleSheet.create({
   pendingChip: {
     borderWidth: 1.5,
     borderStyle: 'dashed',
-    borderColor: '#E39A63',
-    backgroundColor: '#FFF6EF',
+    borderColor: color.peach300,
+    backgroundColor: color.peach50,
     paddingLeft: space.md,
   },
-  pendingInk: { color: '#8A4513' },
+  pendingInk: { color: color.peach800 },
   input: {
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     borderRadius: radius.chip,
     borderWidth: 1,
     borderColor: color.line,
@@ -412,7 +418,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: color.line,
   },
-  optionOn: { borderColor: color.brand, backgroundColor: color.green50 },
+  optionOn: { borderColor: color.blue700, backgroundColor: color.blue50 },
   footerRow: { gap: space.sm },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },

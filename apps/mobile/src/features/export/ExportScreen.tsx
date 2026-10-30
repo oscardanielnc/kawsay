@@ -77,9 +77,9 @@ export function ExportScreen({ onExport, onUnlockPrivate }: Props) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: color.bg },
+  screen: { flex: 1, backgroundColor: color.surface2 },
   content: { padding: space.lg, gap: space.md },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  danger: { color: color.dangerText },
+  danger: { color: color.coral800 },
 });

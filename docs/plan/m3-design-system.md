@@ -26,6 +26,15 @@ Goal: the new look as reusable pieces, before touching screens.
 
 ## Done when
 
-- [ ] Tokens, fonts, background and components in place; contrast test green
-- [ ] Gauge tests: value → needle angle for both kinds, zone by threshold
-- [ ] Screens still work (old layouts with new tokens is fine until M4/M8)
+- [x] Tokens, fonts, background and components in place; contrast test green
+- [x] Gauge tests: value → needle angle for both kinds, zone by threshold
+- [x] Screens still work (old layouts with new tokens is fine until M4/M8)
+
+## Build notes (2026-10-30)
+
+- Motion uses React Native's own `Animated`, not Reanimated: with any working Reanimated mock, expo-router's test
+  renderer changed its transitions and later presses in `navigation.test.tsx` stopped landing. Both need no native
+  module; Reanimated stays installed for a later need
+- `Gauge` is `ZoneGauge`: on Windows `Gauge.tsx` and `gauge.ts` are the same file name
+- Plus Jakarta Sans loads at startup (OTA-safe). Bricolage stays in `app.config.ts` until the next APK (M9)
+

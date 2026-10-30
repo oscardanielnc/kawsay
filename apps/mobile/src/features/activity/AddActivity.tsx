@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   tile: {
     width: '23%',
     minHeight: 84,
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     borderRadius: radius.card,
     borderWidth: 1,
     borderColor: color.line,
@@ -120,14 +120,14 @@ const styles = StyleSheet.create({
     gap: space.xs,
     padding: space.xs,
   },
-  selected: { borderColor: color.brand, backgroundColor: color.green50 },
+  selected: { borderColor: color.blue700, backgroundColor: color.blue50 },
   preview: {
-    backgroundColor: color.green50,
+    backgroundColor: color.blue50,
     borderRadius: radius.chip,
     padding: space.md,
     gap: space.xs,
   },
   ink: { color: color.ink, textAlign: 'center' },
   muted: { color: color.inkMuted },
-  brand: { color: color.brand },
+  brand: { color: color.blue700 },
 });

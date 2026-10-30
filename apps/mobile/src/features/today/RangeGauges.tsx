@@ -29,11 +29,11 @@ const ROWS: readonly {
 
 type Tone = 'none' | 'neutral' | 'green' | 'yellow' | 'red';
 const TONE: Record<Tone, { text: string; pill: string }> = {
-  none: { text: color.inkMuted, pill: color.bg },
-  neutral: { text: color.inkMuted, pill: color.bg },
-  green: { text: color.successText, pill: color.green50 },
-  yellow: { text: color.warningText, pill: color.warning50 },
-  red: { text: color.dangerText, pill: color.danger50 },
+  none: { text: color.inkMuted, pill: color.surface2 },
+  neutral: { text: color.inkMuted, pill: color.surface2 },
+  green: { text: color.blue800, pill: color.blue50 },
+  yellow: { text: color.amber800, pill: color.amber50 },
+  red: { text: color.coral800, pill: color.coral50 },
 };
 
 const LIMITS = ['yellowFrom', 'greenFrom', 'greenTo', 'yellowTo'] as const;
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   card: {
     flexBasis: '47%',
     flexGrow: 1,
-    backgroundColor: color.surface,
+    backgroundColor: color.card,
     borderRadius: radius.card + 2,
     paddingHorizontal: space.sm + 2,
     paddingTop: space.md,

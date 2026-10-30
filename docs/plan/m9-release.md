@@ -17,3 +17,8 @@ Goal: everything live, safely. Every step that ships asks first.
 ## Done when
 
 - [ ] Oscar sees the new app on his phone with his data intact
+
+## Build notes
+
+- 2026-10-30: owner exported a backup; API deployed dev then prod (`/v1/health` ok); EAS Update published to
+  development and production. No new APK. Plan closed 2026-10-30

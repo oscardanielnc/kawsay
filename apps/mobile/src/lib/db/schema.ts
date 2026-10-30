@@ -86,6 +86,23 @@ export const mealEntry = sqliteTable(
   (t) => [index('meal_entry_by_date').on(t.date)],
 );
 
+/**
+ * A meal logged by name while its food is missing (F23 piece 1): it counts as logged but adds no nutrients until
+ * it is completed, which logs the real entry and tombstones this one.
+ */
+export const pendingMeal = sqliteTable(
+  'pending_meal',
+  {
+    ...synced,
+    ...dated,
+    meal: text('meal', { enum: ['breakfast', 'lunch', 'dinner', 'snack'] }).notNull(),
+    name: text('name').notNull(),
+    /** The portion in the user's words, e.g. "1 plato" or "½". */
+    portion: text('portion').notNull(),
+  },
+  (t) => [index('pending_meal_by_date').on(t.date)],
+);
+
 export const activityEntry = sqliteTable(
   'activity_entry',
   {
@@ -269,6 +286,10 @@ export const food = sqliteTable('food', {
   sourceCode: text('source_code'),
   /** Nutrients per 100 g as eaten; null while the food waits for a label or a match. */
   per100g: text('per_100g', { mode: 'json' }).$type<Record<string, number | null> | null>(),
+  /** `refined-flour`, `drink` (F24, ADR 0020). */
+  tags: text('tags', { mode: 'json' }).$type<string[]>(),
+  /** An INS food outside the curated seed: an ingredient for Create dish, listed after the curated ones (F23). */
+  generic: integer('generic', { mode: 'boolean' }).notNull().default(false),
 });
 
 export const foodUnit = sqliteTable(
@@ -295,6 +316,8 @@ export const dish = sqliteTable('dish', {
   per100g: text('per_100g', { mode: 'json' }).$type<Record<string, number | null> | null>(),
   /** null for seed dishes; user dishes (F07) arrive with their own synced table. */
   owner: text('owner'),
+  /** Inherited from the ingredients and the group (F24, ADR 0020). */
+  tags: text('tags', { mode: 'json' }).$type<string[]>(),
 });
 
 export const dishItem = sqliteTable(

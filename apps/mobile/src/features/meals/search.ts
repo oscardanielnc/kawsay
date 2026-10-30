@@ -4,6 +4,8 @@ export interface Searchable {
   name: string;
   /** 'dish' for dishes; the food's source otherwise (ADR 0014). */
   source: string;
+  /** An INS food outside the curated seed: listed after every curated result (F23, ADR 0021). */
+  generic?: boolean;
 }
 
 /** Order of the results (F06): dishes, then Peruvian foods, then USDA, then labels. */
@@ -58,7 +60,10 @@ function wordMatches(query: string, word: string): boolean {
   return withinOneEdit(query, word) || withinOneEdit(query, word.slice(0, query.length));
 }
 
-/** Every query word must match some word of the name; results keep the catalog order inside each rank. */
+/**
+ * Every query word must match some word of the name; curated results come before generic INS foods, then by rank,
+ * then in catalog order.
+ */
 export function searchCatalog<T extends Searchable>(query: string, items: readonly T[]): T[] {
   const terms = words(query);
   if (terms.length === 0) return [];
@@ -67,6 +72,11 @@ export function searchCatalog<T extends Searchable>(query: string, items: readon
     .filter(({ nameWords }) =>
       terms.every((term) => nameWords.some((word) => wordMatches(term, word))),
     )
-    .sort((a, b) => (RANK[a.item.source] ?? 9) - (RANK[b.item.source] ?? 9) || a.index - b.index)
+    .sort(
+      (a, b) =>
+        Number(a.item.generic ?? false) - Number(b.item.generic ?? false) ||
+        (RANK[a.item.source] ?? 9) - (RANK[b.item.source] ?? 9) ||
+        a.index - b.index,
+    )
     .map(({ item }) => item);
 }

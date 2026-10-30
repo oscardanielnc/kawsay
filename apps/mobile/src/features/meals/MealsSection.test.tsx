@@ -19,6 +19,8 @@ const item = (
   servingGrams: 300,
   kcalPerServing,
   isDrink: false,
+  tags: [],
+  generic: false,
   per100g: { energyKcal: kcalPerServing / 3 },
   ...extra,
 });
@@ -194,5 +196,22 @@ describe('MealsSection (F05)', () => {
     );
     expect(screen.getByRole('header', { name: 'Crear plato' })).toBeOnTheScreen();
     expect(screen.getByLabelText('Nombre del plato')).toHaveDisplayValue('Sudado de doncella');
+  });
+
+  it('any INS food can be added to a dish offline, but the meal search lists only curated items (F23)', async () => {
+    const cocona = item('ins-c26', 'Cocona', 41, {
+      kind: 'food',
+      source: 'INS',
+      servingGrams: null,
+      generic: true,
+    });
+    await renderSection({ items: [...items, cocona] }).view;
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar a Almuerzo' }));
+    await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'cocona');
+    expect(screen.queryByRole('button', { name: /^Cocona/ })).toBeNull();
+    await fireEvent.press(screen.getByRole('button', { name: '+ Crear plato "cocona"' }));
+    await fireEvent.press(screen.getByRole('button', { name: '+ Ingrediente' }));
+    await fireEvent.changeText(screen.getByLabelText('Buscar ingrediente'), 'cocona');
+    expect(screen.getByRole('button', { name: 'Cocona' })).toBeOnTheScreen();
   });
 });

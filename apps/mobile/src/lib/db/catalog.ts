@@ -12,6 +12,8 @@ export interface BundledCatalog {
     units: { label: string; grams: number | null }[];
     source: { kind: string; code?: string };
     per100g: Record<string, number | null> | null;
+    tags: string[];
+    generic?: boolean;
   }[];
   dishes: {
     id: string;
@@ -21,6 +23,7 @@ export interface BundledCatalog {
     serving: string;
     servings: number;
     items: { food: string; grams: number }[];
+    tags: string[];
     totals: {
       grams: number;
       perServing: Record<string, number | null>;
@@ -31,7 +34,7 @@ export interface BundledCatalog {
 
 const CHUNK = 200;
 /** Bump when the loader stores something new, so phones reload a catalog whose data did not change. */
-export const LOADER_VERSION = '2';
+export const LOADER_VERSION = '3';
 
 async function insertChunked<T>(
   rows: T[],
@@ -63,6 +66,8 @@ export async function loadCatalog(
         sourceKind: f.source.kind,
         sourceCode: f.source.code ?? null,
         per100g: f.per100g,
+        tags: f.tags,
+        generic: f.generic === true,
       })),
       (rows) => db.insert(food).values(rows),
     );
@@ -73,7 +78,7 @@ export async function loadCatalog(
       (rows) => db.insert(foodUnit).values(rows),
     );
     await insertChunked(
-      catalog.dishes.map(({ id, name, group, icon, serving, servings, totals }) => ({
+      catalog.dishes.map(({ id, name, group, icon, serving, servings, totals, tags }) => ({
         id,
         name,
         group,
@@ -83,6 +88,7 @@ export async function loadCatalog(
         servingGrams: totals.grams,
         perServing: totals.perServing,
         per100g: totals.per100g,
+        tags,
       })),
       (rows) => db.insert(dish).values(rows),
     );

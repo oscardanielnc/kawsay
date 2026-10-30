@@ -79,7 +79,7 @@ export function MealsSection({
         query={sheet.query}
         onQuery={(query) => setSheet({ ...sheet, query })}
         recent={recent[sheet.meal]}
-        items={items}
+        items={items.filter((i) => !i.generic)}
         onPick={(item) =>
           setSheet({
             kind: 'portion',

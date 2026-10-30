@@ -13,6 +13,8 @@ const food = (id: string, name: string, energyKcal: number, proteinG: number): C
   servingGrams: null,
   kcalPerServing: null,
   isDrink: false,
+  tags: [],
+  generic: false,
   per100g: { energyKcal, proteinG, fatG: 10, carbsTotalG: 0 },
 });
 const foods = [

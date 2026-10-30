@@ -11,7 +11,7 @@ describe('loadCatalog', () => {
   it('loads every seed food with its units and every seed dish with its items', async () => {
     const db = await createTestDb();
     expect(await loadCatalog(db, bundled)).toBe('loaded');
-    expect((await db.select({ n: count() }).from(food))[0]?.n).toBe(151);
+    expect((await db.select({ n: count() }).from(food))[0]?.n).toBe(1165);
     expect((await db.select({ n: count() }).from(dish))[0]?.n).toBe(107);
     const rice = await db.select().from(food).where(eq(food.id, 'arroz-cocido'));
     expect(rice[0]).toMatchObject({ sourceKind: 'INS', sourceCode: 'A2' });
@@ -36,7 +36,7 @@ describe('loadCatalog', () => {
     const db = await createTestDb();
     await loadCatalog(db, bundled);
     expect(await loadCatalog(db, bundled)).toBe('up-to-date');
-    expect((await db.select({ n: count() }).from(food))[0]?.n).toBe(151);
+    expect((await db.select({ n: count() }).from(food))[0]?.n).toBe(1165);
   });
 
   it('replaces the catalog when the version changes', async () => {
@@ -62,7 +62,7 @@ describe('loadCatalog', () => {
     const first = bundled.foods[0]!;
     const broken: BundledCatalog = { ...bundled, version: 'broken', foods: [first, first] };
     await expect(loadCatalog(db, broken)).rejects.toThrow();
-    expect((await db.select({ n: count() }).from(food))[0]?.n).toBe(151);
+    expect((await db.select({ n: count() }).from(food))[0]?.n).toBe(1165);
     expect((await db.select({ n: count() }).from(dish))[0]?.n).toBe(107);
     expect((await db.select().from(meta).where(eq(meta.key, 'catalogVersion')))[0]?.value).toBe(
       bundled.version,

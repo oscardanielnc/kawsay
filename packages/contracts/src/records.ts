@@ -136,6 +136,13 @@ export const RECORD_SCHEMAS = {
     unitCount: amount.nullable(),
     position: z.number().int().nonnegative(),
   }),
+  pending_meal: z.strictObject({
+    ...synced,
+    ...dated,
+    meal: z.enum(['breakfast', 'lunch', 'dinner', 'snack']),
+    name: text,
+    portion: z.string().max(60),
+  }),
   day_note: z.strictObject({ ...synced, ...dated, text: z.string().trim().min(1).max(4000) }),
 };
 

@@ -225,7 +225,9 @@ describe('meal entries (F05)', () => {
     const db = await seededDb();
     const items = await catalogItems(db);
     expect(items.filter((i) => i.kind === 'dish')).toHaveLength(107);
-    expect(items.filter((i) => i.kind === 'food')).toHaveLength(151);
+    expect(items.filter((i) => i.kind === 'food' && !i.generic)).toHaveLength(151);
+    // Every other INS food comes as a generic ingredient (F23, ADR 0021).
+    expect(items.filter((i) => i.generic)).toHaveLength(1014);
     expect(items.find((i) => i.id === 'arroz-cocido')).toMatchObject({
       source: 'INS',
       kcalPerServing: 184,

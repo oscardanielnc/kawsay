@@ -19,6 +19,19 @@ describe('normalize', () => {
 });
 
 describe('searchCatalog (F06)', () => {
+  it('generic INS foods come after every curated result, USDA and labels included (F23, ADR 0021)', () => {
+    const quinoa: Searchable[] = [
+      { kind: 'food', id: 'ins-a53', name: 'Quinua cocida', source: 'INS', generic: true },
+      { kind: 'food', id: 'quinua-usda', name: 'Quinua', source: 'USDA' },
+      { kind: 'dish', id: 'quinua-atamalada', name: 'Quinua atamalada', source: 'dish' },
+    ];
+    expect(searchCatalog('quinua', quinoa).map((i) => i.id)).toEqual([
+      'quinua-atamalada',
+      'quinua-usda',
+      'ins-a53',
+    ]);
+  });
+
   it('"plátano" finds Peruvian entries; dishes first, then INS foods', () => {
     expect(ids('plátano')).toEqual(['maduro-frito', 'platano-seda', 'platano-maduro']);
   });

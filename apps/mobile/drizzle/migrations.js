@@ -13,6 +13,7 @@ import m0008 from './0008_intimate.sql';
 import m0009 from './0009_sync_outbox.sql';
 import m0010 from './0010_routine_rounds.sql';
 import m0011 from './0011_day_notes.sql';
+import m0012 from './0012_catalog_tags_and_pending_meals.sql';
 
 export default {
   journal,
@@ -29,5 +30,6 @@ export default {
     m0009,
     m0010,
     m0011,
+    m0012,
   },
 };

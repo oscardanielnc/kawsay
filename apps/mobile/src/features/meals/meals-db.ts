@@ -18,6 +18,10 @@ export interface CatalogItem extends Searchable {
   servingGrams: number | null;
   kcalPerServing: number | null;
   isDrink: boolean;
+  /** `refined-flour`, `drink` from the catalog (F24, ADR 0020); a user dish inherits its ingredients' flour. */
+  tags: readonly string[];
+  /** Generic INS food: offered in Create dish, not in the meal picker (F23, ADR 0021). */
+  generic: boolean;
   per100g: Nutrients;
 }
 
@@ -77,9 +81,12 @@ export async function catalogItems(db: Db): Promise<CatalogItem[]> {
   const foodById = new Map(foods.map((f) => [f.id, f]));
   return [
     ...ownDishes.flatMap((d) => {
-      const items = ownItems
-        .filter((i) => i.userDishId === d.id)
-        .map((i) => ({ per100g: foodById.get(i.foodId)?.per100g ?? null, grams: i.grams }));
+      const own = ownItems.filter((i) => i.userDishId === d.id);
+      const items = own.map((i) => ({
+        per100g: foodById.get(i.foodId)?.per100g ?? null,
+        grams: i.grams,
+      }));
+      const flour = own.some((i) => foodById.get(i.foodId)?.tags?.includes('refined-flour'));
       if (items.length === 0) return [];
       const keys = [...new Set(items.flatMap((i) => Object.keys(i.per100g ?? {})))];
       const totals = recipeTotals(items, d.servings, keys);
@@ -94,6 +101,8 @@ export async function catalogItems(db: Db): Promise<CatalogItem[]> {
           servingGrams: totals.servingGrams,
           kcalPerServing: totals.perServing.energyKcal ?? null,
           isDrink: d.icon === 'jugo',
+          tags: [...(flour ? ['refined-flour'] : []), ...(d.icon === 'jugo' ? ['drink'] : [])],
+          generic: false,
           per100g: totals.per100g,
         },
       ];
@@ -108,13 +117,15 @@ export async function catalogItems(db: Db): Promise<CatalogItem[]> {
       servingGrams: d.servingGrams,
       kcalPerServing: d.perServing?.energyKcal ?? null,
       isDrink: d.group === 'drink',
+      tags: d.tags ?? [],
+      generic: false,
       per100g: d.per100g,
     })),
     ...foods.map((f) => {
       const unit = firstUnit.get(f.id);
       const grams = unit?.grams ?? null;
       const kcal100 = f.per100g?.energyKcal;
-      const isDrink = /\bvaso\b/i.test(unit?.label ?? '');
+      const isDrink = (f.tags ?? []).includes('drink') || /\bvaso\b/i.test(unit?.label ?? '');
       return {
         kind: 'food' as const,
         id: f.id,
@@ -125,6 +136,8 @@ export async function catalogItems(db: Db): Promise<CatalogItem[]> {
         servingGrams: grams,
         kcalPerServing: grams !== null && kcal100 != null ? (kcal100 * grams) / 100 : null,
         isDrink,
+        tags: f.tags ?? [],
+        generic: f.generic,
         per100g: f.per100g,
       };
     }),

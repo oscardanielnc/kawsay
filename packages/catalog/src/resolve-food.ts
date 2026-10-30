@@ -26,6 +26,10 @@ export interface ResolvedFood {
   per100g: Nutrients | null;
   status: FoodStatus;
   filledFrom?: { fdcId: number; nutrients: NutrientKey[] };
+  /** `refined-flour`, `drink` (seed/tags, F24 and ADR 0020). */
+  tags: string[];
+  /** An INS food outside the curated seed: usable as an ingredient, listed after the curated ones (F23). */
+  generic?: true;
   cookedToRaw?: FoodMatch['cookedToRaw'];
   notes: string[];
 }
@@ -88,7 +92,7 @@ export function resolveFood(
   match: FoodMatch,
   sources: Sources,
 ): ResolvedFood {
-  const base = { id, name: food.name, state: food.state, units: food.units };
+  const base = { id, name: food.name, state: food.state, units: food.units, tags: [] };
   const notes = [match.note, match.proxy && `Proxy: ${match.proxy}`].filter(
     (n): n is string => !!n,
   );

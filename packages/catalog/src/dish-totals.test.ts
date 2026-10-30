@@ -10,6 +10,7 @@ function food(id: string, values: Partial<ResolvedFood['per100g']> | null): Reso
     name: id,
     state: 'raw',
     units: [],
+    tags: [],
     source: { kind: 'INS' },
     per100g: values ? { ...emptyNutrients(), ...values } : null,
     status: values ? 'ok' : 'unmatched',

@@ -1,6 +1,6 @@
 {
- "version": "2026-10-12",
- "about": "Added (free) sugar per 100 g as eaten (F22). INS has no sugar column, so every packaged or prepared food is listed here; label foods take it from their label; any other food has none.",
+ "version": "2026-10-30",
+ "about": "Added (free) sugar per 100 g as eaten (F22). INS has no sugar column, so every packaged or prepared food is listed here; label foods take it from their label; any other food has none. INS foods outside the curated seed use their id ins-<code>; \"doubtful\" marks an estimate the owner should check against a label.",
  "foods": {
   "aceite-oliva": {
    "g": 0
@@ -195,6 +195,1011 @@
   "yogurt-bebible": {
    "g": 8,
    "from": "Flavoured drinking yogurt: ~12 g sugars minus ~4 g lactose"
+  },
+  "ins-a20": {
+   "g": 15,
+   "from": "Chancay is a sweet bread: USDA sweet rolls ~15 g sugars",
+   "doubtful": true
+  },
+  "ins-a45": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a46": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a47": {
+   "g": 4,
+   "from": "Packaged sandwich and burger bread: ~4 g added sugar, as pan-integral-molde"
+  },
+  "ins-a48": {
+   "g": 6,
+   "from": "Lightly sweet regional bread: estimate",
+   "doubtful": true
+  },
+  "ins-a55": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-a56": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-a57": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-a74": {
+   "g": 22,
+   "from": "Cereal bar with fruit: USDA granola bar ~29 g sugars, part from the fruit",
+   "doubtful": true
+  },
+  "ins-a75": {
+   "g": 28,
+   "from": "Chocolate cereal bar: USDA granola bar ~29 g sugars"
+  },
+  "ins-a76": {
+   "g": 22,
+   "from": "Cereal bar with fruit: USDA granola bar ~29 g sugars, part from the fruit",
+   "doubtful": true
+  },
+  "ins-a77": {
+   "g": 25,
+   "from": "Honey cereal bar: USDA granola bar ~29 g sugars",
+   "doubtful": true
+  },
+  "ins-a78": {
+   "g": 6,
+   "from": "Lightly sweet regional bread: estimate",
+   "doubtful": true
+  },
+  "ins-a79": {
+   "g": 8,
+   "from": "Egg and yolk breads are lightly sweet: estimate",
+   "doubtful": true
+  },
+  "ins-a83": {
+   "g": 1,
+   "from": "Soda and water crackers: ~1 g sugars, as galleta-soda"
+  },
+  "ins-a84": {
+   "g": 24,
+   "from": "Same as galleta-vainilla"
+  },
+  "ins-a85": {
+   "g": 20,
+   "from": "Sweet oat cookie, as galleta-kiwicha"
+  },
+  "ins-a86": {
+   "g": 20,
+   "from": "Sweet oat cookie, as galleta-kiwicha"
+  },
+  "ins-a87": {
+   "g": 20,
+   "from": "Sweet oat cookie, as galleta-kiwicha"
+  },
+  "ins-a88": {
+   "g": 20,
+   "from": "Sweet oat cookie, as galleta-kiwicha"
+  },
+  "ins-a90": {
+   "g": 35,
+   "from": "Cream-filled sandwich cookie: Oreo label 39 g, minus a little",
+   "doubtful": true
+  },
+  "ins-a91": {
+   "g": 35,
+   "from": "Cream-filled sandwich cookie: Oreo label 39 g, minus a little",
+   "doubtful": true
+  },
+  "ins-a92": {
+   "g": 20,
+   "from": "Sweet cookie estimate",
+   "doubtful": true
+  },
+  "ins-a98": {
+   "g": 0,
+   "from": "Puffed grain without honey"
+  },
+  "ins-a105": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a106": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a107": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a108": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a109": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a110": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a111": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a112": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a113": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a114": {
+   "g": 6,
+   "from": "Lightly sweet regional bread: estimate",
+   "doubtful": true
+  },
+  "ins-a115": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a116": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a117": {
+   "g": 4,
+   "from": "Packaged sandwich and burger bread: ~4 g added sugar, as pan-integral-molde"
+  },
+  "ins-a118": {
+   "g": 8,
+   "from": "Egg and yolk breads are lightly sweet: estimate",
+   "doubtful": true
+  },
+  "ins-a119": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a120": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a121": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a122": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a123": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a124": {
+   "g": 8,
+   "from": "Egg and yolk breads are lightly sweet: estimate",
+   "doubtful": true
+  },
+  "ins-a125": {
+   "g": 8,
+   "from": "Egg and yolk breads are lightly sweet: estimate",
+   "doubtful": true
+  },
+  "ins-a126": {
+   "g": 12,
+   "from": "Sweet bread: estimate, USDA sweet rolls carry ~15 g sugars",
+   "doubtful": true
+  },
+  "ins-a127": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a128": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a129": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a130": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a131": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a132": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a133": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a134": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a135": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a136": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a137": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a138": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a161": {
+   "g": 40,
+   "from": "Chocolate-covered alfajor with manjar: estimate",
+   "doubtful": true
+  },
+  "ins-a169": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a170": {
+   "g": 20,
+   "from": "Sweet oat cookie, as galleta-kiwicha"
+  },
+  "ins-a171": {
+   "g": 40,
+   "from": "Turron de Dona Pepa: honey syrup and sprinkles, estimate",
+   "doubtful": true
+  },
+  "ins-a172": {
+   "g": 1,
+   "from": "Soda and water crackers: ~1 g sugars, as galleta-soda"
+  },
+  "ins-a173": {
+   "g": 15,
+   "from": "Granola with raisins: USDA ~20 g sugars, part from the fruit",
+   "doubtful": true
+  },
+  "ins-a174": {
+   "g": 25,
+   "from": "Chocolate-coated cracker: estimate between soda cracker and Chokosoda",
+   "doubtful": true
+  },
+  "ins-a175": {
+   "g": 35,
+   "from": "Cream-filled sandwich cookie: Oreo label 39 g, minus a little",
+   "doubtful": true
+  },
+  "ins-a176": {
+   "g": 35,
+   "from": "Cream-filled sandwich cookie: Oreo label 39 g, minus a little",
+   "doubtful": true
+  },
+  "ins-a177": {
+   "g": 0,
+   "from": "Puffed grain without honey"
+  },
+  "ins-a179": {
+   "g": 33,
+   "from": "USDA cocoa-flavoured corn puffs: ~33 g sugars"
+  },
+  "ins-a180": {
+   "g": 35,
+   "from": "USDA frosted corn flakes: ~35 g sugars"
+  },
+  "ins-a181": {
+   "g": 8,
+   "from": "USDA corn flakes: ~8 g sugars, added"
+  },
+  "ins-a184": {
+   "g": 2,
+   "from": "Savoury sesame sticks: estimate"
+  },
+  "ins-a187": {
+   "g": 1,
+   "from": "Peruvian bread dough carries ~1% sugar, as pan-frances"
+  },
+  "ins-a188": {
+   "g": 35,
+   "from": "Packaged chocolate snack cake: USDA ~35 g sugars",
+   "doubtful": true
+  },
+  "ins-a189": {
+   "g": 25,
+   "from": "Panettone with chocolate chips: USDA sweet bread estimate",
+   "doubtful": true
+  },
+  "ins-a190": {
+   "g": 22,
+   "from": "Panettone with raisins and candied fruit: estimate, part of the sugar is fruit",
+   "doubtful": true
+  },
+  "ins-a191": {
+   "g": 25,
+   "from": "Packaged pound cake: USDA 172706 ~21 g, Peruvian queques are sweeter",
+   "doubtful": true
+  },
+  "ins-a192": {
+   "g": 25,
+   "from": "Packaged pound cake: USDA 172706 ~21 g, Peruvian queques are sweeter",
+   "doubtful": true
+  },
+  "ins-a193": {
+   "g": 45,
+   "from": "Dry cake mix: USDA ~45 g sugars"
+  },
+  "ins-a194": {
+   "g": 25,
+   "from": "Packaged pound cake: USDA 172706 ~21 g, Peruvian queques are sweeter",
+   "doubtful": true
+  },
+  "ins-a195": {
+   "g": 5,
+   "from": "USDA melba toast and bread crumbs: ~5 g sugars"
+  },
+  "ins-a196": {
+   "g": 0,
+   "from": "Puffed grain without honey"
+  },
+  "ins-a198": {
+   "g": 40,
+   "from": "USDA sugar wafers with cream filling: ~40 g sugars",
+   "doubtful": true
+  },
+  "ins-b11": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-b81": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-b82": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-b83": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-b91": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-c21": {
+   "g": 16.1,
+   "from": "Juice: its sugar counts as free sugar (WHO 2015), about its carbohydrate"
+  },
+  "ins-c49": {
+   "g": 8.2,
+   "from": "Juice: its sugar counts as free sugar (WHO 2015), about its carbohydrate"
+  },
+  "ins-c56": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-c57": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-c58": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-c61": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-c87": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-c103": {
+   "g": 0,
+   "from": "Blended or boiled fruit without sugar: no added sugar"
+  },
+  "ins-c104": {
+   "g": 0,
+   "from": "Blended or boiled fruit without sugar: no added sugar"
+  },
+  "ins-c106": {
+   "g": 0.8,
+   "from": "Juice: its sugar counts as free sugar (WHO 2015), about its carbohydrate"
+  },
+  "ins-c107": {
+   "g": 3.1,
+   "from": "Packaged nectar or drink: sugar about its carbohydrate, all free"
+  },
+  "ins-c108": {
+   "g": 7.3,
+   "from": "Juice: its sugar counts as free sugar (WHO 2015), about its carbohydrate"
+  },
+  "ins-c111": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-c112": {
+   "g": 14.2,
+   "from": "Packaged nectar or drink: sugar about its carbohydrate, all free"
+  },
+  "ins-c113": {
+   "g": 12.5,
+   "from": "Packaged nectar or drink: sugar about its carbohydrate, all free"
+  },
+  "ins-c115": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-c118": {
+   "g": 11.0,
+   "from": "Juice: its sugar counts as free sugar (WHO 2015), about its carbohydrate"
+  },
+  "ins-c119": {
+   "g": 9.5,
+   "from": "Packaged nectar or drink: sugar about its carbohydrate, all free"
+  },
+  "ins-c123": {
+   "g": 10.0,
+   "from": "Juice: its sugar counts as free sugar (WHO 2015), about its carbohydrate"
+  },
+  "ins-c124": {
+   "g": 2.3,
+   "from": "Packaged nectar or drink: sugar about its carbohydrate, all free"
+  },
+  "ins-c125": {
+   "g": 14.7,
+   "from": "Packaged nectar or drink: sugar about its carbohydrate, all free"
+  },
+  "ins-c126": {
+   "g": 5.0,
+   "from": "Juice: its sugar counts as free sugar (WHO 2015), about its carbohydrate"
+  },
+  "ins-c127": {
+   "g": 12.3,
+   "from": "Packaged nectar or drink: sugar about its carbohydrate, all free"
+  },
+  "ins-c129": {
+   "g": 5.9,
+   "from": "Juice: its sugar counts as free sugar (WHO 2015), about its carbohydrate"
+  },
+  "ins-c133": {
+   "g": 11.5,
+   "from": "Packaged nectar or drink: sugar about its carbohydrate, all free"
+  },
+  "ins-c134": {
+   "g": 8.3,
+   "from": "Packaged nectar or drink: sugar about its carbohydrate, all free"
+  },
+  "ins-c144": {
+   "g": 0,
+   "from": "Blended or boiled fruit without sugar: no added sugar"
+  },
+  "ins-c146": {
+   "g": 0,
+   "from": "Blended or boiled fruit without sugar: no added sugar"
+  },
+  "ins-c153": {
+   "g": 0,
+   "from": "Blended or boiled fruit without sugar: no added sugar"
+  },
+  "ins-c157": {
+   "g": 0,
+   "from": "Blended or boiled fruit without sugar: no added sugar"
+  },
+  "ins-c162": {
+   "g": 0,
+   "from": "Blended or boiled fruit without sugar: no added sugar"
+  },
+  "ins-c167": {
+   "g": 0,
+   "from": "Blended or boiled fruit without sugar: no added sugar"
+  },
+  "ins-d12": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-d47": {
+   "g": 35,
+   "from": "Caramelised peanuts: estimate",
+   "doubtful": true
+  },
+  "ins-e73": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-f48": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-f50": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-f51": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-f56": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-f57": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-f59": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-f104": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-f115": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-f124": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-f130": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-f133": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-g2": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-g4": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-g5": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-g6": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-g8": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-g9": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-g10": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-g12": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-g17": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-g18": {
+   "g": 13,
+   "from": "Fruit yogurt: 18.5 g sugars minus ~5 g lactose and fruit"
+  },
+  "ins-g19": {
+   "g": 13,
+   "from": "Fruit yogurt: 19 g sugars minus ~6 g lactose and fruit"
+  },
+  "ins-g20": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-g21": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-g22": {
+   "g": 6.5,
+   "from": "Chocolate milk: 11.3 g minus ~4.8 g lactose"
+  },
+  "ins-g25": {
+   "g": 4,
+   "from": "Drinking yogurt: 8.1 g minus ~4 g lactose"
+  },
+  "ins-g27": {
+   "g": 2.5,
+   "from": "Sweetened concentrated milk with only 12.5 g carbohydrate: estimate",
+   "doubtful": true
+  },
+  "ins-g28": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-g31": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-g34": {
+   "g": 5,
+   "from": "Drinking yogurt with stevia and linseed in syrup: estimate",
+   "doubtful": true
+  },
+  "ins-g35": {
+   "g": 5.5,
+   "from": "Drinking yogurt: 10 g minus ~4.5 g lactose"
+  },
+  "ins-g36": {
+   "g": 5,
+   "from": "Drinking yogurt: 9.5 g minus ~4.5 g lactose"
+  },
+  "ins-g37": {
+   "g": 11,
+   "from": "Greek yogurt with strawberries: 14.9 g minus ~4 g lactose"
+  },
+  "ins-g38": {
+   "g": 0,
+   "from": "Plain milk or yogurt: only lactose"
+  },
+  "ins-h1": {
+   "g": 0,
+   "from": "Unsweetened drink"
+  },
+  "ins-h2": {
+   "g": 9,
+   "from": "Traditional chicha: sweetened at home, estimate below its carbohydrate",
+   "doubtful": true
+  },
+  "ins-h3": {
+   "g": 4,
+   "from": "Traditional chicha: sweetened at home, estimate below its carbohydrate",
+   "doubtful": true
+  },
+  "ins-h4": {
+   "g": 2,
+   "from": "Traditional chicha: sweetened at home, estimate below its carbohydrate",
+   "doubtful": true
+  },
+  "ins-h5": {
+   "g": 4.9,
+   "from": "Sweetened drink: sugar about its carbohydrate"
+  },
+  "ins-h6": {
+   "g": 5,
+   "from": "Traditional chicha: sweetened at home, estimate below its carbohydrate",
+   "doubtful": true
+  },
+  "ins-h7": {
+   "g": 8,
+   "from": "Traditional chicha: sweetened at home, estimate below its carbohydrate",
+   "doubtful": true
+  },
+  "ins-h8": {
+   "g": 7,
+   "from": "Traditional chicha: sweetened at home, estimate below its carbohydrate",
+   "doubtful": true
+  },
+  "ins-h9": {
+   "g": 3,
+   "from": "Traditional chicha: sweetened at home, estimate below its carbohydrate",
+   "doubtful": true
+  },
+  "ins-h10": {
+   "g": 10.5,
+   "from": "Sweetened drink: sugar about its carbohydrate"
+  },
+  "ins-h11": {
+   "g": 11.0,
+   "from": "Sweetened drink: sugar about its carbohydrate"
+  },
+  "ins-h12": {
+   "g": 2,
+   "from": "Commercial soy drink: lightly sweetened, estimate",
+   "doubtful": true
+  },
+  "ins-h13": {
+   "g": 0,
+   "from": "Unsweetened drink"
+  },
+  "ins-h14": {
+   "g": 0,
+   "from": "Unsweetened drink"
+  },
+  "ins-h15": {
+   "g": 0,
+   "from": "Unsweetened drink"
+  },
+  "ins-h16": {
+   "g": 0,
+   "from": "Unsweetened drink"
+  },
+  "ins-h17": {
+   "g": 0,
+   "from": "Unsweetened drink"
+  },
+  "ins-h18": {
+   "g": 0,
+   "from": "Unsweetened drink"
+  },
+  "ins-h19": {
+   "g": 4.3,
+   "from": "Sweetened drink: sugar about its carbohydrate"
+  },
+  "ins-h20": {
+   "g": 0,
+   "from": "Unsweetened drink"
+  },
+  "ins-h21": {
+   "g": 7.4,
+   "from": "Sweetened drink: sugar about its carbohydrate"
+  },
+  "ins-h22": {
+   "g": 0,
+   "from": "Unsweetened drink"
+  },
+  "ins-h23": {
+   "g": 5.4,
+   "from": "Sweetened drink: sugar about its carbohydrate"
+  },
+  "ins-h24": {
+   "g": 3.0,
+   "from": "Sweetened drink: sugar about its carbohydrate"
+  },
+  "ins-h25": {
+   "g": 6.7,
+   "from": "Sweetened drink: sugar about its carbohydrate"
+  },
+  "ins-h26": {
+   "g": 3.5,
+   "from": "Sweetened drink: sugar about its carbohydrate"
+  },
+  "ins-h27": {
+   "g": 0,
+   "from": "Unsweetened drink"
+  },
+  "ins-h28": {
+   "g": 7.6,
+   "from": "Sweetened drink: sugar about its carbohydrate"
+  },
+  "ins-h29": {
+   "g": 8.2,
+   "from": "Sweetened drink: sugar about its carbohydrate"
+  },
+  "ins-h30": {
+   "g": 7.9,
+   "from": "Sweetened drink: sugar about its carbohydrate"
+  },
+  "ins-h31": {
+   "g": 3.1,
+   "from": "Sweetened drink: sugar about its carbohydrate"
+  },
+  "ins-h32": {
+   "g": 3.7,
+   "from": "Nectar with sweetener: the label lists sugar too, about its carbohydrate",
+   "doubtful": true
+  },
+  "ins-k2": {
+   "g": 97,
+   "from": "Brown sugar: ~97 g sucrose"
+  },
+  "ins-k3": {
+   "g": 84,
+   "from": "Chancaca (panela): free sugar, about its carbohydrate"
+  },
+  "ins-k4": {
+   "g": 82,
+   "from": "Honey: USDA 169640 ~82 g sugars, free sugar (WHO 2015)"
+  },
+  "ins-k5": {
+   "g": 72,
+   "from": "Cane syrup: free sugar, about its carbohydrate"
+  },
+  "ins-k6": {
+   "g": 45.7,
+   "from": "Jam: carbohydrate minus ~5 g from the fruit"
+  },
+  "ins-k7": {
+   "g": 54.4,
+   "from": "Jam: carbohydrate minus ~5 g from the fruit"
+  },
+  "ins-k8": {
+   "g": 62.2,
+   "from": "Jam: carbohydrate minus ~5 g from the fruit"
+  },
+  "ins-l14": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-l27": {
+   "g": 10,
+   "from": "USDA worcestershire sauce: ~10 g sugars"
+  },
+  "ins-l30": {
+   "g": 50,
+   "from": "Malted chocolate drink powder (Milo type): label ~48 g sugars"
+  },
+  "ins-l35": {
+   "g": 15,
+   "from": "Sweetened fried sweet-potato chips: estimate",
+   "doubtful": true
+  },
+  "ins-l36": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-l37": {
+   "g": 42,
+   "from": "Milk chocolate with peanuts: USDA 51.5 g sugars minus lactose and peanuts",
+   "doubtful": true
+  },
+  "ins-l39": {
+   "g": 15,
+   "from": "Churro with pastry cream: estimate",
+   "doubtful": true
+  },
+  "ins-l42": {
+   "g": 2,
+   "from": "Mayonnaise, as the curated mayonesa label: ~2 g"
+  },
+  "ins-l49": {
+   "g": 3,
+   "from": "Instant noodle soup: estimate",
+   "doubtful": true
+  },
+  "ins-l51": {
+   "g": 0,
+   "from": "Savoury food: sugar negligible"
+  },
+  "ins-q1": {
+   "g": 0,
+   "from": "Infant formula: lactose only"
+  },
+  "ins-q2": {
+   "g": 20,
+   "from": "Infant cereal or formula with sucrose: estimate",
+   "doubtful": true
+  },
+  "ins-q3": {
+   "g": 20,
+   "from": "Infant cereal or formula with sucrose: estimate",
+   "doubtful": true
+  },
+  "ins-q4": {
+   "g": 0,
+   "from": "Infant formula: lactose only"
+  },
+  "ins-q5": {
+   "g": 0,
+   "from": "Infant formula: lactose only"
+  },
+  "ins-q6": {
+   "g": 15,
+   "from": "Infant cereal or formula with sucrose: estimate",
+   "doubtful": true
+  },
+  "ins-q7": {
+   "g": 15,
+   "from": "Infant cereal or formula with sucrose: estimate",
+   "doubtful": true
+  },
+  "ins-q8": {
+   "g": 0,
+   "from": "Infant formula: lactose only"
+  },
+  "ins-q9": {
+   "g": 0,
+   "from": "Infant formula: lactose only"
+  },
+  "ins-q10": {
+   "g": 10,
+   "from": "Infant cereal or formula with sucrose: estimate",
+   "doubtful": true
+  },
+  "ins-q11": {
+   "g": 10,
+   "from": "Infant cereal or formula with sucrose: estimate",
+   "doubtful": true
+  },
+  "ins-q12": {
+   "g": 20,
+   "from": "Infant cereal or formula with sucrose: estimate",
+   "doubtful": true
+  },
+  "ins-q13": {
+   "g": 0,
+   "from": "Infant formula: lactose only"
+  },
+  "ins-q14": {
+   "g": 0,
+   "from": "Infant formula: lactose only"
+  },
+  "ins-q15": {
+   "g": 0,
+   "from": "Infant formula: lactose only"
+  },
+  "ins-q16": {
+   "g": 0,
+   "from": "Infant formula: lactose only"
+  },
+  "ins-q17": {
+   "g": 0,
+   "from": "Infant formula: lactose only"
+  },
+  "ins-q18": {
+   "g": 10,
+   "from": "Infant cereal or formula with sucrose: estimate",
+   "doubtful": true
+  },
+  "ins-t25": {
+   "g": 0,
+   "from": "Plain food: \"dulce\" names the variety, not added sugar"
+  },
+  "ins-t72": {
+   "g": 2,
+   "from": "Commercial soy drink: lightly sweetened, estimate",
+   "doubtful": true
+  },
+  "ins-a5": {
+   "g": 0,
+   "from": "Packaged savoury food or plain grain: sugar negligible"
+  },
+  "ins-e91": {
+   "g": 0,
+   "from": "Packaged savoury food or plain grain: sugar negligible"
+  },
+  "ins-f109": {
+   "g": 0,
+   "from": "Packaged savoury food or plain grain: sugar negligible"
+  },
+  "ins-f129": {
+   "g": 0,
+   "from": "Packaged savoury food or plain grain: sugar negligible"
+  },
+  "ins-f77": {
+   "g": 0,
+   "from": "Packaged savoury food or plain grain: sugar negligible"
+  },
+  "ins-l41": {
+   "g": 0,
+   "from": "Packaged savoury food or plain grain: sugar negligible"
+  },
+  "ins-l43": {
+   "g": 0,
+   "from": "Packaged savoury food or plain grain: sugar negligible"
+  },
+  "ins-l44": {
+   "g": 0,
+   "from": "Packaged savoury food or plain grain: sugar negligible"
+  },
+  "ins-l46": {
+   "g": 0,
+   "from": "Packaged savoury food or plain grain: sugar negligible"
+  },
+  "ins-l47": {
+   "g": 0,
+   "from": "Packaged savoury food or plain grain: sugar negligible"
+  },
+  "ins-u83": {
+   "g": 0,
+   "from": "Packaged savoury food or plain grain: sugar negligible"
+  },
+  "ins-u84": {
+   "g": 0,
+   "from": "Packaged savoury food or plain grain: sugar negligible"
   }
  }
 }

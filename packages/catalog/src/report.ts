@@ -1,4 +1,4 @@
-import type { Catalog } from './build-catalog.ts';
+import { TAGS, type Catalog, type Inputs } from './build-catalog.ts';
 
 const pct = (value: number) => `${Math.round(value * 100)}%`;
 const VERDICT: Record<Catalog['crossChecks'][number]['verdict'], string> = {
@@ -16,8 +16,13 @@ function table(header: string[], rows: string[][]): string {
   return [line(header), line(header.map(() => '---')), ...rows.map(line)].join('\n') + '\n';
 }
 
-/** Human review of an import: what is missing, approximated, converted or out of range. */
-export function renderReport(catalog: Catalog): string {
+/**
+ * Human review of an import: what is missing, approximated, converted or out of range; the added-sugar estimates
+ * to check against a label and the tagged foods (F22, F24).
+ */
+export function renderReport(catalog: Catalog, addedSugar: Inputs['addedSugar'] = {}): string {
+  const nameOf = new Map(catalog.foods.map((f) => [f.id, f.name]));
+  const doubtful = Object.entries(addedSugar).filter(([, v]) => v.doubtful);
   const count = (predicate: (f: Catalog['foods'][number]) => boolean) =>
     catalog.foods.filter(predicate).length;
   const checks = (verdict: string) => catalog.crossChecks.filter((c) => c.verdict === verdict);
@@ -38,6 +43,7 @@ export function renderReport(catalog: Catalog): string {
         ['… from USDA', String(count((f) => f.source.kind === 'USDA'))],
         ['… from labels', String(count((f) => f.source.kind === 'label' && f.status === 'ok'))],
         ['… labels to read', String(count((f) => f.status === 'label-pending'))],
+        ['… generic INS foods (ingredients only, F23)', String(count((f) => f.generic === true))],
         ['… unmatched', String(count((f) => f.status === 'unmatched'))],
         ['… proxies', String(count((f) => f.status === 'proxy'))],
         ['Dishes', String(catalog.dishes.length)],
@@ -132,5 +138,21 @@ export function renderReport(catalog: Catalog): string {
         d.totals.missingFoods.join(', '),
       ]),
     ),
+    '## Added sugar to check against a label',
+    '',
+    table(
+      ['Food', 'Name', 'g / 100 g', 'Why'],
+      doubtful.map(([id, v]) => [id, nameOf.get(id) ?? '', String(v.g), v.from ?? '']),
+    ),
+    ...TAGS.flatMap((tag) => {
+      const foods = catalog.foods.filter((f) => f.tags.includes(tag));
+      const dishes = catalog.dishes.filter((d) => d.tags.includes(tag));
+      return [
+        `## Tag \`${tag}\` (${foods.length} foods, ${dishes.length} dishes)`,
+        '',
+        `${foods.map((f) => f.name).join(' · ')}\n`,
+        `Dishes: ${dishes.map((d) => d.name).join(' · ') || '—'}\n`,
+      ];
+    }),
   ].join('\n');
 }

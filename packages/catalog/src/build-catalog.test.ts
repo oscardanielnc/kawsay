@@ -5,7 +5,7 @@ const catalog = buildCatalog(readInputs(new URL('..', import.meta.url)));
 
 describe('buildCatalog on the real seed and sources', () => {
   it('resolves every seed food; every link points to an existing row', () => {
-    expect(catalog.foods).toHaveLength(151);
+    expect(catalog.foods.filter((f) => !f.generic)).toHaveLength(151);
   });
 
   it('INS comes first: most foods resolve from the Peruvian table', () => {

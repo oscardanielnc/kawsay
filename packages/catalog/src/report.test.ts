@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { buildCatalog, readInputs } from './build-catalog.ts';
 import { renderReport } from './report.ts';
 
-const report = renderReport(buildCatalog(readInputs(new URL('..', import.meta.url))));
+const inputs = readInputs(new URL('..', import.meta.url));
+const report = renderReport(buildCatalog(inputs), inputs.addedSugar);
 
 describe('renderReport', () => {
   it('lists what a person has to act on', () => {
@@ -14,6 +15,9 @@ describe('renderReport', () => {
       '## Cooked from raw',
       '## Group S cross-check',
       '## Dishes with incomplete energy',
+      '## Added sugar to check against a label',
+      '## Tag `refined-flour`',
+      '## Tag `drink`',
     ]) {
       expect(report).toContain(section);
     }

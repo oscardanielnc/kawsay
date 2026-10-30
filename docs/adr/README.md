@@ -25,3 +25,4 @@ Template: [template.md](template.md).
 | [0018](0018-sync-storage-and-change-tracking.md) | Sync storage on the server, change tracking on the phone | Accepted |
 | [0019](0019-insights-on-phone-notes-to-ai.md) | Insights computed on the phone; day notes go to the AI as text | Accepted |
 | [0020](0020-liver-health-targets.md) | Liver-health targets: sugar, drinks, movement, alcohol, sleep | Accepted |
+| [0021](0021-every-ins-food-on-the-phone.md) | Every INS food on the phone; USDA stays a source, not a list | Accepted |

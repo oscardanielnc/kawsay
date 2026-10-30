@@ -19,14 +19,19 @@ export interface Inputs {
   /** INEI ENCONUT 2013 summary by component name. */
   survey: Map<string, Survey>;
   /** Added sugar per 100 g of packaged and prepared foods (F22). */
-  addedSugar: Record<string, { g: number; from?: string }>;
+  addedSugar: Record<string, { g: number; from?: string; doubtful?: true }>;
+  /** Food ids per tag (seed/tags). */
+  tags: Record<Tag, string[]>;
 }
+
+export const TAGS = ['refined-flour', 'drink'] as const;
+export type Tag = (typeof TAGS)[number];
 
 export interface Catalog {
   version: string;
   sources: { ins: string; usda: string };
   foods: ResolvedFood[];
-  dishes: (SeedDish & { totals: DishTotals })[];
+  dishes: (SeedDish & { totals: DishTotals; tags: Tag[] })[];
   crossChecks: (CrossCheck & { dish: string; acceptedBecause?: string })[];
 }
 
@@ -41,6 +46,9 @@ export function readInputs(root: URL): Inputs {
     dishes: json<{ dishes: SeedDish[] }>('seed/dishes.json').dishes,
     matches: json<Inputs['matches']>('seed/matches.json'),
     addedSugar: json<{ foods: Inputs['addedSugar'] }>('seed/added-sugar.json').foods,
+    tags: Object.fromEntries(
+      TAGS.map((tag) => [tag, json<{ foods: string[] }>(`seed/tags/${tag}.json`).foods]),
+    ) as Inputs['tags'],
     sources: {
       ins: byKey(parseCsv(text('sources/ins-2023/foods.csv')), 'code'),
       usda: byKey(parseCsv(text('sources/usda-sr-legacy/foods.csv')), 'fdc_id'),
@@ -77,9 +85,68 @@ function withAddedSugar(
   return { ...resolved, per100g: { ...resolved.per100g, addedSugarG: grams } };
 }
 
+/** State of an INS row from its name, for the generic foods (F23). */
+function stateFromName(name: string): SeedFood['state'] {
+  if (/frit[oa]/i.test(name)) return 'fried';
+  if (/cocid|sancochad|hervid|asad|tostad/i.test(name)) return 'cooked';
+  if (/crud[oa]/i.test(name)) return 'raw';
+  return 'as-sold';
+}
+
+/**
+ * Every INS row the seed does not already curate, as a generic food (F23 piece 2): its INS name, grams only, the
+ * values as INS prints them. Added sugar comes from the list (0 when not listed: INS foods are unsweetened unless
+ * named there).
+ */
+function genericFoods(inputs: Inputs, curatedCodes: ReadonlySet<string>): ResolvedFood[] {
+  return [...inputs.sources.ins.values()]
+    .filter((row) => !curatedCodes.has(row.code ?? ''))
+    .map((row) => {
+      const code = row.code ?? '';
+      const id = `ins-${code.toLowerCase()}`;
+      const seed: SeedFood = {
+        name: (row.name ?? code).trim(),
+        source: 'INS',
+        state: stateFromName(row.name ?? ''),
+        units: [],
+      };
+      const resolved = withAddedSugar(
+        resolveFood(id, seed, { ins: code }, inputs.sources),
+        seed,
+        inputs.addedSugar[id],
+      );
+      return { ...resolved, generic: true as const };
+    });
+}
+
+/** Tags from seed/tags, and the refined-flour carbohydrate they imply (F24). A tag on an unknown id fails. */
+function withTags(foods: ResolvedFood[], tags: Inputs['tags']): ResolvedFood[] {
+  const ids = new Set(foods.map((f) => f.id));
+  for (const tag of TAGS) {
+    const unknown = tags[tag].filter((id) => !ids.has(id));
+    if (unknown.length)
+      throw new Error(`seed/tags/${tag}.json names unknown foods: ${unknown.join(', ')}`);
+  }
+  return foods.map((food) => {
+    const own = TAGS.filter((tag) => tags[tag].includes(food.id));
+    if (!food.per100g) return { ...food, tags: own };
+    const flour = own.includes('refined-flour') ? food.per100g.carbsTotalG : 0;
+    return { ...food, tags: own, per100g: { ...food.per100g, refinedFlourCarbsG: flour } };
+  });
+}
+
+/** A dish is refined flour when an ingredient is, and a drink when its group is (F24, ADR 0020). */
+function dishTags(dish: SeedDish, byId: ReadonlyMap<string, ResolvedFood>): Tag[] {
+  const tags: Tag[] = [];
+  if (dish.items.some((item) => byId.get(item.food)?.tags.includes('refined-flour')))
+    tags.push('refined-flour');
+  if (dish.group === 'drink') tags.push('drink');
+  return tags;
+}
+
 /** Seed + matches + sources → the catalog the app bundles (ADR 0014). Throws on any broken link. */
 export function buildCatalog(inputs: Inputs): Catalog {
-  const foods = Object.entries(inputs.foods).map(([id, food]) => {
+  const curated = Object.entries(inputs.foods).map(([id, food]) => {
     const match = inputs.matches.foods[id];
     if (!match) throw new Error(`${id} has no entry in seed/matches.json`);
     return withAddedSugar(
@@ -88,8 +155,16 @@ export function buildCatalog(inputs: Inputs): Catalog {
       inputs.addedSugar[id],
     );
   });
+  const curatedCodes = new Set(
+    curated.flatMap((f) => (f.source.kind === 'INS' && f.source.code ? [f.source.code] : [])),
+  );
+  const foods = withTags([...curated, ...genericFoods(inputs, curatedCodes)], inputs.tags);
   const byId = new Map(foods.map((food) => [food.id, food]));
-  const dishes = inputs.dishes.map((dish) => ({ ...dish, totals: dishTotals(dish, byId) }));
+  const dishes = inputs.dishes.map((dish) => ({
+    ...dish,
+    totals: dishTotals(dish, byId),
+    tags: dishTags(dish, byId),
+  }));
   const crossChecks = Object.entries(inputs.matches.groupS).map(([dishId, link]) => {
     const dish = dishes.find((d) => d.id === dishId);
     if (!dish) throw new Error(`groupS names an unknown dish: ${dishId}`);

@@ -27,6 +27,8 @@ export const NUTRIENTS = {
   vitaminDUg: 'vitamin_d_ug',
   /** Not in the source tables: set from seed/added-sugar.json or the label (F22). */
   addedSugarG: 'added_sugar_g',
+  /** Not in the source tables: the carbohydrate of foods tagged refined-flour, 0 otherwise (F24). */
+  refinedFlourCarbsG: 'refined_flour_carbs_g',
 } as const;
 
 export type NutrientKey = keyof typeof NUTRIENTS;

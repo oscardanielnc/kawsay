@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Kawsay · Hoy</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Figtree:wght@400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;family=Nunito:wght@500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2563B8}a:hover{color:#1C4F96}
+button{font:inherit;cursor:pointer}
+@keyframes sweep{from{transform:rotate(0deg)}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.needle{transform-box:view-box;transform-origin:100px 100px;animation:sweep 900ms cubic-bezier(.2,.9,.25,1.15) both}
+.card{animation:rise 420ms ease-out both}
+.face{transition:transform 160ms cubic-bezier(.3,1.6,.5,1),opacity 160ms}
+.face:active{transform:scale(.92)}
+</style>
+</helmet>
+<div style="width: 390px; height: 2780px; box-sizing: border-box; position: relative; overflow: hidden; background: {{bg}}; color: #1D2B45; font-family: {{bodyFont}};">
+
+<div style="padding: 52px 20px 140px; display: flex; flex-direction: column; gap: 16px;">
+
+<header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<span style="font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: #46597A;">Jueves 30 de octubre</span>
+<h1 style="margin: 0; font-family: {{titleFont}}; font-size: 34px; font-weight: 800; letter-spacing: -.02em;">Hoy</h1>
+</div>
+<div style="display: flex; gap: 8px;">
+<button aria-label="Día anterior" style="width: 44px; height: 44px; border-radius: 22px; border: 1px solid rgba(255,255,255,.8); background: rgba(255,255,255,.65); display: flex; align-items: center; justify-content: center; color: #1D2B45;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<button aria-label="Elegir día" style="width: 44px; height: 44px; border-radius: 22px; border: 1px solid rgba(255,255,255,.8); background: rgba(255,255,255,.65); display: flex; align-items: center; justify-content: center; color: #1D2B45;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg></button>
+</div>
+</header>
+
+<section aria-label="Calorías y macros" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+<sc-for list="{{gauges}}" as="g" hint-placeholder-count="4">
+<div class="card" style="background: rgba(255,255,255,.82); border: 1px solid rgba(255,255,255,.9); border-radius: 24px; padding: 14px 12px 12px; box-shadow: 0 10px 28px rgba(38,72,128,.08); display: flex; flex-direction: column; align-items: center; gap: 4px;">
+<div style="align-self: stretch; display: flex; justify-content: space-between; align-items: center; gap: 4px;"><span style="font-size: 13px; font-weight: 700; color: #5B6B86;">{{g.name}}</span><span style="{{g.badgeStyle}}">{{g.badge}}</span></div>
+<div style="position: relative; width: 100%;">
+<svg viewBox="0 0 200 112" width="100%" role="img" aria-label="{{g.aria}}">
+<path d="{{g.z0}}" stroke="{{g.c0}}" stroke-width="12" fill="none" stroke-linecap="round"></path>
+<path d="{{g.z1}}" stroke="{{g.c1}}" stroke-width="12" fill="none" stroke-linecap="round"></path>
+<path d="{{g.z2}}" stroke="{{g.c2}}" stroke-width="12" fill="none" stroke-linecap="round"></path>
+<path d="{{g.z3}}" stroke="{{g.c3}}" stroke-width="12" fill="none" stroke-linecap="round"></path>
+<path d="{{g.z4}}" stroke="{{g.c4}}" stroke-width="12" fill="none" stroke-linecap="round"></path>
+<g class="needle" style="{{g.needle}}">
+<path d="M100 100 L34 100" stroke="#1D2B45" stroke-width="3.5" stroke-linecap="round"></path>
+</g>
+<circle cx="100" cy="100" r="7" fill="#1D2B45"></circle>
+<circle cx="100" cy="100" r="2.6" fill="#FFFFFF"></circle>
+</svg>
+</div>
+<div style="display: flex; align-items: baseline; gap: 4px; margin-top: -6px;">
+<span style="font-family: {{titleFont}}; font-size: 26px; font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums;">{{g.value}}</span>
+<span style="font-size: 13px; font-weight: 600; color: #5B6B86;">{{g.unit}}</span>
+</div>
+<span style="{{g.pillStyle}}">{{g.state}}</span>
+<span style="font-size: 11px; color: #5B6B86;">{{g.range}}</span>
+</div>
+</sc-for>
+</section>
+
+<section class="card" aria-label="Tu día registrado" style="background: rgba(255,255,255,.82); border: 1px solid rgba(255,255,255,.9); border-radius: 24px; padding: 16px; box-shadow: 0 10px 28px rgba(38,72,128,.08); display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;">
+<h2 style="margin: 0; font-family: {{titleFont}}; font-size: 18px; font-weight: 700;">Tu día registrado</h2>
+<span style="font-size: 13px; font-weight: 700; color: #2563B8;">4 de 6</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px;">
+<span style="height: 6px; border-radius: 3px; background: #4C8DE6;"></span>
+<span style="height: 6px; border-radius: 3px; background: #4C8DE6;"></span>
+<span style="height: 6px; border-radius: 3px; background: #4C8DE6;"></span>
+<span style="height: 6px; border-radius: 3px; background: #4C8DE6;"></span>
+<span style="height: 6px; border-radius: 3px; background: #DCE6F3;"></span>
+<span style="height: 6px; border-radius: 3px; background: #DCE6F3;"></span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span style="padding: 6px 10px; border-radius: 999px; background: #E6F0FD; color: #1C4F96; font-size: 13px; font-weight: 600;">✓ Comidas</span>
+<span style="padding: 6px 10px; border-radius: 999px; background: #E6F0FD; color: #1C4F96; font-size: 13px; font-weight: 600;">✓ Actividad</span>
+<span style="padding: 6px 10px; border-radius: 999px; background: #E6F0FD; color: #1C4F96; font-size: 13px; font-weight: 600;">✓ Sueño</span>
+<span style="padding: 6px 10px; border-radius: 999px; background: #E6F0FD; color: #1C4F96; font-size: 13px; font-weight: 600;">✓ Peso</span>
+<span style="padding: 6px 10px; border-radius: 999px; border: 1.5px dashed #9DB3D1; color: #46597A; font-size: 13px; font-weight: 600;">Ánimo ›</span>
+<span style="padding: 6px 10px; border-radius: 999px; border: 1.5px dashed #9DB3D1; color: #46597A; font-size: 13px; font-weight: 600;">Orina ›</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="font-weight: 600;">Movimiento</span><span style="color: #5B6B86;">18 de 30 min · faltan 12</span></div>
+<div style="height: 10px; border-radius: 5px; background: #E3EAF4; overflow: hidden;"><div style="width: 60%; height: 100%; border-radius: 5px; background: linear-gradient(90deg, #8FBDF0, #4C8DE6);"></div></div>
+</div>
+</section>
+
+<section class="card" aria-label="Comidas" style="background: rgba(255,255,255,.82); border: 1px solid rgba(255,255,255,.9); border-radius: 24px; padding: 16px; box-shadow: 0 10px 28px rgba(38,72,128,.08); display: flex; flex-direction: column; gap: 14px;">
+<h2 style="margin: 0; font-family: {{titleFont}}; font-size: 18px; font-weight: 700;">Comidas</h2>
+<sc-for list="{{meals}}" as="m" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; gap: 10px;">
+<span style="flex: 1; font-size: 15px; font-weight: 700;">{{m.name}}</span>
+<span style="font-size: 13px; color: #5B6B86; font-variant-numeric: tabular-nums;">{{m.kcal}}</span>
+<button aria-label="Agregar a {{m.name}}" style="width: 36px; height: 36px; border-radius: 18px; border: none; background: #2563B8; color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(37,99,184,.25);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button>
+</div>
+<sc-if value="{{m.empty}}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 13px; color: #5B6B86;">Sin registrar todavía</span>
+</sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<sc-for list="{{m.items}}" as="it" hint-placeholder-count="2">
+<span style="{{it.style}}"><span style="{{it.dot}}"></span>{{it.label}}</span>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</section>
+
+<section class="card" aria-label="Cuerpo y ánimo" style="background: rgba(255,255,255,.82); border: 1px solid rgba(255,255,255,.9); border-radius: 24px; padding: 16px; box-shadow: 0 10px 28px rgba(38,72,128,.08); display: flex; flex-direction: column; gap: 16px;">
+<h2 style="margin: 0; font-family: {{titleFont}}; font-size: 18px; font-weight: 700;">Cuerpo y ánimo</h2>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<span style="font-size: 15px; font-weight: 700;">Baño</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span style="padding: 7px 12px; border-radius: 999px; background: #EEF3FA; font-size: 13px; font-weight: 600;">Tipo 4 · normal</span>
+<button style="height: 34px; padding: 0 12px; border-radius: 999px; border: 1.5px dashed #9DB3D1; background: transparent; color: #2563B8; font-size: 13px; font-weight: 700;">+ Ida al baño</button>
+</div>
+</div>
+<sc-for list="{{scales}}" as="s" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;">
+<span style="font-size: 15px; font-weight: 700;">{{s.title}}</span>
+<span style="font-size: 13px; font-weight: 600; color: #2563B8;">{{s.picked}}</span>
+</div>
+<div style="display: flex; justify-content: space-between;">
+<sc-for list="{{s.faces}}" as="f" hint-placeholder-count="5">
+<button class="face" aria-label="{{f.aria}}" aria-pressed="{{f.on}}" onClick="{{f.pick}}" style="{{f.style}}">
+<svg width="46" height="46" viewBox="0 0 48 48" aria-hidden="true">
+<circle cx="24" cy="24" r="21" fill="{{f.color}}"></circle>
+<path d="{{f.eyes}}" stroke="{{f.ink}}" stroke-width="{{f.eyeWidth}}" stroke-linecap="round" fill="none"></path>
+<path d="{{f.mouth}}" stroke="{{f.ink}}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="{{f.mouthFill}}"></path>
+<path d="M33 24c0 0-3 4-3 6.2a3 3 0 0 0 6 0c0-2.2-3-6.2-3-6.2z" fill="#6FB3F2" opacity="{{f.tear}}"></path>
+<circle cx="12" cy="29" r="3.5" fill="#FF8A7A" opacity="{{f.blush}}"></circle>
+<circle cx="36" cy="29" r="3.5" fill="#FF8A7A" opacity="{{f.blush}}"></circle>
+</svg>
+<span style="{{f.labelStyle}}">{{f.label}}</span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{s.hint}}" hint-placeholder-val="{{ true }}">
+<span style="font-size: 12px; color: #5B6B86;">El pico del día, aunque luego se haya calmado.</span>
+</sc-if>
+</div>
+</sc-for>
+</section>
+
+<section class="card" aria-label="Hidratación" style="background: rgba(255,255,255,.82); border: 1px solid rgba(255,255,255,.9); border-radius: 24px; padding: 16px; box-shadow: 0 10px 28px rgba(38,72,128,.08); display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<h2 style="margin: 0; font-family: {{titleFont}}; font-size: 18px; font-weight: 700;">Hidratación</h2>
+<span style="font-size: 12px; font-weight: 600; color: #5B6B86; padding: 4px 8px; border-radius: 999px; background: #EEF3FA;">Opcional</span>
+</div>
+<span style="font-size: 14px; font-weight: 600;">Color de tu orina</span>
+<div style="display: flex; gap: 10px;">
+<sc-for list="{{urine}}" as="u" hint-placeholder-count="3">
+<button aria-pressed="{{u.on}}" onClick="{{u.pick}}" style="{{u.style}}"><span style="{{u.dot}}"></span>{{u.label}}</button>
+</sc-for>
+</div>
+<button aria-expanded="{{drinksOpen}}" onClick="{{toggleDrinks}}" style="display: flex; justify-content: space-between; align-items: center; height: 44px; padding: 0 4px; border: none; background: transparent; color: #2563B8; font-size: 14px; font-weight: 700;"><span>{{drinksLabel}}</span><span style="{{chevron}}">⌄</span></button>
+<sc-if value="{{drinksOpen}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px; padding-top: 4px; border-top: 1px solid #E3EAF4;">
+<sc-for list="{{drinks}}" as="d" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 10px; min-height: 44px;">
+<span style="{{d.dot}}"></span>
+<span style="flex: 1; font-size: 14px; font-weight: 600;">{{d.name}}</span>
+<span style="font-size: 12px; color: #5B6B86;">{{d.note}}</span>
+<button aria-label="Quitar un vaso de {{d.name}}" style="width: 36px; height: 36px; border-radius: 18px; border: 1px solid #D5E0EE; background: #FFFFFF; color: #1D2B45; font-size: 18px;">−</button>
+<span style="width: 18px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums;">{{d.count}}</span>
+<button aria-label="Sumar un vaso de {{d.name}}" style="width: 36px; height: 36px; border-radius: 18px; border: none; background: #E6F0FD; color: #1C4F96; font-size: 18px;">+</button>
+</div>
+</sc-for>
+<span style="font-size: 12px; color: #5B6B86;">Las bebidas con calorías se registran en Comidas y aparecen aquí solas.</span>
+</div>
+</sc-if>
+</section>
+
+<section class="card" aria-label="Sueño" style="background: rgba(255,255,255,.82); border: 1px solid rgba(255,255,255,.9); border-radius: 24px; padding: 16px; box-shadow: 0 10px 28px rgba(38,72,128,.08); display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;">
+<h2 style="margin: 0; font-family: {{titleFont}}; font-size: 18px; font-weight: 700;">Sueño</h2>
+<span style="font-family: {{titleFont}}; font-size: 18px; font-weight: 800;">8 h 15</span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 18px; background: #EEF3FA;">
+<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14A7 7 0 1 1 10 5a5.5 5.5 0 0 0 9 9z" fill="#3D5A9E"></path></svg>
+<div style="flex: 1; display: flex; flex-direction: column;"><span style="font-weight: 700; font-size: 14px;">Noche</span><span style="font-size: 13px; color: #5B6B86;">23:30 → 07:15 · calidad buena</span></div>
+<span style="font-weight: 700; font-size: 14px;">7 h 45</span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 18px; background: #FFF3EA;">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8662A" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"></path></svg>
+<div style="flex: 1; display: flex; flex-direction: column;"><span style="font-weight: 700; font-size: 14px;">Siesta</span><span style="font-size: 13px; color: #5B6B86;">14:00 → 14:30 · toca para editar</span></div>
+<span style="font-weight: 700; font-size: 14px;">30 min</span>
+</div>
+<button style="align-self: flex-start; height: 40px; padding: 0 8px; border: none; background: transparent; color: #2563B8; font-size: 14px; font-weight: 700;">+ Agregar otra siesta</button>
+</section>
+
+<section class="card" aria-label="Tus síntomas" style="background: rgba(255,255,255,.82); border: 1px solid rgba(255,255,255,.9); border-radius: 24px; padding: 16px; box-shadow: 0 10px 28px rgba(38,72,128,.08); display: flex; flex-direction: column; gap: 12px;">
+<h2 style="margin: 0; font-family: {{titleFont}}; font-size: 18px; font-weight: 700;">Tus síntomas</h2>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 18px; background: #FFF3EA;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><span style="font-weight: 700; font-size: 14px;">Dolor de cabeza</span><span style="font-size: 13px; font-weight: 700; color: #A2541F;">Día 4</span></div>
+<span style="font-size: 13px; color: #5B6B86;">¿Sigues con dolor de cabeza hoy?</span>
+<div style="display: flex; gap: 8px;">
+<button style="flex: 1; height: 40px; border-radius: 999px; border: none; background: #2563B8; color: #FFFFFF; font-size: 14px; font-weight: 700;">Sí, sigue</button>
+<button style="flex: 1; height: 40px; border-radius: 999px; border: 1px solid #D5E0EE; background: #FFFFFF; color: #1D2B45; font-size: 14px; font-weight: 700;">Ya se fue</button>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span style="padding: 7px 12px; border-radius: 999px; background: #EEF3FA; font-size: 13px; font-weight: 600;">Cansancio</span>
+<button style="height: 34px; padding: 0 12px; border-radius: 999px; border: 1.5px dashed #9DB3D1; background: transparent; color: #2563B8; font-size: 13px; font-weight: 700;">+ Crear síntoma</button>
+</div>
+</section>
+
+</div>
+
+<nav aria-label="Navegación principal" style="position: absolute; left: 16px; right: 16px; bottom: 24px; height: 72px; border-radius: 30px; background: rgba(255,255,255,.78); border: 1px solid rgba(255,255,255,.95); box-shadow: 0 12px 32px rgba(38,72,128,.16); backdrop-filter: blur(18px); display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: center;">
+<a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 2px; color: #2563B8; text-decoration: none; font-size: 11px; font-weight: 700;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"></path></svg>Hoy</a>
+<a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 2px; color: #5B6B86; text-decoration: none; font-size: 11px; font-weight: 600;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg>Calendario</a>
+<a href="#" aria-label="Registrar" style="justify-self: center; width: 56px; height: 56px; border-radius: 28px; background: linear-gradient(180deg, #4C8DE6, #2563B8); box-shadow: 0 8px 18px rgba(37,99,184,.35); display: flex; align-items: center; justify-content: center; color: #FFFFFF;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></a>
+<a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 2px; color: #5B6B86; text-decoration: none; font-size: 11px; font-weight: 600;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"></path></svg>Análisis</a>
+<a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 2px; color: #5B6B86; text-decoration: none; font-size: 11px; font-weight: 600;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Perfil</a>
+</nav>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"fondo":{"editor":"enum","options":["Amanecer","Cielo"],"default":"Amanecer"},"letra":{"editor":"enum","options":["Plus Jakarta Sans","Manrope","Nunito"],"default":"Plus Jakarta Sans"},"$preview":{"width":390,"height":2780}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { stress: 2, energy: 3, mood: null, urine: 'clear', drinksOpen: false };
+  }
+  renderVals() {
+    var self = this;
+    var fondo = this.props.fondo ?? 'Amanecer';
+    var letra = this.props.letra ?? 'Plus Jakarta Sans';
+    var bg = fondo === 'Cielo'
+      ? 'linear-gradient(180deg, #CFE3FA 0%, #E3EEFB 45%, #F2F6FC 100%)'
+      : 'linear-gradient(180deg, #CFE3FA 0%, #E5EEFB 30%, #F4F0F2 62%, #FFE4D0 100%)';
+    var titleFont = "'" + letra + "', 'Figtree', sans-serif";
+    var bodyFont = "'Figtree', '" + letra + "', sans-serif";
+
+    var pill = function (kind) {
+      var base = 'padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;';
+      if (kind === 'in') return base + ' background: #E6F0FD; color: #1C4F96;';
+      if (kind === 'high') return base + ' background: #FDF0DC; color: #8A5300;';
+      return base + ' background: #EEF1F6; color: #46597A;';
+    };
+    var TWO = { z: ['M 22.0 100.0 A 78 78 0 0 1 25.0 78.7', 'M 26.8 73.1 A 78 78 0 0 1 48.1 41.8', 'M 52.6 38.1 A 78 78 0 0 1 147.4 38.1', 'M 151.9 41.8 A 78 78 0 0 1 173.2 73.1', 'M 175.0 78.7 A 78 78 0 0 1 178.0 100.0'], c: ['#F3A99F', '#F6D08D', '#7FB2F0', '#F6D08D', '#F3A99F'] };
+    var ONE = { z: ['M 22.0 100.0 A 78 78 0 0 1 79.8 24.7', 'M 85.5 23.4 A 78 78 0 0 1 146.3 37.2', 'M 150.9 40.9 A 78 78 0 0 1 178.0 100.0', 'M 0 0', 'M 0 0'], c: ['#7FB2F0', '#F6D08D', '#F3A99F', 'none', 'none'] };
+    var gauge = function (name, value, unit, f, kind, state, range, oneSided, badge) {
+      var z = oneSided ? ONE : TWO;
+      return {
+        name: name, value: value, unit: unit, state: state, range: range,
+        z0: z.z[0], z1: z.z[1], z2: z.z[2], z3: z.z[3], z4: z.z[4],
+        c0: z.c[0], c1: z.c[1], c2: z.c[2], c3: z.c[3], c4: z.c[4],
+        badge: badge || '',
+        badgeStyle: badge ? 'padding: 2px 8px; border-radius: 999px; background: #FFF1E6; color: #8A4513; font-size: 11px; font-weight: 700;' : 'display: none;',
+        aria: name + ': ' + value + ' ' + unit + ', ' + state,
+        needle: 'transform: rotate(' + Math.round(f * 180) + 'deg);',
+        pillStyle: pill(kind)
+      };
+    };
+    var gauges = [
+      gauge('Calorías', '1.240', 'kcal', 0.22, 'low', 'Faltan ~270 · el día sigue', 'Rango 1.510–1.850'),
+      gauge('Proteína', '96', 'g', 0.52, 'in', '✓ En rango', 'Rango 92–122 g'),
+      gauge('Grasa', '58', 'g', 0.8, 'high', '↑ Un poco alto', 'Rango 37–56 g'),
+      gauge('Carbohidratos', '150', 'g', 0.25, 'low', 'Faltan ~40 · el día sigue', 'Rango 190–240 g'),
+      gauge('Azúcar añadida', '14', 'g', 0.29, 'in', '✓ Bajo el límite', 'Ideal ≤ 21 g · máx. 42 g', true),
+      gauge('Harinas', '118', 'g', 0.51, 'high', '↑ Sobre tu límite', 'Tu límite 106 g', true, 'Propuesta')
+    ];
+
+    var chip = function (label, color, pending) {
+      return {
+        label: label,
+        style: pending
+          ? 'display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 8px; border-radius: 999px; border: 1.5px dashed #E39A63; background: #FFF6EF; color: #8A4513; font-size: 13px; font-weight: 600;'
+          : 'display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 8px; border-radius: 999px; background: #EEF3FA; color: #1D2B45; font-size: 13px; font-weight: 600;',
+        dot: 'width: 20px; height: 20px; border-radius: 10px; background: ' + color + ';'
+      };
+    };
+    var meals = [
+      { name: 'Desayuno', kcal: '420 kcal', items: [chip('1 Pan con huevo', '#F6D08D'), chip('1 Café con leche', '#C9A27E')] },
+      { name: 'Almuerzo', kcal: '690 kcal', items: [chip('½ Juane', '#9CC98A'), chip('1 Ensalada', '#B8DDA6')] },
+      { name: 'Cena', kcal: '—', items: [] },
+      { name: 'Snacks', kcal: '130 kcal', items: [chip('1 Plátano', '#F7D35A'), chip('Pollo a la brasa · pendiente', '#FFC9A3', true)] }
+    ];
+
+    meals.forEach(function (m) { m.empty = m.items.length === 0; });
+    var FACES = [
+      { color: '#E85D4F', eyes: 'M13 20q4 3 8 0M27 20q4 3 8 0', eyeWidth: 2.6, mouth: 'M16 36q8-8 16 0', mouthFill: 'none', tear: 1, blush: 0 },
+      { color: '#F2994A', eyes: 'M13 15l6-2M35 15l-6-2M17 21l0 .01M31 21l0 .01', eyeWidth: 3.6, mouth: 'M17 34q7-5 14 0', mouthFill: 'none', tear: 0, blush: 0 },
+      { color: '#F2C14E', eyes: 'M17 20l0 .01M31 20l0 .01', eyeWidth: 4.4, mouth: 'M17 32h14', mouthFill: 'none', tear: 0, blush: 0 },
+      { color: '#F7D85C', eyes: 'M17 20l0 .01M31 20l0 .01', eyeWidth: 4.4, mouth: 'M16 29q8 7 16 0', mouthFill: 'none', tear: 0, blush: 0.35 },
+      { color: '#FFCB2F', eyes: 'M13 21q4-5 8 0M27 21q4-5 8 0', eyeWidth: 2.6, mouth: 'M14 27h20q0 11-10 11T14 27z', mouthFill: '#7A3414', tear: 0, blush: 0.6 }
+    ];
+    var scale = function (key, title, labels, hint) {
+      var picked = self.state[key];
+      var faces = labels.map(function (label, i) {
+        var on = picked === i;
+        var f = FACES[i];
+        return {
+          label: label, eyes: f.eyes, eyeWidth: f.eyeWidth, mouth: f.mouth, on: on,
+          color: on ? f.color : '#DCE2EA',
+          ink: on ? '#4A2A16' : '#8D99AE',
+          mouthFill: f.mouthFill === 'none' ? 'none' : (on ? f.mouthFill : '#B8C2D1'),
+          tear: on ? f.tear : 0,
+          blush: on ? f.blush : 0,
+          aria: title + ': ' + label,
+          style: 'display: flex; flex-direction: column; align-items: center; gap: 4px; width: 62px; min-height: 76px; padding: 4px 0; border: none; background: transparent; color: #1D2B45; transform: scale(' + (on ? 1.14 : 1) + ');',
+          labelStyle: 'font-size: 11px; font-weight: ' + (on ? 800 : 600) + '; color: ' + (on ? '#1D2B45' : '#5B6B86') + ';',
+          pick: function () { var s = {}; s[key] = on ? null : i; self.setState(s); }
+        };
+      });
+      return { title: title, faces: faces, hint: hint, picked: picked === null ? 'Sin marcar' : labels[picked] };
+    };
+    var scales = [
+      scale('stress', 'Estrés máximo de hoy', ['Muy alto', 'Alto', 'Medio', 'Bajo', 'Nada'], true),
+      scale('energy', 'Energía', ['Agotado', 'Baja', 'Normal', 'Buena', 'A tope'], false),
+      scale('mood', 'Ánimo', ['Muy mal', 'Mal', 'Normal', 'Bien', 'Genial'], false)
+    ];
+
+    var urineOpts = [['clear', 'Clara', '#FBF3C4'], ['yellow', 'Amarilla', '#F4D35E'], ['dark', 'Oscura', '#C98A2B']];
+    var urine = urineOpts.map(function (o) {
+      var on = self.state.urine === o[0];
+      return {
+        label: o[1], on: on,
+        style: 'flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 4px; border-radius: 16px; border: ' + (on ? '2px solid #2563B8' : '1px solid #D5E0EE') + '; background: ' + (on ? '#EEF5FE' : '#FFFFFF') + '; color: #1D2B45; font-size: 13px; font-weight: ' + (on ? 800 : 600) + ';',
+        dot: 'width: 26px; height: 26px; border-radius: 13px; background: ' + o[2] + '; border: 1px solid rgba(0,0,0,.08);',
+        pick: function () { self.setState({ urine: on ? null : o[0] }); }
+      };
+    });
+    var open = this.state.drinksOpen;
+    var drinks = [
+      { name: 'Agua', note: '', count: 3, dot: 'width: 14px; height: 14px; border-radius: 7px; background: #7FB2F0;' },
+      { name: 'Café o té', note: '', count: 1, dot: 'width: 14px; height: 14px; border-radius: 7px; background: #B98B66;' },
+      { name: 'Con calorías', note: '1 desde Desayuno', count: 1, dot: 'width: 14px; height: 14px; border-radius: 7px; background: #FFC9A3;' }
+    ];
+    return {
+      bg: bg, titleFont: titleFont, bodyFont: bodyFont,
+      gauges: gauges, meals: meals, scales: scales, urine: urine, drinks: drinks,
+      drinksOpen: open,
+      drinksLabel: open ? 'Ocultar bebidas' : 'Anotar bebidas (5 vasos hoy)',
+      chevron: 'display: inline-block; transition: transform 200ms; transform: rotate(' + (open ? 180 : 0) + 'deg);',
+      toggleDrinks: function () { self.setState({ drinksOpen: !open }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

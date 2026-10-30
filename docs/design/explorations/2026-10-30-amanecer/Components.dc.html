@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Kawsay · Componentes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=Figtree:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2563B8}a:hover{color:#1C4F96}
+</style>
+</helmet>
+<div style="width: 1040px; height: 1180px; box-sizing: border-box; padding: 48px; background: linear-gradient(160deg, #DDEBFB 0%, #F3F5FA 55%, #FFEBDD 100%); color: #1D2B45; font-family: 'Figtree', sans-serif; display: flex; flex-direction: column; gap: 28px;">
+
+<h1 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800; letter-spacing: -.02em;">Componentes y tokens</h1>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px;">
+
+<section style="background: rgba(255,255,255,.85); border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 700;">Paleta: cielo de amanecer</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+<sc-for list="{{colors}}" as="c" hint-placeholder-count="10">
+<div style="display: flex; align-items: center; gap: 10px;">
+<span style="{{c.swatch}}"></span>
+<span style="display: flex; flex-direction: column;"><span style="font-size: 14px; font-weight: 700;">{{c.name}}</span><span style="font-size: 12px; color: #5B6B86;">{{c.hex}} · {{c.use}}</span></span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="background: rgba(255,255,255,.85); border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 700;">Tipografía</h2>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 34px; font-weight: 800; letter-spacing: -.02em;">Hoy · 1.240 kcal</span>
+<span style="font-size: 12px; color: #5B6B86;">Plus Jakarta Sans 800 · títulos y números (cifras tabulares)</span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 700;">Cuerpo y ánimo</span>
+<span style="font-size: 12px; color: #5B6B86;">Plus Jakarta Sans 700 · títulos de tarjeta</span>
+<span style="font-size: 15px;">Las bebidas con calorías se registran en Comidas y aparecen aquí solas.</span>
+<span style="font-size: 12px; color: #5B6B86;">Figtree 400–700 · texto (ya está en la app)</span>
+</section>
+
+</div>
+
+<section style="background: rgba(255,255,255,.85); border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 700;">Velocímetro: el mismo concepto, más moderno</h2>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;">
+<sc-for list="{{gauges}}" as="g" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+<svg viewBox="0 0 200 112" width="240" role="img" aria-label="{{g.aria}}">
+<path d="M 22.0 100.0 A 78 78 0 0 1 25.0 78.7" stroke="#F3A99F" stroke-width="12" fill="none" stroke-linecap="round"></path>
+<path d="M 26.8 73.1 A 78 78 0 0 1 48.1 41.8" stroke="#F6D08D" stroke-width="12" fill="none" stroke-linecap="round"></path>
+<path d="M 52.6 38.1 A 78 78 0 0 1 147.4 38.1" stroke="#7FB2F0" stroke-width="12" fill="none" stroke-linecap="round"></path>
+<path d="M 151.9 41.8 A 78 78 0 0 1 173.2 73.1" stroke="#F6D08D" stroke-width="12" fill="none" stroke-linecap="round"></path>
+<path d="M 175.0 78.7 A 78 78 0 0 1 178.0 100.0" stroke="#F3A99F" stroke-width="12" fill="none" stroke-linecap="round"></path>
+<path d="{{g.needle}}" stroke="#1D2B45" stroke-width="3.5" stroke-linecap="round"></path>
+<circle cx="100" cy="100" r="7" fill="#1D2B45"></circle>
+<circle cx="100" cy="100" r="2.6" fill="#FFFFFF"></circle>
+</svg>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; font-weight: 800;">{{g.value}}</span>
+<span style="{{g.pill}}">{{g.state}}</span>
+<span style="font-size: 12px; color: #5B6B86; text-align: center;">{{g.note}}</span>
+</div>
+</sc-for>
+</div>
+<span style="font-size: 13px; color: #5B6B86;">Zonas: azul = en rango · ámbar = cerca · coral = lejos (sin rojo/verde: se distinguen también con daltonismo). La aguja entra con un barrido suave; los límites pasan a una línea de texto bajo el número.</span>
+</section>
+
+<section style="background: rgba(255,255,255,.85); border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+<h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 700;">Caritas: sin fondo, negativa a la izquierda en las tres</h2>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 16px;">
+<span style="width: 150px; font-size: 14px; font-weight: 700;">{{r.title}}</span>
+<div style="display: flex; gap: 22px;">
+<sc-for list="{{r.faces}}" as="f" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 70px;">
+<svg width="52" height="52" viewBox="0 0 48 48" aria-hidden="true">
+<circle cx="24" cy="24" r="21" fill="{{f.color}}"></circle>
+<path d="{{f.eyes}}" stroke="#4A2A16" stroke-width="{{f.eyeWidth}}" stroke-linecap="round" fill="none"></path>
+<path d="{{f.mouth}}" stroke="#4A2A16" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="{{f.mouthFill}}"></path>
+<path d="M33 24c0 0-3 4-3 6.2a3 3 0 0 0 6 0c0-2.2-3-6.2-3-6.2z" fill="#6FB3F2" opacity="{{f.tear}}"></path>
+<circle cx="12" cy="29" r="3.5" fill="#FF8A7A" opacity="{{f.blush}}"></circle>
+<circle cx="36" cy="29" r="3.5" fill="#FF8A7A" opacity="{{f.blush}}"></circle>
+</svg>
+<span style="font-size: 12px; font-weight: 600; color: #5B6B86;">{{f.label}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</section>
+
+<section style="background: rgba(255,255,255,.85); border-radius: 24px; padding: 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
+<h2 style="margin: 0; width: 100%; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 700;">Chips y botones</h2>
+<span style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 8px; border-radius: 999px; background: #EEF3FA; font-size: 13px; font-weight: 600;"><span style="width: 20px; height: 20px; border-radius: 10px; background: #9CC98A;"></span>½ Juane</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 8px; border-radius: 999px; border: 1.5px dashed #E39A63; background: #FFF6EF; color: #8A4513; font-size: 13px; font-weight: 600;"><span style="width: 20px; height: 20px; border-radius: 10px; background: #FFC9A3;"></span>Pollo a la brasa · pendiente</span>
+<button style="height: 48px; padding: 0 20px; border-radius: 16px; border: none; background: #2563B8; color: #FFFFFF; font: 800 15px 'Figtree', sans-serif;">Agregar 1 porción</button>
+<button style="height: 48px; padding: 0 20px; border-radius: 16px; border: none; background: #E6F0FD; color: #1C4F96; font: 700 15px 'Figtree', sans-serif;">Crear plato</button>
+<button style="height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px dashed #9DB3D1; background: transparent; color: #2563B8; font: 700 13px 'Figtree', sans-serif;">+ Crear síntoma</button>
+<button style="height: 44px; padding: 0 14px 0 8px; border-radius: 22px; border: none; background: #E9EEF6; color: #1C4F96; font: 700 14px 'Figtree', sans-serif;">‹ Resultados de «pollo»</button>
+<span style="padding: 4px 10px; border-radius: 999px; background: #E6F0FD; color: #1C4F96; font-size: 12px; font-weight: 700;">✓ En rango</span>
+<span style="padding: 4px 10px; border-radius: 999px; background: #FDF0DC; color: #8A5300; font-size: 12px; font-weight: 700;">↑ Un poco alto</span>
+<span style="padding: 4px 10px; border-radius: 999px; background: #EEF1F6; color: #46597A; font-size: 12px; font-weight: 700;">Faltan ~270 · el día sigue</span>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1040,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var sw = function (hex) { return 'width: 40px; height: 40px; border-radius: 12px; flex: none; background: ' + hex + '; border: 1px solid rgba(29,43,69,.08);'; };
+    var colors = [
+      ['Cielo 100', '#CFE3FA', 'fondo, arriba'], ['Durazno 100', '#FFE4D0', 'fondo, abajo'],
+      ['Azul 300', '#7FB2F0', 'zona en rango'], ['Azul 500', '#4C8DE6', 'progreso'],
+      ['Azul 700', '#2563B8', 'botones y activo'], ['Tinta', '#1D2B45', 'texto'],
+      ['Tinta suave', '#5B6B86', 'texto secundario'], ['Durazno 300', '#FFC9A3', 'pendiente'],
+      ['Ámbar', '#F6D08D', 'zona cerca'], ['Coral', '#F3A99F', 'zona lejos']
+    ].map(function (c) { return { name: c[0], hex: c[1], use: c[2], swatch: sw(c[1]) }; });
+
+    var needle = function (f) {
+      var th = Math.PI * (1 - f);
+      var x = 100 + 66 * Math.cos(th), y = 100 - 66 * Math.sin(th);
+      return 'M100 100 L' + x.toFixed(1) + ' ' + y.toFixed(1);
+    };
+    var base = 'padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;';
+    var gauges = [
+      { value: '1.240 kcal', f: 0.22, state: 'Faltan ~270 · el día sigue', pill: base + ' background: #EEF1F6; color: #46597A;', note: 'Debajo durante el día: gris, sin alarma' },
+      { value: '96 g', f: 0.52, state: '✓ En rango', pill: base + ' background: #E6F0FD; color: #1C4F96;', note: 'En rango: azul' },
+      { value: '58 g', f: 0.8, state: '↑ Un poco alto', pill: base + ' background: #FDF0DC; color: #8A5300;', note: 'Pasarse: ámbar o coral' }
+    ].map(function (g) { return { value: g.value, state: g.state, pill: g.pill, note: g.note, needle: needle(g.f), aria: g.value + ', ' + g.state }; });
+
+    var FACES = [
+      { color: '#E85D4F', eyes: 'M13 20q4 3 8 0M27 20q4 3 8 0', eyeWidth: 2.6, mouth: 'M16 36q8-8 16 0', mouthFill: 'none', tear: 1, blush: 0 },
+      { color: '#F2994A', eyes: 'M13 15l6-2M35 15l-6-2M17 21l0 .01M31 21l0 .01', eyeWidth: 3.6, mouth: 'M17 34q7-5 14 0', mouthFill: 'none', tear: 0, blush: 0 },
+      { color: '#F2C14E', eyes: 'M17 20l0 .01M31 20l0 .01', eyeWidth: 4.4, mouth: 'M17 32h14', mouthFill: 'none', tear: 0, blush: 0 },
+      { color: '#F7D85C', eyes: 'M17 20l0 .01M31 20l0 .01', eyeWidth: 4.4, mouth: 'M16 29q8 7 16 0', mouthFill: 'none', tear: 0, blush: 0.35 },
+      { color: '#FFCB2F', eyes: 'M13 21q4-5 8 0M27 21q4-5 8 0', eyeWidth: 2.6, mouth: 'M14 27h20q0 11-10 11T14 27z', mouthFill: '#7A3414', tear: 0, blush: 0.6 }
+    ];
+    var row = function (title, labels) {
+      return { title: title, faces: labels.map(function (l, i) { var f = FACES[i]; return { label: l, color: f.color, eyes: f.eyes, eyeWidth: f.eyeWidth, mouth: f.mouth, mouthFill: f.mouthFill, tear: f.tear, blush: f.blush }; }) };
+    };
+    var rows = [
+      row('Estrés máximo', ['Muy alto', 'Alto', 'Medio', 'Bajo', 'Nada']),
+      row('Energía', ['Agotado', 'Baja', 'Normal', 'Buena', 'A tope']),
+      row('Ánimo', ['Muy mal', 'Mal', 'Normal', 'Bien', 'Genial'])
+    ];
+    return { colors: colors, gauges: gauges, rows: rows };
+  }
+}
+</script>
+</body>
+</html>

@@ -10,6 +10,7 @@ Targets follow the day's activity and the real weight trend.
 ## Rules
 
 - Formulas and default values: ADR 0009
+- Liver-related targets (sugar per portion, sugary drinks, movement, strength days, alcohol, sleep): ADR 0020
 - Protein: 1.6 g per kg of reference weight, fixed all day
 - Fat: 25% of the day target; carbohydrates take the remainder (warning below 130 g)
 - The target never goes below BMR

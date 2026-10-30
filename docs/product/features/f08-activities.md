@@ -16,6 +16,8 @@ Log what you did; calories burned add to the day's target.
 - **"No physical activity"** button: declares a day without exercise; exclusive with logging activities
 - Activities carry a time band (exact time optional); several per day
 - Routines are computed per exercise (F18)
+- **Movement minutes** for the daily and weekly goal (ADR 0020): MET ≥ 3.0 counts, MET ≥ 6.0 counts double, the base
+  day never counts. Weights, bodyweight and circuit work make the day a **strength day**
 - v0.2: a new activity in free text → the AI picks the closest MET → the user confirms
 
 ## Acceptance criteria

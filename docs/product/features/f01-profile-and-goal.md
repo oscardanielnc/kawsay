@@ -11,6 +11,8 @@ Ask age, sex, height, current weight, goal weight and goal date.
 
 - Base target (a day without activity) = basal metabolic rate, Mifflin-St Jeor
 - If the requested pace is above ~1% of body weight per week, warn and propose a later date
+- **Liver-aware goal (owner, 2026-10-30; ADR 0020):** with BMI ≥ 25 the goal step suggests losing 7–10% of the
+  current weight, at the usual pace limit; any goal can still be chosen
 - Climate where the user lives: warm / temperate / cold. It changes the drinks goal (warm +2 glasses), not calories: the weight-trend recalibration absorbs any climate effect on energy
 - Usual sleep schedule (night and nap) to prefill sleep
 - All values editable later; targets recompute
@@ -24,6 +26,7 @@ Ask age, sex, height, current weight, goal weight and goal date.
 - [x] Given 80 kg, 170 cm, 30 years, male, the base target is shown without further input
 - [x] A goal of −10 kg in 4 weeks shows a warning and a suggested date
 - [x] 80 kg and 170 cm show BMI 27.7 in yellow, "Sobrepeso", and "−8.0 kg" to the green range
+- [ ] 80 kg with BMI 27.7 suggests a goal between 74.4 and 72.0 kg
 
 ## Build notes
 

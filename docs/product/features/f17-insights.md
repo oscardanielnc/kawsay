@@ -16,6 +16,14 @@ Ask the app what lines up with your symptoms.
 - 3 analyses per rolling 24 h per user (`AI_DAILY_LIMIT`); only successful ones count; the server stores only their time
 - The latest analysis stays on the phone (not synced)
 - Always states it is not a diagnosis and lists warning signs that need a doctor
+- **Redesign approved by the owner 2026-10-30** (the answer could reach ~11,000 characters):
+  - **Only on demand:** an "Update summary" button is the only thing that calls the AI. Never automatic
+  - Shows the date of the last update and **suggests updating** when 7 days have passed or 4 new days were logged,
+    or a new symptom episode started; otherwise "Up to date"
+  - Output trimmed (contract change): summary ≤ 220 characters · up to 3 findings, each a coloured tag (food, sleep,
+    stress, activity, symptom), a title ≤ 60, one line ≤ 140 and a confidence (three dots) · up to 2 habits ≤ 80 ·
+    warning signs only when there are any (≤ 3). About 1,500 characters at most
+  - Prototype: the owner's design canvas "Kawsay — Hoy rediseñado", Analysis board
 
 ## Acceptance criteria
 

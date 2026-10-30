@@ -12,6 +12,9 @@ One line per file: what it holds and when to read it.
 | [adr/README.md](adr/README.md)                           | Before proposing a technical decision: check what was accepted or already discarded |
 | [design/direction.md](design/direction.md)               | Before building any UI: chosen direction, Today screen layout, time-entry rule      |
 | [design/tokens.md](design/tokens.md)                     | When styling: colors with contrast ratios, type, spacing, radii, motion             |
+| [design/references-2026-10-27.md](design/references-2026-10-27.md) | Redesign research: where to look, apps to study, the premium checklist, next step |
+| [plan/README.md](plan/README.md)                         | Oscar says "actualiza el proyecto": the build plan, its rules and the next milestone |
+| [design/explorations/2026-10-30-amanecer/README.md](design/explorations/2026-10-30-amanecer/README.md) | Building any screen of the Amanecer redesign: mockups and token spec |
 | [conventions.md](conventions.md)                         | Before writing code: commands, commit rules, `core` rules                           |
 | [runbooks/deploy.md](runbooks/deploy.md)                 | Releasing the API, first-time tunnel and account setup                              |
 | [runbooks/backup-restore.md](runbooks/backup-restore.md) | Setting up encrypted backups or restoring one                                       |

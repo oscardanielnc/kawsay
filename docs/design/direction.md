@@ -1,6 +1,15 @@
 # Visual direction
 
 - Status: Approved 2026-10-07 · **design closed** (all screens approved)
+- 2026-10-27: the owner asked for a more elegant, premium look. Research in
+  [references-2026-10-27.md](references-2026-10-27.md); this direction stays until a new one is approved
+- 2026-10-30: proposal **"Amanecer"** from the owner's reference (GrowPal on Refero): sunset pastel background (light
+  blues to soft peach), floating white cards, light blues as the main family with a light orange for contrast,
+  Plus Jakarta Sans + Figtree, the same range gauges with blue · amber · coral zones and an animated needle, faces
+  without background. Shown on a design canvas in claude.ai (owner's, private). **Approved by the owner 2026-10-30** as the look:
+  "justo así deseo que se vea la app". Not built yet. Also approved: blue = in range, Plus Jakarta Sans + Figtree,
+  a fixed "+" per meal header, six gauges (F24 accepted). **Every screen follows it**: Calendar, Insights, Profile,
+  Create dish, onboarding and sheets (owner, 2026-10-30)
 - Board: [explorations/2026-10-07-board.html](explorations/2026-10-07-board.html) · Prototypes: [v1](explorations/2026-10-07-today.html) (superseded) · [v2](explorations/2026-10-07-today-v2.html)
 
 ## Choices

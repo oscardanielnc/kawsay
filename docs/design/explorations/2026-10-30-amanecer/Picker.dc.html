@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Kawsay · Agregar comida</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=Figtree:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2563B8}a:hover{color:#1C4F96}
+button{font:inherit;cursor:pointer}
+input{font:inherit}
+@keyframes slide{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+@keyframes back{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
+.fwd{animation:slide 220ms ease-out both}
+.bwd{animation:back 220ms ease-out both}
+.row:active{background:#E6F0FD}
+.ndl{transform-box:view-box;transform-origin:100px 100px;transition:transform 450ms cubic-bezier(.2,.9,.25,1.15)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: linear-gradient(180deg, #CFE3FA 0%, #E5EEFB 30%, #F4F0F2 62%, #FFE4D0 100%); color: #1D2B45; font-family: 'Figtree', sans-serif;">
+<div style="position: absolute; inset: 0; background: rgba(29,43,69,.28);"></div>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 806px; border-radius: 30px 30px 0 0; background: #F7F9FD; box-shadow: 0 -10px 30px rgba(29,43,69,.15); display: flex; flex-direction: column;">
+<div style="align-self: center; width: 40px; height: 5px; border-radius: 3px; background: #C9D3E2; margin-top: 8px;"></div>
+
+<sc-if value="{{isList}}" hint-placeholder-val="{{ true }}">
+<div class="bwd" style="flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 12px 20px 20px; min-height: 0;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<h1 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 800;">Almuerzo</h1>
+<button aria-label="Cerrar" style="width: 44px; height: 44px; border-radius: 22px; border: none; background: #E9EEF6; color: #1D2B45; font-size: 20px;">×</button>
+</div>
+<label style="display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 14px; border-radius: 16px; background: #FFFFFF; border: 1.5px solid #4C8DE6; box-shadow: 0 4px 12px rgba(38,72,128,.08);">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B6B86" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Buscar comida</span>
+<input value="{{query}}" onChange="{{onQuery}}" style="flex: 1; border: none; outline: none; background: transparent; font-size: 16px; color: #1D2B45;">
+</label>
+<span style="font-size: 12px; color: #5B6B86;">{{count}} · un toque para elegir, aunque el teclado esté abierto</span>
+<div style="flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+<sc-for list="{{results}}" as="r" hint-placeholder-count="5">
+<button class="row" onClick="{{r.pick}}" style="display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 8px 12px; border: none; border-radius: 18px; background: #FFFFFF; text-align: left; color: #1D2B45;">
+<span style="{{r.dot}}"></span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">{{r.name}}</span><span style="font-size: 12px; color: #5B6B86;">{{r.sub}}</span></span>
+<span style="font-size: 13px; font-weight: 700; color: #46597A; font-variant-numeric: tabular-nums;">{{r.kcal}}</span>
+</button>
+</sc-for>
+<sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
+<span style="padding: 12px; font-size: 14px; color: #5B6B86;">No hay resultados para «{{query}}».</span>
+</sc-if>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding-top: 8px; border-top: 1px solid #E3EAF4;">
+<span style="font-size: 13px; font-weight: 600; color: #5B6B86;">¿No está?</span>
+<button onClick="{{savePending}}" style="height: 48px; border-radius: 16px; border: 1.5px dashed #E39A63; background: #FFF6EF; color: #8A4513; font-size: 15px; font-weight: 700;">Guardar «{{query}}» como pendiente</button>
+<button style="height: 48px; border-radius: 16px; border: none; background: #E6F0FD; color: #1C4F96; font-size: 15px; font-weight: 700;">Crear plato con ingredientes</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isPortion}}" hint-placeholder-val="{{ false }}">
+<div class="fwd" style="flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 10px 20px 20px;">
+<button onClick="{{goBack}}" style="align-self: flex-start; display: flex; align-items: center; gap: 4px; height: 40px; padding: 0 12px 0 6px; border: none; border-radius: 20px; background: #E9EEF6; color: #1C4F96; font-size: 14px; font-weight: 700;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>Resultados de «{{query}}»</button>
+<div style="display: flex; align-items: center; gap: 12px;">
+<span style="{{picked.dotBig}}"></span>
+<div style="flex: 1; display: flex; flex-direction: column;"><h1 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 21px; font-weight: 800;">{{picked.name}}</h1><span style="font-size: 13px; color: #5B6B86;">{{picked.sub}}</span></div>
+<a href="#" style="font-size: 13px; font-weight: 700;">Nutrientes</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px;">
+<sc-for list="{{portions}}" as="p" hint-placeholder-count="6">
+<button aria-pressed="{{p.on}}" onClick="{{p.pick}}" style="{{p.style}}">{{p.label}}</button>
+</sc-for>
+</div>
+
+<div style="{{summaryStyle}}">
+<div style="display: flex; justify-content: space-between; align-items: baseline;">
+<span style="font-size: 13px; font-weight: 700; color: #5B6B86;">Si lo comes, tu día queda así</span>
+<span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums;">{{deltaKcal}}</span>
+</div>
+<span style="font-size: 14px; font-weight: 600;">{{summaryLine}}</span>
+<div style="display: flex; flex-wrap: wrap; gap: 6px;">
+<sc-for list="{{alerts}}" as="al" hint-placeholder-count="1">
+<span style="{{al.style}}">{{al.text}}</span>
+</sc-for>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;">
+<sc-for list="{{impact}}" as="g" hint-placeholder-count="6">
+<div style="{{g.cardStyle}}">
+<span style="font-size: 11px; font-weight: 700; color: #5B6B86;">{{g.name}}</span>
+<svg viewBox="0 0 200 112" width="100%" role="img" aria-label="{{g.aria}}">
+<path d="{{g.z0}}" stroke="{{g.c0}}" stroke-width="14" fill="none" stroke-linecap="round"></path>
+<path d="{{g.z1}}" stroke="{{g.c1}}" stroke-width="14" fill="none" stroke-linecap="round"></path>
+<path d="{{g.z2}}" stroke="{{g.c2}}" stroke-width="14" fill="none" stroke-linecap="round"></path>
+<path d="{{g.z3}}" stroke="{{g.c3}}" stroke-width="14" fill="none" stroke-linecap="round"></path>
+<path d="{{g.z4}}" stroke="{{g.c4}}" stroke-width="14" fill="none" stroke-linecap="round"></path>
+<g class="ndl" style="{{g.before}}"><path d="M100 100 L38 100" stroke="#A9B8CE" stroke-width="5" stroke-linecap="round"></path></g>
+<g class="ndl" style="{{g.after}}"><path d="M100 100 L34 100" stroke="#1D2B45" stroke-width="5" stroke-linecap="round"></path></g>
+<circle cx="100" cy="100" r="9" fill="#1D2B45"></circle>
+</svg>
+<span style="font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums;">{{g.fromTo}}</span>
+<span style="{{g.deltaStyle}}">{{g.delta}}</span>
+</div>
+</sc-for>
+</div>
+<span style="font-size: 11px; color: #5B6B86; text-align: center;">Aguja gris: tu día ahora · aguja oscura: si agregas esta porción</span>
+<span style="flex: 1;"></span>
+<button onClick="{{add}}" style="height: 52px; border-radius: 18px; border: none; background: #2563B8; color: #FFFFFF; font-size: 16px; font-weight: 800; box-shadow: 0 8px 18px rgba(37,99,184,.3);">Agregar {{portionLabel}}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{isDone}}" hint-placeholder-val="{{ false }}">
+<div class="fwd" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; text-align: center;">
+<span style="width: 64px; height: 64px; border-radius: 32px; background: {{doneBg}}; display: flex; align-items: center; justify-content: center;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="{{doneInk}}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+<h1 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 800;">{{doneTitle}}</h1>
+<span style="font-size: 15px; color: #5B6B86; max-width: 280px;">{{doneText}}</span>
+<button onClick="{{restart}}" style="margin-top: 12px; height: 48px; padding: 0 20px; border-radius: 16px; border: none; background: #E6F0FD; color: #1C4F96; font-size: 15px; font-weight: 700;">Volver a probar</button>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { query: 'pollo', screen: 'list', pickedId: null, portion: 1, done: null };
+  }
+  renderVals() {
+    var self = this;
+    var CATALOG = [
+      { id: 'frito', name: 'Pollo frito', sub: 'Plato · 1 porción = 1 presa grande con papas', kcal: 620, p: 45, f: 38, c: 22, s: 0, h: 18, color: '#F2C27A' },
+      { id: 'brasa', name: 'Pollo a la brasa ¼', sub: 'Plato · tus recientes', kcal: 590, p: 42, f: 32, c: 30, s: 0, h: 0, color: '#F6B98A' },
+      { id: 'arroz', name: 'Arroz con pollo', sub: 'Plato', kcal: 610, p: 30, f: 16, c: 85, s: 0, h: 70, color: '#9CC98A' },
+      { id: 'aji', name: 'Ají de gallina', sub: 'Plato', kcal: 540, p: 28, f: 26, c: 48, s: 2, h: 40, color: '#F7D35A' },
+      { id: 'chaufa', name: 'Chaufa de pollo', sub: 'Plato', kcal: 650, p: 26, f: 20, c: 90, s: 1, h: 80, color: '#E8B65A' },
+      { id: 'pechuga', name: 'Pollo, pechuga sancochada', sub: 'Ingrediente · INS · 100 g', kcal: 165, p: 31, f: 4, c: 0, s: 0, h: 0, color: '#F3D9C4' },
+      { id: 'caldo', name: 'Caldo de gallina', sub: 'Plato', kcal: 320, p: 25, f: 12, c: 28, s: 0, h: 15, color: '#F6D08D' }
+    ];
+    var norm = function (s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
+    var q = norm(this.state.query.trim());
+    var found = q ? CATALOG.filter(function (c) { return norm(c.name).indexOf(q) >= 0; }) : CATALOG.slice(0, 5);
+    var results = found.map(function (c) {
+      return {
+        name: c.name, sub: c.sub, kcal: c.kcal + ' kcal',
+        dot: 'width: 40px; height: 40px; border-radius: 20px; flex: none; background: ' + c.color + ';',
+        pick: function () { self.setState({ screen: 'portion', pickedId: c.id, portion: 1 }); }
+      };
+    });
+    var picked = CATALOG.filter(function (c) { return c.id === self.state.pickedId; })[0] || CATALOG[0];
+    var STEPS = [['¼', 0.25], ['½', 0.5], ['¾', 0.75], ['1', 1], ['1½', 1.5], ['2', 2]];
+    var portions = STEPS.map(function (s, i) {
+      var on = self.state.portion === i;
+      return {
+        label: s[0], on: on,
+        style: 'height: 44px; border-radius: 14px; font-size: 16px; font-weight: 800; border: ' + (on ? '2px solid #2563B8' : '1px solid #D5E0EE') + '; background: ' + (on ? '#E6F0FD' : '#FFFFFF') + '; color: ' + (on ? '#1C4F96' : '#1D2B45') + ';',
+        pick: function () { self.setState({ portion: i }); }
+      };
+    });
+    var step = STEPS[this.state.portion];
+    var k = step[1];
+
+    var TWO = { z: ['M 22.0 100.0 A 78 78 0 0 1 25.0 78.7', 'M 26.8 73.1 A 78 78 0 0 1 48.1 41.8', 'M 52.6 38.1 A 78 78 0 0 1 147.4 38.1', 'M 151.9 41.8 A 78 78 0 0 1 173.2 73.1', 'M 175.0 78.7 A 78 78 0 0 1 178.0 100.0'], c: ['#F3A99F', '#F6D08D', '#7FB2F0', '#F6D08D', '#F3A99F'] };
+    var ONE = { z: ['M 22.0 100.0 A 78 78 0 0 1 79.8 24.7', 'M 85.5 23.4 A 78 78 0 0 1 146.3 37.2', 'M 150.9 40.9 A 78 78 0 0 1 178.0 100.0', 'M 0 0', 'M 0 0'], c: ['#7FB2F0', '#F6D08D', '#F3A99F', 'none', 'none'] };
+    var twoF = function (v, a, lo, hi, b) {
+      if (v <= a) return 0.10 * v / a;
+      if (v <= lo) return 0.10 + 0.18 * (v - a) / (lo - a);
+      if (v <= hi) return 0.28 + 0.44 * (v - lo) / (hi - lo);
+      if (v <= b) return 0.72 + 0.18 * (v - hi) / (b - hi);
+      return Math.min(1, 0.90 + 0.10 * (v - b) / (b - hi));
+    };
+    var oneF = function (v, g, y) {
+      if (v <= g) return (3 / 7) * v / g;
+      if (v <= y) return 3 / 7 + (2 / 7) * (v - g) / (y - g);
+      return Math.min(1, 5 / 7 + (2 / 7) * (v - y) / (y - g));
+    };
+    var stateOf = function (f, one) {
+      if (one) return f <= 3 / 7 ? 'in' : f <= 5 / 7 ? 'high' : 'very';
+      if (f < 0.28) return 'low';
+      if (f <= 0.72) return 'in';
+      return f <= 0.90 ? 'high' : 'very';
+    };
+    var METRICS = [
+      { key: 'kcal', name: 'Calorías', unit: '', now: 1240, add: picked.kcal, b: [1000, 1510, 1850, 2100] },
+      { key: 'p', name: 'Proteína', unit: ' g', now: 96, add: picked.p, b: [70, 92, 122, 140] },
+      { key: 'f', name: 'Grasa', unit: ' g', now: 58, add: picked.f, b: [25, 37, 56, 70] },
+      { key: 'c', name: 'Carbos', unit: ' g', now: 150, add: picked.c, b: [140, 190, 240, 280] },
+      { key: 's', name: 'Azúcar', unit: ' g', now: 14, add: picked.s, one: [21, 42] },
+      { key: 'h', name: 'Harinas', unit: ' g', now: 118, add: picked.h, one: [106, 148] }
+    ];
+    var TONE = {
+      low: ['#EEF1F6', '#46597A'], in: ['#E6F0FD', '#1C4F96'], high: ['#FDF0DC', '#8A5300'], very: ['#FCE4DF', '#9E2F22']
+    };
+    var fmt = function (n) { return Math.round(n).toLocaleString('es-PE'); };
+    var alerts = [];
+    var impact = METRICS.map(function (m) {
+      var one = !!m.one;
+      var after = m.now + m.add * k;
+      var fNow = one ? oneF(m.now, m.one[0], m.one[1]) : twoF(m.now, m.b[0], m.b[1], m.b[2], m.b[3]);
+      var fAfter = one ? oneF(after, m.one[0], m.one[1]) : twoF(after, m.b[0], m.b[1], m.b[2], m.b[3]);
+      var sNow = stateOf(fNow, one), sAfter = stateOf(fAfter, one);
+      var worse = (sAfter === 'high' || sAfter === 'very') && sAfter !== sNow;
+      if (worse) alerts.push({ text: '↑ ' + m.name + (sAfter === 'very' ? ': muy alto' : ': te pasarías'), style: 'padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; background: ' + TONE[sAfter][0] + '; color: ' + TONE[sAfter][1] + ';' });
+      var z = one ? ONE : TWO;
+      var added = Math.round(m.add * k);
+      return {
+        name: m.name,
+        z0: z.z[0], z1: z.z[1], z2: z.z[2], z3: z.z[3], z4: z.z[4],
+        c0: z.c[0], c1: z.c[1], c2: z.c[2], c3: z.c[3], c4: z.c[4],
+        before: 'transform: rotate(' + Math.round(fNow * 180) + 'deg);',
+        after: 'transform: rotate(' + Math.round(fAfter * 180) + 'deg);',
+        fromTo: fmt(m.now) + ' → ' + fmt(after) + m.unit,
+        delta: added === 0 ? 'sin cambio' : '+' + fmt(added) + m.unit,
+        deltaStyle: 'padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 800; background: ' + TONE[sAfter][0] + '; color: ' + TONE[sAfter][1] + ';',
+        cardStyle: 'display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 6px; border-radius: 16px; background: #FFFFFF; border: ' + (worse ? '1.5px solid ' + (sAfter === 'very' ? '#E8705F' : '#E3B25B') : '1px solid #E3EAF4') + ';',
+        aria: m.name + ': de ' + fmt(m.now) + ' a ' + fmt(after) + m.unit
+      };
+    });
+    var kcalAfter = 1240 + picked.kcal * k;
+    var kcalState = stateOf(twoF(kcalAfter, 1000, 1510, 1850, 2100), false);
+    var kcalText = {
+      low: 'Calorías: ' + fmt(kcalAfter) + ' · aún te faltan, el día sigue',
+      in: 'Calorías: ' + fmt(kcalAfter) + ' · ✓ quedas en rango',
+      high: 'Calorías: ' + fmt(kcalAfter) + ' · te pasarías un poco',
+      very: 'Calorías: ' + fmt(kcalAfter) + ' · te pasarías bastante'
+    }[kcalState];
+    if (alerts.length === 0) alerts.push({ text: '✓ Nada se pasa de su rango', style: 'padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; background: #E6F0FD; color: #1C4F96;' });
+    var worst = alerts.some(function (a) { return a.text.indexOf('muy alto') >= 0; });
+    var done = this.state.done;
+    var name = this.state.query.trim();
+    var portionKcal = fmt(picked.kcal * k) + ' kcal';
+    return {
+      query: this.state.query,
+      onQuery: function (e) { self.setState({ query: e.target.value }); },
+      count: results.length === 1 ? '1 resultado' : results.length + ' resultados',
+      results: results,
+      empty: results.length === 0,
+      isList: this.state.screen === 'list',
+      isPortion: this.state.screen === 'portion',
+      isDone: this.state.screen === 'done',
+      picked: {
+        name: picked.name, sub: picked.sub,
+        dotBig: 'width: 48px; height: 48px; border-radius: 24px; flex: none; background: ' + picked.color + ';'
+      },
+      portions: portions,
+      impact: impact,
+      alerts: alerts,
+      deltaKcal: '+' + portionKcal,
+      summaryLine: kcalText,
+      summaryStyle: 'display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: ' + (worst ? '1.5px solid #E8705F' : '1px solid #E3EAF4') + '; box-shadow: 0 6px 16px rgba(38,72,128,.06);',
+      portionLabel: (step[0] === '1' ? '1 porción' : step[0] + ' porción') + ' · ' + portionKcal,
+      goBack: function () { self.setState({ screen: 'list' }); },
+      add: function () { self.setState({ screen: 'done', done: 'added' }); },
+      savePending: function () { self.setState({ screen: 'done', done: 'pending' }); },
+      restart: function () { self.setState({ screen: 'list', done: null }); },
+      doneTitle: done === 'pending' ? 'Guardado como pendiente' : 'Agregado al almuerzo',
+      doneText: done === 'pending'
+        ? '«' + name + '» ya cuenta como registrado. Complétalo cuando puedas y el día se recalcula.'
+        : picked.name + ' · ' + step[0] + ' porción · ' + portionKcal,
+      doneBg: done === 'pending' ? '#FFF1E6' : '#E6F0FD',
+      doneInk: done === 'pending' ? '#C8662A' : '#2563B8'
+    };
+  }
+}
+</script>
+</body>
+</html>

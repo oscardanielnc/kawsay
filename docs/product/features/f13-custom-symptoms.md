@@ -18,4 +18,10 @@ Users create the symptoms they care about.
 ## Acceptance criteria
 
 - [x] Creating a symptom takes less than 30 seconds
-- [ ] A symptom marked 10 days in a row shows as one episode of 10 days
+- [x] A symptom marked 10 days in a row shows as one episode of 10 days
+
+## Build notes
+
+- 2026-10-30: episodes are `@kawsay/core/insights/symptom-episodes`. Today asks "¿Sigues con X hoy?" for every
+  symptom present yesterday (any answer but "0"); "Sí, sigue" repeats yesterday's answer. Insights keep an own
+  symptom only on each episode's first day; the following days are left out of both sides of the comparison

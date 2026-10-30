@@ -28,5 +28,5 @@ arrives in M3–M4.
 
 ## Done when
 
-- [ ] Tests for 1, 3, 5 and 7; criteria ticked in F05, F11, F13 (on-the-phone ones after Oscar checks)
+- [x] Tests for 1, 3, 5 and 7; criteria ticked in F05, F11, F13 (on-the-phone ones after Oscar checks)
 - [ ] Report offers to publish these fixes now (EAS Update), only with Oscar's OK

@@ -48,6 +48,7 @@ import {
   answerSymptom,
   createSymptom,
   listSymptoms,
+  ongoingSymptoms,
   symptomAnswersOn,
 } from '@/features/symptoms/symptoms-db';
 import { SymptomsSection } from '@/features/symptoms/SymptomsSection';
@@ -89,7 +90,7 @@ export default function TodayRoute() {
   const setDay = (next: LocalDate) => router.setParams({ day: next });
   const { data, reload } = useLoad(
     useCallback(async () => {
-      const [dayData, items, units, routines, waists, symptoms, answers, notes, ...recent] =
+      const [dayData, items, units, routines, waists, symptoms, answers, ongoing, notes, ...recent] =
         await Promise.all([
           loadDay(db, day),
           catalogItems(db),
@@ -98,6 +99,7 @@ export default function TodayRoute() {
           waistsSince(db, addDays(day, -7 * 12)),
           listSymptoms(db),
           symptomAnswersOn(db, day),
+          ongoingSymptoms(db, day),
           notesOn(db, day),
           ...MEALS.map((meal) => recentFor(db, meal)),
         ]);
@@ -111,6 +113,7 @@ export default function TodayRoute() {
         waists,
         symptoms,
         answers,
+        ongoing,
         notes,
         recent: { breakfast, lunch, dinner, snack },
       };
@@ -321,6 +324,7 @@ export default function TodayRoute() {
         <SymptomsSection
           symptoms={data.symptoms}
           answers={data.answers}
+          ongoing={data.ongoing}
           onAnswer={(symptomId, value) =>
             run(() => answerSymptom(db, env, { date: day, timeZone, symptomId, value }))
           }

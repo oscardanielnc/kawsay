@@ -3,6 +3,7 @@ import catalog from '@kawsay/catalog/catalog.json';
 import { addDays } from '@kawsay/core/shared/local-date';
 import { addCheckIn } from '@/features/checkins/checkins-db';
 import { addMeal } from '@/features/meals/meals-db';
+import { answerSymptom, createSymptom } from '@/features/symptoms/symptoms-db';
 import { saveProfile } from '@/features/profile/profile-db';
 import { saveWeight } from '@/features/weight/weight-db';
 import { loadCatalog } from '@/lib/db/catalog';
@@ -51,7 +52,7 @@ const meal = (db: Db, e: RecordEnv, date: string, m: 'breakfast' | 'lunch', id: 
   addMeal(db, e, { date, meal: m, timeZone: lima, item: { kind: 'dish', id }, servings: 1 });
 
 describe('insights (F17, F19, F20) from the local database', () => {
-  it('milk in the morning and a worse belly that day or the next: the relation shows, without AI', async () => {
+  it('milk in the morning and diarrhoea that day or the next: the relation shows, without AI', async () => {
     const { db, e } = await withProfile();
     for (let i = 0; i < 24; i++) {
       const date = addDays(end, -i);
@@ -66,19 +67,47 @@ describe('insights (F17, F19, F20) from the local database', () => {
         });
       // Days go backwards from `end`: the day after a milk day is i − 1.
       const worse = milk || (i + 1) % 4 === 0;
-      await addCheckIn(db, e, {
-        date,
-        timeZone: lima,
-        kind: 'bloating',
-        value: worse ? 'worse' : 'usual',
-      });
+      await addCheckIn(db, e, { date, timeZone: lima, kind: 'bathroom', value: worse ? '6' : '4' });
     }
     const { relations } = await loadInsights(db, end);
     if (relations.status !== 'ok') throw new Error(`expected findings, got ${relations.status}`);
     expect(relations.findings[0]).toMatchObject({
       exposure: { kind: 'food', id: 'leche-entera', name: 'Leche fresca entera' },
-      symptom: { kind: 'check', id: 'bloating' },
+      symptom: { kind: 'check', id: 'diarrhoea' },
       direction: 'raises',
+    });
+  });
+
+  it('an own symptom marked several days in a row counts once, on its first day (F13)', async () => {
+    const { db, e } = await withProfile();
+    const { id } = await createSymptom(db, e, { name: 'Dolor de cabeza', scale: 'yes-no' });
+    // Milk on the first day of each 3-day headache, every 6 days; other days answer something else.
+    for (let i = 0; i < 36; i++) {
+      const date = addDays(end, -35 + i);
+      await addCheckIn(db, e, { date, timeZone: lima, kind: 'mood', value: '3' });
+      if (i % 6 === 0)
+        await addMeal(db, e, {
+          date,
+          meal: 'breakfast',
+          timeZone: lima,
+          item: { kind: 'food', id: 'leche-entera' },
+          grams: 250,
+        });
+      if (i % 6 < 3)
+        await answerSymptom(db, e, { date, timeZone: lima, symptomId: id, value: 'yes' });
+    }
+    const { relations } = await loadInsights(db, end);
+    if (relations.status !== 'ok') throw new Error(`expected findings, got ${relations.status}`);
+    const headache = relations.findings.find(
+      (f) => f.symptom.kind === 'own' && f.exposure.kind === 'food',
+    );
+    expect(headache).toMatchObject({
+      exposure: { id: 'leche-entera' },
+      direction: 'raises',
+      occurrences: 6,
+      exposedRate: 1,
+      // The second and third days of each headache are left out, not counted as headaches without milk.
+      baselineRate: 0,
     });
   });
 

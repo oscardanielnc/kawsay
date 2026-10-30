@@ -25,3 +25,9 @@ Body and mood in one or two taps.
 
 - [x] Any check-in takes at most two taps
 - [ ] A 620 ml beer at 5% logs 24.5 g of alcohol
+
+## Build notes
+
+- 2026-10-30: faces follow the Amanecer component spec (grey `face-off` until picked, then their colour at 1.14).
+  Stress keeps its stored values (1 none … 5 highest) and is only drawn from 5 to 1. The day checklist's "water"
+  step is the urine colour alone; "body" needs the bathroom plus stress, energy and mood

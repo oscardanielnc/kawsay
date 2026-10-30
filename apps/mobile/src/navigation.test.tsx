@@ -206,13 +206,11 @@ describe('navigation (design N1, F01)', () => {
     await saveWeight(mockDb, mockEnv, { date: today(), kg: 70, timeZone: 'America/Lima' });
     await renderRouter('./app', { initialUrl: '/' });
     expect(await screen.findByText('1 de 6')).toBeOnTheScreen();
-    await tap('Agregar un vaso de Agua');
     await tap('Clara');
     expect(await screen.findByRole('button', { name: 'Agua: registrado' })).toBeOnTheScreen();
     await tap('Calidad Buena');
     expect(await screen.findByRole('button', { name: 'Sueño: registrado' })).toBeOnTheScreen();
     await tap('No fui hoy');
-    await tap('Hinchazón comparada con tu normal: Como siempre');
     await tap('Máximo estrés que sentiste hoy: Poco');
     await tap('Energía: Buena');
     await tap('Ánimo: Bien');
@@ -222,6 +220,7 @@ describe('navigation (design N1, F01)', () => {
     await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'jugo de papaya');
     await tap(/Jugo de papaya/);
     await tap('Agregar 1 ración');
+    await tap('Anotar bebidas ▾');
     expect(await screen.findByText(/^Jugo de papaya · del desayuno · /)).toBeOnTheScreen();
   });
 

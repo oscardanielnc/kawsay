@@ -1,5 +1,6 @@
-import type { LocalDate } from '@kawsay/core/shared/local-date';
-import { and, asc, eq, isNull } from 'drizzle-orm';
+import { symptomEpisodes } from '@kawsay/core/insights/symptom-episodes';
+import { addDays, type LocalDate } from '@kawsay/core/shared/local-date';
+import { and, asc, between, eq, isNull } from 'drizzle-orm';
 import { newRecord } from '@/lib/db/record';
 import { symptom, symptomEntry } from '@/lib/db/schema';
 import { inTransaction } from '@/lib/db/transaction';
@@ -44,6 +45,45 @@ export async function symptomAnswersOn(db: Db, date: LocalDate): Promise<Record<
     .from(symptomEntry)
     .where(and(eq(symptomEntry.date, date), isNull(symptomEntry.deletedAt)));
   return Object.fromEntries(rows.map((r) => [r.symptomId, r.value]));
+}
+
+/** An answer that says the symptom was there: anything but "0" on the 0–5 scale. */
+export const isPresent = (value: string) => value !== '0';
+
+/** How far back an ongoing episode is looked for. */
+const EPISODE_LOOKBACK_DAYS = 60;
+
+/**
+ * Symptoms whose episode reached yesterday (F13): its length so far and yesterday's answer, so the card can ask
+ * "Still have it today?" and repeat the answer in one tap.
+ */
+export async function ongoingSymptoms(
+  db: Db,
+  date: LocalDate,
+): Promise<Record<string, { days: number; value: string }>> {
+  const yesterday = addDays(date, -1);
+  const rows = await db
+    .select({
+      symptomId: symptomEntry.symptomId,
+      date: symptomEntry.date,
+      value: symptomEntry.value,
+    })
+    .from(symptomEntry)
+    .where(
+      and(
+        between(symptomEntry.date, addDays(date, -EPISODE_LOOKBACK_DAYS), yesterday),
+        isNull(symptomEntry.deletedAt),
+      ),
+    );
+  const out: Record<string, { days: number; value: string }> = {};
+  const ids = new Set(rows.map((r) => r.symptomId));
+  for (const id of ids) {
+    const own = rows.filter((r) => r.symptomId === id && isPresent(r.value));
+    const last = symptomEpisodes(own.map((r) => r.date)).at(-1);
+    const value = own.find((r) => r.date === yesterday)?.value;
+    if (last?.end === yesterday && value) out[id] = { days: last.days, value };
+  }
+  return out;
 }
 
 /** Answers a symptom for the day, replacing an earlier answer; `null` clears it. */

@@ -554,7 +554,11 @@
       "large": "Grande"
     },
     "save": "Crear síntoma",
-    "clear": "Quitar la respuesta de hoy"
+    "clear": "Quitar la respuesta de hoy",
+    "still": "¿Sigues con {{name}} hoy?",
+    "stillDay": "Día {{day}}",
+    "stillYes": "Sí, sigue",
+    "gone": "Ya se fue"
   },
   "notes": {
     "title": "Notas del día",

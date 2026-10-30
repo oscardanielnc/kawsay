@@ -1,5 +1,6 @@
 import { addedSugarLimits } from '@kawsay/core/day/added-sugar';
 import { findAssociations, type AssociationDay } from '@kawsay/core/insights/associations';
+import { symptomEpisodes } from '@kawsay/core/insights/symptom-episodes';
 import { weeklyNutrients, type NutrientDay } from '@kawsay/core/insights/weekly-nutrients';
 import { weeklySummary } from '@kawsay/core/insights/weekly-summary';
 import { WEEKLY_NUTRIENTS } from '@kawsay/core/nutrition/references';
@@ -123,6 +124,21 @@ export async function loadInsights(db: Db, end: LocalDate): Promise<InsightsData
       symptoms: badSymptoms(day, answers[i]!, symptoms),
     };
   });
+
+  // Own symptoms are marked every day they last (F13): triggers are looked for on each episode's first day only, so
+  // the days after it neither count as a new bad day nor as a good one.
+  for (const s of symptoms) {
+    const key = `own:${s.id}`;
+    const present = associationDays.filter((d) => d.symptoms[key]).map((d) => d.date);
+    const starts = new Set(symptomEpisodes(present).map((e) => e.start));
+    associationDays.forEach((d, i) => {
+      if (!d.symptoms[key] || starts.has(d.date)) return;
+      associationDays[i] = {
+        ...d,
+        symptoms: Object.fromEntries(Object.entries(d.symptoms).filter(([k]) => k !== key)),
+      };
+    });
+  }
 
   const toExposure = (key: string): Exposure => {
     const [kind, id] = [key.slice(0, key.indexOf(':')), key.slice(key.indexOf(':') + 1)];

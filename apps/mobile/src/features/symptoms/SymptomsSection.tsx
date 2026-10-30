@@ -12,6 +12,8 @@ interface Props {
   symptoms: readonly Symptom[];
   /** The day's answer per symptom id. */
   answers: Record<string, string>;
+  /** Symptoms whose episode reached yesterday: its days so far and yesterday's answer (F13). */
+  ongoing?: Record<string, { days: number; value: string }>;
   onAnswer: (symptomId: string, value: string | null) => void;
   onCreate: (symptom: { name: string; scale: SymptomScale }) => void;
 }
@@ -23,8 +25,12 @@ const OPTIONS: Record<Exclude<SymptomScale, 'yes-no'>, readonly string[]> = {
 };
 
 /** Your symptoms (F13): one chip per symptom, answered in one or two taps; "+ Create" in a few seconds. */
-export function SymptomsSection({ symptoms, answers, onAnswer, onCreate }: Props) {
+export function SymptomsSection({ symptoms, answers, ongoing = {}, onAnswer, onCreate }: Props) {
   const { t } = useTranslation();
+  const [gone, setGone] = useState<string[]>([]);
+  const asked = symptoms.filter(
+    (s) => ongoing[s.id] && answers[s.id] === undefined && !gone.includes(s.id),
+  );
   const [asking, setAsking] = useState<Symptom | null>(null);
   const [creating, setCreating] = useState(false);
   const [name, setName] = useState('');
@@ -39,6 +45,25 @@ export function SymptomsSection({ symptoms, answers, onAnswer, onCreate }: Props
 
   return (
     <Card title={t('symptoms.title')}>
+      {asked.map((s) => (
+        <View key={s.id} style={styles.still}>
+          <Text style={[type.heading, styles.ink]}>{t('symptoms.still', { name: s.name })}</Text>
+          <Text style={[type.caption, styles.muted]}>
+            {t('symptoms.stillDay', { day: ongoing[s.id]!.days + 1 })}
+          </Text>
+          <View style={styles.chips}>
+            <Button
+              label={t('symptoms.stillYes')}
+              onPress={() => onAnswer(s.id, ongoing[s.id]!.value)}
+            />
+            <Button
+              variant="secondary"
+              label={t('symptoms.gone')}
+              onPress={() => setGone((ids) => [...ids, s.id])}
+            />
+          </View>
+        </View>
+      ))}
       <View style={styles.chips}>
         {symptoms.map((s) => {
           const value = answers[s.id];
@@ -134,6 +159,14 @@ export function SymptomsSection({ symptoms, answers, onAnswer, onCreate }: Props
 
 const styles = StyleSheet.create({
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
+  still: {
+    gap: space.xs,
+    padding: space.md,
+    borderRadius: radius.card,
+    backgroundColor: color.surface,
+    borderWidth: 1,
+    borderColor: color.line,
+  },
   chip: {
     minHeight: touch,
     justifyContent: 'center',

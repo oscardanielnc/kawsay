@@ -9,6 +9,27 @@ const symptoms = [
 ];
 
 describe('SymptomsSection (F13)', () => {
+  it('from day 2 asks "¿Sigues con X hoy?": "Sí, sigue" repeats the answer, "Ya se fue" hides the question', async () => {
+    const onAnswer = jest.fn();
+    await render(
+      <SymptomsSection
+        symptoms={[
+          { id: 'h', name: 'Dolor de cabeza', scale: 'yes-no' },
+          { id: 'a', name: 'Acidez', scale: 'zero-five' },
+        ]}
+        answers={{}}
+        ongoing={{ h: { days: 2, value: 'yes' }, a: { days: 1, value: '3' } }}
+        onAnswer={onAnswer}
+        onCreate={jest.fn()}
+      />,
+    );
+    expect(screen.getByText('Día 3')).toBeOnTheScreen();
+    await fireEvent.press(screen.getAllByRole('button', { name: 'Sí, sigue' })[1]!);
+    expect(onAnswer).toHaveBeenCalledWith('a', '3');
+    await fireEvent.press(screen.getAllByRole('button', { name: 'Ya se fue' })[0]!);
+    expect(screen.queryByText('¿Sigues con Dolor de cabeza hoy?')).toBeNull();
+  });
+
   it('creating a symptom takes less than 30 seconds: a name, its scale, save', async () => {
     const onCreate = jest.fn();
     await render(

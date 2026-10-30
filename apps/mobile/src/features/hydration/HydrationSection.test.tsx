@@ -43,9 +43,9 @@ describe('HydrationSection (F10)', () => {
       <HydrationSection
         {...base}
         drinks={[
-          { id: 'w1', kind: 'water', volumeMl: 250 },
-          { id: 'c1', kind: 'zero-calorie', volumeMl: 250 },
-          { id: 'w2', kind: 'water', volumeMl: 250 },
+          { id: 'w1', kind: 'water', volumeMl: 250, alcoholKind: null, abv: null },
+          { id: 'c1', kind: 'zero-calorie', volumeMl: 250, alcoholKind: null, abv: null },
+          { id: 'w2', kind: 'water', volumeMl: 250, alcoholKind: null, abv: null },
         ]}
         onDelete={onDelete}
       />,
@@ -61,8 +61,8 @@ describe('HydrationSection (F10)', () => {
       <HydrationSection
         {...base}
         drinks={[
-          { id: 'w', kind: 'water', volumeMl: 250 },
-          { id: 'b', kind: 'alcohol', volumeMl: 330 },
+          { id: 'w', kind: 'water', volumeMl: 250, alcoholKind: null, abv: null },
+          { id: 'b', kind: 'alcohol', volumeMl: 330, alcoholKind: null, abv: null },
         ]}
         fromMeals={[{ name: 'Jugo de papaya', from: 'Desayuno', volumeMl: 500 }]}
       />,
@@ -95,5 +95,14 @@ describe('HydrationSection (F10)', () => {
     await openDrinks();
     await fireEvent.press(screen.getByRole('switch', { name: 'Sudé mucho hoy' }));
     expect(onSweated).toHaveBeenCalledWith(true);
+  });
+
+  it('alcohol asks which drink: a big beer logs 620 ml at 5%', async () => {
+    const onAdd = jest.fn();
+    await render(<HydrationSection {...base} onAdd={onAdd} />);
+    await openDrinks();
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar un vaso de Alcohol' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Cerveza grande (620 ml)' }));
+    expect(onAdd).toHaveBeenCalledWith('alcohol', { kind: 'big-beer', volumeMl: 620, abv: 5 });
   });
 });

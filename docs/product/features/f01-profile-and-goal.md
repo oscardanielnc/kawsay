@@ -26,7 +26,7 @@ Ask age, sex, height, current weight, goal weight and goal date.
 - [x] Given 80 kg, 170 cm, 30 years, male, the base target is shown without further input
 - [x] A goal of −10 kg in 4 weeks shows a warning and a suggested date
 - [x] 80 kg and 170 cm show BMI 27.7 in yellow, "Sobrepeso", and "−8.0 kg" to the green range
-- [ ] 80 kg with BMI 27.7 suggests a goal between 74.4 and 72.0 kg
+- [x] 80 kg with BMI 27.7 suggests a goal between 74.4 and 72.0 kg
 
 ## Build notes
 

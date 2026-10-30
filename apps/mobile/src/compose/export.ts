@@ -2,6 +2,7 @@ import { drunkGlasses } from '@kawsay/core/day/drinks';
 import { activityKcal } from '@kawsay/core/energy/activity';
 import { addDays, daysBetween, type LocalDate } from '@kawsay/core/shared/local-date';
 import { daySleepHours } from '@kawsay/core/sleep/sleep-session';
+import { listLabs } from '@/features/liver/labs-db';
 import { notesOn } from '@/features/notes/notes-db';
 import { listRoutines } from '@/features/routines/routines-db';
 import { getProfile } from '@/features/profile/profile-db';
@@ -49,13 +50,14 @@ export const EXPORT_COLUMNS = {
   ],
   activities: ['date', 'kind', 'name', 'intensity', 'minutes', 'met', 'kcal', 'time_band'],
   sleep: ['date', 'kind', 'start', 'end', 'hours', 'quality', 'nightmares'],
-  drinks: ['date', 'kind', 'volume_ml'],
+  drinks: ['date', 'kind', 'volume_ml', 'alcohol_kind', 'abv'],
   checkins: ['date', 'logged_at', 'kind', 'value'],
   symptoms: ['date', 'symptom', 'scale', 'value'],
   notes: ['date', 'time', 'text'],
   weights: ['date', 'kg'],
   waist: ['week_start', 'cm'],
   private: ['date', 'kind'],
+  labs: ['date', 'ast', 'alt', 'platelets'],
 } as const;
 export type ExportFile = keyof typeof EXPORT_COLUMNS;
 
@@ -96,6 +98,10 @@ export async function buildExport(
     weights: weights.filter((w) => w.date >= from).map((w) => [w.date, w.kg]),
     waist: waists.filter((w) => w.weekStart <= to).map((w) => [w.weekStart, w.cm]),
     private: [],
+    // Liver labs (F25) never sync; the export is the only way they leave the phone, by the user's hand.
+    labs: (await listLabs(db))
+      .filter((l) => l.date >= from && l.date <= to)
+      .map((l) => [l.date, l.ast, l.alt, l.platelets]),
   };
   const days = [];
 
@@ -170,7 +176,7 @@ export async function buildExport(
         s.nightmares,
       ]);
     }
-    for (const d of day.drinks) rows.drinks.push([date, d.kind, d.volumeMl]);
+    for (const d of day.drinks) rows.drinks.push([date, d.kind, d.volumeMl, d.alcoholKind, d.abv]);
     for (const c of day.checkIns)
       rows.checkins.push([date, new Date(c.loggedAt).toISOString(), c.kind, c.value]);
     for (const [id, value] of Object.entries(answers)) {

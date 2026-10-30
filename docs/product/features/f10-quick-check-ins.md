@@ -24,7 +24,7 @@ Body and mood in one or two taps.
 ## Acceptance criteria
 
 - [x] Any check-in takes at most two taps
-- [ ] A 620 ml beer at 5% logs 24.5 g of alcohol
+- [x] A 620 ml beer at 5% logs 24.5 g of alcohol
 
 ## Build notes
 

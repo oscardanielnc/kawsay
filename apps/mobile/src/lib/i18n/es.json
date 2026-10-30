@@ -181,7 +181,11 @@
     "movementHint": "OMS: 150–300 min por semana",
     "minutes": "{{count}} min",
     "bmiName": "Índice de masa corporal",
-    "bmiGauge": "IMC {{bmi}}, {{band}}"
+    "bmiGauge": "IMC {{bmi}}, {{band}}",
+    "liver": "Hígado",
+    "liverHint": "Una tarjeta semanal en Análisis con lo que más cuida tu hígado. Activa también la cintura semanal.",
+    "liverGoal": "Para tu hígado: bajar entre 7 y 10% te deja entre {{from}} y {{to}} kg",
+    "useLiverGoal": "Usar {{kg}} kg"
   },
   "meals": {
     "title": "Comidas",
@@ -450,7 +454,18 @@
     "bucket": "Cubeta de {{goal}} vasos: {{contents}}",
     "notCounted": "(no suma)",
     "fromMealsOnly": "desde comidas",
-    "optional": "Opcional"
+    "optional": "Opcional",
+    "alcoholTitle": "¿Qué tomaste?",
+    "alcoholHint": "No suma a tu meta de agua. Cuenta en tu hígado (Análisis).",
+    "alcoholSize": "{{ml}} ml · {{abv}}%",
+    "alcoholKinds": {
+      "beer": "Cerveza (lata o botella chica)",
+      "big-beer": "Cerveza grande (620 ml)",
+      "wine": "Copa de vino",
+      "pisco": "Pisco",
+      "spirit": "Otro licor",
+      "cocktail": "Cóctel"
+    }
   },
   "sleep": {
     "title": "Sueño",
@@ -660,7 +675,8 @@
       "notes": "Notas del día escritas por ti, en tus palabras: salud, digestión, ánimo, relaciones.",
       "weights": "Un peso por día, tomado al despertar, después del baño y antes de comer.",
       "waist": "Una medida de cintura por semana (opcional).",
-      "private": "Registro íntimo privado; solo aparece si lo elegiste al exportar."
+      "private": "Registro íntimo privado; solo aparece si lo elegiste al exportar.",
+      "labs": "Análisis de sangre para FIB-4 (hígado). Solo viven en tu teléfono: no se sincronizan ni van a la IA."
     },
     "fields": {
       "days": {
@@ -715,7 +731,9 @@
       "drinks": {
         "date": "Día local.",
         "kind": "water (agua), zero-calorie (café o té sin azúcar) o alcohol (se muestra pero no cuenta).",
-        "volume_ml": "Volumen, en ml."
+        "volume_ml": "Volumen, en ml.",
+        "alcohol_kind": "Bebida alcohólica: beer, big-beer, wine, pisco, spirit o cocktail; vacío en registros antiguos.",
+        "abv": "Grado alcohólico, % en volumen. Gramos de alcohol = volume_ml × abv ÷ 100 × 0.789."
       },
       "checkins": {
         "date": "Día local.",
@@ -745,6 +763,12 @@
       "private": {
         "date": "Día local.",
         "kind": "sex (relación sexual) o masturbation (masturbación)."
+      },
+      "labs": {
+        "date": "Día del análisis.",
+        "ast": "TGO / AST, U/L.",
+        "alt": "TGP / ALT, U/L.",
+        "platelets": "Plaquetas, miles por µL (10⁹/L)."
       }
     }
   },
@@ -1012,5 +1036,60 @@
       "addedSugar": "Azúcar",
       "refinedFlour": "Harinas"
     }
+  },
+  "liver": {
+    "title": "Hígado",
+    "subtitle": "Lo que más lo cuida, esta semana",
+    "inRange": "{{n}} de 7 en rango",
+    "zones": {
+      "green": "En rango",
+      "yellow": "Cerca",
+      "red": "Lejos"
+    },
+    "noData": "sin dato",
+    "sugarTitle": "Lo principal · azúcar añadida",
+    "sugarTarget": "por día · meta ≤ {{ideal}} g · máximo {{max}} g",
+    "sugarBars": "Azúcar añadida por día: {{days}} gramos",
+    "sugaryDrinks_one": "{{count}} bebida azucarada · meta 0",
+    "sugaryDrinks_other": "{{count}} bebidas azucaradas · meta 0",
+    "topDay": "Más azúcar: {{day}} ({{grams}} g)",
+    "sugarWhy": "El azúcar, sobre todo en bebidas, es lo que más grasa deja en el hígado.",
+    "tiles": {
+      "movement": "Movimiento",
+      "strength": "Fuerza",
+      "alcohol": "Alcohol",
+      "sleep": "Sueño",
+      "waist": "Cintura / estatura",
+      "weight": "Peso en 4 semanas"
+    },
+    "targets": {
+      "movement": "meta ≥ 150 min (ideal 300)",
+      "strength": "meta 2 días",
+      "alcohol": "meta 0 g",
+      "sleep": "meta 7–9 h por día",
+      "waist": "meta < 0.50",
+      "weight": "hacia tu meta"
+    },
+    "days_one": "{{n}} día",
+    "days_other": "{{n}} días",
+    "days": "{{n}} días",
+    "alcoholUnknown": "{{n}} sin tipo: edítalas en Hoy",
+    "fib4": "FIB-4 (fibrosis)",
+    "fib4Missing": "Falta TGO y TGP de tu análisis de sangre",
+    "fib4Bands": {
+      "low": "{{value}} · bajo. Es un tamizaje, no un diagnóstico",
+      "see-doctor": "{{value}} · habla con tu médico",
+      "high": "{{value}} · alto: habla con tu médico"
+    },
+    "addLab": "Agregar",
+    "labTitle": "Análisis de sangre",
+    "labHint": "Se guardan solo en este teléfono: no se sincronizan ni van a la IA.",
+    "labSave": "Guardar análisis",
+    "lab": {
+      "ast": "TGO / AST (U/L)",
+      "alt": "TGP / ALT (U/L)",
+      "platelets": "Plaquetas (miles por µL)"
+    },
+    "footer": "No es un diagnóstico. Metas según OMS, EASL y NICE. Si tienes familiares con hígado graso, pide a tu médico una ecografía."
   }
 }

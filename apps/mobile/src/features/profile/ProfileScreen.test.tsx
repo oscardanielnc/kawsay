@@ -29,6 +29,7 @@ const profile: Profile = {
   intimateEnabled: false,
   expenditureFactor: 1,
   refinedFlourShare: null,
+  liverEnabled: null,
 };
 const steady = [{ date: '2026-10-08', kg: 80 }];
 

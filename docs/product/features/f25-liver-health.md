@@ -30,10 +30,21 @@ Kawsay never diagnoses: it shows the habits that guidelines tie to liver fat and
 
 ## Acceptance criteria
 
-- [ ] The card computes from logged data only, offline
-- [ ] Daily added sugar 18, 30, 12, 26, 41, 22 and 19 g with a 1,700 kcal target shows 24 g in amber, and the four
+- [x] The card computes from logged data only, offline
+- [x] Daily added sugar 18, 30, 12, 26, 41, 22 and 19 g with a 1,700 kcal target shows 24 g in amber, and the four
       bars above 21.25 g in amber
-- [ ] Two sugary drinks in the week show "2 bebidas azucaradas · meta 0" in amber
-- [ ] A week without sleep logs shows "sin dato", not 0 h
-- [ ] FIB-4 for 40 years, AST 30, ALT 36 and platelets 250 gives 0.80 (low) and is labelled as a screening score
-- [ ] No lab value appears in the sync outbox or in an AI request
+- [x] Two sugary drinks in the week show "2 bebidas azucaradas · meta 0" in amber
+- [x] A week without sleep logs shows "sin dato", not 0 h
+- [x] FIB-4 for 40 years, AST 30, ALT 36 and platelets 250 gives 0.80 (low) and is labelled as a screening score
+- [x] No lab value appears in the sync outbox or in an AI request
+
+## Build notes
+
+- 2026-10-30 (M6): rules in `packages/core` (`liver/*`, `energy/movement-minutes`, `energy/strength-days`,
+  `sleep/week-average`, `profile/liver-goal`). The card is `compose/liver.ts` + `features/liver/LiverCard.tsx`,
+  loaded apart from `InsightsData`, so `buildAnalysisRequest` cannot see lab results (a test checks it)
+- Labs live in the local table `lab_result`: no outbox triggers, not a synced collection; `labs.csv` in the export
+- Tiles: movement and strength days from activities (weights and routines are strength); alcohol from drinks with
+  their % (older ones without it count as "sin tipo"); weight change is the trend over 4 weeks, blue when it moves
+  toward the goal
+

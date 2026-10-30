@@ -2,6 +2,9 @@ import { addDays } from '@kawsay/core/shared/local-date';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { loadInsights } from '@/compose/insights';
+import { loadLiver } from '@/compose/liver';
+import { addLab } from '@/features/liver/labs-db';
+import { LiverCard } from '@/features/liver/LiverCard';
 import { analysisError, type AnalysisStatus } from '@/features/insights/AiAnalysisCard';
 import { buildAnalysisRequest } from '@/features/insights/analysis-request';
 import { lastAnalysis, saveAnalysis } from '@/features/insights/analysis-store';
@@ -22,6 +25,10 @@ export default function InsightsRoute() {
   const [end, setEnd] = useState(now);
   const [status, setStatus] = useState<AnalysisStatus>({ kind: 'idle' });
   const { data, reload } = useLoad(useCallback(() => loadInsights(db, end), [db, end]));
+  const { data: liver, reload: reloadLiver } = useLoad(
+    useCallback(() => loadLiver(db, end), [db, end]),
+  );
+  useReloadOnFocus(reloadLiver);
   const { data: stored, reload: reloadStored } = useLoad(useCallback(() => lastAnalysis(db), [db]));
   useReloadOnFocus(reload);
 
@@ -47,6 +54,15 @@ export default function InsightsRoute() {
       canNext={end < now}
       onPrev={() => setEnd(addDays(end, -7))}
       onNext={() => setEnd(addDays(end, 7) > now ? now : addDays(end, 7))}
+      liver={
+        liver ? (
+          <LiverCard
+            week={liver}
+            today={now}
+            onAddLab={(lab) => void addLab(db, env, lab).then(reloadLiver)}
+          />
+        ) : null
+      }
       ai={{ stored: stored ?? null, status, timeZone: deviceTimeZone(), onAnalyze: run }}
     />
   );

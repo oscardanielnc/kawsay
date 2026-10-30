@@ -25,7 +25,7 @@ Several sleep sessions per day.
 - [x] A night plus a nap show the daily total
 - [x] A nap 14:00 → 13:30 counts 0 hours, and the day still opens
 - [x] Changing the prefilled nap's time with several quick taps leaves one nap
-- [ ] A week averaging 6 h 40 shows amber
+- [x] A week averaging 6 h 40 shows amber
 
 ## Build notes
 

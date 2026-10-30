@@ -317,8 +317,16 @@ export default function TodayRoute() {
             sweated={data.status.sweatedALot}
             urine={checks.urine}
             caloricDrinks={caloricDrinks}
-            onAdd={(kind) =>
-              run(() => addDrink(db, env, { date: day, timeZone, kind, volumeMl: GLASS_ML }))
+            onAdd={(kind, alcohol) =>
+              run(() =>
+                addDrink(db, env, {
+                  date: day,
+                  timeZone,
+                  kind,
+                  volumeMl: alcohol?.volumeMl ?? GLASS_ML,
+                  ...(alcohol && { alcoholKind: alcohol.kind, abv: alcohol.abv }),
+                }),
+              )
             }
             onDelete={(id) => run(() => deleteDrink(db, env, id))}
             onAddCaloric={addCaloricDrink}

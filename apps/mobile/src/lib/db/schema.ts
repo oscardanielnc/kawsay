@@ -45,6 +45,23 @@ export const profile = sqliteTable('profile', {
   expenditureFactor: real('expenditure_factor').notNull(),
   /** Personal refined-flour limit as a share of the carbohydrate target (F24); null = the default 50%. */
   refinedFlourShare: real('refined_flour_share'),
+  /** Liver card in Insights (F25), an optional module; null = off. */
+  liverEnabled: integer('liver_enabled', { mode: 'boolean' }),
+});
+
+/**
+ * Liver lab results (F25): AST, ALT and platelets for FIB-4. Health data that stays on this phone: no outbox
+ * triggers, not a synced collection, never in an AI request; only the export (F15) carries it.
+ */
+export const labResult = sqliteTable('lab_result', {
+  id: text('id').primaryKey(),
+  date: text('date').notNull(),
+  /** U/L. */
+  ast: real('ast').notNull(),
+  alt: real('alt').notNull(),
+  /** 10⁹/L (thousands per µL). */
+  platelets: real('platelets').notNull(),
+  createdAt: integer('created_at').notNull(),
 });
 
 export const weightEntry = sqliteTable(
@@ -164,6 +181,11 @@ export const drinkEntry = sqliteTable(
     ...dated,
     kind: text('kind', { enum: ['water', 'zero-calorie', 'alcohol'] }).notNull(),
     volumeMl: real('volume_ml').notNull(),
+    /** Alcoholic drinks (F10, ADR 0020): beer, wine… and % by volume; null on older entries ("sin dato"). */
+    alcoholKind: text('alcohol_kind', {
+      enum: ['beer', 'big-beer', 'wine', 'pisco', 'spirit', 'cocktail'],
+    }),
+    abv: real('abv'),
   },
   (t) => [index('drink_entry_by_date').on(t.date)],
 );

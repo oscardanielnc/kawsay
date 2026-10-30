@@ -35,6 +35,19 @@ export function ModulesStep({ draft, update }: StepProps) {
         />
       ) : null}
       <Toggle
+        label={t('profile.liver')}
+        description={t('profile.liverHint')}
+        value={draft.liverEnabled}
+        onChange={(liverEnabled) =>
+          // Turning the Liver card on also turns on the weekly waist, one of its tiles (F04, F25).
+          update(
+            liverEnabled && !draft.waistEnabled
+              ? { liverEnabled, waistEnabled: true, waistReminderDay: draft.waistReminderDay ?? 0 }
+              : { liverEnabled },
+          )
+        }
+      />
+      <Toggle
         label={t('profile.symptoms')}
         description={t('profile.symptomsHint')}
         value={draft.symptomsEnabled}

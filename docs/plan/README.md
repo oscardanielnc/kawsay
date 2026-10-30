@@ -13,7 +13,7 @@ Everything the owner approved on 2026-10-30, in the order to build it. **When Os
 | [M3](m3-design-system.md) | Amanecer design system: tokens, fonts, background, components, motion | design | ✅ 2026-10-30 |
 | [M4](m4-today.md) | Today redesigned with six gauges | F05 F10 F22 F24 | ✅ 2026-10-30 |
 | [M5](m5-portion-preview.md) | Portion impact preview | F05 ADR 0020 | ✅ 2026-10-30 |
-| [M6](m6-liver.md) | Liver targets and Liver card | F25 ADR 0020 F20 F10 F11 F04 F01 | ⬜ |
+| [M6](m6-liver.md) | Liver targets and Liver card | F25 ADR 0020 F20 F10 F11 F04 F01 | ✅ 2026-10-30 |
 | [M7](m7-ai-summary.md) | AI summary only on demand, short, with tags | F17 | ⬜ |
 | [M8](m8-other-screens.md) | Every other screen in the new style | direction | ⬜ |
 | [M9](m9-release.md) | Release to Oscar's phone | runbooks | ⬜ |

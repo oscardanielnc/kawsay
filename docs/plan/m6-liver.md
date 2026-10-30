@@ -23,5 +23,13 @@ Goal: the targets of ADR 0020 everywhere they belong, and the Liver card in Insi
 
 ## Done when
 
-- [ ] All F25 criteria and the new criteria of F01, F10, F11, F20, F22 pass
-- [ ] A test proves no lab value reaches the outbox or the AI request
+- [x] All F25 criteria and the new criteria of F01, F10, F11, F22 pass (F20's week card: see notes)
+- [x] A test proves no lab value reaches the outbox or the AI request
+
+## Build notes (2026-10-30)
+
+- Movement vs 150/300 and strength days vs 2 show in the Liver card tiles; the F20 week card keeps its layout until
+  M8 restyles Insights. The sugar gauge detail on Today (step 6) is folded into the portion preview and the Liver
+  card's "day that added most"
+- Alcohol: the "+" of alcohol asks the drink (defaults of F10); editing volume and % per drink is left for later
+

@@ -41,6 +41,7 @@ export const RECORD_SCHEMAS = {
     expenditureFactor: amount,
     /** Added 2026-10-30 (F24); optional so a phone with an older app still syncs its profile. */
     refinedFlourShare: z.number().min(0.1).max(1).nullable().optional(),
+    liverEnabled: z.boolean().nullable().optional(),
   }),
   weight_entry: z.strictObject({ ...synced, ...dated, kg: amount }),
   waist_entry: z.strictObject({ ...synced, ...dated, weekStart: day, cm: amount }),
@@ -86,6 +87,12 @@ export const RECORD_SCHEMAS = {
     ...dated,
     kind: z.enum(['water', 'zero-calorie', 'alcohol']),
     volumeMl: amount,
+    /** Added 2026-10-30 (F10); optional so older apps still sync. */
+    alcoholKind: z
+      .enum(['beer', 'big-beer', 'wine', 'pisco', 'spirit', 'cocktail'])
+      .nullable()
+      .optional(),
+    abv: z.number().min(0).max(100).nullable().optional(),
   }),
   check_in: z.strictObject({
     ...synced,

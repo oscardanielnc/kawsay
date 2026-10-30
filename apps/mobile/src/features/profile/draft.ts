@@ -24,6 +24,8 @@ export interface Draft {
   waistReminderDay: number;
   symptomsEnabled: boolean;
   intimateEnabled: boolean;
+  /** Liver card in Insights (F25). */
+  liverEnabled: boolean;
   movementGoalMin: number;
   proteinGPerKg: number;
   fatShare: number;
@@ -47,6 +49,7 @@ export const initialDraft: Draft = {
   waistReminderDay: 6,
   symptomsEnabled: false,
   intimateEnabled: false,
+  liverEnabled: false,
   movementGoalMin: 30,
   proteinGPerKg: PROTEIN_G_PER_KG.default,
   fatShare: FAT_SHARE.default,
@@ -106,6 +109,7 @@ export function toProfileInput(draft: Draft, today: LocalDate): ProfileInput {
     waistReminderDay: draft.waistEnabled ? draft.waistReminderDay : null,
     symptomsEnabled: draft.symptomsEnabled,
     intimateEnabled: draft.intimateEnabled,
+    liverEnabled: draft.liverEnabled,
   };
 }
 
@@ -132,6 +136,7 @@ export function profileToDraft(profile: Profile, today: LocalDate, weightKg: num
     waistReminderDay: profile.waistReminderDay ?? initialDraft.waistReminderDay,
     symptomsEnabled: profile.symptomsEnabled,
     intimateEnabled: profile.intimateEnabled,
+    liverEnabled: profile.liverEnabled ?? false,
     movementGoalMin: profile.movementGoalMin,
     proteinGPerKg: profile.proteinGPerKg,
     fatShare: profile.fatShare,

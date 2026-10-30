@@ -22,7 +22,12 @@ export interface DayContext {
   refinedFlourShare: number | null;
 }
 
-const MACRO_METRIC = { calories: 'calories', protein: 'protein', fat: 'fat', carbs: 'carbs' } as const;
+const MACRO_METRIC = {
+  calories: 'calories',
+  protein: 'protein',
+  fat: 'fat',
+  carbs: 'carbs',
+} as const;
 const UNIT: Record<ImpactGauge, string> = {
   calories: 'kcal',
   protein: 'g',
@@ -119,7 +124,9 @@ export function PortionPreview({ day, portion }: { day: DayContext; portion: Gau
                 {name}
               </Text>
               <ZoneGauge
-                kind={gauge === 'addedSugar' || gauge === 'refinedFlour' ? 'one-sided' : 'two-sided'}
+                kind={
+                  gauge === 'addedSugar' || gauge === 'refinedFlour' ? 'one-sided' : 'two-sided'
+                }
                 position={position(gauge, g.after)}
                 before={position(gauge, g.now)}
                 value=""

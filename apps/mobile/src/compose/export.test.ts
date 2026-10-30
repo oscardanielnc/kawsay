@@ -72,6 +72,7 @@ describe('export (F15)', () => {
         'drinks.csv',
         'meals.csv',
         'notes.csv',
+        'labs.csv',
         'sleep.csv',
         'symptoms.csv',
         'waist.csv',

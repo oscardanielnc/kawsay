@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,6 +16,8 @@ interface Props {
   canNext: boolean;
   onPrev: () => void;
   onNext: () => void;
+  /** Liver card (F25), composed by the route from its own load so lab results never meet the AI request. */
+  liver?: ReactNode;
   ai: {
     stored: StoredAnalysis | null;
     status: AnalysisStatus;
@@ -33,7 +36,7 @@ function weekLabel(from: string, to: string): string {
 }
 
 /** Insights tab (F17 without AI, F19, F20): the week ending on the chosen day, computed on the phone. */
-export function InsightsScreen({ data, canNext, onPrev, onNext, ai }: Props) {
+export function InsightsScreen({ data, canNext, onPrev, onNext, ai, liver = null }: Props) {
   const { t } = useTranslation();
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
@@ -65,6 +68,7 @@ export function InsightsScreen({ data, canNext, onPrev, onNext, ai }: Props) {
               </Pressable>
             </View>
             <WeekCard week={data.week} />
+            {liver}
             <NutrientsCard
               nutrients={data.nutrients}
               sources={data.sources}

@@ -25,6 +25,7 @@ const profile: Profile = {
   intimateEnabled: false,
   expenditureFactor: 1,
   refinedFlourShare: null,
+  liverEnabled: null,
 };
 
 describe('profileTargets', () => {

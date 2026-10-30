@@ -50,6 +50,18 @@ describe('OnboardingScreen (F01)', () => {
     expect(screen.queryByText(/Más rápido que el 1 %/)).not.toBeOnTheScreen();
   });
 
+  it('80 kg with BMI 27.7 suggests a goal between 74.4 and 72.0 kg', async () => {
+    await render(<OnboardingScreen today={today} onFinish={jest.fn()} />);
+    await fillBody();
+    await tap('Siguiente');
+    await tap('Bajar de peso');
+    expect(
+      screen.getByText('Para tu hígado: bajar entre 7 y 10% te deja entre 74.4 y 72.0 kg'),
+    ).toBeOnTheScreen();
+    await tap('Usar 74.4 kg');
+    expect(screen.getByText('74.4 kg')).toBeOnTheScreen();
+  });
+
   it('finishing hands over the profile and today’s weight', async () => {
     const onFinish = jest.fn();
     await render(<OnboardingScreen today={today} onFinish={onFinish} />);

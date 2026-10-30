@@ -30,5 +30,5 @@ A fifth gauge on Today: grams of added sugar eaten, against a ceiling that follo
 - [x] A personal Coca-Cola (500 ml) adds 55 g of added sugar
 - [x] A papaya or a glass of milk adds no added sugar
 - [x] Every packaged or prepared food of the catalog has an explicit added-sugar value
-- [ ] A personal Coca-Cola shows "Mucho azúcar para una comida" before adding it and counts as one sugary drink
-- [ ] A drink with 4 g of added sugar is not a sugary drink; one with 8 g is
+- [x] A personal Coca-Cola shows "Mucho azúcar para una comida" before adding it and counts as one sugary drink
+- [x] A drink with 4 g of added sugar is not a sugary drink; one with 8 g is

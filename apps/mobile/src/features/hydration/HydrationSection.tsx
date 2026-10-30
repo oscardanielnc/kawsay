@@ -9,7 +9,10 @@ import { Card } from '@/components/layout/Card';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, touch, type } from '@/lib/theme';
 import { bucketLayers, type BucketGlasses, type BucketKind } from './bucket';
-import type { Drink, DrinkKind } from './hydration-db';
+import { ALCOHOL_DEFAULTS } from '@kawsay/core/liver/alcohol-grams';
+import type { AlcoholKind, Drink, DrinkKind } from './hydration-db';
+
+const ALCOHOL_KINDS = Object.keys(ALCOHOL_DEFAULTS) as AlcoholKind[];
 
 /** A caloric drink from the catalog; tapping it logs it in the current meal (F10 ↔ F05). */
 export interface CaloricDrink {
@@ -26,7 +29,7 @@ interface Props {
   sweated: boolean;
   urine: string | null;
   caloricDrinks: readonly CaloricDrink[];
-  onAdd: (kind: DrinkKind) => void;
+  onAdd: (kind: DrinkKind, alcohol?: { kind: AlcoholKind; volumeMl: number; abv: number }) => void;
   onDelete: (id: string) => void;
   onAddCaloric: (drink: CaloricDrink) => void;
   onUrine: (value: string) => void;
@@ -130,6 +133,7 @@ export function HydrationSection(props: Props) {
   const { drinks, fromMeals, goalGlasses, sweated, urine, caloricDrinks } = props;
   const { t } = useTranslation();
   const [caloric, setCaloric] = useState(false);
+  const [alcohol, setAlcohol] = useState(false);
   // Optional and collapsed (F10): the urine colour is always visible, the drinks open on a tap.
   const [open, setOpen] = useState(false);
   const glasses = drunkGlasses([
@@ -221,7 +225,7 @@ export function HydrationSection(props: Props) {
                     <Pressable
                       accessibilityRole="button"
                       accessibilityLabel={t('hydration.add', { kind: kindName(k) })}
-                      onPress={() => props.onAdd(k)}
+                      onPress={() => (k === 'alcohol' ? setAlcohol(true) : props.onAdd(k))}
                       style={[styles.step, { borderColor: KIND_COLOR[k] }]}
                     >
                       <Text style={[type.heading, { color: KIND_COLOR[k] }]}>+</Text>
@@ -266,6 +270,29 @@ export function HydrationSection(props: Props) {
         </>
       ) : null}
       <Text style={[type.caption, styles.muted]}>{t('hydration.note')}</Text>
+      <Sheet title={alcohol ? t('hydration.alcoholTitle') : null} onDone={() => setAlcohol(false)}>
+        <Text style={[type.caption, styles.muted]}>{t('hydration.alcoholHint')}</Text>
+        {ALCOHOL_KINDS.map((kind) => {
+          const { ml, abv } = ALCOHOL_DEFAULTS[kind];
+          return (
+            <Pressable
+              key={kind}
+              accessibilityRole="button"
+              accessibilityLabel={t(`hydration.alcoholKinds.${kind}`)}
+              onPress={() => {
+                props.onAdd('alcohol', { kind, volumeMl: ml, abv });
+                setAlcohol(false);
+              }}
+              style={styles.row}
+            >
+              <Text style={[type.heading, styles.ink]}>{t(`hydration.alcoholKinds.${kind}`)}</Text>
+              <Text style={[type.caption, styles.muted]}>
+                {t('hydration.alcoholSize', { ml, abv: formatNumber(abv) })}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </Sheet>
       <Sheet title={caloric ? t('hydration.caloricTitle') : null} onDone={() => setCaloric(false)}>
         <Text style={[type.caption, styles.muted]}>{t('hydration.caloricHint')}</Text>
         {caloricDrinks.map((d) => (

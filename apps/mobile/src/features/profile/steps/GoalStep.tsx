@@ -1,3 +1,5 @@
+import { bmiStatus } from '@kawsay/core/body/bmi';
+import { liverGoalRange } from '@kawsay/core/profile/liver-goal';
 import { addDays, type LocalDate } from '@kawsay/core/shared/local-date';
 import { MAX_WEEKLY_LOSS_SHARE } from '@kawsay/core/targets/day-target';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +21,11 @@ export function GoalStep({ draft, update, today }: StepProps & { today: LocalDat
   const pace = draftPace(draft);
   const maxKg = formatNumber(MAX_WEEKLY_LOSS_SHARE * draft.weightKg, 1);
   const dateIn = (weeks: number) => formatShortDate(addDays(today, weeks * 7));
+  // With BMI ≥ 25, losing 7–10% is what guidelines tie to less liver fat (F01, ADR 0020); any goal is still allowed.
+  const liver = liverGoalRange(
+    draft.weightKg,
+    bmiStatus({ weightKg: draft.weightKg, heightCm: draft.heightCm }).bmi,
+  );
 
   return (
     <>
@@ -36,6 +43,21 @@ export function GoalStep({ draft, update, today }: StepProps & { today: LocalDat
         <Text style={[type.body, styles.muted]}>{t('profile.maintainNote')}</Text>
       ) : (
         <>
+          {liver ? (
+            <View style={styles.liver}>
+              <Text style={[type.label, styles.ink]}>
+                {t('profile.liverGoal', {
+                  from: formatNumber(liver.fromKg, 1),
+                  to: formatNumber(liver.toKg, 1),
+                })}
+              </Text>
+              <Button
+                variant="link"
+                label={t('profile.useLiverGoal', { kg: formatNumber(liver.fromKg, 1) })}
+                onPress={() => update({ goalWeightKg: liver.fromKg })}
+              />
+            </View>
+          ) : null}
           <Stepper
             label={t('profile.goalWeight')}
             value={t('profile.kg', { value: formatNumber(goalKg, 1) })}
@@ -83,6 +105,7 @@ export function GoalStep({ draft, update, today }: StepProps & { today: LocalDat
 }
 
 const styles = StyleSheet.create({
+  liver: { gap: 2, padding: space.md, borderRadius: radius.chip, backgroundColor: color.blue50 },
   pace: {
     flexDirection: 'row',
     alignItems: 'baseline',

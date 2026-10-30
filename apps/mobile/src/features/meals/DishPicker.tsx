@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Keyboard, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Button } from '@/components/primitives/Button';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
@@ -11,6 +10,9 @@ import { searchCatalog } from './search';
 const TILES = 12;
 
 interface Props {
+  /** The search text; it lives in the sheet, so "back to results" finds it again (F05). */
+  query: string;
+  onQuery: (query: string) => void;
   recent: readonly CatalogItem[];
   items: readonly CatalogItem[];
   onPick: (item: CatalogItem) => void;
@@ -19,9 +21,8 @@ interface Props {
 }
 
 /** Search box, 12 recent dishes as tiles (filtered while typing) and the "Create dish" button (F05). */
-export function DishPicker({ recent, items, onPick, onCreate }: Props) {
+export function DishPicker({ query, onQuery, recent, items, onPick, onCreate }: Props) {
   const { t } = useTranslation();
-  const [query, setQuery] = useState('');
   const shown = query.trim() ? searchCatalog(query, items).slice(0, TILES * 2) : recent;
   return (
     <>
@@ -30,7 +31,7 @@ export function DishPicker({ recent, items, onPick, onCreate }: Props) {
         placeholder={t('meals.search')}
         placeholderTextColor={color.inkMuted}
         value={query}
-        onChangeText={setQuery}
+        onChangeText={onQuery}
         style={[type.body, styles.search]}
       />
       <View style={styles.grid}>
@@ -39,7 +40,10 @@ export function DishPicker({ recent, items, onPick, onCreate }: Props) {
             key={`${item.kind}:${item.id}`}
             accessibilityRole="button"
             accessibilityLabel={item.name}
-            onPress={() => onPick(item)}
+            onPress={() => {
+              Keyboard.dismiss();
+              onPick(item);
+            }}
             style={styles.tile}
           >
             <FoodIcon icon={item.icon} />

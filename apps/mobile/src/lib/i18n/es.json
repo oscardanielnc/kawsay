@@ -193,6 +193,8 @@
     "addTo": "Agregar a {{meal}}",
     "kcal": "{{kcal}} kcal",
     "search": "Buscar plato",
+    "backToResults": "‹ Resultados de «{{query}}»",
+    "backToPick": "‹ Elegir otro plato",
     "kcalPerServing": "{{kcal}} kcal · ración",
     "noMatch": "No hay platos con ese nombre.",
     "create": "+ Crear plato",

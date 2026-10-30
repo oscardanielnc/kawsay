@@ -145,6 +145,18 @@ describe('MealsSection (F05)', () => {
     expect(screen.queryByRole('button', { name: /Pan con huevo/ })).not.toBeOnTheScreen();
   });
 
+  it('back from the portion step shows the same query and results', async () => {
+    const { view } = renderSection();
+    await view;
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar a Almuerzo' }));
+    await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'lomo');
+    await fireEvent.press(screen.getByRole('button', { name: /Lomo saltado/ }));
+    await fireEvent.press(screen.getByRole('button', { name: '‹ Resultados de «lomo»' }));
+    expect(screen.getByLabelText('Buscar plato')).toHaveDisplayValue('lomo');
+    expect(screen.getByRole('button', { name: /Lomo saltado/ })).toBeOnTheScreen();
+    expect(screen.queryByRole('button', { name: /Pan con huevo/ })).not.toBeOnTheScreen();
+  });
+
   it('a logged item shows as a chip with its portion, and can be removed', async () => {
     const entry: MealEntryView = {
       id: 'e1',

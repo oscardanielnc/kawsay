@@ -40,8 +40,8 @@ interface Props {
 }
 
 type SheetState =
-  | { kind: 'pick'; meal: Meal }
-  | { kind: 'portion'; meal: Meal; item: CatalogItem; portion: Portion }
+  | { kind: 'pick'; meal: Meal; query: string }
+  | { kind: 'portion'; meal: Meal; query: string; item: CatalogItem; portion: Portion }
   | { kind: 'entry'; entry: MealEntryView }
   | { kind: 'create'; meal: Meal; name: string }
   | {
@@ -76,12 +76,15 @@ export function MealsSection({
     title = mealName(sheet.meal);
     body = (
       <DishPicker
+        query={sheet.query}
+        onQuery={(query) => setSheet({ ...sheet, query })}
         recent={recent[sheet.meal]}
         items={items}
         onPick={(item) =>
           setSheet({
             kind: 'portion',
             meal: sheet.meal,
+            query: sheet.query,
             item,
             portion: { servings: 1, grams: '', saveRest: false },
           })
@@ -105,8 +108,15 @@ export function MealsSection({
     );
     footer = <View />;
   } else if (sheet?.kind === 'portion') {
-    const { meal, item, portion } = sheet;
+    const { meal, query, item, portion } = sheet;
     title = t('meals.howMuch');
+    const back = (
+      <Button
+        variant="link"
+        label={query.trim() ? t('meals.backToResults', { query: query.trim() }) : t('meals.backToPick')}
+        onPress={() => setSheet({ kind: 'pick', meal, query })}
+      />
+    );
     body = (
       <PortionPicker
         item={item}
@@ -127,6 +137,7 @@ export function MealsSection({
     };
     body = (
       <>
+        {back}
         {body}
         <Button variant="link" label={t('detail.open')} onPress={openDetail} />
       </>
@@ -197,7 +208,7 @@ export function MealsSection({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={t('meals.addTo', { meal: mealName(meal) })}
-                onPress={() => setSheet({ kind: 'pick', meal })}
+                onPress={() => setSheet({ kind: 'pick', meal, query: '' })}
                 style={styles.plus}
               >
                 <Text style={[type.title, styles.onAccent]}>+</Text>

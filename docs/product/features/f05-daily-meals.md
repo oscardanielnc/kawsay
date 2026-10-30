@@ -30,7 +30,7 @@ Four slots per day: breakfast, lunch, dinner, snacks.
 - [x] Half a dish at dinner with "save the rest" shows the other half in tomorrow's breakfast
 - [x] A juice added to breakfast adds its calories there and fills its glasses in hydration, marked as "from breakfast"
 - [ ] With the keyboard open, one tap on a result opens its portion (checked on the phone)
-- [ ] Back from the portion step shows the same query and results
+- [x] Back from the portion step shows the same query and results
 - [ ] Changing the portion from ½ to 1 moves every preview needle and delta before adding
 
 ## Build notes

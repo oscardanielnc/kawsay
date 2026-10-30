@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Keyboard,
@@ -22,17 +22,39 @@ interface Props {
   footer?: ReactNode;
 }
 
-/** Height of the on-screen keyboard, 0 while hidden. A modal window is not resized by Android, so it asks. */
-function useKeyboardHeight(): number {
+/**
+ * Height of the on-screen keyboard, 0 while hidden. A modal window is not resized by Android, so it asks. While a
+ * finger is down the sheet keeps its place: if the keyboard hides under a tap, the sheet only moves after the
+ * finger lifts, so the tap lands on the result it started on (F05, "one tap picks a result").
+ */
+function useKeyboardHeight() {
   const [height, setHeight] = useState(0);
+  const touching = useRef(false);
+  const pending = useRef<number | null>(null);
   useEffect(() => {
+    const apply = (next: number) => {
+      if (touching.current) pending.current = next;
+      else setHeight(next);
+    };
     const subscriptions = [
-      Keyboard.addListener('keyboardDidShow', (event) => setHeight(event.endCoordinates.height)),
-      Keyboard.addListener('keyboardDidHide', () => setHeight(0)),
+      Keyboard.addListener('keyboardDidShow', (event) => apply(event.endCoordinates.height)),
+      Keyboard.addListener('keyboardDidHide', () => apply(0)),
     ];
     return () => subscriptions.forEach((subscription) => subscription.remove());
   }, []);
-  return height;
+  const touch = {
+    onTouchStart: () => {
+      touching.current = true;
+    },
+    onTouchEnd: () => {
+      touching.current = false;
+      const next = pending.current;
+      pending.current = null;
+      // After the press has fired, so the layout change cannot cancel it.
+      if (next !== null) setTimeout(() => setHeight(next), 0);
+    },
+  };
+  return { height, touch };
 }
 
 /**
@@ -41,7 +63,7 @@ function useKeyboardHeight(): number {
  */
 export function Sheet({ title, onDone, children, footer }: Props) {
   const { t } = useTranslation();
-  const keyboard = useKeyboardHeight();
+  const { height: keyboard, touch } = useKeyboardHeight();
   const { height: screen } = useWindowDimensions();
   return (
     <Modal visible={title !== null} animationType="slide" transparent onRequestClose={onDone}>
@@ -53,6 +75,8 @@ export function Sheet({ title, onDone, children, footer }: Props) {
           style={styles.outside}
         />
         <SafeAreaView
+          {...touch}
+          onTouchCancel={touch.onTouchEnd}
           edges={keyboard > 0 ? [] : ['bottom']}
           style={[styles.sheet, { maxHeight: (screen - keyboard) * 0.9 }]}
         >

@@ -39,8 +39,9 @@ export interface SleepSession {
 }
 
 /**
- * Saves a session. A day has one night (F11): saving a night without an id edits that day's night, so two quick
- * taps on the draft never create two; saving a night also removes any extra night the day still holds.
+ * Saves a session, upserting by id: a nap draft brings the id it got when shown, so quick taps update one nap.
+ * A day has one night (F11): saving a night without an id edits that day's night, so two quick taps on the draft
+ * never create two; saving a night also removes any extra night the day still holds.
  */
 export async function saveSleep(
   db: Db,
@@ -52,14 +53,14 @@ export async function saveSleep(
   const id =
     givenId ?? (input.kind === 'night' ? (await nightsOn(db, input.date))[0]?.id : undefined);
   const now = env.now();
-  if (id) {
-    await db
-      .update(sleepSession)
-      .set({ ...rest, ...stamps, updatedAt: now })
-      .where(eq(sleepSession.id, id));
-  }
   const saved = id ?? newRecord(env).id;
-  if (!id) await db.insert(sleepSession).values({ id: saved, updatedAt: now, ...rest, ...stamps });
+  await db
+    .insert(sleepSession)
+    .values({ id: saved, updatedAt: now, ...rest, ...stamps })
+    .onConflictDoUpdate({
+      target: sleepSession.id,
+      set: { ...rest, ...stamps, updatedAt: now },
+    });
   if (input.kind === 'night') {
     await db
       .update(sleepSession)

@@ -61,6 +61,7 @@ import { WeightCard } from '@/features/weight/WeightCard';
 import { saveWeight } from '@/features/weight/weight-db';
 import { loadDay, summarizeDay } from '@/compose/day';
 import { useDb } from '@/lib/db/DatabaseProvider';
+import { newRecord } from '@/lib/db/record';
 import { deviceTimeZone } from '@/lib/time-zone';
 import { today } from '@/lib/today';
 import { useLoad } from '@/lib/use-load';
@@ -302,6 +303,7 @@ export default function TodayRoute() {
       {data.profile ? (
         <TodaySection id="sleep">
           <SleepSection
+            key={day}
             sessions={data.sleep}
             usualNight={{ start: data.profile.usualSleepStart, end: data.profile.usualSleepEnd }}
             usualNap={
@@ -311,6 +313,7 @@ export default function TodayRoute() {
             }
             onSave={saveSleepChange}
             onDelete={(id) => run(() => deleteSleep(db, env, id))}
+            newId={() => newRecord(env).id}
           />
         </TodaySection>
       ) : null}

@@ -118,4 +118,14 @@ describe('sleep sessions (F11)', () => {
     await deleteSleep(db, e, nap.id);
     expect((await sleepOn(db, today)).map((s) => s.kind)).toEqual(['night']);
   });
+
+  it('a nap saved again with the id it got as a draft stays one nap', async () => {
+    const db = await createTestDb();
+    const e = env();
+    const id = newRecord(e).id;
+    const nap = { ...night, id, kind: 'nap' as const, start: '14:00', quality: null };
+    for (const end of ['14:45', '15:00', '15:15']) await saveSleep(db, e, { ...nap, end });
+    const naps = (await sleepOn(db, today)).filter((s) => s.kind === 'nap');
+    expect(naps).toEqual([expect.objectContaining({ id, end: '15:15' })]);
+  });
 });

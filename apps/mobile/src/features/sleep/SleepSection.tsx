@@ -28,12 +28,14 @@ interface Props {
   usualNap: { start: ClockTime; end: ClockTime } | null;
   onSave: (change: SleepChange) => void;
   onDelete: (id: string) => void;
+  /** A new record id: a nap draft gets its id when shown, so quick taps before the reload update one nap. */
+  newId: () => string;
 }
 
 /** A session on screen: saved, or a draft prefilled from the usual schedule that saves on its first change. */
 interface Shown extends SleepChange {
   key: string;
-  draftOf?: 'usualNap' | number;
+  draft?: boolean;
 }
 
 const STEP_MIN = 15;
@@ -55,40 +57,27 @@ function Moon({ on }: { on: boolean }) {
 }
 
 /** Sleep (F11): night and naps prefilled from the usual schedule, editable times, quality moons, nightmares. */
-export function SleepSection({ sessions, usualNight, usualNap, onSave, onDelete }: Props) {
+export function SleepSection({ sessions, usualNight, usualNap, onSave, onDelete, newId }: Props) {
   const { t } = useTranslation();
-  const [addedNaps, setAddedNaps] = useState<number[]>([]);
-  const [usualNapDismissed, setUsualNapDismissed] = useState(false);
+  // Nap drafts with their ids; one stays shown, with its latest values, until the saved nap arrives in `sessions`.
+  const [napDrafts, setNapDrafts] = useState<SleepChange[]>(() =>
+    usualNap && !sessions.some((s) => s.kind === 'nap')
+      ? [{ id: newId(), kind: 'nap', ...usualNap, quality: null, nightmares: false }]
+      : [],
+  );
+  const savedIds = new Set(sessions.map((s) => s.id));
 
   const shown: Shown[] = sessions.map((s) => ({ ...s, key: s.id }));
   if (!sessions.some((s) => s.kind === 'night')) {
     shown.unshift({ key: 'night', kind: 'night', ...usualNight, quality: null, nightmares: false });
   }
-  if (usualNap && !usualNapDismissed && !sessions.some((s) => s.kind === 'nap')) {
-    shown.push({
-      key: 'usual-nap',
-      kind: 'nap',
-      ...usualNap,
-      quality: null,
-      nightmares: false,
-      draftOf: 'usualNap',
-    });
-  }
-  for (const n of addedNaps) {
-    shown.push({
-      key: `nap-${n}`,
-      kind: 'nap',
-      ...NEW_NAP,
-      quality: null,
-      nightmares: false,
-      draftOf: n,
-    });
+  for (const d of napDrafts) {
+    if (d.id && !savedIds.has(d.id)) shown.push({ ...d, key: d.id, draft: true });
   }
   const total = shown.reduce((sum, s) => sum + clockHours(s), 0);
 
   const change = (s: Shown, patch: Partial<SleepChange>) => {
-    const { draftOf } = s;
-    onSave({
+    const next: SleepChange = {
       ...(s.id !== undefined && { id: s.id }),
       kind: s.kind,
       start: s.start,
@@ -96,13 +85,14 @@ export function SleepSection({ sessions, usualNight, usualNap, onSave, onDelete 
       quality: s.quality,
       nightmares: s.nightmares,
       ...patch,
-    });
-    if (typeof draftOf === 'number') setAddedNaps((naps) => naps.filter((n) => n !== draftOf));
+    };
+    onSave(next);
+    if (s.draft) setNapDrafts((drafts) => drafts.map((d) => (d.id === s.id ? next : d)));
   };
   const remove = (s: Shown) => {
+    // A draft is deleted too, in case its first save landed before the tap.
     if (s.id) onDelete(s.id);
-    else if (s.draftOf === 'usualNap') setUsualNapDismissed(true);
-    else setAddedNaps((naps) => naps.filter((n) => n !== s.draftOf));
+    setNapDrafts((drafts) => drafts.filter((d) => d.id !== s.id));
   };
 
   return (
@@ -181,7 +171,12 @@ export function SleepSection({ sessions, usualNight, usualNap, onSave, onDelete 
       <Button
         variant="link"
         label={t('sleep.addNap')}
-        onPress={() => setAddedNaps((naps) => [...naps, (naps.at(-1) ?? 0) + 1])}
+        onPress={() =>
+          setNapDrafts((drafts) => [
+            ...drafts,
+            { id: newId(), kind: 'nap', ...NEW_NAP, quality: null, nightmares: false },
+          ])
+        }
       />
       <Text style={[type.caption, styles.muted]}>{t('sleep.note')}</Text>
     </Card>

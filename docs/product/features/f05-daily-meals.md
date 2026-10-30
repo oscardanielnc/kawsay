@@ -31,7 +31,7 @@ Four slots per day: breakfast, lunch, dinner, snacks.
 - [x] A juice added to breakfast adds its calories there and fills its glasses in hydration, marked as "from breakfast"
 - [ ] With the keyboard open, one tap on a result opens its portion (checked on the phone)
 - [x] Back from the portion step shows the same query and results
-- [ ] Changing the portion from ½ to 1 moves every preview needle and delta before adding
+- [x] Changing the portion from ½ to 1 moves every preview needle and delta before adding
 
 ## Build notes
 

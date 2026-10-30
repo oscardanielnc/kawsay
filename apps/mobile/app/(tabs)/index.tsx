@@ -259,6 +259,15 @@ export default function TodayRoute() {
           onDelete={(id) => run(() => deleteMeal(db, env, id))}
           units={data.units}
           loadDetail={(item) => itemDetail(db, item)}
+          day={
+            targets
+              ? {
+                  targets,
+                  eaten,
+                  refinedFlourShare: data.profile?.refinedFlourShare ?? null,
+                }
+              : null
+          }
           onCreateDish={(meal: Meal, dish: NewDish) =>
             run(async () => {
               const { id } = await saveUserDish(db, env, dish);

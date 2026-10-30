@@ -248,4 +248,42 @@ describe('MealsSection (F05)', () => {
       expect.objectContaining({ meal: 'lunch', item: lomo, completes: 'p1' }),
     );
   });
+
+  it('Changing the portion from ½ to 1 moves every preview needle and delta before adding', async () => {
+    const day = {
+      targets: { targetKcal: 2000, proteinG: 100, fatG: 60, carbsG: 250 },
+      eaten: { kcal: 1240, proteinG: 60, fatG: 40, carbsG: 150, addedSugarG: 0, refinedFlourG: 0 },
+      refinedFlourShare: null,
+    };
+    await renderSection({ day }).view;
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar a Almuerzo' }));
+    await fireEvent.press(screen.getByRole('button', { name: /Lomo saltado/ }));
+    expect(screen.getByText('+820 kcal')).toBeOnTheScreen();
+    expect(screen.getByLabelText('Calorías: 1,240 → 2,060')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('button', { name: '½' }));
+    expect(screen.getByText('+410 kcal')).toBeOnTheScreen();
+    expect(screen.getByLabelText('Calorías: 1,240 → 1,650')).toBeOnTheScreen();
+    expect(screen.getByText('✓ Nada se pasa de su rango')).toBeOnTheScreen();
+  });
+
+  it('A personal Coca-Cola shows "Mucho azúcar para una comida" before adding it', async () => {
+    const coke = item('coca-cola', 'Coca-Cola', 210, {
+      kind: 'food',
+      source: 'label',
+      servingGrams: 500,
+      per100g: { energyKcal: 42, carbsTotalG: 11, addedSugarG: 11 },
+    });
+    await renderSection({
+      items: [...items, coke],
+      day: {
+        targets: { targetKcal: 2000, proteinG: 100, fatG: 60, carbsG: 250 },
+        eaten: { kcal: 0, proteinG: 0, fatG: 0, carbsG: 0, addedSugarG: 0, refinedFlourG: 0 },
+        refinedFlourShare: null,
+      },
+    }).view;
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar a Almuerzo' }));
+    await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'coca');
+    await fireEvent.press(screen.getByRole('button', { name: /Coca-Cola/ }));
+    expect(screen.getByText('Mucho azúcar para una comida')).toBeOnTheScreen();
+  });
 });

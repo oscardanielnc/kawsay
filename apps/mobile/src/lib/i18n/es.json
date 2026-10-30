@@ -993,5 +993,24 @@
       "red": "↑ Muy sobre tu límite"
     },
     "range": "Tu límite {{limit}} g"
+  },
+  "preview": {
+    "title": "Si lo comes, tu día queda así",
+    "delta": "+{{kcal}} kcal",
+    "kcalAfter": "Quedarías en {{after}} de {{target}} kcal",
+    "over": "↑ {{name}}: te pasarías",
+    "veryHigh": "↑ {{name}}: muy alto",
+    "sugarHeavy": "Mucho azúcar para una comida",
+    "allFine": "✓ Nada se pasa de su rango",
+    "fromTo": "{{now}} → {{after}}{{unit}}",
+    "legend": "Aguja gris: tu día ahora · aguja oscura: si agregas esta porción",
+    "names": {
+      "calories": "Calorías",
+      "protein": "Proteína",
+      "fat": "Grasa",
+      "carbs": "Carbos",
+      "addedSugar": "Azúcar",
+      "refinedFlour": "Harinas"
+    }
   }
 }

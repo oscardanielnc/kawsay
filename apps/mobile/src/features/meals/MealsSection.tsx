@@ -12,6 +12,7 @@ import { DishPicker } from './DishPicker';
 import { FoodIcon } from './FoodIcon';
 import type { CatalogItem, Meal, MealEntryView, NewDish } from './meals-db';
 import type { PendingMeal } from './pending-db';
+import { PortionPreview, portionAmounts, type DayContext } from './PortionPreview';
 import { fractionLabel } from './portion';
 import { eatenShare, PortionPicker, type Portion } from './PortionPicker';
 import type { ItemDetail } from './catalog-detail';
@@ -48,6 +49,8 @@ interface Props {
   onCreateDish: (meal: Meal, dish: NewDish) => void;
   /** Nutrients, source and ingredients of a dish or food (F06). */
   loadDetail: (item: CatalogItem) => Promise<ItemDetail>;
+  /** The day's targets and totals, for the portion impact preview (F05); absent without a weight yet. */
+  day?: DayContext | null;
 }
 
 type SheetState =
@@ -83,6 +86,7 @@ export function MealsSection({
   units,
   onCreateDish,
   loadDetail,
+  day = null,
 }: Props) {
   const { t } = useTranslation();
   const [sheet, setSheet] = useState<SheetState | null>(null);
@@ -228,11 +232,24 @@ export function MealsSection({
       />
     );
     body = (
-      <PortionPicker
-        item={item}
-        portion={portion}
-        onChange={(next) => setSheet({ ...sheet, portion: next })}
-      />
+      <>
+        <PortionPicker
+          item={item}
+          portion={portion}
+          onChange={(next) => setSheet({ ...sheet, portion: next })}
+        />
+        {day ? (
+          <PortionPreview
+            day={day}
+            portion={portionAmounts(
+              item.per100g,
+              portion.grams
+                ? Number(portion.grams)
+                : eatenShare(item, portion) * (item.servingGrams ?? 100),
+            )}
+          />
+        ) : null}
+      </>
     );
     const portionSheet = sheet;
     const openDetail = () => {

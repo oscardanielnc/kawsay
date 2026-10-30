@@ -12,7 +12,7 @@ Everything the owner approved on 2026-10-30, in the order to build it. **When Os
 | [M2](m2-missing-foods.md) | Missing foods: pending entry, every INS food, refined-flour and drink tags | F23 F24 F22 | ✅ 2026-10-30 (API deploy pending) |
 | [M3](m3-design-system.md) | Amanecer design system: tokens, fonts, background, components, motion | design | ✅ 2026-10-30 |
 | [M4](m4-today.md) | Today redesigned with six gauges | F05 F10 F22 F24 | ✅ 2026-10-30 |
-| [M5](m5-portion-preview.md) | Portion impact preview | F05 ADR 0020 | ⬜ |
+| [M5](m5-portion-preview.md) | Portion impact preview | F05 ADR 0020 | ✅ 2026-10-30 |
 | [M6](m6-liver.md) | Liver targets and Liver card | F25 ADR 0020 F20 F10 F11 F04 F01 | ⬜ |
 | [M7](m7-ai-summary.md) | AI summary only on demand, short, with tags | F17 | ⬜ |
 | [M8](m8-other-screens.md) | Every other screen in the new style | direction | ⬜ |

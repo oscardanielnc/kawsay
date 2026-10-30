@@ -17,5 +17,6 @@ Goal: see how the six gauges would move before adding a food (F05).
 
 ## Done when
 
-- [ ] F05 criterion 6 (½ → 1 moves every needle and delta before adding); F22 new criterion 1
+- [x] F05 criterion 6 (½ → 1 moves every needle and delta before adding); F22 new criterion 1
+  (its "counts as one sugary drink" half arrives with M6)
 - [ ] Oscar tries it with real-looking portions on Kawsay Dev

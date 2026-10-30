@@ -16,7 +16,7 @@ Everything the owner approved on 2026-10-30, in the order to build it. **When Os
 | [M6](m6-liver.md) | Liver targets and Liver card | F25 ADR 0020 F20 F10 F11 F04 F01 | ✅ 2026-10-30 |
 | [M7](m7-ai-summary.md) | AI summary only on demand, short, with tags | F17 | ✅ 2026-10-30 |
 | [M8](m8-other-screens.md) | Every other screen in the new style | direction | ✅ 2026-10-30 (walk-through on the phone pending) |
-| [M9](m9-release.md) | Release to Oscar's phone | runbooks | ⬜ |
+| [M9](m9-release.md) | Release to Oscar's phone | runbooks | ⏳ dev API + Kawsay Dev update done; prod API and production update wait for approval |
 
 Baseline (M0, 2026-10-30): `pnpm check` green, 628 tests (core 221 · catalog 53 · contracts 6 · api 35 · mobile 313),
 19 s uncached. Needs Docker Desktop running (api e2e)

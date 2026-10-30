@@ -1,3 +1,4 @@
+import type { SuggestReason } from '@kawsay/core/insights/should-suggest-update';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -22,6 +23,7 @@ interface Props {
     stored: StoredAnalysis | null;
     status: AnalysisStatus;
     timeZone: string;
+    suggest: SuggestReason | null;
     onAnalyze: () => void;
   };
 }

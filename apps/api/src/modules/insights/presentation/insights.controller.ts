@@ -21,4 +21,14 @@ export class InsightsController {
   ) {
     return this.analyze.execute(userId, body);
   }
+
+  /** The short AI summary of the F17 redesign (ADR 0022). */
+  @Post('summary')
+  @HttpCode(HttpStatus.OK)
+  summary(
+    @CurrentUserId() userId: string,
+    @Body(new ZodValidationPipe(AnalysisRequest)) body: AnalysisRequest,
+  ) {
+    return this.analyze.summary(userId, body);
+  }
 }

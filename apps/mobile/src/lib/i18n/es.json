@@ -985,25 +985,39 @@
       }
     },
     "ai": {
-      "title": "✨ Análisis con IA",
-      "privacy": "Envía a DeepSeek tus relaciones, tu semana y tus notas de estas 6 semanas. Nunca tu registro íntimo.",
-      "run": "Analizar mis últimas 6 semanas",
-      "working": "Analizando… puede tardar unos 20 segundos",
-      "again": "Analizar de nuevo",
-      "made": "Hecho el {{moment}} · te quedan {{remaining}} hoy",
-      "findings": "Lo que encontró",
-      "suggestions": "Prueba esto",
-      "warning": "⚠️ Ve al médico si…",
-      "basedOn": {
-        "data": "📊 tus datos",
-        "notes": "📝 tus notas",
-        "both": "📊📝 datos y notas"
+      "title": "Resumen con IA",
+      "updated": "Actualizado el {{moment}}",
+      "never": "Aún sin resumen",
+      "suggest": {
+        "never": "Pide tu primer resumen cuando quieras",
+        "stale": "Pasó una semana: te sugerimos actualizarlo",
+        "new-days": "Registraste varios días nuevos: te sugerimos actualizarlo",
+        "new-episode": "Empezó un síntoma nuevo: te sugerimos actualizarlo"
       },
+      "upToDate": "Al día",
+      "update": "Actualizar resumen",
+      "working": "Resumiendo… unos 20 segundos",
+      "left": "Solo se usa la IA cuando tocas el botón · quedan {{remaining}} de 3 hoy",
+      "privacy": "Envía a DeepSeek tus relaciones, tu semana y tus notas de estas 6 semanas. Nunca tu registro íntimo ni tus análisis de sangre.",
+      "tags": {
+        "food": "Comida",
+        "sleep": "Sueño",
+        "stress": "Estrés",
+        "activity": "Actividad",
+        "symptom": "Síntoma"
+      },
+      "confidence": {
+        "low": "Confianza baja",
+        "medium": "Confianza media",
+        "high": "Confianza alta"
+      },
+      "habits": "Prueba esto",
+      "warning": "⚠️ Ve al médico si…",
       "footer": "Generado por IA a partir de tus registros. No es un diagnóstico.",
       "errors": {
-        "limit": "Ya hiciste tus 3 análisis de las últimas 24 horas. Vuelve mañana.",
-        "offline": "Necesitas internet para analizar.",
-        "account": "Necesitas iniciar sesión con tu cuenta para usar el análisis con IA.",
+        "limit": "Ya pediste tus 3 resúmenes de las últimas 24 horas. Vuelve mañana.",
+        "offline": "Necesitas internet para el resumen.",
+        "account": "Inicia sesión con tu cuenta para usar el resumen con IA.",
         "unavailable": "La IA no respondió. Intenta de nuevo en unos minutos."
       }
     }

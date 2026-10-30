@@ -22,5 +22,5 @@ Goal: the AI analysis becomes short, tagged and only on demand (F17 redesign).
 
 ## Done when
 
-- [ ] F17 criteria pass with v2; a test proves opening Insights makes no AI call
-- [ ] API ready, **not deployed**: ask (dev first, then prod), before the app update
+- [x] F17 criteria pass with v2; a test proves opening Insights makes no AI call
+- [x] API ready (ADR 0022: `POST /v1/insights/summary`, `/analyze` kept); deployed to dev 2026-10-30

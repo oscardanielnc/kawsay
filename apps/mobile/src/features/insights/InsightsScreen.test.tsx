@@ -7,6 +7,8 @@ const base: InsightsData = {
   from: '2026-10-06',
   to: '2026-10-12',
   relationsFrom: '2026-09-01',
+  loggedDates: [],
+  episodeStarts: [],
   notes: [{ date: '2026-10-11', text: 'Creo que me dio diarrea por comer ceviche' }],
   week: {
     days: { green: 4, yellow: 2, red: 1, grey: 0 },
@@ -58,7 +60,14 @@ function renderScreen(data: InsightsData = base, ai: Partial<Ai> = {}) {
         canNext={false}
         onPrev={onPrev}
         onNext={jest.fn()}
-        ai={{ stored: null, status: { kind: 'idle' }, timeZone: 'America/Lima', onAnalyze, ...ai }}
+        ai={{
+          stored: null,
+          status: { kind: 'idle' },
+          timeZone: 'America/Lima',
+          suggest: 'never',
+          onAnalyze,
+          ...ai,
+        }}
       />,
     ),
   };
@@ -101,7 +110,7 @@ describe('InsightsScreen (F17 without AI, F19, F20)', () => {
     expect(screen.getByText('→ más hinchazón')).toBeOnTheScreen();
     expect(screen.getByText(/6 de 8 días \(75 %\)/)).toBeOnTheScreen();
     expect(screen.getByText('Confianza media')).toBeOnTheScreen();
-    expect(screen.getByText(/No es un diagnóstico/)).toBeOnTheScreen();
+    expect(screen.getAllByText(/No es un diagnóstico/).length).toBeGreaterThanOrEqual(2);
   });
 
   it('with too few days each card asks for more', async () => {
@@ -114,47 +123,51 @@ describe('InsightsScreen (F17 without AI, F19, F20)', () => {
     expect(screen.getByText(/10 días para ver relaciones\. Llevas 5/)).toBeOnTheScreen();
   });
 
-  it('the AI card says what leaves the phone and analyses on demand', async () => {
+  it('the AI card says what leaves the phone; only "Actualizar resumen" calls the AI', async () => {
     const { onAnalyze, view } = renderScreen();
     await view;
+    expect(onAnalyze).not.toHaveBeenCalled();
     expect(screen.getByText(/Envía a DeepSeek .* Nunca tu registro íntimo/)).toBeOnTheScreen();
-    await fireEvent.press(screen.getByRole('button', { name: 'Analizar mis últimas 6 semanas' }));
-    expect(onAnalyze).toHaveBeenCalled();
+    expect(screen.getByText('Pide tu primer resumen cuando quieras')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('button', { name: 'Actualizar resumen' }));
+    expect(onAnalyze).toHaveBeenCalledTimes(1);
   });
 
-  it('while it works the button waits; a 4th analysis in 24 h says to come back tomorrow', async () => {
+  it('while it works the button waits; a 4th summary in 24 h says to come back tomorrow', async () => {
     const { view } = renderScreen(base, { status: { kind: 'working' } });
     await view;
-    expect(screen.getByRole('button', { name: /Analizando/ })).toBeDisabled();
+    expect(screen.getByRole('button', { name: /Resumiendo/ })).toBeDisabled();
     await renderScreen(base, { status: { kind: 'failed', error: 'limit' } }).view;
-    expect(screen.getByText(/Ya hiciste tus 3 análisis/)).toBeOnTheScreen();
+    expect(screen.getByText(/Ya pediste tus 3 resúmenes/)).toBeOnTheScreen();
   });
 
-  it('shows the latest analysis: summary, findings with their source, habits and warning signs', async () => {
+  it('shows the last summary: tagged findings with confidence, habits and warning signs; "Al día"', async () => {
     await renderScreen(base, {
+      suggest: null,
       stored: {
         at: Date.UTC(2026, 9, 12, 18, 50),
         remaining: 2,
-        analysis: {
+        summary: {
           summary: 'La leche coincide con más hinchazón.',
           findings: [
             {
+              tag: 'food',
               title: 'Leche e hinchazón',
-              explanation: '5 de 7 días',
+              detail: '5 de 7 días',
               confidence: 'medium',
-              basedOn: 'both',
             },
           ],
-          suggestions: [{ habit: 'Toma la leche con comida', why: 'Es la relación más fuerte' }],
+          habits: ['Toma la leche con comida'],
           warningSigns: ['Si la diarrea dura más de 2 días'],
         },
       },
     }).view;
-    expect(screen.getByText(/te quedan 2 hoy/)).toBeOnTheScreen();
+    expect(screen.getByText('Al día')).toBeOnTheScreen();
+    expect(screen.getByText(/quedan 2 de 3 hoy/)).toBeOnTheScreen();
     expect(screen.getByText('La leche coincide con más hinchazón.')).toBeOnTheScreen();
-    expect(screen.getByText('📊📝 datos y notas')).toBeOnTheScreen();
-    expect(screen.getByText('✓ Toma la leche con comida')).toBeOnTheScreen();
+    expect(screen.getByText('Comida')).toBeOnTheScreen();
+    expect(screen.getByLabelText('Confianza media')).toBeOnTheScreen();
+    expect(screen.getByText('Toma la leche con comida')).toBeOnTheScreen();
     expect(screen.getByText('• Si la diarrea dura más de 2 días')).toBeOnTheScreen();
-    expect(screen.getByRole('button', { name: 'Analizar de nuevo' })).toBeOnTheScreen();
   });
 });

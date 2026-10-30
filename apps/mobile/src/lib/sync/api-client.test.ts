@@ -112,9 +112,9 @@ describe('API client', () => {
     expect(store.value).toBeNull();
   });
 
-  it('analyze (F17) posts the request with the access token and returns the analysis', async () => {
-    const analysis = { summary: 'Resumen', findings: [], suggestions: [], warningSigns: [] };
-    const { fetch, calls } = scripted(json(200, tokens(1)), json(200, { analysis, remaining: 2 }));
+  it('summarize (F17, ADR 0022) posts the request with the access token and returns the summary', async () => {
+    const summary = { summary: 'Resumen', findings: [], habits: [], warningSigns: [] };
+    const { fetch, calls } = scripted(json(200, tokens(1)), json(200, { summary, remaining: 2 }));
     const client = createApiClient({
       baseUrl: 'https://api.test/v1',
       fetch,
@@ -126,15 +126,15 @@ describe('API client', () => {
       week: { green: 1, yellow: 0, red: 0, movementMinutes: 0, lowNutrients: [] },
       notes: [],
     };
-    await expect(client.analyze(body)).resolves.toEqual({ analysis, remaining: 2 });
-    expect(calls[1]?.url).toBe('https://api.test/v1/insights/analyze');
+    await expect(client.summarize(body)).resolves.toEqual({ summary, remaining: 2 });
+    expect(calls[1]?.url).toBe('https://api.test/v1/insights/summary');
   });
 
   it('a refused analysis carries its problem code (daily limit)', async () => {
     const { fetch } = scripted(json(200, tokens(1)), json(429, { code: 'insights.limit_reached' }));
     const client = createApiClient({ baseUrl: 'x', fetch, tokens: memoryTokens('r0') });
     const error = await client
-      .analyze({
+      .summarize({
         period: { from: '2026-09-01', to: '2026-10-12', loggedDays: 12 },
         findings: [],
         week: { green: 1, yellow: 0, red: 0, movementMinutes: 0, lowNutrients: [] },

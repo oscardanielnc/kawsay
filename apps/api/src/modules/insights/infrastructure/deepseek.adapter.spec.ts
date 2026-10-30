@@ -84,4 +84,13 @@ describe('DeepSeekAdapter (ADR 0007)', () => {
     adapter.fetchImpl = () => Promise.resolve(new Response('busy', { status: 503 }));
     await expect(adapter.analyze(request)).rejects.toBeInstanceOf(AiUnavailableError);
   });
+
+  it('the short summary (ADR 0022) uses its own prompt and contract; a too-long answer is asked again', async () => {
+    const short = { summary: 'Corto', findings: [], habits: [], warningSigns: [] };
+    const { adapter, calls } = adapterWith([{ ...short, summary: 'x'.repeat(400) }, short]);
+    await expect(adapter.summarize(request)).resolves.toEqual(short);
+    expect(calls).toHaveLength(2);
+    const body = JSON.parse(calls[0]!.init.body as string) as { messages: { content: string }[] };
+    expect(body.messages[0]?.content).toMatch(/máx\. 220 caracteres/);
+  });
 });

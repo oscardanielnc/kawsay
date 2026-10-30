@@ -1,5 +1,7 @@
+import type { SuggestReason } from '@kawsay/core/insights/should-suggest-update';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
+import { Pill, type PillTone } from '@/components/data-display/Pill';
 import { Card } from '@/components/layout/Card';
 import { Button } from '@/components/primitives/Button';
 import { formatMoment } from '@/lib/format';
@@ -7,7 +9,7 @@ import { color, radius, space, type } from '@/lib/theme';
 import type { StoredAnalysis } from './analysis-store';
 
 export type AnalysisError = 'limit' | 'offline' | 'account' | 'unavailable';
-/** Which message a failed analysis shows; `code` is the API problem code when there is one. */
+/** Which message a failed summary shows; `code` is the API problem code when there is one. */
 export function analysisError(error: unknown): AnalysisError {
   const e = error as { name?: string; code?: string | null; status?: number };
   if (e.code === 'insights.limit_reached') return 'limit';
@@ -19,115 +21,151 @@ export function analysisError(error: unknown): AnalysisError {
 export type AnalysisStatus =
   { kind: 'idle' } | { kind: 'working' } | { kind: 'failed'; error: AnalysisError };
 
+const TAG: Record<string, PillTone> = {
+  food: 'peach',
+  sleep: 'in',
+  stress: 'far',
+  activity: 'neutral',
+  symptom: 'near',
+};
+const LEVEL = { low: 1, medium: 2, high: 3 } as const;
+
 interface Props {
   stored: StoredAnalysis | null;
   status: AnalysisStatus;
   timeZone: string;
+  /** Why the card suggests an update; null = "Al día". */
+  suggest: SuggestReason | null;
   onAnalyze: () => void;
 }
 
 /**
- * "Analyse with AI" (F17, ADR 0019): says what leaves the phone, runs on demand, and shows the latest answer —
- * summary, findings with confidence and source, habits to try, warning signs — never as a diagnosis.
+ * "Resumen con IA" (F17 redesign, Analysis.dc.html): the date of the last summary, a banner that suggests updating
+ * or says "Al día", and "Actualizar resumen" as the only thing that calls the AI. Findings with a coloured tag and
+ * three confidence dots, habits to try, warning signs only when present, never a diagnosis.
  */
-export function AiAnalysisCard({ stored, status, timeZone, onAnalyze }: Props) {
+export function AiAnalysisCard({ stored, status, timeZone, suggest, onAnalyze }: Props) {
   const { t } = useTranslation();
   const working = status.kind === 'working';
-  const a = stored?.analysis;
+  const s = stored?.summary;
   return (
-    <Card>
-      <Text accessibilityRole="header" style={[type.heading, styles.ink]}>
-        {t('insights.ai.title')}
-      </Text>
-      <Text style={[type.caption, styles.muted]}>{t('insights.ai.privacy')}</Text>
+    <Card
+      title={t('insights.ai.title')}
+      action={
+        <Text style={[type.caption, styles.muted]}>
+          {stored
+            ? t('insights.ai.updated', { moment: formatMoment(stored.at, timeZone) })
+            : t('insights.ai.never')}
+        </Text>
+      }
+    >
+      <View style={[styles.banner, suggest ? styles.bannerSuggest : styles.bannerFresh]}>
+        <View
+          style={[styles.bannerDot, { backgroundColor: suggest ? color.peach300 : color.blue500 }]}
+        />
+        <Text style={[type.label, styles.ink, styles.grow]}>
+          {suggest ? t(`insights.ai.suggest.${suggest}`) : t('insights.ai.upToDate')}
+        </Text>
+      </View>
       <Button
-        label={
-          working ? t('insights.ai.working') : t(stored ? 'insights.ai.again' : 'insights.ai.run')
-        }
+        label={working ? t('insights.ai.working') : t('insights.ai.update')}
+        variant={suggest ? 'primary' : 'secondary'}
         disabled={working}
         onPress={onAnalyze}
       />
+      <Text style={[type.caption, styles.muted, styles.center]}>
+        {t('insights.ai.left', { remaining: stored?.remaining ?? 3 })}
+      </Text>
       {status.kind === 'failed' ? (
         <Text accessibilityRole="alert" style={[type.body, styles.danger]}>
           {t(`insights.ai.errors.${status.error}`)}
         </Text>
       ) : null}
-      {stored && a ? (
+      {s ? (
         <View style={styles.result}>
-          <Text style={[type.caption, styles.muted]}>
-            {t('insights.ai.made', {
-              moment: formatMoment(stored.at, timeZone),
-              remaining: stored.remaining,
-            })}
-          </Text>
-          <Text style={[type.body, styles.ink]}>{a.summary}</Text>
-          {a.findings.length ? (
-            <Text style={[type.label, styles.ink]}>{t('insights.ai.findings')}</Text>
-          ) : null}
-          {a.findings.map((f) => (
+          <Text style={[type.body, styles.ink]}>{s.summary}</Text>
+          {s.findings.map((f) => (
             <View key={f.title} style={styles.finding}>
-              <Text style={[type.label, styles.ink]}>{f.title}</Text>
-              <View style={styles.chips}>
-                <View style={[styles.chip, styles.confidenceChip]}>
-                  <Text style={[type.caption, styles.confidence]}>
-                    {t(`insights.relations.confidence.${f.confidence}`)}
-                  </Text>
-                </View>
-                <View style={[styles.chip, styles.source]}>
-                  <Text style={[type.caption, styles.muted]}>
-                    {t(`insights.ai.basedOn.${f.basedOn}`)}
-                  </Text>
+              <View style={styles.row}>
+                <Pill tone={TAG[f.tag] ?? 'neutral'} text={t(`insights.ai.tags.${f.tag}`)} />
+                <View
+                  accessible
+                  accessibilityLabel={t(`insights.ai.confidence.${f.confidence}`)}
+                  style={styles.dots}
+                >
+                  {[1, 2, 3].map((n) => (
+                    <View
+                      key={n}
+                      style={[
+                        styles.dot,
+                        { backgroundColor: n <= LEVEL[f.confidence] ? color.blue500 : color.line },
+                      ]}
+                    />
+                  ))}
                 </View>
               </View>
-              <Text style={[type.caption, styles.ink]}>{f.explanation}</Text>
+              <Text style={[type.heading, styles.ink]}>{f.title}</Text>
+              <Text style={[type.label, styles.soft]}>{f.detail}</Text>
             </View>
           ))}
-          {a.suggestions.length ? (
-            <Text style={[type.label, styles.ink]}>{t('insights.ai.suggestions')}</Text>
+          {s.habits.length ? (
+            <>
+              <Text style={[type.section, styles.soft]}>{t('insights.ai.habits')}</Text>
+              <View style={styles.chips}>
+                {s.habits.map((habit) => (
+                  <Pill key={habit} tone="in" text={habit} />
+                ))}
+              </View>
+            </>
           ) : null}
-          {a.suggestions.map((s) => (
-            <View key={s.habit} style={styles.suggestion}>
-              <Text style={[type.label, styles.success]}>{`✓ ${s.habit}`}</Text>
-              <Text style={[type.caption, styles.muted]}>{s.why}</Text>
-            </View>
-          ))}
-          {a.warningSigns.length ? (
+          {s.warningSigns.length ? (
             <View style={styles.warning}>
               <Text style={[type.label, styles.danger]}>{t('insights.ai.warning')}</Text>
-              {a.warningSigns.map((w) => (
-                <Text key={w} style={[type.caption, styles.ink]}>{`• ${w}`}</Text>
+              {s.warningSigns.map((w) => (
+                <Text key={w} style={[type.label, styles.ink]}>{`• ${w}`}</Text>
               ))}
             </View>
           ) : null}
-          <Text style={[type.caption, styles.muted]}>{t('insights.ai.footer')}</Text>
         </View>
       ) : null}
+      <Text style={[type.caption, styles.muted]}>{t('insights.ai.privacy')}</Text>
+      <Text style={[type.caption, styles.muted]}>{t('insights.ai.footer')}</Text>
     </Card>
   );
 }
 
 const styles = StyleSheet.create({
-  result: { gap: space.sm, marginTop: space.xs },
-  finding: {
-    gap: space.xs,
+  banner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: space.sm,
     padding: space.md,
-    borderRadius: radius.card - 2,
+    borderRadius: radius.inner,
+  },
+  bannerSuggest: { backgroundColor: color.peach50 },
+  bannerFresh: { backgroundColor: color.blue50 },
+  bannerDot: { width: 10, height: 10, borderRadius: 5 },
+  grow: { flex: 1 },
+  center: { textAlign: 'center' },
+  result: { gap: space.md },
+  finding: {
+    gap: 4,
+    padding: space.md,
+    borderRadius: radius.inner,
     backgroundColor: color.surface2,
   },
-  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: space.xs },
-  chip: { paddingHorizontal: space.sm, paddingVertical: 2, borderRadius: radius.pill },
-  confidenceChip: { backgroundColor: color.blue50 },
-  confidence: { color: color.blue800 },
-  source: { backgroundColor: color.line },
-  suggestion: { gap: 2, paddingLeft: space.xs },
+  row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  dots: { flexDirection: 'row', gap: 4 },
+  dot: { width: 8, height: 8, borderRadius: 4 },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
   warning: {
-    gap: space.xs,
+    gap: 4,
     padding: space.md,
-    borderRadius: radius.card - 2,
+    borderRadius: radius.inner,
     backgroundColor: color.coral50,
   },
   ink: { color: color.ink },
+  soft: { color: color.inkSoft },
   muted: { color: color.inkMuted },
   danger: { color: color.coral800 },
-  success: { color: color.blue800 },
 });

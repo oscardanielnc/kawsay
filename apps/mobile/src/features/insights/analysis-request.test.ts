@@ -6,6 +6,8 @@ import type { InsightsData } from './types';
 const data: InsightsData = {
   from: '2026-10-06',
   to: '2026-10-12',
+  loggedDates: [],
+  episodeStarts: [],
   relationsFrom: '2026-09-01',
   notes: [{ date: '2026-10-11', text: 'Creo que me dio diarrea por comer ceviche' }],
   week: {

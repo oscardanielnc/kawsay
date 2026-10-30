@@ -29,7 +29,7 @@ function client(overrides: Partial<ApiClient['sync']> & Partial<Omit<ApiClient, 
   const api: ApiClient = {
     signIn: overrides.signIn ?? (() => Promise.resolve(oscar)),
     signOut: overrides.signOut ?? (() => Promise.resolve()),
-    analyze: overrides.analyze ?? (() => Promise.reject(new Error('not in these tests'))),
+    summarize: overrides.summarize ?? (() => Promise.reject(new Error('not in these tests'))),
     sync: {
       push:
         overrides.push ??

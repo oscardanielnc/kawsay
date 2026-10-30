@@ -47,6 +47,10 @@ export interface InsightsData {
   /** Per nutrient: the 3 biggest sources of the week and the 5 richest catalog foods per usual portion. */
   sources: Partial<Record<WeeklyNutrient, FoodPick[]>>;
   richest: Partial<Record<WeeklyNutrient, FoodPick[]>>;
+  /** Days of the six weeks with something logged, and first days of own-symptom episodes: they decide when the
+   * AI summary card suggests an update (F17). */
+  loggedDates: LocalDate[];
+  episodeStarts: LocalDate[];
   relations:
     | { status: 'need-days'; loggedDays: number; neededDays: number }
     | { status: 'ok'; loggedDays: number; findings: Relation[] };

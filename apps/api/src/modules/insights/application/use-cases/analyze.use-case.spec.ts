@@ -21,6 +21,10 @@ class FakeAi extends AiPort {
     this.calls++;
     return Promise.resolve(analysis);
   }
+  summarize() {
+    this.calls++;
+    return Promise.resolve({ summary: 'Corto', findings: [], habits: [], warningSigns: [] });
+  }
 }
 class MemoryLog extends AnalysisLog {
   readonly times: Date[] = [];

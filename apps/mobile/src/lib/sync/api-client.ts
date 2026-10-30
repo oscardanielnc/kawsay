@@ -1,5 +1,5 @@
 import { TokenResponse } from '@kawsay/contracts/auth';
-import { type AnalysisRequest, AnalysisResponse } from '@kawsay/contracts/insights';
+import { type AnalysisRequest, SummaryResponse } from '@kawsay/contracts/insights';
 import { type Change, PullResponse, PushResponse } from '@kawsay/contracts/sync';
 import type { SyncApi } from './engine';
 
@@ -43,7 +43,8 @@ export interface ApiClient {
   signOut(): Promise<void>;
   sync: SyncApi;
   /** On-demand AI analysis (F17). */
-  analyze(request: AnalysisRequest): Promise<AnalysisResponse>;
+  /** The short AI summary (F17 redesign, ADR 0022). */
+  summarize(request: AnalysisRequest): Promise<SummaryResponse>;
 }
 
 /**
@@ -145,9 +146,9 @@ export function createApiClient({
       pull: async (since: number) => PullResponse.parse(await authed(`/sync/pull?since=${since}`)),
     },
 
-    analyze: async (request) =>
-      AnalysisResponse.parse(
-        await authed('/insights/analyze', { method: 'POST', body: JSON.stringify(request) }),
+    summarize: async (request) =>
+      SummaryResponse.parse(
+        await authed('/insights/summary', { method: 'POST', body: JSON.stringify(request) }),
       ),
   };
 }

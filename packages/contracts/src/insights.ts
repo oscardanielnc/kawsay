@@ -62,3 +62,31 @@ export const AnalysisResponse = z.strictObject({
   remaining: z.number().int().nonnegative(),
 });
 export type AnalysisResponse = z.infer<typeof AnalysisResponse>;
+
+/**
+ * The short AI summary (F17 redesign, ADR 0022): what `POST /insights/summary` answers. About 1,500 characters at
+ * most; `Analysis` above stays for apps that still call `/insights/analyze`.
+ */
+export const Summary = z.strictObject({
+  summary: z.string().min(1).max(220),
+  findings: z
+    .array(
+      z.strictObject({
+        tag: z.enum(['food', 'sleep', 'stress', 'activity', 'symptom']),
+        title: z.string().min(1).max(60),
+        detail: z.string().min(1).max(140),
+        confidence,
+      }),
+    )
+    .max(3),
+  habits: z.array(z.string().min(1).max(80)).max(2),
+  warningSigns: z.array(z.string().min(1).max(140)).max(3),
+});
+export type Summary = z.infer<typeof Summary>;
+
+export const SummaryResponse = z.strictObject({
+  summary: Summary,
+  /** Summaries and analyses left in the current 24 h (they share the limit). */
+  remaining: z.number().int().nonnegative(),
+});
+export type SummaryResponse = z.infer<typeof SummaryResponse>;

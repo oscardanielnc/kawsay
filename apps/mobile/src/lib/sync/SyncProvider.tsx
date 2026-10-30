@@ -12,7 +12,7 @@ import {
 } from 'react';
 import { AppState } from 'react-native';
 import { useDb } from '../db/DatabaseProvider';
-import type { AnalysisRequest, AnalysisResponse } from '@kawsay/contracts/insights';
+import type { AnalysisRequest, SummaryResponse } from '@kawsay/contracts/insights';
 import { createApiClient, type TokenStore } from './api-client';
 import { SYNCED_TABLES } from './collections';
 import { SyncController, type SyncState } from './sync-controller';
@@ -23,7 +23,7 @@ export interface SyncContextValue extends SyncState {
   signOut(): Promise<void>;
   syncNow(): Promise<void>;
   /** On-demand AI analysis (F17); needs an account and signal. */
-  analyze(request: AnalysisRequest): Promise<AnalysisResponse>;
+  summarize(request: AnalysisRequest): Promise<SummaryResponse>;
 }
 
 const SyncContext = createContext<SyncContextValue | null>(null);
@@ -91,7 +91,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
         useWithoutAccount: () => controller.useWithoutAccount(),
         signOut: () => controller.signOut(),
         syncNow: () => controller.sync(),
-        analyze: (request) => client.analyze(request),
+        summarize: (request) => client.summarize(request),
       }}
     >
       {children}

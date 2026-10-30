@@ -127,10 +127,12 @@ export async function loadInsights(db: Db, end: LocalDate): Promise<InsightsData
 
   // Own symptoms are marked every day they last (F13): triggers are looked for on each episode's first day only, so
   // the days after it neither count as a new bad day nor as a good one.
+  const episodeStarts: LocalDate[] = [];
   for (const s of symptoms) {
     const key = `own:${s.id}`;
     const present = associationDays.filter((d) => d.symptoms[key]).map((d) => d.date);
     const starts = new Set(symptomEpisodes(present).map((e) => e.start));
+    episodeStarts.push(...starts);
     associationDays.forEach((d, i) => {
       if (!d.symptoms[key] || starts.has(d.date)) return;
       associationDays[i] = {
@@ -237,6 +239,8 @@ export async function loadInsights(db: Db, end: LocalDate): Promise<InsightsData
     to: end,
     relationsFrom: from,
     notes,
+    loggedDates: days.filter((_, i) => summaries[i]!.hasEntries).map((d) => d.date),
+    episodeStarts,
     week: summary,
     nutrients,
     sources,

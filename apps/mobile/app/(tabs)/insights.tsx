@@ -1,4 +1,5 @@
-import { addDays } from '@kawsay/core/shared/local-date';
+import { shouldSuggestUpdate } from '@kawsay/core/insights/should-suggest-update';
+import { addDays, localDateOf } from '@kawsay/core/shared/local-date';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { loadInsights } from '@/compose/insights';
@@ -37,7 +38,7 @@ export default function InsightsRoute() {
     if (sync.account?.kind !== 'signed-in') return setStatus({ kind: 'failed', error: 'account' });
     setStatus({ kind: 'working' });
     sync
-      .analyze(buildAnalysisRequest(data, t))
+      .summarize(buildAnalysisRequest(data, t))
       .then((response) => saveAnalysis(db, { ...response, at: env.now() }))
       .then(
         () => {
@@ -63,7 +64,21 @@ export default function InsightsRoute() {
           />
         ) : null
       }
-      ai={{ stored: stored ?? null, status, timeZone: deviceTimeZone(), onAnalyze: run }}
+      ai={{
+        stored: stored ?? null,
+        status,
+        timeZone: deviceTimeZone(),
+        // Only a suggestion: the AI runs when the user taps "Actualizar resumen", never on open (F17).
+        suggest: data
+          ? shouldSuggestUpdate({
+              today: now,
+              lastUpdate: stored ? localDateOf(new Date(stored.at), deviceTimeZone()) : null,
+              loggedDays: data.loggedDates,
+              episodeStarts: data.episodeStarts,
+            })
+          : null,
+        onAnalyze: run,
+      }}
     />
   );
 }

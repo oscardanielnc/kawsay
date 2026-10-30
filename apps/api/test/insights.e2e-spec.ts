@@ -1,5 +1,5 @@
 import type { TokenResponse } from '@kawsay/contracts/auth';
-import type { Analysis, AnalysisRequest } from '@kawsay/contracts/insights';
+import type { Analysis, Summary, AnalysisRequest } from '@kawsay/contracts/insights';
 import type { NestExpressApplication } from '@nestjs/platform-express';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -23,6 +23,14 @@ const body: AnalysisRequest = {
   ],
   week: { green: 4, yellow: 2, red: 1, movementMinutes: 120, lowNutrients: [] },
   notes: [{ date: '2026-10-11', text: 'Creo que me dio diarrea por comer ceviche' }],
+};
+const summary: Summary = {
+  summary: 'Semana con poco movimiento.',
+  findings: [
+    { tag: 'food', title: 'Leche y barriga', detail: '6 de 8 días', confidence: 'medium' },
+  ],
+  habits: ['Camina 10 min después del almuerzo'],
+  warningSigns: [],
 };
 const analysis: Analysis = {
   summary: 'La leche coincide con más hinchazón.',
@@ -53,6 +61,10 @@ describe('AI analysis (F17, real Postgres, fake AI)', () => {
             received.push(r);
             return Promise.resolve(analysis);
           },
+          summarize: (r: AnalysisRequest) => {
+            received.push(r);
+            return Promise.resolve(summary);
+          },
         }),
     });
   });
@@ -81,6 +93,20 @@ describe('AI analysis (F17, real Postgres, fake AI)', () => {
     await analyze(token).expect(200);
     const fourth = await analyze(token).expect(429);
     expect((fourth.body as { code: string }).code).toBe('insights.limit_reached');
+  });
+
+  it('the short summary (ADR 0022) answers on its own endpoint and shares the daily limit', async () => {
+    received = [];
+    const token = await signIn(app);
+    const summarize = () =>
+      request(app.getHttpServer())
+        .post('/v1/insights/summary')
+        .set('Authorization', `Bearer ${token}`)
+        .send(body);
+    expect((await summarize().expect(200)).body).toEqual({ summary, remaining: 2 });
+    await analyze(token).expect(200);
+    await summarize().expect(200);
+    await summarize().expect(429);
   });
 
   it('refuses a body with extra fields (no identifiers, no intimate entries)', async () => {

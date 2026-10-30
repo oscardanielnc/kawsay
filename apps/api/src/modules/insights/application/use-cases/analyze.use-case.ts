@@ -1,4 +1,8 @@
-import type { AnalysisRequest, AnalysisResponse } from '@kawsay/contracts/insights';
+import type {
+  AnalysisRequest,
+  AnalysisResponse,
+  SummaryResponse,
+} from '@kawsay/contracts/insights';
 import { Injectable } from '@nestjs/common';
 import { AppConfig } from '../../../../config/app-config';
 import { Clock } from '../../../../shared/application/ports/clock';
@@ -18,7 +22,22 @@ export class AnalyzeUseCase {
     private readonly config: AppConfig,
   ) {}
 
+  /** The long analysis, for apps older than the F17 redesign (ADR 0022). */
   async execute(userId: string, request: AnalysisRequest): Promise<AnalysisResponse> {
+    const { result, remaining } = await this.limited(userId, () => this.ai.analyze(request));
+    return { analysis: result, remaining };
+  }
+
+  /** The short summary (F17 redesign, ADR 0022); it shares the daily limit with the analysis. */
+  async summary(userId: string, request: AnalysisRequest): Promise<SummaryResponse> {
+    const { result, remaining } = await this.limited(userId, () => this.ai.summarize(request));
+    return { summary: result, remaining };
+  }
+
+  private async limited<T>(
+    userId: string,
+    run: () => Promise<T>,
+  ): Promise<{ result: T; remaining: number }> {
     const now = this.clock.now();
     const recent = await this.log.since(userId, new Date(now.getTime() - DAY_MS));
     const limit = this.config.ai.dailyLimit;
@@ -26,8 +45,8 @@ export class AnalyzeUseCase {
     if (recent.length >= limit && oldest) {
       throw new AnalysisLimitError(new Date(oldest.getTime() + DAY_MS));
     }
-    const analysis = await this.ai.analyze(request);
+    const result = await run();
     await this.log.record(userId, now);
-    return { analysis, remaining: Math.max(0, limit - recent.length - 1) };
+    return { result, remaining: Math.max(0, limit - recent.length - 1) };
   }
 }

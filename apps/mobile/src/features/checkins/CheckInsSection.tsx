@@ -68,7 +68,17 @@ export function CheckInsSection({ rows, onCheckIn, onDelete }: Props) {
 
   return (
     <Card title={t('checkins.title')}>
-      <Text style={[type.heading, styles.ink]}>{t('checkins.bathroom')}</Text>
+      {/* The add button stays in the header: visits never push it around (owner, 2026-10-30). */}
+      <View style={styles.head}>
+        <Text style={[type.heading, styles.ink, styles.grow]}>{t('checkins.bathroom')}</Text>
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => setBathroomSheet(true)}
+          style={[styles.chip, styles.add]}
+        >
+          <Text style={[type.label, styles.accent]}>{t('checkins.addVisit')}</Text>
+        </Pressable>
+      </View>
       <View style={styles.chips}>
         {visits.map((v) => (
           <Pressable
@@ -82,13 +92,6 @@ export function CheckInsSection({ rows, onCheckIn, onDelete }: Props) {
             <Text style={[type.label, styles.ink]}>{visitName(v.value)}</Text>
           </Pressable>
         ))}
-        <Pressable
-          accessibilityRole="button"
-          onPress={() => setBathroomSheet(true)}
-          style={[styles.chip, styles.add]}
-        >
-          <Text style={[type.label, styles.accent]}>{t('checkins.addVisit')}</Text>
-        </Pressable>
         {visits.length === 0 ? (
           <Pressable
             accessibilityRole="button"
@@ -156,6 +159,8 @@ export function CheckInsSection({ rows, onCheckIn, onDelete }: Props) {
 const styles = StyleSheet.create({
   block: { gap: space.sm },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
+  head: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
+  grow: { flex: 1 },
   chip: {
     minHeight: touch,
     flexDirection: 'row',

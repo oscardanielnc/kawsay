@@ -110,7 +110,7 @@ export function ProfileScreen({
   return (
     <GradientBackground>
       <SafeAreaView style={styles.screen}>
-        <ScrollView contentContainerStyle={styles.content}>
+        <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <Text accessibilityRole="header" style={[type.display, styles.ink]}>
             {t('tabs.profile')}
           </Text>

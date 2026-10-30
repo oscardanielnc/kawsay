@@ -74,7 +74,9 @@ export function StatusCard({ weightKg, heightCm, goalWeightKg, waistCm = null }:
       </Text>
       <View style={styles.gauges}>
         <View style={[styles.gauge, !waist && styles.single]}>
-          <Text style={[type.label, styles.ink, styles.centered]}>{t('profile.bmiName')}</Text>
+          <Text style={[type.label, styles.ink, styles.centered, styles.name]} numberOfLines={2}>
+            {t('profile.bmiName')}
+          </Text>
           <ArcGauge
             bands={BMI_BANDS}
             limits={[
@@ -96,7 +98,9 @@ export function StatusCard({ weightKg, heightCm, goalWeightKg, waistCm = null }:
         </View>
         {waist ? (
           <View style={styles.gauge}>
-            <Text style={[type.label, styles.ink, styles.centered]}>{t('waist.profileLine')}</Text>
+            <Text style={[type.label, styles.ink, styles.centered, styles.name]} numberOfLines={2}>
+              {t('waist.profileLine')}
+            </Text>
             <ArcGauge
               bands={UPPER_LIMIT}
               limits={[
@@ -141,6 +145,8 @@ export function StatusCard({ weightKg, heightCm, goalWeightKg, waistCm = null }:
 }
 
 const styles = StyleSheet.create({
+  /** Two lines always, so both gauges start at the same height whatever their names wrap to. */
+  name: { minHeight: 36 },
   card: {
     backgroundColor: color.card,
     borderRadius: radius.card,

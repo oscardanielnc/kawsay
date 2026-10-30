@@ -231,7 +231,7 @@ export function CalendarScreen({ month, today, days, onMonth, onOpenDay }: Props
   return (
     <GradientBackground>
       <SafeAreaView style={styles.screen}>
-        <ScrollView contentContainerStyle={styles.content}>
+        <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <View style={styles.header}>
             <Pressable
               accessibilityRole="button"

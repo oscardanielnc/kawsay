@@ -354,7 +354,7 @@
     "high": "Muy alto",
     "track": "{{name}}: {{label}}. Rango verde de {{from}} a {{to}} {{unit}}",
     "title": "Tu día en rangos",
-    "leftOpen": "Faltan ~{{amount}} · el día sigue",
+    "leftOpen": "Faltan ~{{amount}}",
     "range": "Rango {{from}}–{{to}}{{unit}}"
   },
   "rings": {

@@ -92,8 +92,8 @@ export const type = {
 export const space = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 } as const;
 /** Screen padding is 20 (Amanecer). */
 export const screenPadding = 20;
-/** Room under a tab's content for the floating tab bar (72 high, 24 from the bottom). */
-export const tabBarSpace = 120;
+/** Room under a tab's content for the floating tab bar (72 high, 24 from the bottom) plus a breath (owner). */
+export const tabBarSpace = 156;
 export const radius = { chip: 12, inner: 16, card: 24, pill: 999 } as const;
 
 /** Floating card shadow: 0 10 28 rgba(38,72,128,.08). */

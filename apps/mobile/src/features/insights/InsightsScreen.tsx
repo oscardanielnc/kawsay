@@ -44,7 +44,7 @@ export function InsightsScreen({ data, canNext, onPrev, onNext, ai, liver = null
   return (
     <GradientBackground>
       <SafeAreaView style={styles.screen} edges={['top']}>
-        <ScrollView contentContainerStyle={styles.content}>
+        <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <Text accessibilityRole="header" style={[type.display, styles.ink]}>
             {t('insights.title')}
           </Text>

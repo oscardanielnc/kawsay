@@ -39,3 +39,7 @@ Four slots per day: breakfast, lunch, dinner, snacks.
   breakfast" are stored (`drinksFromMeals`); the glasses are drawn by F10. "Create dish" is shown disabled until F07
 - A food's serving is its first household unit ("1 vaso" = 250 g); a dish of group `drink` or a food whose first unit
   is a "vaso" carries its volume to hydration
+- 2026-10-30 (owner, on the phone): the first tap on a result still only closed the keyboard. Cause: the add sheet
+  is a React child of the Today ScrollView, whose default `keyboardShouldPersistTaps="never"` captured the tap first.
+  Every screen's ScrollView is now `handled`
+

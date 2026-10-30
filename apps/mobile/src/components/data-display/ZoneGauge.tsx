@@ -38,27 +38,38 @@ export function ZoneGauge({
   compact = false,
 }: Props) {
   return (
-    <View accessible accessibilityLabel={accessibilityLabel} style={styles.box}>
-      <Svg width="100%" height="100%" viewBox={`0 0 ${GAUGE_BOX.width} ${GAUGE_BOX.height}`}>
-        {ZONE_PATHS[kind].map((d, i) => (
-          <Path
-            key={d}
-            d={d}
-            stroke={position === null ? color.noData : ZONE_COLOR[ZONES[kind][i]!.zone]}
-            strokeWidth={12}
-            strokeLinecap="round"
-            fill="none"
-          />
-        ))}
-        {before !== null ? <Needle position={before} ink={color.faceOffInk} /> : null}
-        {position !== null ? <Needle position={position} ink={color.ink} /> : null}
-        <Circle cx={cx} cy={cy} r={7} fill={color.ink} />
-        <Circle cx={cx} cy={cy} r={2.6} fill={color.white} />
-      </Svg>
-      <View style={styles.reading}>
-        <Text style={[type.number, styles.ink, compact && styles.compact]}>{value}</Text>
-        <Text style={[type.label, styles.muted]}>{unit}</Text>
+    <View accessible accessibilityLabel={accessibilityLabel}>
+      <View style={styles.box}>
+        <Svg width="100%" height="100%" viewBox={`0 0 ${GAUGE_BOX.width} ${GAUGE_BOX.height}`}>
+          {ZONE_PATHS[kind].map((d, i) => (
+            <Path
+              key={d}
+              d={d}
+              stroke={position === null ? color.noData : ZONE_COLOR[ZONES[kind][i]!.zone]}
+              strokeWidth={12}
+              strokeLinecap="round"
+              fill="none"
+            />
+          ))}
+          {before !== null ? <Needle position={before} ink={color.faceOffInk} /> : null}
+          {position !== null ? <Needle position={position} ink={color.ink} /> : null}
+          <Circle cx={cx} cy={cy} r={7} fill={color.ink} />
+          <Circle cx={cx} cy={cy} r={2.6} fill={color.white} />
+        </Svg>
       </View>
+      {/* The reading sits under the arc, never over the needle's hub (owner, 2026-10-30). */}
+      {value ? (
+        <View style={styles.reading}>
+          <Text
+            style={[type.number, styles.ink, styles.value, compact && styles.compact]}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+          >
+            {value}
+          </Text>
+          <Text style={[type.label, styles.muted]}>{unit}</Text>
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -91,10 +102,7 @@ function Needle({ position, ink }: { position: number; ink: string }) {
 const styles = StyleSheet.create({
   box: { width: '100%', aspectRatio: GAUGE_BOX.width / GAUGE_BOX.height },
   reading: {
-    position: 'absolute',
-    bottom: -8,
-    left: 0,
-    right: 0,
+    marginTop: 2,
     flexDirection: 'row',
     alignItems: 'baseline',
     justifyContent: 'center',
@@ -102,5 +110,6 @@ const styles = StyleSheet.create({
   },
   ink: { color: color.ink },
   muted: { color: color.inkMuted },
-  compact: { fontSize: 18, lineHeight: 22 },
+  value: { fontSize: 22, lineHeight: 26 },
+  compact: { fontSize: 16, lineHeight: 20 },
 });

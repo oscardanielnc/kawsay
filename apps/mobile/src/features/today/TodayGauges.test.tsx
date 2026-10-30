@@ -27,11 +27,11 @@ describe('TodayGauges (Amanecer, F09 F22 F24)', () => {
       expect(screen.getByText(name)).toBeOnTheScreen();
   });
 
-  it('calories under range while the day is open read grey: "Faltan ~N · el día sigue"', async () => {
+  it('calories under range while the day is open read grey: "Faltan ~N"', async () => {
     await render(
       <TodayGauges targets={targets} eaten={eaten({ kcal: 1200, proteinG: 95 })} dayOpen />,
     );
-    expect(screen.getByText('Faltan ~600 · el día sigue')).toBeOnTheScreen();
+    expect(screen.getByText('Faltan ~600')).toBeOnTheScreen();
     expect(screen.getByText('Rango 1,800–2,200')).toBeOnTheScreen();
     expect(screen.getByText('✓ En rango')).toBeOnTheScreen();
   });

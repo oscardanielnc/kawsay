@@ -128,7 +128,7 @@ export function OnboardingScreen({ today, onFinish }: Props) {
             ))}
           </View>
         ) : null}
-        <ScrollView contentContainerStyle={styles.content}>
+        <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           {title ? (
             <Text accessibilityRole="header" style={[type.title, styles.ink]}>
               {title}

@@ -40,7 +40,7 @@ export function ExportScreen({ onExport, onUnlockPrivate }: Props) {
   return (
     <GradientBackground>
       <SafeAreaView style={styles.screen}>
-        <ScrollView contentContainerStyle={styles.content}>
+        <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <Text accessibilityRole="header" style={[type.title, styles.ink]}>
             {t('export.title')}
           </Text>

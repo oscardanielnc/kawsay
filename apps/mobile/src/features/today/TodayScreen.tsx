@@ -90,7 +90,13 @@ export function TodayScreen({
   return (
     <GradientBackground>
       <SafeAreaView style={styles.screen} edges={['top']}>
-        <ScrollView ref={scroll} contentContainerStyle={styles.content}>
+        {/* "handled": a sheet inside this screen is its descendant, so without it the first tap on a search result
+            only closes the keyboard (owner, 2026-10-30). */}
+        <ScrollView
+          ref={scroll}
+          contentContainerStyle={styles.content}
+          keyboardShouldPersistTaps="handled"
+        >
           <View style={styles.header}>
             <View style={styles.grow}>
               {isToday ? (

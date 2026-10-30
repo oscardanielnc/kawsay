@@ -16,10 +16,21 @@ const base = {
   onSweated: jest.fn(),
 };
 
+const openDrinks = () => fireEvent.press(screen.getByRole('button', { name: 'Anotar bebidas ▾' }));
+
 describe('HydrationSection (F10)', () => {
+  it('is collapsed by default: the urine colour shows, the drinks open on a tap', async () => {
+    await render(<HydrationSection {...base} />);
+    expect(screen.getByRole('button', { name: 'Clara' })).toBeOnTheScreen();
+    expect(screen.queryByRole('button', { name: 'Agregar un vaso de Agua' })).toBeNull();
+    await openDrinks();
+    expect(screen.getByRole('button', { name: 'Agregar un vaso de Agua' })).toBeOnTheScreen();
+  });
+
   it('each drink is one tap on its +; coffee or tea too', async () => {
     const onAdd = jest.fn();
     await render(<HydrationSection {...base} onAdd={onAdd} />);
+    await openDrinks();
     await fireEvent.press(screen.getByRole('button', { name: 'Agregar un vaso de Agua' }));
     expect(onAdd).toHaveBeenLastCalledWith('water');
     await fireEvent.press(screen.getByRole('button', { name: 'Agregar un vaso de Café o té' }));
@@ -39,6 +50,7 @@ describe('HydrationSection (F10)', () => {
         onDelete={onDelete}
       />,
     );
+    await openDrinks();
     expect(screen.getByRole('button', { name: 'Quitar un vaso de Alcohol' })).toBeDisabled();
     await fireEvent.press(screen.getByRole('button', { name: 'Quitar un vaso de Agua' }));
     expect(onDelete).toHaveBeenCalledWith('w2');
@@ -55,6 +67,7 @@ describe('HydrationSection (F10)', () => {
         fromMeals={[{ name: 'Jugo de papaya', from: 'Desayuno', volumeMl: 500 }]}
       />,
     );
+    await openDrinks();
     expect(screen.getByText('3 de 8 vasos')).toBeOnTheScreen();
     expect(screen.getByText('Jugo de papaya · del Desayuno · 2 vasos')).toBeOnTheScreen();
     expect(
@@ -64,9 +77,10 @@ describe('HydrationSection (F10)', () => {
     ).toBeOnTheScreen();
   });
 
-  it('a caloric drink is two taps and goes to the meal', async () => {
+  it('once the drinks are open, a caloric drink is two taps and goes to the meal', async () => {
     const onAddCaloric = jest.fn();
     await render(<HydrationSection {...base} onAddCaloric={onAddCaloric} />);
+    await openDrinks();
     await fireEvent.press(screen.getByRole('button', { name: 'Agregar bebida con calorías' }));
     await fireEvent.press(screen.getByRole('button', { name: 'Chicha morada' }));
     expect(onAddCaloric).toHaveBeenCalledWith(base.caloricDrinks[0]);
@@ -78,6 +92,7 @@ describe('HydrationSection (F10)', () => {
     await render(<HydrationSection {...base} onUrine={onUrine} onSweated={onSweated} />);
     await fireEvent.press(screen.getByRole('button', { name: 'Clara' }));
     expect(onUrine).toHaveBeenCalledWith('clear');
+    await openDrinks();
     await fireEvent.press(screen.getByRole('switch', { name: 'Sudé mucho hoy' }));
     expect(onSweated).toHaveBeenCalledWith(true);
   });

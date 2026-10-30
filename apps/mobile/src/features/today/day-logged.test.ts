@@ -5,7 +5,6 @@ const nothing = {
   activityCount: 0,
   noActivity: false,
   weighedToday: false,
-  drinkCount: 0,
   urineNoted: false,
   bathroomNoted: false,
   bodyAnswers: 0,
@@ -45,14 +44,14 @@ describe('dayLogged: the six parts of the outer ring (design S2)', () => {
     });
   });
 
-  it('water counts with a drink and the urine colour (Today v3)', () => {
-    expect(dayLogged({ ...nothing, drinkCount: 3 }).areas.water).toBe(false);
-    expect(dayLogged({ ...nothing, drinkCount: 3, urineNoted: true }).areas.water).toBe(true);
+  it('water counts with the urine colour alone: drinks are optional (F10)', () => {
+    expect(dayLogged(nothing).areas.water).toBe(false);
+    expect(dayLogged({ ...nothing, urineNoted: true }).areas.water).toBe(true);
   });
 
-  it('body and mood count with the bathroom (or “didn’t go”) plus bloating, stress, energy and mood', () => {
-    expect(dayLogged({ ...nothing, bodyAnswers: 4 }).areas.body).toBe(false);
-    expect(dayLogged({ ...nothing, bodyAnswers: 4, bathroomNoted: true }).areas.body).toBe(true);
+  it('body and mood count with the bathroom (or “didn’t go”) plus stress, energy and mood, no bloating', () => {
+    expect(dayLogged({ ...nothing, bodyAnswers: 3 }).areas.body).toBe(false);
+    expect(dayLogged({ ...nothing, bodyAnswers: 3, bathroomNoted: true }).areas.body).toBe(true);
   });
 
   it('sleep counts when every session has its quality', () => {

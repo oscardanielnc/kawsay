@@ -405,6 +405,8 @@
     }
   },
   "hydration": {
+    "showDrinks": "Anotar bebidas ▾",
+    "hideDrinks": "Ocultar bebidas ▴",
     "title": "Hidratación",
     "progress": "{{glasses}} de {{goal}} vasos",
     "kinds": {

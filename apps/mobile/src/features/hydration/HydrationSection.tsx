@@ -129,13 +129,16 @@ function Bucket({ glasses, goalGlasses }: { glasses: BucketGlasses; goalGlasses:
 }
 
 /**
- * Hydration (F10): a bucket of the day's goal on the left, filled bottom-up with caloric drinks, alcohol, coffee or
- * tea and water; − / + per drink on the right. Then urine colour and the sweat switch.
+ * Hydration (F10), optional: the glasses against the goal and the urine colour always; on a tap, a bucket of the
+ * day's goal filled bottom-up with caloric drinks, alcohol, coffee or tea and water, − / + per drink, and the sweat
+ * switch.
  */
 export function HydrationSection(props: Props) {
   const { drinks, fromMeals, goalGlasses, sweated, urine, caloricDrinks } = props;
   const { t } = useTranslation();
   const [caloric, setCaloric] = useState(false);
+  // Optional and collapsed (F10): the urine colour is always visible, the drinks open on a tap.
+  const [open, setOpen] = useState(false);
   const glasses = drunkGlasses([
     ...drinks.map((d) => ({ ml: d.volumeMl, alcohol: d.kind === 'alcohol' })),
     ...fromMeals.map((d) => ({ ml: d.volumeMl, alcohol: false })),
@@ -160,74 +163,6 @@ export function HydrationSection(props: Props) {
       <Text style={[type.heading, styles.ink]}>
         {t('hydration.progress', { glasses: glassText(glasses), goal: goalGlasses })}
       </Text>
-      <View style={styles.split}>
-        <View
-          accessible
-          accessibilityLabel={t('hydration.bucket', { goal: goalGlasses, contents })}
-          style={styles.bucket}
-        >
-          <Bucket glasses={byKind} goalGlasses={goalGlasses} />
-        </View>
-        <View style={styles.controls}>
-          {KINDS.map((k) => {
-            const ofKind = drinks.filter((d) => d.kind === k);
-            const last = ofKind.at(-1);
-            return (
-              <View key={k} style={styles.control}>
-                <View style={[styles.dot, { backgroundColor: KIND_COLOR[k] }]} />
-                <Text style={[type.label, styles.ink, styles.grow]} numberOfLines={1}>
-                  {kindName(k)}
-                </Text>
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel={t('hydration.remove', { kind: kindName(k) })}
-                  accessibilityState={{ disabled: !last }}
-                  disabled={!last}
-                  onPress={() => last && props.onDelete(last.id)}
-                  style={[styles.step, !last && styles.off]}
-                >
-                  <Text style={[type.heading, styles.ink]}>−</Text>
-                </Pressable>
-                <Text style={[type.heading, styles.ink, styles.count]}>{ofKind.length}</Text>
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel={t('hydration.add', { kind: kindName(k) })}
-                  onPress={() => props.onAdd(k)}
-                  style={[styles.step, { borderColor: KIND_COLOR[k] }]}
-                >
-                  <Text style={[type.heading, { color: KIND_COLOR[k] }]}>+</Text>
-                </Pressable>
-              </View>
-            );
-          })}
-          <View style={styles.control}>
-            <View style={[styles.dot, { backgroundColor: KIND_COLOR.caloric }]} />
-            <Text style={[type.label, styles.ink, styles.grow]} numberOfLines={1}>
-              {kindName('caloric')}
-            </Text>
-            <Text style={[type.heading, styles.ink, styles.count]}>
-              {glassText(byKind.caloric)}
-            </Text>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel={t('hydration.addCaloric')}
-              onPress={() => setCaloric(true)}
-              style={[styles.step, { borderColor: KIND_COLOR.caloric }]}
-            >
-              <Text style={[type.heading, styles.accent]}>+</Text>
-            </Pressable>
-          </View>
-        </View>
-      </View>
-      {fromMeals.map((d, i) => (
-        <Text key={`${d.name}-${i}`} style={[type.caption, styles.muted]}>
-          {t('hydration.fromMeal', {
-            name: d.name,
-            meal: d.from,
-            glasses: glassText(asGlasses(d.volumeMl)),
-          })}
-        </Text>
-      ))}
       <Text style={[type.heading, styles.ink]}>{t('hydration.urine')}</Text>
       <View style={styles.urine}>
         {URINE.map(({ value, bg }) => (
@@ -246,12 +181,94 @@ export function HydrationSection(props: Props) {
           </Pressable>
         ))}
       </View>
-      <Toggle
-        label={t('hydration.sweated')}
-        description={t('hydration.sweatedHint')}
-        value={sweated}
-        onChange={props.onSweated}
-      />
+      <Pressable
+        accessibilityRole="button"
+        accessibilityState={{ expanded: open }}
+        onPress={() => setOpen((o) => !o)}
+        style={styles.disclosure}
+      >
+        <Text style={[type.label, styles.accent]}>
+          {open ? t('hydration.hideDrinks') : t('hydration.showDrinks')}
+        </Text>
+      </Pressable>
+      {open ? (
+        <>
+          <View style={styles.split}>
+            <View
+              accessible
+              accessibilityLabel={t('hydration.bucket', { goal: goalGlasses, contents })}
+              style={styles.bucket}
+            >
+              <Bucket glasses={byKind} goalGlasses={goalGlasses} />
+            </View>
+            <View style={styles.controls}>
+              {KINDS.map((k) => {
+                const ofKind = drinks.filter((d) => d.kind === k);
+                const last = ofKind.at(-1);
+                return (
+                  <View key={k} style={styles.control}>
+                    <View style={[styles.dot, { backgroundColor: KIND_COLOR[k] }]} />
+                    <Text style={[type.label, styles.ink, styles.grow]} numberOfLines={1}>
+                      {kindName(k)}
+                    </Text>
+                    <Pressable
+                      accessibilityRole="button"
+                      accessibilityLabel={t('hydration.remove', { kind: kindName(k) })}
+                      accessibilityState={{ disabled: !last }}
+                      disabled={!last}
+                      onPress={() => last && props.onDelete(last.id)}
+                      style={[styles.step, !last && styles.off]}
+                    >
+                      <Text style={[type.heading, styles.ink]}>−</Text>
+                    </Pressable>
+                    <Text style={[type.heading, styles.ink, styles.count]}>{ofKind.length}</Text>
+                    <Pressable
+                      accessibilityRole="button"
+                      accessibilityLabel={t('hydration.add', { kind: kindName(k) })}
+                      onPress={() => props.onAdd(k)}
+                      style={[styles.step, { borderColor: KIND_COLOR[k] }]}
+                    >
+                      <Text style={[type.heading, { color: KIND_COLOR[k] }]}>+</Text>
+                    </Pressable>
+                  </View>
+                );
+              })}
+              <View style={styles.control}>
+                <View style={[styles.dot, { backgroundColor: KIND_COLOR.caloric }]} />
+                <Text style={[type.label, styles.ink, styles.grow]} numberOfLines={1}>
+                  {kindName('caloric')}
+                </Text>
+                <Text style={[type.heading, styles.ink, styles.count]}>
+                  {glassText(byKind.caloric)}
+                </Text>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={t('hydration.addCaloric')}
+                  onPress={() => setCaloric(true)}
+                  style={[styles.step, { borderColor: KIND_COLOR.caloric }]}
+                >
+                  <Text style={[type.heading, styles.accent]}>+</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+          {fromMeals.map((d, i) => (
+            <Text key={`${d.name}-${i}`} style={[type.caption, styles.muted]}>
+              {t('hydration.fromMeal', {
+                name: d.name,
+                meal: d.from,
+                glasses: glassText(asGlasses(d.volumeMl)),
+              })}
+            </Text>
+          ))}
+          <Toggle
+            label={t('hydration.sweated')}
+            description={t('hydration.sweatedHint')}
+            value={sweated}
+            onChange={props.onSweated}
+          />
+        </>
+      ) : null}
       <Text style={[type.caption, styles.muted]}>{t('hydration.note')}</Text>
       <Sheet title={caloric ? t('hydration.caloricTitle') : null} onDone={() => setCaloric(false)}>
         <Text style={[type.caption, styles.muted]}>{t('hydration.caloricHint')}</Text>
@@ -293,6 +310,7 @@ const styles = StyleSheet.create({
   off: { opacity: 0.35 },
   count: { minWidth: 28, textAlign: 'center' },
   urine: { flexDirection: 'row', gap: space.sm },
+  disclosure: { minHeight: touch, justifyContent: 'center' },
   urineOption: {
     flex: 1,
     minHeight: touch,

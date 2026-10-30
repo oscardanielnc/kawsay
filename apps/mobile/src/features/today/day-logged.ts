@@ -7,12 +7,10 @@ export interface DayCounts {
   activityCount: number;
   noActivity: boolean;
   weighedToday: boolean;
-  /** Glasses tapped in hydration plus drinks logged in meals. */
-  drinkCount: number;
   urineNoted: boolean;
   /** A visit, gases or "didn't go today". */
   bathroomNoted: boolean;
-  /** Bloating, stress, energy and mood answered (0–4). */
+  /** Stress, energy and mood answered (0–3). Bloating left the day on 2026-10-30 (F10). */
   bodyAnswers: number;
   sleepSessions: number;
   sleepRated: number;
@@ -23,8 +21,9 @@ export function dayLogged(day: DayCounts): { areas: Record<Area, boolean>; done:
   const areas: Record<Area, boolean> = {
     meals: day.mealSlotsWithEntries >= 2,
     activity: day.noActivity || day.activityCount > 0,
-    water: day.drinkCount > 0 && day.urineNoted,
-    body: day.bathroomNoted && day.bodyAnswers >= 4,
+    // Hydration is optional (F10): its step is the urine colour alone.
+    water: day.urineNoted,
+    body: day.bathroomNoted && day.bodyAnswers >= 3,
     sleep: day.sleepSessions > 0 && day.sleepRated === day.sleepSessions,
     weight: day.weighedToday,
   };

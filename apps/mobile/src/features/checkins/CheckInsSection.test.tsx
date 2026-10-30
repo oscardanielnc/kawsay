@@ -18,10 +18,6 @@ describe('CheckInsSection (F10)', () => {
       screen.getByRole('button', { name: 'Máximo estrés que sentiste hoy: Alto' }),
     );
     expect(onCheckIn).toHaveBeenLastCalledWith('stress', '4');
-    await fireEvent.press(
-      screen.getByRole('button', { name: 'Hinchazón comparada con tu normal: Peor' }),
-    );
-    expect(onCheckIn).toHaveBeenLastCalledWith('bloating', 'worse');
     await fireEvent.press(screen.getByRole('button', { name: 'Ánimo: Feliz' }));
     expect(onCheckIn).toHaveBeenLastCalledWith('mood', '5');
     await fireEvent.press(screen.getByRole('button', { name: 'No fui hoy' }));
@@ -29,7 +25,19 @@ describe('CheckInsSection (F10)', () => {
     await fireEvent.press(screen.getByRole('button', { name: '+ Ida al baño' }));
     await fireEvent.press(screen.getByRole('button', { name: 'Tipo 4: Lisa · ideal' }));
     expect(onCheckIn).toHaveBeenLastCalledWith('bathroom', '4');
-    expect(onCheckIn).toHaveBeenCalledTimes(5);
+    expect(onCheckIn).toHaveBeenCalledTimes(4);
+  });
+
+  it('the most negative face is on the left in every scale, stress included; bloating is gone', async () => {
+    await render(<CheckInsSection rows={[]} onCheckIn={jest.fn()} onDelete={jest.fn()} />);
+    const first = (question: string) =>
+      screen.getAllByRole('button', { name: new RegExp(`^${question}: `) })[0];
+    expect(first('Máximo estrés que sentiste hoy')).toHaveAccessibleName(
+      'Máximo estrés que sentiste hoy: Máximo',
+    );
+    expect(first('Energía')).toHaveAccessibleName('Energía: Agotado');
+    expect(first('Ánimo')).toHaveAccessibleName('Ánimo: Mal');
+    expect(screen.queryByText(/Hinchazón/)).toBeNull();
   });
 
   it('shows the latest choice as selected and every visit as a chip that removes it', async () => {

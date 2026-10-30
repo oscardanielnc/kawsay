@@ -82,18 +82,15 @@ export function summarizeDay(day: DayData): DaySummary {
       : null;
   const eaten = dayTotals(day.meals);
   const checks = latestCheckIns(day.checkIns);
-  const mealDrinks = day.meals.filter((m) => m.volumeMl !== null).length;
   const weighed = day.weights.some((w) => w.date === day.date);
   const ring = dayLogged({
     mealSlotsWithEntries: new Set(day.meals.map((m) => m.meal)).size,
     activityCount: day.activities.length,
     noActivity: day.status.noActivity,
     weighedToday: weighed,
-    drinkCount: day.drinks.length + mealDrinks,
     urineNoted: checks.urine !== null,
     bathroomNoted: checks.bathroom.length > 0,
-    bodyAnswers: [checks.bloating, checks.stress, checks.energy, checks.mood].filter(Boolean)
-      .length,
+    bodyAnswers: [checks.stress, checks.energy, checks.mood].filter(Boolean).length,
     sleepSessions: day.sleep.length,
     sleepRated: day.sleep.filter((s) => s.quality !== null).length,
   });

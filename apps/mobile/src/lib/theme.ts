@@ -19,7 +19,13 @@ export const color = {
   danger50: '#FCECE8',
   noData: '#B9B6AE',
   onDark: '#FFFFFF',
+  /** Faces before one is picked (Amanecer `face-off`); the label below carries the meaning. */
+  faceOffFill: '#DCE2EA',
+  faceOffInk: '#8D99AE',
 } as const;
+
+/** Faces when picked, most negative first (Amanecer): crying red … beaming yellow. */
+export const faceColor = ['#E85D4F', '#F2994A', '#F2C14E', '#F7D85C', '#FFCB2F'] as const;
 
 /** Embedded font files (expo-font plugin): on Android the family is the file name. */
 export const font = {

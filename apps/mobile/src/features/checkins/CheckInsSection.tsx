@@ -5,7 +5,7 @@ import { Sheet } from '@/components/feedback/Sheet';
 import { Card } from '@/components/layout/Card';
 import { color, radius, space, touch, type } from '@/lib/theme';
 import { latestCheckIns, type CheckIn, type CheckInKind } from './checkins-db';
-import { Bristol, Face, Gas, SCALE_PALETTE } from './icons';
+import { Bristol, Face, Gas } from './icons';
 
 interface Props {
   rows: readonly CheckIn[];
@@ -14,21 +14,18 @@ interface Props {
 }
 
 const BRISTOL = ['1', '2', '3', '4', '5', '6', '7'] as const;
-const STEPS = ['1', '2', '3', '4', '5'] as const;
 type Scale = 'stress' | 'energy' | 'mood';
-/** Stress reads backwards: its highest step is the red one. */
-const SCALES: readonly { kind: Scale; inverted: boolean }[] = [
-  { kind: 'stress', inverted: true },
-  { kind: 'energy', inverted: false },
-  { kind: 'mood', inverted: false },
+/**
+ * Stored steps from left to right: the most negative face is always on the left (F10). Stress is stored 1 none …
+ * 5 highest, so it reads backwards.
+ */
+const SCALES: readonly { kind: Scale; steps: readonly string[] }[] = [
+  { kind: 'stress', steps: ['5', '4', '3', '2', '1'] },
+  { kind: 'energy', steps: ['1', '2', '3', '4', '5'] },
+  { kind: 'mood', steps: ['1', '2', '3', '4', '5'] },
 ];
-const BLOATING = [
-  { value: 'better', level: 4 },
-  { value: 'usual', level: 2 },
-  { value: 'worse', level: 0 },
-] as const;
 
-/** Body and mood (F10): bathroom, bloating vs usual, the day's stress peak, energy and mood, one or two taps each. */
+/** Body and mood (F10): bathroom, the day's stress peak, energy and mood, one or two taps each. */
 export function CheckInsSection({ rows, onCheckIn, onDelete }: Props) {
   const { t } = useTranslation();
   const [bathroomSheet, setBathroomSheet] = useState(false);
@@ -48,27 +45,25 @@ export function CheckInsSection({ rows, onCheckIn, onDelete }: Props) {
     question: string,
     label: string,
     level: number,
-    tone: number,
     selected: boolean,
     onPress: () => void,
-  ) => {
-    const [bg, ink] = SCALE_PALETTE[tone] ?? SCALE_PALETTE[2];
-    return (
-      <Pressable
-        key={label}
-        accessibilityRole="button"
-        accessibilityLabel={`${question}: ${label}`}
-        accessibilityState={{ selected }}
-        onPress={onPress}
-        style={[styles.face, { backgroundColor: bg }, selected && { borderColor: ink }]}
-      >
-        <Face level={level} ink={ink} />
-        <Text style={[type.caption, { color: ink }]} numberOfLines={1}>
-          {label}
-        </Text>
-      </Pressable>
-    );
-  };
+  ) => (
+    <Pressable
+      key={label}
+      accessibilityRole="button"
+      accessibilityLabel={`${question}: ${label}`}
+      accessibilityState={{ selected }}
+      onPress={onPress}
+      style={styles.face}
+    >
+      <View style={selected && styles.picked}>
+        <Face level={level} on={selected} />
+      </View>
+      <Text style={[type.caption, selected ? styles.ink : styles.muted]} numberOfLines={1}>
+        {label}
+      </Text>
+    </Pressable>
+  );
 
   return (
     <Card title={t('checkins.title')}>
@@ -105,30 +100,15 @@ export function CheckInsSection({ rows, onCheckIn, onDelete }: Props) {
         ) : null}
       </View>
 
-      <Text style={[type.heading, styles.ink]}>{t('checkins.bloating')}</Text>
-      <View style={styles.scale}>
-        {BLOATING.map(({ value, level }) =>
-          face(
-            t('checkins.bloating'),
-            t(`checkins.bloatingValues.${value}`),
-            level,
-            level,
-            latest.bloating === value,
-            () => onCheckIn('bloating', value),
-          ),
-        )}
-      </View>
-
-      {SCALES.map(({ kind, inverted }) => (
+      {SCALES.map(({ kind, steps }) => (
         <View key={kind} style={styles.block}>
           <Text style={[type.heading, styles.ink]}>{t(`checkins.${kind}`)}</Text>
           <View style={styles.scale}>
-            {STEPS.map((step, i) =>
+            {steps.map((step, i) =>
               face(
                 t(`checkins.${kind}`),
-                t(`checkins.${kind}Values.${step}`),
+                t(`checkins.${kind}Values.${step as '1'}`),
                 i,
-                inverted ? 4 - i : i,
                 latest[kind] === step,
                 () => onCheckIn(kind, step),
               ),
@@ -188,16 +168,8 @@ const styles = StyleSheet.create({
   add: { borderStyle: 'dashed', borderColor: color.accent },
   on: { borderColor: color.brand, backgroundColor: color.green50 },
   scale: { flexDirection: 'row', gap: space.xs },
-  face: {
-    flex: 1,
-    minHeight: 64,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 2,
-    borderRadius: radius.chip,
-    borderWidth: 2,
-    borderColor: 'transparent',
-  },
+  face: { flex: 1, minHeight: 64, alignItems: 'center', justifyContent: 'center', gap: 2 },
+  picked: { transform: [{ scale: 1.14 }] },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
   tile: {
     width: '30%',

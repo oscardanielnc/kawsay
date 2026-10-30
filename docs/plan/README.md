@@ -7,7 +7,7 @@ Everything the owner approved on 2026-10-30, in the order to build it. **When Os
 
 | # | Milestone | Main docs | Status |
 | --- | --- | --- | --- |
-| [M0](m0-setup.md) | Setup and baseline | this plan | ⬜ |
+| [M0](m0-setup.md) | Setup and baseline | this plan | ⏳ waiting for approval |
 | [M1](m1-quick-fixes.md) | Quick fixes: nap, first tap, back, faces, bloating, hydration, symptom episodes | F05 F10 F11 F13 | ⬜ |
 | [M2](m2-missing-foods.md) | Missing foods: pending entry, every INS food, refined-flour and drink tags | F23 F24 F22 | ⬜ |
 | [M3](m3-design-system.md) | Amanecer design system: tokens, fonts, background, components, motion | design | ⬜ |
@@ -18,7 +18,8 @@ Everything the owner approved on 2026-10-30, in the order to build it. **When Os
 | [M8](m8-other-screens.md) | Every other screen in the new style | direction | ⬜ |
 | [M9](m9-release.md) | Release to Oscar's phone | runbooks | ⬜ |
 
-Baseline (M0 fills it): —
+Baseline (M0, 2026-10-30): `pnpm check` green, 628 tests (core 221 · catalog 53 · contracts 6 · api 35 · mobile 313),
+19 s uncached. Needs Docker Desktop running (api e2e)
 
 ## How to run a milestone
 

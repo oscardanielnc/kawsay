@@ -21,6 +21,6 @@ Goal: a clean, green starting point and the one new package the redesign needs.
 
 ## Done when
 
-- [ ] Baseline recorded, everything green
-- [ ] Plus Jakarta Sans installed, native manifest unchanged
-- [ ] Source sizes written in M2
+- [x] Baseline recorded, everything green
+- [x] Plus Jakarta Sans installed, native manifest unchanged
+- [x] Source sizes written in M2

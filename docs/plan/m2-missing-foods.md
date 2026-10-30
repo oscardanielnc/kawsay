@@ -32,4 +32,11 @@ Goal: never lose a meal log, build any dish offline, and tag foods for the flour
 
 ## Notes
 
-(M0 writes the source sizes here.)
+Measured by M0 (2026-10-30):
+
+| File | Rows | Size |
+| --- | --- | --- |
+| `packages/catalog/sources/ins-2023/foods.csv` | 1,125 | 152 KB |
+| `packages/catalog/sources/ins-2023/prepared.csv` | — | 138 KB |
+| `packages/catalog/sources/usda-sr-legacy/foods.csv` | 7,793 | 1.31 MB |
+| `packages/catalog/dist/catalog.json` (v16: 151 foods, 107 dishes) | — | 336 KB |

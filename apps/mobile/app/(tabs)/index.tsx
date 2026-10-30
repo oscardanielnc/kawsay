@@ -30,6 +30,7 @@ import {
   type NewDish,
 } from '@/features/meals/meals-db';
 import { itemDetail } from '@/features/meals/catalog-detail';
+import { addPending, completePending, deletePending } from '@/features/meals/pending-db';
 import { MEALS, MealsSection, type AddMeal } from '@/features/meals/MealsSection';
 import {
   deleteRoutine,
@@ -132,18 +133,18 @@ export default function TodayRoute() {
   const defaultBand = bandAt(hour);
   const run = (write: () => Promise<unknown>) => void write().then(reload);
 
-  const addMealEntry = ({ meal, item, servings, grams, saveRestForTomorrow }: AddMeal) =>
-    run(() =>
-      addMeal(db, env, {
-        date: day,
-        meal,
-        timeZone,
-        item: { kind: item.kind, id: item.id },
-        ...(servings !== undefined && { servings }),
-        ...(grams !== undefined && { grams }),
-        saveRestForTomorrow,
-      }),
-    );
+  const addMealEntry = ({ meal, item, servings, grams, saveRestForTomorrow, completes }: AddMeal) => {
+    const entry = {
+      date: day,
+      meal,
+      timeZone,
+      item: { kind: item.kind, id: item.id },
+      ...(servings !== undefined && { servings }),
+      ...(grams !== undefined && { grams }),
+      saveRestForTomorrow,
+    };
+    run(() => (completes ? completePending(db, env, completes, entry) : addMeal(db, env, entry)));
+  };
   const addActivityEntry = ({ kind, intensity, minutes, met, timeBand }: NewActivityChoice) =>
     run(() =>
       addActivity(db, env, { date: day, timeZone, kind, intensity, minutes, met, timeBand }),
@@ -227,6 +228,9 @@ export default function TodayRoute() {
       <TodaySection id="meals">
         <MealsSection
           entries={data.entries}
+          pending={data.pending}
+          onAddPending={(p) => run(() => addPending(db, env, { ...p, date: day, timeZone }))}
+          onDeletePending={(id) => run(() => deletePending(db, env, id))}
           items={data.items}
           recent={data.recent}
           onAdd={addMealEntry}

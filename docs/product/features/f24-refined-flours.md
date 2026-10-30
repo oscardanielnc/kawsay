@@ -27,5 +27,12 @@ but give **no numeric limit**, so any ceiling here is a personal target, never a
 
 ## Acceptance criteria (draft)
 
-- [ ] A juane counts the carbohydrate of its rice as refined flour, not the rest of the dish
+- [x] A juane counts the carbohydrate of its rice as refined flour, not the rest of the dish
 - [ ] Changing the personal ceiling moves the gauge zones the same day
+
+## Build notes
+
+- 2026-10-30: `packages/catalog/seed/tags/refined-flour.json` (100 foods, reviewed list in `reports/import.md`).
+  The build adds `refinedFlourCarbsG` per 100 g (= total carbohydrate of a tagged food, 0 otherwise), so dish
+  totals and user dishes add it up like any nutrient
+

@@ -26,9 +26,10 @@ Goal: never lose a meal log, build any dish offline, and tag foods for the flour
 
 ## Done when
 
-- [ ] F23 criteria 1–3 and F24 criterion 1 (juane) pass; tests for search ranking and tag inheritance
-- [ ] ADR 0021 written; catalog size in the report
-- [ ] The API part is ready but **not deployed**: ask before deploying (dev first)
+- [x] F23 criteria 1–3 and F24 criterion 1 (juane) pass; tests for search ranking and tag inheritance
+- [x] ADR 0021 written; catalog size in the report
+- [x] The API part is ready but **not deployed**: ask before deploying (dev first). The API stores every
+  collection in `sync_record` (ADR 0018), so its part is the contract only
 
 ## Notes
 

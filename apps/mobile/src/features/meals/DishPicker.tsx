@@ -18,10 +18,20 @@ interface Props {
   onPick: (item: CatalogItem) => void;
   /** Opens "Create dish" prefilled with the search text (F07). */
   onCreate: (name: string) => void;
+  /** Saves the search text as a pending meal, to complete later (F23). */
+  onSavePending?: (name: string) => void;
 }
 
 /** Search box, 12 recent dishes as tiles (filtered while typing) and the "Create dish" button (F05). */
-export function DishPicker({ query, onQuery, recent, items, onPick, onCreate }: Props) {
+export function DishPicker({
+  query,
+  onQuery,
+  recent,
+  items,
+  onPick,
+  onCreate,
+  onSavePending,
+}: Props) {
   const { t } = useTranslation();
   const shown = query.trim() ? searchCatalog(query, items).slice(0, TILES * 2) : recent;
   return (
@@ -66,6 +76,16 @@ export function DishPicker({ query, onQuery, recent, items, onPick, onCreate }: 
         label={query.trim() ? t('meals.createNamed', { name: query.trim() }) : t('meals.create')}
         onPress={() => onCreate(query.trim())}
       />
+      {onSavePending && query.trim() ? (
+        <Button
+          variant="secondary"
+          label={t('meals.savePending', { name: query.trim() })}
+          onPress={() => {
+            Keyboard.dismiss();
+            onSavePending(query.trim());
+          }}
+        />
+      ) : null}
     </>
   );
 }

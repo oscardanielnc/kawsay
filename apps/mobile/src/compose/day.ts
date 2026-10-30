@@ -11,6 +11,7 @@ import {
 } from '@/features/checkins/checkins-db';
 import { drinksOn, type Drink } from '@/features/hydration/hydration-db';
 import { dayTotals, mealsOn, type MealEntryView } from '@/features/meals/meals-db';
+import { pendingOn, type PendingMeal } from '@/features/meals/pending-db';
 import { getProfile, type Profile } from '@/features/profile/profile-db';
 import { profileTargets, trendWeightKg } from '@/features/profile/profile-targets';
 import { sleepOn, type SleepSession } from '@/features/sleep/sleep-db';
@@ -31,6 +32,8 @@ export interface DayData {
   /** Weights up to `date`, oldest first. */
   weights: Weight[];
   meals: MealEntryView[];
+  /** Meals saved by name, waiting for their food (F23): logged, without nutrients. */
+  pending: PendingMeal[];
   activities: ActivityEntry[];
   status: DayFlags;
   checkIns: CheckIn[];
@@ -56,19 +59,21 @@ export async function loadDay(
   date: LocalDate,
   shared?: { profile: Profile | null; weights: readonly Weight[] },
 ): Promise<DayData> {
-  const [profile, weights, meals, activities, status, checkIns, drinks, sleep] = await Promise.all([
-    shared ? shared.profile : getProfile(db),
-    shared
-      ? shared.weights.filter((w) => w.date <= date)
-      : weightsBetween(db, addDays(date, -TREND_DAYS), date),
-    mealsOn(db, date),
-    activitiesOn(db, date),
-    dayStatusOn(db, date),
-    checkInsOn(db, date),
-    drinksOn(db, date),
-    sleepOn(db, date),
-  ]);
-  return { date, profile, weights, meals, activities, status, checkIns, drinks, sleep };
+  const [profile, weights, meals, pending, activities, status, checkIns, drinks, sleep] =
+    await Promise.all([
+      shared ? shared.profile : getProfile(db),
+      shared
+        ? shared.weights.filter((w) => w.date <= date)
+        : weightsBetween(db, addDays(date, -TREND_DAYS), date),
+      mealsOn(db, date),
+      pendingOn(db, date),
+      activitiesOn(db, date),
+      dayStatusOn(db, date),
+      checkInsOn(db, date),
+      drinksOn(db, date),
+      sleepOn(db, date),
+    ]);
+  return { date, profile, weights, meals, pending, activities, status, checkIns, drinks, sleep };
 }
 
 /** The day's targets (they rise with activity and follow logged sleep), ring and calendar colour. */
@@ -84,7 +89,7 @@ export function summarizeDay(day: DayData): DaySummary {
   const checks = latestCheckIns(day.checkIns);
   const weighed = day.weights.some((w) => w.date === day.date);
   const ring = dayLogged({
-    mealSlotsWithEntries: new Set(day.meals.map((m) => m.meal)).size,
+    mealSlotsWithEntries: new Set([...day.meals, ...day.pending].map((m) => m.meal)).size,
     activityCount: day.activities.length,
     noActivity: day.status.noActivity,
     weighedToday: weighed,
@@ -96,6 +101,7 @@ export function summarizeDay(day: DayData): DaySummary {
   });
   const hasEntries =
     day.meals.length +
+      day.pending.length +
       day.activities.length +
       day.checkIns.length +
       day.drinks.length +

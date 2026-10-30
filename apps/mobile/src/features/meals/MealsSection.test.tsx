@@ -214,4 +214,37 @@ describe('MealsSection (F05)', () => {
     await fireEvent.changeText(screen.getByLabelText('Buscar ingrediente'), 'cocona');
     expect(screen.getByRole('button', { name: 'Cocona' })).toBeOnTheScreen();
   });
+
+  it('A food missing from the catalog is logged in under 10 s with no app update: name, portion, save', async () => {
+    const onAddPending = jest.fn();
+    await renderSection({ onAddPending }).view;
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar a Almuerzo' }));
+    await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'Pollo a la brasa');
+    await fireEvent.press(
+      screen.getByRole('button', { name: 'Guardar «Pollo a la brasa» como pendiente' }),
+    );
+    await fireEvent.press(screen.getByRole('button', { name: 'Porción ¼' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Guardar pendiente' }));
+    expect(onAddPending).toHaveBeenCalledWith({
+      meal: 'lunch',
+      name: 'Pollo a la brasa',
+      portion: '¼',
+    });
+  });
+
+  it('a pending chip completes from the search with its name, and the entry says what it completes', async () => {
+    const onAdd = jest.fn();
+    await renderSection({
+      onAdd,
+      pending: [{ id: 'p1', meal: 'lunch', name: 'lomo', portion: '1' }],
+    }).view;
+    await fireEvent.press(screen.getByRole('button', { name: 'lomo · pendiente' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Completar' }));
+    expect(screen.getByLabelText('Buscar plato')).toHaveDisplayValue('lomo');
+    await fireEvent.press(screen.getByRole('button', { name: /Lomo saltado/ }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar 1 ración' }));
+    expect(onAdd).toHaveBeenCalledWith(
+      expect.objectContaining({ meal: 'lunch', item: lomo, completes: 'p1' }),
+    );
+  });
 });

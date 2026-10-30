@@ -31,7 +31,18 @@ coverage is thin (e.g. 273 snacks listed for Peru, October 2026).
 
 ## Acceptance criteria (draft)
 
-- [ ] A food missing from the catalog is logged in under 10 s with no app update
-- [ ] Completing a pending entry recalculates that day's totals, targets and micronutrients
-- [ ] Any INS food can be added to a dish offline
+- [x] A food missing from the catalog is logged in under 10 s with no app update
+- [x] Completing a pending entry recalculates that day's totals, targets and micronutrients
+- [x] Any INS food can be added to a dish offline
 - [ ] A label food shows "Label" as its source and its date
+
+## Build notes
+
+- 2026-10-30, pieces 1–2 (plan M2). Pending meal: synced table `pending_meal` (name, portion in words, meal);
+  "Guardar «…» como pendiente" in the add sheet; a dashed peach chip "… · pendiente"; "Completar" opens the search
+  with its name and logs the real entry and tombstones the pending one in one transaction. It counts toward the
+  meals step of the day checklist and adds nothing to the totals
+- Every INS row the seed does not curate ships as a generic food `ins-<code>` (1,014 foods): Create dish only,
+  after the curated results. USDA stays out of the phone (ADR 0021)
+- The API needs the new contract before the app update reaches a phone (it rejects unknown collections)
+

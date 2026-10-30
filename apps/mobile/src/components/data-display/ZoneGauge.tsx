@@ -72,7 +72,14 @@ function Needle({ position, ink }: { position: number; ink: string }) {
   const [shown, setShown] = useState(0);
   useEffect(() => {
     const id = angle.addListener(({ value }) => setShown(value));
-    return () => angle.removeListener(id);
+    // The value may have moved before this listener existed (reduce motion jumps at once).
+    const frame = requestAnimationFrame(() =>
+      setShown((angle as unknown as { __getValue(): number }).__getValue()),
+    );
+    return () => {
+      cancelAnimationFrame(frame);
+      angle.removeListener(id);
+    };
   }, [angle]);
   return (
     <G transform={`rotate(${shown} ${cx} ${cy})`}>

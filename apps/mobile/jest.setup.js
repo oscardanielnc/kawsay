@@ -5,11 +5,11 @@
  * timers, and running animations would eat the time a findBy waits for SQLite.
  */
 jest.mock('./src/lib/motion', () => {
-  const { useState } = require('react');
+  const { useEffect, useState } = require('react');
   const { Animated } = require('react-native');
   const useAnimatedTo = (target) => {
     const [value] = useState(() => new Animated.Value(target));
-    value.setValue(target);
+    useEffect(() => value.setValue(target), [value, target]);
     return value;
   };
   return {

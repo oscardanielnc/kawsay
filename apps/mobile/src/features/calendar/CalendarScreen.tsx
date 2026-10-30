@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { GradientBackground } from '@/components/layout/GradientBackground';
 import Svg, { Circle, G, Line, Polyline, Rect } from 'react-native-svg';
 import { Segmented } from '@/components/forms/Segmented';
 import { Card } from '@/components/layout/Card';
@@ -228,138 +229,142 @@ export function CalendarScreen({ month, today, days, onMonth, onOpenDay }: Props
   };
 
   return (
-    <SafeAreaView style={styles.screen}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.header}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t('calendar.previous')}
-            onPress={() => onMonth(addMonths(month, -1))}
-            style={styles.arrow}
-          >
-            <Text style={[type.title, styles.brand]}>‹</Text>
-          </Pressable>
-          <Text accessibilityRole="header" style={[type.title, styles.ink, styles.grow]}>
-            {monthName}
-          </Text>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t('calendar.next')}
-            accessibilityState={{ disabled: isCurrent }}
-            disabled={isCurrent}
-            onPress={() => onMonth(addMonths(month, 1))}
-            style={[styles.arrow, isCurrent && styles.dim]}
-          >
-            <Text style={[type.title, styles.brand]}>›</Text>
-          </Pressable>
-        </View>
-
-        <View style={styles.grid}>
-          {weekdayLetters(i18n.language).map((w, i) => (
-            <Text
-              key={`${w}-${i}`}
-              style={[type.caption, styles.muted, styles.cell, styles.weekday]}
+    <GradientBackground>
+      <SafeAreaView style={styles.screen}>
+        <ScrollView contentContainerStyle={styles.content}>
+          <View style={styles.header}>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t('calendar.previous')}
+              onPress={() => onMonth(addMonths(month, -1))}
+              style={styles.arrow}
             >
-              {w}
+              <Text style={[type.title, styles.brand]}>‹</Text>
+            </Pressable>
+            <Text accessibilityRole="header" style={[type.display, styles.ink, styles.grow]}>
+              {monthName}
             </Text>
-          ))}
-          {Array.from({ length: lead }, (_, i) => (
-            <View key={`lead-${i}`} style={styles.cell} />
-          ))}
-          {all.map((date) => {
-            const d = byDate.get(date);
-            const n = Number(date.slice(8));
-            if (!d || date > today) {
-              return (
-                <View key={date} style={[styles.cell, styles.band, styles.future]}>
-                  <Text style={[type.caption, styles.muted]}>{n}</Text>
-                </View>
-              );
-            }
-            const band = BAND[d.colour];
-            return (
-              <Pressable
-                key={date}
-                accessibilityRole="button"
-                accessibilityLabel={`${dayName(date)}: ${t(`calendar.status.${d.colour}`)}`}
-                accessibilityState={{ selected: shown?.date === date }}
-                onPress={() => setSelected(date)}
-                style={[
-                  styles.cell,
-                  styles.band,
-                  { backgroundColor: band.bg },
-                  shown?.date === date && styles.selected,
-                ]}
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t('calendar.next')}
+              accessibilityState={{ disabled: isCurrent }}
+              disabled={isCurrent}
+              onPress={() => onMonth(addMonths(month, 1))}
+              style={[styles.arrow, isCurrent && styles.dim]}
+            >
+              <Text style={[type.title, styles.brand]}>›</Text>
+            </Pressable>
+          </View>
+
+          <View style={styles.grid}>
+            {weekdayLetters(i18n.language).map((w, i) => (
+              <Text
+                key={`${w}-${i}`}
+                style={[type.caption, styles.muted, styles.cell, styles.weekday]}
               >
-                <Text style={[type.label, { color: band.ink }]}>{n}</Text>
-                <Text style={[type.caption, { color: band.ink }]}>{band.mark}</Text>
-                {date === today ? <View style={styles.todayDot} /> : null}
-              </Pressable>
-            );
-          })}
-        </View>
-        <Text style={[type.label, styles.muted]}>
-          {COLOURS.map((c) => `${count(c)} ${t(`calendar.counter.${c}`)}`).join(' · ')}
-        </Text>
+                {w}
+              </Text>
+            ))}
+            {Array.from({ length: lead }, (_, i) => (
+              <View key={`lead-${i}`} style={styles.cell} />
+            ))}
+            {all.map((date) => {
+              const d = byDate.get(date);
+              const n = Number(date.slice(8));
+              if (!d || date > today) {
+                return (
+                  <View key={date} style={[styles.cell, styles.band, styles.future]}>
+                    <Text style={[type.caption, styles.muted]}>{n}</Text>
+                  </View>
+                );
+              }
+              const band = BAND[d.colour];
+              return (
+                <Pressable
+                  key={date}
+                  accessibilityRole="button"
+                  accessibilityLabel={`${dayName(date)}: ${t(`calendar.status.${d.colour}`)}`}
+                  accessibilityState={{ selected: shown?.date === date }}
+                  onPress={() => setSelected(date)}
+                  style={[
+                    styles.cell,
+                    styles.band,
+                    { backgroundColor: band.bg },
+                    shown?.date === date && styles.selected,
+                  ]}
+                >
+                  <Text style={[type.label, { color: band.ink }]}>{n}</Text>
+                  <Text style={[type.caption, { color: band.ink }]}>{band.mark}</Text>
+                  {date === today ? <View style={styles.todayDot} /> : null}
+                </Pressable>
+              );
+            })}
+          </View>
+          <Text style={[type.label, styles.muted]}>
+            {COLOURS.map((c) => `${count(c)} ${t(`calendar.counter.${c}`)}`).join(' · ')}
+          </Text>
 
-        {shown ? (
-          <Card title={`${dayName(shown.date)} · ${t(`calendar.status.${shown.colour}`)}`}>
-            {shown.colour === 'grey' && shown.kcal === 0 ? (
-              <Text style={[type.body, styles.ink]}>{t('calendar.unlogged')}</Text>
-            ) : (
-              <>
-                <Row
-                  label={t('calendar.metrics.kcal')}
-                  value={zoneLabel(
-                    zone('calories', shown.kcal, shown.targetKcal, shown.date === today),
-                    shown.kcal,
-                    'kcal',
-                  )}
-                />
-                <Row
-                  label={t('calendar.metrics.protein')}
-                  value={zoneLabel(
-                    zone('protein', shown.proteinG, shown.targetProteinG, shown.date === today),
-                    shown.proteinG,
-                    'g',
-                  )}
-                />
-                <Row
-                  label={t('calendar.activity')}
-                  value={
-                    shown.activity === 'logged'
-                      ? t('calendar.minutes', { minutes: formatNumber(shown.movementMinutes) })
-                      : t(`calendar.activityValues.${shown.activity}`)
-                  }
-                />
-                <Row
-                  label={t('calendar.metrics.drinks')}
-                  value={t('calendar.glasses', {
-                    glasses: formatNumber(shown.glasses, shown.glasses % 1 ? 1 : 0),
-                  })}
-                />
-                <Row
-                  label={t('calendar.bloating')}
-                  value={
-                    shown.bloating ? t(`checkins.bloatingValues.${shown.bloating as 'usual'}`) : '—'
-                  }
-                />
-              </>
-            )}
-            <Button label={t('calendar.open')} onPress={() => onOpenDay(shown.date)} />
+          {shown ? (
+            <Card title={`${dayName(shown.date)} · ${t(`calendar.status.${shown.colour}`)}`}>
+              {shown.colour === 'grey' && shown.kcal === 0 ? (
+                <Text style={[type.body, styles.ink]}>{t('calendar.unlogged')}</Text>
+              ) : (
+                <>
+                  <Row
+                    label={t('calendar.metrics.kcal')}
+                    value={zoneLabel(
+                      zone('calories', shown.kcal, shown.targetKcal, shown.date === today),
+                      shown.kcal,
+                      'kcal',
+                    )}
+                  />
+                  <Row
+                    label={t('calendar.metrics.protein')}
+                    value={zoneLabel(
+                      zone('protein', shown.proteinG, shown.targetProteinG, shown.date === today),
+                      shown.proteinG,
+                      'g',
+                    )}
+                  />
+                  <Row
+                    label={t('calendar.activity')}
+                    value={
+                      shown.activity === 'logged'
+                        ? t('calendar.minutes', { minutes: formatNumber(shown.movementMinutes) })
+                        : t(`calendar.activityValues.${shown.activity}`)
+                    }
+                  />
+                  <Row
+                    label={t('calendar.metrics.drinks')}
+                    value={t('calendar.glasses', {
+                      glasses: formatNumber(shown.glasses, shown.glasses % 1 ? 1 : 0),
+                    })}
+                  />
+                  <Row
+                    label={t('calendar.bloating')}
+                    value={
+                      shown.bloating
+                        ? t(`checkins.bloatingValues.${shown.bloating as 'usual'}`)
+                        : '—'
+                    }
+                  />
+                </>
+              )}
+              <Button label={t('calendar.open')} onPress={() => onOpenDay(shown.date)} />
+            </Card>
+          ) : null}
+
+          <Card title={t('calendar.chartTitle')}>
+            <Segmented
+              options={METRICS.map((m) => ({ value: m, label: t(`calendar.metrics.${m}`) }))}
+              value={metric}
+              onChange={setMetric}
+            />
+            <MonthChart month={month} days={days} metric={metric} />
           </Card>
-        ) : null}
-
-        <Card title={t('calendar.chartTitle')}>
-          <Segmented
-            options={METRICS.map((m) => ({ value: m, label: t(`calendar.metrics.${m}`) }))}
-            value={metric}
-            onChange={setMetric}
-          />
-          <MonthChart month={month} days={days} metric={metric} />
-        </Card>
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
+    </GradientBackground>
   );
 }
 
@@ -373,7 +378,7 @@ function Row({ label, value }: { label: string; value: string }) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: color.surface2 },
+  screen: { flex: 1 },
   content: { padding: screenPadding, paddingBottom: tabBarSpace, gap: space.lg },
   header: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   arrow: { width: touch, height: touch, alignItems: 'center', justifyContent: 'center' },
@@ -403,6 +408,6 @@ const styles = StyleSheet.create({
   },
   row: { flexDirection: 'row', alignItems: 'center', gap: space.sm, minHeight: 28 },
   ink: { color: color.ink },
-  muted: { color: color.inkMuted },
+  muted: { color: color.inkSoft },
   brand: { color: color.blue700 },
 });

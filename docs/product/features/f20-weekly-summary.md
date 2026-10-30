@@ -20,5 +20,5 @@ First card of the Insights tab: the week at a glance.
 
 - [x] A week with 4 green, 2 yellow and 1 red day shows "4 · 2 · 1"
 - [x] With 2 weights in the week, the weight tile reads "Pésate más días"
-- [ ] 100 min of brisk walking plus 30 min of stairs (MET 7.5) show 160 min in blue
-- [ ] One weights routine in the week shows strength "1 de 2" in amber
+- [x] 100 min of brisk walking plus 30 min of stairs (MET 7.5) show 160 min in blue
+- [x] One weights routine in the week shows strength "1 de 2" in amber

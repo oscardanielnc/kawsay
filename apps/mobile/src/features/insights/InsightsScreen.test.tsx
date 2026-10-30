@@ -8,6 +8,7 @@ const base: InsightsData = {
   to: '2026-10-12',
   relationsFrom: '2026-09-01',
   loggedDates: [],
+  strengthDays: 1,
   episodeStarts: [],
   notes: [{ date: '2026-10-11', text: 'Creo que me dio diarrea por comer ceviche' }],
   week: {
@@ -80,6 +81,11 @@ describe('InsightsScreen (F17 without AI, F19, F20)', () => {
     expect(screen.getByText('días en verde')).toBeOnTheScreen();
     expect(screen.getByText('120 / 150 min')).toBeOnTheScreen();
     expect(screen.getByText('Pésate más días (2 de 3)')).toBeOnTheScreen();
+  });
+
+  it('One weights routine in the week shows strength "1 de 2" in amber', async () => {
+    await renderScreen().view;
+    expect(screen.getByText('1 de 2 días')).toBeOnTheScreen();
   });
 
   it('‹ goes to the previous week; › is disabled on the current one', async () => {

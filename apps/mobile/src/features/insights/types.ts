@@ -50,6 +50,8 @@ export interface InsightsData {
   /** Days of the six weeks with something logged, and first days of own-symptom episodes: they decide when the
    * AI summary card suggests an update (F17). */
   loggedDates: LocalDate[];
+  /** Days with weights, bodyweight or a routine in the week, against 2 (F20, ADR 0020). */
+  strengthDays: number;
   episodeStarts: LocalDate[];
   relations:
     | { status: 'need-days'; loggedDays: number; neededDays: number }

@@ -8,7 +8,7 @@ const clamp = (value: number, min: number, max: number) => Math.min(max, Math.ma
 const round = (value: number, decimals: number) =>
   Math.round(value * 10 ** decimals) / 10 ** decimals;
 
-/** Protein 1.2–2.2 g/kg, fat 20–35 %, daily movement (ADR 0009 ranges, WHO movement). */
+/** Protein 1.2–2.2 g/kg, fat 20–35 %, refined-flour limit 10–100 % (F24), daily movement (ADR 0009, WHO). */
 export function TargetSettingsStep({ draft, update }: StepProps) {
   const { t } = useTranslation();
   const protein = (delta: number) =>
@@ -21,6 +21,8 @@ export function TargetSettingsStep({ draft, update }: StepProps) {
     });
   const fat = (delta: number) =>
     update({ fatShare: clamp(round(draft.fatShare + delta, 2), FAT_SHARE.min, FAT_SHARE.max) });
+  const flour = (delta: number) =>
+    update({ refinedFlourShare: clamp(round(draft.refinedFlourShare + delta, 2), 0.1, 1) });
   const movement = (delta: number) =>
     update({ movementGoalMin: clamp(draft.movementGoalMin + delta, 10, 180) });
   return (
@@ -38,6 +40,13 @@ export function TargetSettingsStep({ draft, update }: StepProps) {
         value={t('profile.percent', { value: formatNumber(draft.fatShare * 100) })}
         onDecrement={() => fat(-0.01)}
         onIncrement={() => fat(0.01)}
+      />
+      <Stepper
+        label={t('profile.flourLimit')}
+        hint={t('profile.flourLimitHint')}
+        value={t('profile.percent', { value: formatNumber(draft.refinedFlourShare * 100) })}
+        onDecrement={() => flour(-0.05)}
+        onIncrement={() => flour(0.05)}
       />
       <Stepper
         label={t('profile.movement')}

@@ -1,3 +1,4 @@
+import { DEFAULT_REFINED_FLOUR_SHARE } from '@kawsay/core/day/refined-flour';
 import { addDays, daysBetween, type LocalDate } from '@kawsay/core/shared/local-date';
 import { ageOn, sleepHours } from '@kawsay/core/profile/profile';
 import { computeDayTargets, type DayTargets } from '@kawsay/core/targets/compute-day-targets';
@@ -29,6 +30,8 @@ export interface Draft {
   movementGoalMin: number;
   proteinGPerKg: number;
   fatShare: number;
+  /** Refined-flour limit, share of the carbohydrate target (F24). */
+  refinedFlourShare: number;
 }
 
 export const initialDraft: Draft = {
@@ -53,6 +56,7 @@ export const initialDraft: Draft = {
   movementGoalMin: 30,
   proteinGPerKg: PROTEIN_G_PER_KG.default,
   fatShare: FAT_SHARE.default,
+  refinedFlourShare: DEFAULT_REFINED_FLOUR_SHARE,
 };
 
 /** The goal weight shown when "lose" is chosen: 5 kg below today unless already set. */
@@ -100,6 +104,7 @@ export function toProfileInput(draft: Draft, today: LocalDate): ProfileInput {
     climate: draft.climate,
     proteinGPerKg: draft.proteinGPerKg,
     fatShare: draft.fatShare,
+    refinedFlourShare: draft.refinedFlourShare,
     movementGoalMin: draft.movementGoalMin,
     usualSleepStart: draft.sleepStart,
     usualSleepEnd: draft.sleepEnd,
@@ -140,5 +145,6 @@ export function profileToDraft(profile: Profile, today: LocalDate, weightKg: num
     movementGoalMin: profile.movementGoalMin,
     proteinGPerKg: profile.proteinGPerKg,
     fatShare: profile.fatShare,
+    refinedFlourShare: profile.refinedFlourShare ?? DEFAULT_REFINED_FLOUR_SHARE,
   };
 }

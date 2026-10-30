@@ -50,6 +50,15 @@ describe('liver-health rules (ADR 0020, F25)', () => {
     expect(movementZone(60)).toBe('red');
   });
 
+  it('100 min of brisk walking plus 30 min of stairs (MET 7.5) show 160 min in blue', () => {
+    const minutes = movementMinutes([
+      { met: 4.3, minutes: 100 },
+      { met: 7.5, minutes: 30 },
+    ]);
+    expect(minutes).toBe(160);
+    expect(movementZone(minutes)).toBe('green');
+  });
+
   it('strength days: 2 blue, 1 amber, 0 coral', () => {
     expect([2, 1, 0].map(strengthDaysZone)).toEqual(['green', 'yellow', 'red']);
   });

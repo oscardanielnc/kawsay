@@ -239,6 +239,9 @@ export async function loadInsights(db: Db, end: LocalDate): Promise<InsightsData
     to: end,
     relationsFrom: from,
     notes,
+    strengthDays: week.filter((d) =>
+      d.activities.some((a) => a.kind === 'weights' || a.kind === 'routine'),
+    ).length,
     loggedDates: days.filter((_, i) => summaries[i]!.hasEntries).map((d) => d.date),
     episodeStarts,
     week: summary,

@@ -1,5 +1,6 @@
 import { dayColour, type DayColour } from '@kawsay/core/day/day-colour';
 import { addDays, type LocalDate } from '@kawsay/core/shared/local-date';
+import { movementMinutes } from '@kawsay/core/energy/movement-minutes';
 import { daySleepHours } from '@kawsay/core/sleep/sleep-session';
 import type { DayTargets } from '@kawsay/core/targets/compute-day-targets';
 import { activitiesOn, type ActivityEntry } from '@/features/activity/activity-db';
@@ -122,7 +123,8 @@ export function summarizeDay(day: DayData): DaySummary {
   return {
     targets,
     eaten,
-    movementMinutes: day.activities.reduce((sum, a) => sum + a.minutes, 0),
+    // ADR 0020: MET ≥ 3 counts, MET ≥ 6 counts double, lighter blocks do not.
+    movementMinutes: movementMinutes(day.activities),
     checks,
     ring,
     hasEntries,

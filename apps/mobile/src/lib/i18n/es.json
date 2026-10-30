@@ -164,7 +164,7 @@
     "bodySummary": "{{sex}} · {{age}} años · {{cm}} cm · {{kg}} kg",
     "maintainSummary": "Mantener peso",
     "goalSummary": "{{kg}} kg hasta el {{date}}",
-    "targetsSummary": "Proteína {{protein}} g/kg · grasa {{fat}} % · movimiento {{minutes}} min",
+    "targetsSummary": "Proteína {{protein}} g/kg · grasa {{fat}} % · movimiento {{minutes}} min · harinas ≤ {{flour}} %",
     "napShort": "siesta {{time}}",
     "modulesSummary": "Cintura {{waist}} · síntomas {{symptoms}} · vida íntima {{intimate}}",
     "yes": "sí",
@@ -185,7 +185,9 @@
     "liver": "Hígado",
     "liverHint": "Una tarjeta semanal en Análisis con lo que más cuida tu hígado. Activa también la cintura semanal.",
     "liverGoal": "Para tu hígado: bajar entre 7 y 10% te deja entre {{from}} y {{to}} kg",
-    "useLiverGoal": "Usar {{kg}} kg"
+    "useLiverGoal": "Usar {{kg}} kg",
+    "flourLimit": "Tu límite de harinas",
+    "flourLimitHint": "Parte de tus carbohidratos que pueden venir de arroz blanco, pan, galletas y fideos. Es tu meta personal, no una norma."
   },
   "meals": {
     "title": "Comidas",
@@ -881,7 +883,9 @@
       "movement": "🏃 Movimiento",
       "movementValue": "{{minutes}} / {{goal}} min",
       "weight": "⚖️ Tendencia de peso",
-      "weightMore": "Pésate más días ({{count}} de 3)"
+      "weightMore": "Pésate más días ({{count}} de 3)",
+      "strength": "Fuerza",
+      "strengthValue": "{{days}} de 2 días"
     },
     "nutrients": {
       "title": "Vitaminas y minerales",

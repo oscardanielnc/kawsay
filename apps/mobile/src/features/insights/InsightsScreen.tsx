@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { GradientBackground } from '@/components/layout/GradientBackground';
 import type { InsightsData } from './types';
 import { color, radius, space, type, screenPadding, tabBarSpace } from '@/lib/theme';
 import { AiAnalysisCard, type AnalysisStatus } from './AiAnalysisCard';
@@ -41,52 +42,54 @@ function weekLabel(from: string, to: string): string {
 export function InsightsScreen({ data, canNext, onPrev, onNext, ai, liver = null }: Props) {
   const { t } = useTranslation();
   return (
-    <SafeAreaView style={styles.screen} edges={['top']}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text accessibilityRole="header" style={[type.title, styles.ink]}>
-          {t('insights.title')}
-        </Text>
-        {data ? (
-          <>
-            <View style={styles.nav}>
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel={t('insights.prevWeek')}
-                onPress={onPrev}
-                style={styles.arrow}
-              >
-                <Text style={[type.heading, styles.brand]}>‹</Text>
-              </Pressable>
-              <Text style={[type.label, styles.muted]}>{weekLabel(data.from, data.to)}</Text>
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel={t('insights.nextWeek')}
-                accessibilityState={{ disabled: !canNext }}
-                disabled={!canNext}
-                onPress={onNext}
-                style={[styles.arrow, !canNext && styles.off]}
-              >
-                <Text style={[type.heading, styles.brand]}>›</Text>
-              </Pressable>
-            </View>
-            <WeekCard week={data.week} />
-            {liver}
-            <NutrientsCard
-              nutrients={data.nutrients}
-              sources={data.sources}
-              richest={data.richest}
-            />
-            <RelationsCard relations={data.relations} />
-            <AiAnalysisCard {...ai} />
-          </>
-        ) : null}
-      </ScrollView>
-    </SafeAreaView>
+    <GradientBackground>
+      <SafeAreaView style={styles.screen} edges={['top']}>
+        <ScrollView contentContainerStyle={styles.content}>
+          <Text accessibilityRole="header" style={[type.display, styles.ink]}>
+            {t('insights.title')}
+          </Text>
+          {data ? (
+            <>
+              <View style={styles.nav}>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={t('insights.prevWeek')}
+                  onPress={onPrev}
+                  style={styles.arrow}
+                >
+                  <Text style={[type.heading, styles.brand]}>‹</Text>
+                </Pressable>
+                <Text style={[type.label, styles.muted]}>{weekLabel(data.from, data.to)}</Text>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={t('insights.nextWeek')}
+                  accessibilityState={{ disabled: !canNext }}
+                  disabled={!canNext}
+                  onPress={onNext}
+                  style={[styles.arrow, !canNext && styles.off]}
+                >
+                  <Text style={[type.heading, styles.brand]}>›</Text>
+                </Pressable>
+              </View>
+              <WeekCard week={data.week} strengthDays={data.strengthDays} />
+              {liver}
+              <NutrientsCard
+                nutrients={data.nutrients}
+                sources={data.sources}
+                richest={data.richest}
+              />
+              <RelationsCard relations={data.relations} />
+              <AiAnalysisCard {...ai} />
+            </>
+          ) : null}
+        </ScrollView>
+      </SafeAreaView>
+    </GradientBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: color.surface2 },
+  screen: { flex: 1 },
   content: { padding: screenPadding, paddingBottom: tabBarSpace, gap: space.lg },
   nav: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   arrow: {
@@ -99,6 +102,6 @@ const styles = StyleSheet.create({
   },
   off: { opacity: 0.35 },
   ink: { color: color.ink },
-  muted: { color: color.inkMuted },
+  muted: { color: color.inkSoft },
   brand: { color: color.blue700 },
 });

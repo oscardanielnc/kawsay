@@ -9,6 +9,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import migrations from '../../../drizzle/migrations';
 import { loadCatalog, type BundledCatalog } from './catalog';
 import * as schema from './schema';
+import { color } from '@/lib/theme';
 import type { Db, RecordEnv } from './types';
 
 const env: RecordEnv = { now: () => Date.now(), randomBytes: (count) => getRandomBytes(count) };
@@ -89,8 +90,14 @@ export function DatabaseProvider({ children }: { children: ReactNode }) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#F6F2E8', padding: 24, justifyContent: 'center', gap: 8 },
-  title: { fontSize: 22, lineHeight: 28, fontWeight: '700', color: '#B3392F' },
-  body: { fontSize: 15, lineHeight: 22, color: '#1C1F1A' },
-  detail: { fontSize: 12, lineHeight: 16, color: '#5E6358' },
+  screen: {
+    flex: 1,
+    backgroundColor: color.surface2,
+    padding: 24,
+    justifyContent: 'center',
+    gap: 8,
+  },
+  title: { fontSize: 22, lineHeight: 28, fontWeight: '700', color: color.coral800 },
+  body: { fontSize: 15, lineHeight: 22, color: color.ink },
+  detail: { fontSize: 12, lineHeight: 16, color: color.inkMuted },
 });

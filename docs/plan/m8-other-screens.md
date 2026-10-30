@@ -18,5 +18,15 @@ Goal: no screen left in the old look (owner, 2026-10-30).
 
 ## Done when
 
-- [ ] `rg` finds no old token or Bricolage import
+- [x] `rg` finds no old token or Bricolage import (Bricolage stays only in `app.config.ts`, native, until an APK)
 - [ ] Oscar walks every screen on Kawsay Dev
+
+## Build notes (2026-10-30)
+
+- Every screen sits on `GradientBackground`; tab titles use `display`; secondary text on screens is `ink-soft`
+  (ink-muted fails on the gradient top). Cards were already the Amanecer `Card`
+- Profile → targets edits the refined-flour limit (10–100 %); the summary row shows it. Week card: strength days
+  "n de 2" and movement minutes by MET (ADR 0020), also in the day checklist
+- Illustrations (food and activity icons) keep their own colours; the old profile `ArcGauge` takes the new zone
+  colours. Oscar's walk through every screen on Kawsay Dev is pending
+

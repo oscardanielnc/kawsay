@@ -1,6 +1,8 @@
+import { strengthDaysZone } from '@kawsay/core/energy/strength-days';
 import type { weeklySummary } from '@kawsay/core/insights/weekly-summary';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
+import { Pill } from '@/components/data-display/Pill';
 import { Card } from '@/components/layout/Card';
 import { formatNumber } from '@/lib/format';
 import { color, font, radius, space, type } from '@/lib/theme';
@@ -13,8 +15,10 @@ const COUNTS = [
   { tone: 'red', bg: color.coral50, ink: color.coral800 },
 ] as const;
 
+const STRENGTH_PILL = { green: 'in', yellow: 'near', red: 'far' } as const;
+
 /** "Your week" (F20): days by colour, movement minutes vs 150 and the weight trend change. */
-export function WeekCard({ week }: { week: Week }) {
+export function WeekCard({ week, strengthDays }: { week: Week; strengthDays: number }) {
   const { t } = useTranslation();
   const { minutes, goalMinutes } = week.movement;
   return (
@@ -51,6 +55,13 @@ export function WeekCard({ week }: { week: Week }) {
         style={styles.bar}
       >
         <View style={[styles.fill, { width: `${Math.min(1, minutes / goalMinutes) * 100}%` }]} />
+      </View>
+      <View style={[styles.line, styles.divided]}>
+        <Text style={[type.label, styles.ink]}>{t('insights.week.strength')}</Text>
+        <Pill
+          tone={STRENGTH_PILL[strengthDaysZone(strengthDays)]}
+          text={t('insights.week.strengthValue', { days: strengthDays })}
+        />
       </View>
       <View style={[styles.line, styles.divided]}>
         <Text style={[type.label, styles.ink]}>{t('insights.week.weight')}</Text>

@@ -5,6 +5,7 @@ import { useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { GradientBackground } from '@/components/layout/GradientBackground';
 import { color, radius, space, type } from '@/lib/theme';
 import { Button } from '@/components/primitives/Button';
 import { Card } from '@/components/layout/Card';
@@ -108,56 +109,62 @@ export function OnboardingScreen({ today, onFinish }: Props) {
       : onFinish({ profile: toProfileInput(draft, today), weightKg: draft.weightKg });
 
   return (
-    <SafeAreaView style={styles.screen}>
-      {step > 0 ? (
-        <View
-          style={styles.dots}
-          accessibilityLabel={t('onboarding.progress', { step, total: LAST })}
-        >
-          {Array.from({ length: LAST }, (_, i) => (
-            <View
-              key={i}
-              style={[styles.dot, i + 1 === step && styles.dotNow, i + 1 <= step && styles.dotDone]}
-            />
-          ))}
-        </View>
-      ) : null}
-      <ScrollView contentContainerStyle={styles.content}>
-        {title ? (
-          <Text accessibilityRole="header" style={[type.title, styles.ink]}>
-            {title}
-          </Text>
-        ) : null}
-        {body}
-      </ScrollView>
-      <View style={styles.footer}>
+    <GradientBackground>
+      <SafeAreaView style={styles.screen}>
         {step > 0 ? (
-          <Button
-            variant="secondary"
-            label={t('onboarding.back')}
-            onPress={() => setStep(step - 1)}
-          />
+          <View
+            style={styles.dots}
+            accessibilityLabel={t('onboarding.progress', { step, total: LAST })}
+          >
+            {Array.from({ length: LAST }, (_, i) => (
+              <View
+                key={i}
+                style={[
+                  styles.dot,
+                  i + 1 === step && styles.dotNow,
+                  i + 1 <= step && styles.dotDone,
+                ]}
+              />
+            ))}
+          </View>
         ) : null}
-        <View style={styles.grow}>
-          <Button
-            label={t(
-              step === 0
-                ? 'onboarding.start'
-                : step < LAST
-                  ? 'onboarding.next'
-                  : 'onboarding.finish',
-            )}
-            disabled={!canGoOn}
-            onPress={next}
-          />
+        <ScrollView contentContainerStyle={styles.content}>
+          {title ? (
+            <Text accessibilityRole="header" style={[type.title, styles.ink]}>
+              {title}
+            </Text>
+          ) : null}
+          {body}
+        </ScrollView>
+        <View style={styles.footer}>
+          {step > 0 ? (
+            <Button
+              variant="secondary"
+              label={t('onboarding.back')}
+              onPress={() => setStep(step - 1)}
+            />
+          ) : null}
+          <View style={styles.grow}>
+            <Button
+              label={t(
+                step === 0
+                  ? 'onboarding.start'
+                  : step < LAST
+                    ? 'onboarding.next'
+                    : 'onboarding.finish',
+              )}
+              disabled={!canGoOn}
+              onPress={next}
+            />
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </GradientBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: color.surface2 },
+  screen: { flex: 1 },
   content: { padding: space.lg, gap: space.md },
   welcome: { paddingTop: 96, alignItems: 'center', gap: space.sm },
   dots: { flexDirection: 'row', gap: 6, justifyContent: 'center', paddingTop: space.md },
@@ -167,7 +174,7 @@ const styles = StyleSheet.create({
   footer: { flexDirection: 'row', gap: space.sm, padding: space.lg },
   grow: { flex: 1 },
   ink: { color: color.ink },
-  muted: { color: color.inkMuted },
+  muted: { color: color.inkSoft },
   caveat: {
     color: color.ink,
     backgroundColor: '#FBF3DC',

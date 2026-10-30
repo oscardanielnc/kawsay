@@ -114,15 +114,7 @@
     "optional": "Opcionales",
     "waist": "📏 Cintura semanal",
     "waistHint": "Te lo recuerda una vez por semana",
-    "weekdays": [
-      "Lun",
-      "Mar",
-      "Mié",
-      "Jue",
-      "Vie",
-      "Sáb",
-      "Dom"
-    ],
+    "weekdays": ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
     "symptoms": "🩺 Síntomas propios",
     "symptomsHint": "Creas los que te importan",
     "intimate": "🔒 Vida íntima (privado)",
@@ -228,7 +220,8 @@
     "addGrams": "Agregar {{grams}} g",
     "entryKcal": "{{kcal}} kcal en {{meal}}",
     "leftover": "Resto guardado de ayer",
-    "remove": "Quitar"
+    "remove": "Quitar",
+    "empty": "Sin registrar todavía"
   },
   "activity": {
     "title": "Actividad física",
@@ -456,7 +449,8 @@
     "addCaloric": "Agregar bebida con calorías",
     "bucket": "Cubeta de {{goal}} vasos: {{contents}}",
     "notCounted": "(no suma)",
-    "fromMealsOnly": "desde comidas"
+    "fromMealsOnly": "desde comidas",
+    "optional": "Opcional"
   },
   "sleep": {
     "title": "Sueño",

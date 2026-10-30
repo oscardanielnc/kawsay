@@ -111,6 +111,16 @@ const profileInput = {
   intimateEnabled: false,
 };
 
+/**
+ * renderRouter switches to fake timers; the app reads SQLite in real time, so a findBy on fake timers gives up in a
+ * few real milliseconds. Real timers again once the router has mounted.
+ */
+async function renderApp(options: Parameters<typeof renderRouter>[1]) {
+  const view = await renderRouter('./app', options);
+  jest.useRealTimers();
+  return view;
+}
+
 async function tap(name: string | RegExp, times = 1) {
   for (let i = 0; i < times; i++) await fireEvent.press(screen.getByRole('button', { name }));
 }
@@ -118,7 +128,7 @@ async function tap(name: string | RegExp, times = 1) {
 describe('navigation (design N1, F01)', () => {
   it('the first open asks to sign in; using the phone alone goes on to the onboarding (F02)', async () => {
     mockStartAccount = { kind: 'undecided' };
-    await renderRouter('./app', { initialUrl: '/' });
+    await renderApp({ initialUrl: '/' });
     expect(await screen.findByRole('button', { name: 'Entrar' })).toBeOnTheScreen();
     await tap('Usar sin cuenta por ahora');
     expect(await screen.findByRole('button', { name: 'Empezar' })).toBeOnTheScreen();
@@ -128,7 +138,7 @@ describe('navigation (design N1, F01)', () => {
     mockStartAccount = { kind: 'undecided' };
     await saveProfile(mockDb, mockEnv, profileInput);
     await saveWeight(mockDb, mockEnv, { date: today(), kg: 70, timeZone: 'America/Lima' });
-    await renderRouter('./app', { initialUrl: '/' });
+    await renderApp({ initialUrl: '/' });
     await fireEvent.changeText(await screen.findByLabelText('Correo'), 'oscar@kawsay.test');
     await fireEvent.changeText(screen.getByLabelText('Contraseña'), 'secret');
     await tap('Entrar');
@@ -139,12 +149,12 @@ describe('navigation (design N1, F01)', () => {
   });
 
   it('a fresh install opens on the onboarding', async () => {
-    await renderRouter('./app', { initialUrl: '/' });
+    await renderApp({ initialUrl: '/' });
     expect(await screen.findByRole('header', { name: 'Kawsay' })).toBeOnTheScreen();
   });
 
   it('finishing the onboarding stores the profile and opens Today; Profile shows the status', async () => {
-    await renderRouter('./app', { initialUrl: '/' });
+    await renderApp({ initialUrl: '/' });
     await screen.findByRole('header', { name: 'Kawsay' });
     await tap('Empezar');
     await tap('Hombre');
@@ -160,7 +170,7 @@ describe('navigation (design N1, F01)', () => {
 
   it('with a profile it opens on Today and shows the five tabs in Spanish', async () => {
     await saveProfile(mockDb, mockEnv, profileInput);
-    await renderRouter('./app', { initialUrl: '/' });
+    await renderApp({ initialUrl: '/' });
     expect(await screen.findByRole('header', { name: 'Hoy' })).toBeOnTheScreen();
     await waitFor(() => {
       for (const tab of ['Calendario', 'Análisis', 'Perfil']) {
@@ -172,25 +182,25 @@ describe('navigation (design N1, F01)', () => {
 
   it('a dish added on Today appears as a chip in its meal, and survives reopening the app (F05)', async () => {
     await saveProfile(mockDb, mockEnv, profileInput);
-    const first = await renderRouter('./app', { initialUrl: '/' });
+    const first = await renderApp({ initialUrl: '/' });
     await tap('Agregar a Almuerzo');
     await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'lomo');
     await tap(/Lomo saltado/);
     await tap('Agregar 1 ración');
     expect(await screen.findByRole('button', { name: '1 Lomo saltado' })).toBeOnTheScreen();
     await first.unmount();
-    await renderRouter('./app', { initialUrl: '/' });
+    await renderApp({ initialUrl: '/' });
     expect(await screen.findByRole('button', { name: '1 Lomo saltado' })).toBeOnTheScreen();
   });
 
   it('30 min of stairs raises the day target immediately: the green range of calories moves up (F08)', async () => {
     await saveProfile(mockDb, mockEnv, profileInput);
     await saveWeight(mockDb, mockEnv, { date: today(), kg: 70, timeZone: 'America/Lima' });
-    await renderRouter('./app', { initialUrl: '/' });
+    await renderApp({ initialUrl: '/' });
     const greenFrom = async () => {
       const track = await screen.findByLabelText(/^Calorías: /);
       const label = String(track.props.accessibilityLabel);
-      return Number(/Rango verde de ([\d,]+)/.exec(label)?.[1]?.replace(',', ''));
+      return Number(/Rango ([\d,]+)/.exec(label)?.[1]?.replace(',', ''));
     };
     const before = await greenFrom();
     await tap('+ Agregar actividad');
@@ -204,7 +214,7 @@ describe('navigation (design N1, F01)', () => {
   it('hydration, body and sleep fill their parts of the day checklist, and a breakfast juice shows in hydration (F10, F11, F05)', async () => {
     await saveProfile(mockDb, mockEnv, profileInput);
     await saveWeight(mockDb, mockEnv, { date: today(), kg: 70, timeZone: 'America/Lima' });
-    await renderRouter('./app', { initialUrl: '/' });
+    await renderApp({ initialUrl: '/' });
     expect(await screen.findByText('1 de 6')).toBeOnTheScreen();
     await tap('Clara');
     expect(await screen.findByRole('button', { name: 'Agua: registrado' })).toBeOnTheScreen();
@@ -236,7 +246,7 @@ describe('navigation (design N1, F01)', () => {
     await saveProfile(mockDb, mockEnv, profileInput);
     await saveWeight(mockDb, mockEnv, { date: addDays(day, -7), kg: 70, timeZone: 'America/Lima' });
     await setNoActivity(mockDb, mockEnv, day, true);
-    await renderRouter('./app', { initialUrl: '/' });
+    await renderApp({ initialUrl: '/' });
     await screen.findByRole('header', { name: 'Hoy' });
     await fireEvent.press(screen.getByText('Calendario'));
     await tap(`${name}: Fuera de rango`);
@@ -248,7 +258,7 @@ describe('navigation (design N1, F01)', () => {
 
   it('a dish built in the app is saved and logged with one tap at portion 1, then offered again (F07)', async () => {
     await saveProfile(mockDb, mockEnv, profileInput);
-    await renderRouter('./app', { initialUrl: '/' });
+    await renderApp({ initialUrl: '/' });
     await tap('Agregar a Almuerzo');
     await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'Huevos de la casa');
     await tap('+ Crear plato "Huevos de la casa"');
@@ -265,7 +275,7 @@ describe('navigation (design N1, F01)', () => {
   it('the private log appears in no screen until it is unlocked (F12)', async () => {
     await saveProfile(mockDb, mockEnv, { ...profileInput, intimateEnabled: true });
     await addIntimate(mockDb, mockEnv, { date: today(), timeZone: 'America/Lima', kind: 'sex' });
-    await renderRouter('./app', { initialUrl: '/' });
+    await renderApp({ initialUrl: '/' });
     await screen.findByText('Privado');
     expect(screen.queryByText(/Relación sexual/)).toBeNull();
     await fireEvent.press(screen.getByText('Calendario'));

@@ -160,12 +160,10 @@ export function SymptomsSection({ symptoms, answers, ongoing = {}, onAnswer, onC
 const styles = StyleSheet.create({
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
   still: {
-    gap: space.xs,
+    gap: space.sm,
     padding: space.md,
-    borderRadius: radius.card,
-    backgroundColor: color.card,
-    borderWidth: 1,
-    borderColor: color.line,
+    borderRadius: radius.inner + 2,
+    backgroundColor: color.peach50,
   },
   chip: {
     minHeight: touch,

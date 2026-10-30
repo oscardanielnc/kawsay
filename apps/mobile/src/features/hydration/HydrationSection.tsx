@@ -152,7 +152,10 @@ export function HydrationSection(props: Props) {
   ).join(', ');
 
   return (
-    <Card title={t('hydration.title')}>
+    <Card
+      title={t('hydration.title')}
+      action={<Text style={[type.caption, styles.optional]}>{t('hydration.optional')}</Text>}
+    >
       <Text style={[type.heading, styles.ink]}>
         {t('hydration.progress', { glasses: glassText(glasses), goal: goalGlasses })}
       </Text>
@@ -304,6 +307,14 @@ const styles = StyleSheet.create({
   count: { minWidth: 28, textAlign: 'center' },
   urine: { flexDirection: 'row', gap: space.sm },
   disclosure: { minHeight: touch, justifyContent: 'center' },
+  optional: {
+    color: color.inkMuted,
+    backgroundColor: color.chip,
+    paddingHorizontal: space.sm,
+    paddingVertical: 3,
+    borderRadius: radius.pill,
+    overflow: 'hidden',
+  },
   urineOption: {
     flex: 1,
     minHeight: touch,

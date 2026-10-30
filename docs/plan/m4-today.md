@@ -21,5 +21,14 @@ Goal: the Today screen exactly as `Main.dc.html`.
 
 ## Done when
 
-- [ ] F22 criteria still pass; F24 criterion 2 (changing the limit moves the zones the same day)
+- [x] F22 criteria still pass; F24 criterion 2 (changing the limit moves the zones the same day)
 - [ ] Oscar checks it on Kawsay Dev against the mockup
+
+## Build notes (2026-10-30)
+
+- Order follows `Main.dc.html` (the design wins over step 1): header · six gauges · checklist · meals · activity ·
+  hydration · body and mood · sleep · symptoms
+- `navigation.test.tsx` renders with `renderApp`: real timers once the router mounted (with fake timers a findBy gave
+  up before SQLite answered). `jest.setup.js` lands every animation at once
+- Oscar's visual check on Kawsay Dev is pending with the next update
+

@@ -42,7 +42,7 @@ import { RoutinesBlock, type LoggedSession } from '@/features/routines/RoutinesB
 import { deleteSleep, saveSleep } from '@/features/sleep/sleep-db';
 import { SleepSection, type SleepChange } from '@/features/sleep/SleepSection';
 import { DayChecklist } from '@/features/today/DayChecklist';
-import { RangeGauges } from '@/features/today/RangeGauges';
+import { TodayGauges } from '@/features/today/TodayGauges';
 import { AREAS } from '@/features/today/day-logged';
 import { TodayScreen, TodaySection } from '@/features/today/TodayScreen';
 import {
@@ -231,7 +231,12 @@ export default function TodayRoute() {
       focusKey={params.at}
     >
       {targets ? (
-        <RangeGauges targets={targets} eaten={eaten} dayOpen={isToday} />
+        <TodayGauges
+          targets={targets}
+          eaten={eaten}
+          dayOpen={isToday}
+          refinedFlourShare={data.profile?.refinedFlourShare ?? null}
+        />
       ) : (
         <Text style={[type.body, { color: color.inkMuted }]}>{t('today.needWeight')}</Text>
       )}

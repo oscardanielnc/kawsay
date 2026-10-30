@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
 import { Sheet } from '@/components/feedback/Sheet';
 import { Card } from '@/components/layout/Card';
 import { Button } from '@/components/primitives/Button';
@@ -322,7 +323,14 @@ export function MealsSection({
                 onPress={() => setSheet({ kind: 'pick', meal, query: '' })}
                 style={styles.plus}
               >
-                <Text style={[type.title, styles.onAccent]}>+</Text>
+                <Svg width={18} height={18} viewBox="0 0 24 24" fill="none">
+                  <Path
+                    d="M12 5v14M5 12h14"
+                    stroke={color.white}
+                    strokeWidth={2.6}
+                    strokeLinecap="round"
+                  />
+                </Svg>
               </Pressable>
             </View>
             {own.length || waiting.length ? (
@@ -355,7 +363,9 @@ export function MealsSection({
                   </Pressable>
                 ))}
               </View>
-            ) : null}
+            ) : (
+              <Text style={[type.label, styles.muted]}>{t('meals.empty')}</Text>
+            )}
           </View>
         );
       })}
@@ -371,8 +381,9 @@ const styles = StyleSheet.create({
   head: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   grow: { flex: 1 },
   plus: {
-    width: touch,
-    height: touch,
+    width: 36,
+    height: 36,
+    margin: (touch - 36) / 2,
     borderRadius: radius.pill,
     backgroundColor: color.blue700,
     alignItems: 'center',
@@ -384,7 +395,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: space.xs,
-    backgroundColor: color.blue50,
+    backgroundColor: color.chip,
     borderRadius: radius.pill,
     paddingRight: space.md,
     paddingLeft: 3,

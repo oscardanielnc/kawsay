@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle, G, Path } from 'react-native-svg';
 import { useAnimatedTo } from '@/lib/motion';
@@ -64,20 +64,18 @@ export function ZoneGauge({
 }
 
 /**
- * A needle from the centre, rotated from pointing left; it sweeps to its angle in 380 ms. The angle is written to
- * the SVG group directly (setNativeProps), so a sweep does not re-render the card.
+ * A needle from the centre, rotated from pointing left; it sweeps to its angle in 380 ms. The angle reaches the SVG
+ * through React state: writing an SVG transform with setNativeProps closed the app on the phone (new architecture).
  */
 function Needle({ position, ink }: { position: number; ink: string }) {
   const angle = useAnimatedTo(needleAngle(position), motion.needle, { native: false });
-  const group = useRef<G<unknown>>(null);
+  const [shown, setShown] = useState(0);
   useEffect(() => {
-    const rotate = ({ value }: { value: number }) =>
-      group.current?.setNativeProps({ transform: `rotate(${value} ${cx} ${cy})` });
-    const id = angle.addListener(rotate);
+    const id = angle.addListener(({ value }) => setShown(value));
     return () => angle.removeListener(id);
   }, [angle]);
   return (
-    <G ref={group} transform={`rotate(0 ${cx} ${cy})`}>
+    <G transform={`rotate(${shown} ${cx} ${cy})`}>
       <Path d={`M${cx} ${cy} L34 ${cy}`} stroke={ink} strokeWidth={3.5} strokeLinecap="round" />
     </G>
   );

@@ -25,6 +25,10 @@ export abstract class AiCallLog {
     useCase: AiCallRecord['useCase'],
     since: Date,
   ): Promise<{ count: number; costUsd: number; oldest: Date | null }>;
+  /** Every call of every user since a moment, for the stats CLI. */
+  abstract all(since: Date): Promise<(AiCallRecord & { feedback: unknown })[]>;
+  /** Clears the input text of calls older than a moment (kept 90 days, ADR 0024); returns how many. */
+  abstract forgetTextBefore(before: Date): Promise<number>;
   /** Stores the feedback of a call of this user; false when there is no such call. */
   abstract feedback(userId: string, id: string, feedback: unknown): Promise<boolean>;
 }

@@ -29,6 +29,14 @@ git archive --format=tar HEAD \
   packages/config packages/contracts packages/core packages/catalog/remote apps/api deploy \
   | "${SSH[@]}" "$TARGET" 'mkdir -p ~/kawsay && tar -xf - -C ~/kawsay'
 
+# Langfuse keys (ADR 0024): appended to the VM env file once, from this machine's environment, never echoed.
+for name in LANGFUSE_PUBLIC_KEY LANGFUSE_SECRET_KEY LANGFUSE_BASE_URL; do
+  value="${!name:-}"
+  [ -n "$value" ] || continue
+  printf '%s' "$value" | "${SSH[@]}" "$TARGET" \
+    "f=~/kawsay/deploy/$ENVIRONMENT.env; grep -q '^$name=' \$f 2>/dev/null || { umask 077; printf '$name=%s\n' \"\$(cat)\" >> \$f; }"
+done
+
 echo "==> Building and starting kawsay-$ENVIRONMENT on 127.0.0.1:$PORT"
 "${SSH[@]}" "$TARGET" ENVIRONMENT="$ENVIRONMENT" PORT="$PORT" 'bash -s' <<'REMOTE'
 set -euo pipefail
@@ -44,6 +52,7 @@ if [ ! -f "$ENV_FILE" ]; then
   } > "$ENV_FILE"
   echo "    created $ENV_FILE with new secrets"
 fi
+grep -q '^DEPLOY_ENVIRONMENT=' "$ENV_FILE" || echo "DEPLOY_ENVIRONMENT=$ENVIRONMENT" >> "$ENV_FILE"
 docker compose -p "kawsay-$ENVIRONMENT" --env-file "$ENV_FILE" -f deploy/compose.yml up -d --build
 for _ in $(seq 1 30); do
   if curl -fsS "http://127.0.0.1:$PORT/v1/health" >/dev/null; then

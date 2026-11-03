@@ -40,6 +40,11 @@ services:
       JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:?set JWT_ACCESS_SECRET in the env file}
       # Optional: without it the AI analysis answers "disabled" (F17).
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      # Optional: AI traces in Langfuse Cloud, content masked (ADR 0024). Off without the keys.
+      LANGFUSE_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:-}
+      LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY:-}
+      LANGFUSE_BASE_URL: ${LANGFUSE_BASE_URL:-}
+      DEPLOY_ENVIRONMENT: ${DEPLOY_ENVIRONMENT:-unknown}
     # Loopback only: an app reachable by the VM's IP would skip Cloudflare (the August 2026 incident on this VM).
     ports:
       - '127.0.0.1:${API_PORT:?set API_PORT in the env file}:3000'

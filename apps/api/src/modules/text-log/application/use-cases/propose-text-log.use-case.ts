@@ -4,7 +4,8 @@ import { Clock } from '../../../../shared/application/ports/clock';
 import { IdGenerator } from '../../../../shared/application/ports/id-generator';
 import { TextLogLimitError, TextLogUnavailableError } from '../../domain/errors';
 import { AgentModel } from '../ports/agent-model';
-import { AiCallLog } from '../ports/ai-call-log';
+import { AiCallLog, type AiCallRecord } from '../ports/ai-call-log';
+import { TraceSink } from '../ports/trace-sink';
 import { costUsd } from '../prices';
 import { TextLogAgent } from '../text-log-agent';
 import { TEXT_LOG_PROMPT_VERSION } from '../text-log-prompt';
@@ -25,7 +26,14 @@ export class ProposeTextLogUseCase {
     private readonly calls: AiCallLog,
     private readonly clock: Clock,
     private readonly ids: IdGenerator,
+    private readonly traces: TraceSink,
   ) {}
+
+  /** `ai_call` first, then the trace, which may fail without consequence (ADR 0024). */
+  private async keep(record: AiCallRecord): Promise<void> {
+    await this.calls.record(record);
+    void this.traces.send(record);
+  }
 
   async execute(userId: string, request: TextLogRequest): Promise<TextLogProposal> {
     const started = this.clock.now();
@@ -50,7 +58,7 @@ export class ProposeTextLogUseCase {
     } catch (error) {
       // Health data never reaches a log (ADR 0013): the error's name only.
       this.logger.error(`text log failed: ${error instanceof Error ? error.name : 'unknown'}`);
-      await this.calls.record({
+      await this.keep({
         ...base,
         tokensIn: 0,
         tokensCached: 0,
@@ -65,7 +73,7 @@ export class ProposeTextLogUseCase {
     }
 
     const proposal = result.outcome === 'ok' ? { id, ...result.proposal } : null;
-    await this.calls.record({
+    await this.keep({
       ...base,
       ...result.usage,
       latencyMs: this.clock.now().getTime() - started.getTime(),

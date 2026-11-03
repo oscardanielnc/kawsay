@@ -14,6 +14,12 @@ export interface AiConfig {
   dailyLimit: number;
 }
 
+export interface TracingConfig {
+  /** null: tracing is off. */
+  langfuse: { publicKey: string; secretKey: string; baseUrl: string } | null;
+  environment: string;
+}
+
 /** Validated configuration, injected by class token. */
 export class AppConfig {
   constructor(
@@ -24,6 +30,7 @@ export class AppConfig {
     readonly ai: AiConfig = { deepseekApiKey: null, model: 'deepseek-flash', dailyLimit: 3 },
     /** Folder of the published catalog files (dishes.json, foods.json). */
     readonly catalogDir: string = '../../packages/catalog/remote',
+    readonly tracing: TracingConfig = { langfuse: null, environment: 'local' },
   ) {}
 
   static fromEnv(env: Env): AppConfig {
@@ -43,6 +50,17 @@ export class AppConfig {
         dailyLimit: env.AI_DAILY_LIMIT,
       },
       env.CATALOG_DIR,
+      {
+        langfuse:
+          env.LANGFUSE_PUBLIC_KEY && env.LANGFUSE_SECRET_KEY && env.LANGFUSE_BASE_URL
+            ? {
+                publicKey: env.LANGFUSE_PUBLIC_KEY,
+                secretKey: env.LANGFUSE_SECRET_KEY,
+                baseUrl: env.LANGFUSE_BASE_URL.replace(/\/$/, ''),
+              }
+            : null,
+        environment: env.DEPLOY_ENVIRONMENT,
+      },
     );
   }
 }

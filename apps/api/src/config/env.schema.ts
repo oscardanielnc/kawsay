@@ -18,6 +18,12 @@ export const envSchema = z.object({
   /** AI analyses per user in any 24 h (F17). */
   AI_DAILY_LIMIT: z.coerce.number().int().min(1).max(50).default(3),
   /** The published catalog (packages/catalog/remote): dishes delivered by sync and the AI food list (ADR 0028). */
+  /** AI traces in Langfuse Cloud (ADR 0024); all three or tracing stays off. */
+  LANGFUSE_PUBLIC_KEY: z.string().optional(),
+  LANGFUSE_SECRET_KEY: z.string().optional(),
+  LANGFUSE_BASE_URL: z.string().optional(),
+  /** dev or prod, carried by every trace. */
+  DEPLOY_ENVIRONMENT: z.string().min(1).default('local'),
   CATALOG_DIR: z.string().min(1).default('../../packages/catalog/remote'),
 });
 

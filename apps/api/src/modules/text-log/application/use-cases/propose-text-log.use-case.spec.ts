@@ -8,6 +8,7 @@ import {
 } from '../../domain/errors';
 import { AgentModel } from '../ports/agent-model';
 import { AiCallLog, type AiCallRecord } from '../ports/ai-call-log';
+import { TraceSink } from '../ports/trace-sink';
 import { ItemSearch } from '../ports/item-search';
 import { costUsd, isPeak } from '../prices';
 import { TextLogAgent, type AgentOutcome } from '../text-log-agent';
@@ -37,6 +38,12 @@ class MemoryCalls extends AiCallLog {
       oldest: rows[0]?.createdAt ?? null,
     });
   }
+  all() {
+    return Promise.resolve(this.rows.map((r) => ({ ...r, feedback: r.feedback ?? null })));
+  }
+  forgetTextBefore() {
+    return Promise.resolve(0);
+  }
   feedback(userId: string, id: string, feedback: unknown) {
     const row = this.rows.find((r) => r.id === id && r.userId === userId);
     if (row) row.feedback = feedback;
@@ -54,6 +61,15 @@ class FakeAgent extends TextLogAgent {
   }
 }
 const model = { model: 'deepseek-flash' } as AgentModel;
+/** Records what would be traced. */
+class MemoryTraces extends TraceSink {
+  readonly sent: AiCallRecord[] = [];
+  send(call: AiCallRecord) {
+    this.sent.push(call);
+    return Promise.resolve();
+  }
+}
+const traces = new MemoryTraces();
 /** 15:00 UTC on a Tuesday: off-peak. */
 const clock = new (class extends Clock {
   now() {
@@ -94,6 +110,7 @@ describe('ProposeTextLogUseCase (F16, ADR 0024, 0026)', () => {
       calls,
       clock,
       ids,
+      traces,
     ).execute('u1', request);
     expect(proposal.id).toBe(ID);
     expect(calls.rows).toHaveLength(1);
@@ -108,6 +125,7 @@ describe('ProposeTextLogUseCase (F16, ADR 0024, 0026)', () => {
       toolRounds: 2,
       inputText: 'almorcé lomo saltado',
     });
+    expect(traces.sent.at(-1)?.id).toBe(ID);
     expect(calls.rows[0]!.costUsd).toBeCloseTo(costUsd('deepseek-flash', usage, clock.now()), 12);
   });
 
@@ -119,6 +137,7 @@ describe('ProposeTextLogUseCase (F16, ADR 0024, 0026)', () => {
       calls,
       clock,
       ids,
+      traces,
     );
     await expect(invalid.execute('u1', request)).rejects.toBeInstanceOf(TextLogUnavailableError);
     const failing = new ProposeTextLogUseCase(
@@ -127,6 +146,7 @@ describe('ProposeTextLogUseCase (F16, ADR 0024, 0026)', () => {
       calls,
       clock,
       ids,
+      traces,
     );
     await expect(failing.execute('u1', request)).rejects.toBeInstanceOf(TextLogUnavailableError);
     expect(calls.rows.map((r) => r.outcome)).toEqual(['invalid', 'error']);
@@ -134,7 +154,7 @@ describe('ProposeTextLogUseCase (F16, ADR 0024, 0026)', () => {
 
   it(`allows ${TEXT_LOG_DAILY_LIMIT} text logs a day, then "vuelve mañana"`, async () => {
     const calls = new MemoryCalls();
-    const useCase = new ProposeTextLogUseCase(new FakeAgent(ok), model, calls, clock, ids);
+    const useCase = new ProposeTextLogUseCase(new FakeAgent(ok), model, calls, clock, ids, traces);
     for (let i = 0; i < TEXT_LOG_DAILY_LIMIT; i++) await useCase.execute('u1', request);
     await expect(useCase.execute('u1', request)).rejects.toBeInstanceOf(TextLogLimitError);
   });
@@ -149,7 +169,7 @@ describe('ProposeTextLogUseCase (F16, ADR 0024, 0026)', () => {
       costUsd: 0.1,
       createdAt: clock.now(),
     });
-    const useCase = new ProposeTextLogUseCase(new FakeAgent(ok), model, calls, clock, ids);
+    const useCase = new ProposeTextLogUseCase(new FakeAgent(ok), model, calls, clock, ids, traces);
     await expect(useCase.execute('u1', request)).rejects.toBeInstanceOf(TextLogLimitError);
   });
 });
@@ -157,7 +177,7 @@ describe('ProposeTextLogUseCase (F16, ADR 0024, 0026)', () => {
 describe('TextLogFeedbackUseCase', () => {
   it('editing or removing a card before saving is stored with its call as feedback', async () => {
     const calls = new MemoryCalls();
-    await new ProposeTextLogUseCase(new FakeAgent(ok), model, calls, clock, ids).execute(
+    await new ProposeTextLogUseCase(new FakeAgent(ok), model, calls, clock, ids, traces).execute(
       'u1',
       request,
     );

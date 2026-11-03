@@ -33,6 +33,26 @@ export class PrismaAiCallLog extends AiCallLog {
     };
   }
 
+  async all(since: Date) {
+    const rows = await this.txHost.tx.aiCall.findMany({
+      where: { createdAt: { gte: since } },
+      orderBy: { createdAt: 'asc' },
+    });
+    return rows.map((r) => ({
+      ...r,
+      useCase: r.useCase as AiCallRecord['useCase'],
+      outcome: r.outcome as AiCallRecord['outcome'],
+    }));
+  }
+
+  async forgetTextBefore(before: Date): Promise<number> {
+    const { count } = await this.txHost.tx.aiCall.updateMany({
+      where: { createdAt: { lt: before }, inputText: { not: null } },
+      data: { inputText: null },
+    });
+    return count;
+  }
+
   async feedback(userId: string, id: string, feedback: unknown): Promise<boolean> {
     const { count } = await this.txHost.tx.aiCall.updateMany({
       where: { id, userId },

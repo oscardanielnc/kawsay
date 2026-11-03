@@ -6,9 +6,9 @@ import { Stepper } from '@/components/forms/Stepper';
 import { Button } from '@/components/primitives/Button';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, touch, type } from '@/lib/theme';
-import { FOOD_ICONS, FoodIcon } from './FoodIcon';
+import { FOOD_ICONS, FoodIcon } from '@/components/data-display/FoodIcon';
 import type { CatalogItem, NewDish } from './meals-db';
-import { FRACTIONS, fractionLabel } from './portion';
+import { FRACTIONS, fractionLabel } from '@/lib/portion';
 import { searchCatalog } from './search';
 
 type Unit = { label: string; grams: number };

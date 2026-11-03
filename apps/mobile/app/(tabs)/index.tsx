@@ -1,6 +1,7 @@
 import { drinksGoalGlasses, GLASS_ML } from '@kawsay/core/day/drinks';
 import { activityKcal } from '@kawsay/core/energy/activity';
 import type { ActivityKind } from '@kawsay/core/energy/activity-types';
+import { isSugaryDrink } from '@kawsay/core/liver/sugary-drinks';
 import { addDays, type LocalDate } from '@kawsay/core/shared/local-date';
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
@@ -24,6 +25,7 @@ import {
   deleteMeal,
   foodUnits,
   mealAt,
+  mealsOn,
   recentFor,
   saveUserDish,
   type Meal,
@@ -43,6 +45,8 @@ import { deleteSleep, saveSleep } from '@/features/sleep/sleep-db';
 import { SleepSection, type SleepChange } from '@/features/sleep/SleepSection';
 import { DayChecklist } from '@/features/today/DayChecklist';
 import { TodayGauges } from '@/features/today/TodayGauges';
+import { GaugeDetailSheet } from '@/features/today/GaugeDetailSheet';
+import type { GaugeKey } from '@/features/today/gauge-readings';
 import { AREAS } from '@/features/today/day-logged';
 import { TodayScreen, TodaySection } from '@/features/today/TodayScreen';
 import {
@@ -132,6 +136,17 @@ export default function TodayRoute() {
   );
 
   useReloadOnFocus(reload);
+  // F26: the gauge detail; the week's sugary drinks are read only while added sugar is open.
+  const [detail, setDetail] = useState<GaugeKey | null>(null);
+  const { data: sugaryDrinksWeek } = useLoad(
+    useCallback(async () => {
+      if (detail !== 'sugar') return null;
+      const week = await Promise.all(
+        Array.from({ length: 7 }, (_, i) => mealsOn(db, addDays(day, -i))),
+      );
+      return week.flat().filter((m) => m.volumeMl !== null && isSugaryDrink(m.addedSugarG)).length;
+    }, [db, day, detail]),
+  );
   // F12: the private log is read only while unlocked, and locks again when Today loses focus.
   const [privateOpen, setPrivateOpen] = useState(false);
   const { data: intimate, reload: reloadIntimate } = useLoad(
@@ -236,10 +251,30 @@ export default function TodayRoute() {
           eaten={eaten}
           dayOpen={isToday}
           refinedFlourShare={data.profile?.refinedFlourShare ?? null}
+          onOpen={setDetail}
         />
       ) : (
         <Text style={[type.body, { color: color.inkMuted }]}>{t('today.needWeight')}</Text>
       )}
+      {targets ? (
+        <GaugeDetailSheet
+          open={detail}
+          onSwitch={setDetail}
+          onClose={() => setDetail(null)}
+          targets={targets}
+          eaten={eaten}
+          dayOpen={isToday}
+          refinedFlourShare={data.profile?.refinedFlourShare ?? null}
+          entries={data.entries}
+          mealOrder={MEALS}
+          pending={data.pending}
+          sugaryDrinksWeek={sugaryDrinksWeek ?? null}
+          onCompletePending={() => {
+            setDetail(null);
+            router.setParams({ focus: 'meals', at: String(Date.now()) });
+          }}
+        />
+      ) : null}
       <DayChecklist
         areas={logged.areas}
         done={logged.done}

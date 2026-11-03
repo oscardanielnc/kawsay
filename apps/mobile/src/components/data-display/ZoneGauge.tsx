@@ -17,7 +17,8 @@ interface Props {
   before?: number | null;
   value: string;
   unit: string;
-  accessibilityLabel: string;
+  /** Without it the gauge is read by its container (a pressable Today card). */
+  accessibilityLabel?: string;
   /** The value is past the gauge's maximum: the needle stops at the end and the number shows "+". */
   overflow?: boolean;
   /** Smaller numbers for the mini gauges of the portion preview. */
@@ -37,7 +38,7 @@ export function ZoneGauge({
 }: Props) {
   const paths = useMemo(() => zonePaths(zones), [zones]);
   return (
-    <View accessible accessibilityLabel={accessibilityLabel}>
+    <View accessible={accessibilityLabel !== undefined} accessibilityLabel={accessibilityLabel}>
       <View style={styles.box}>
         <Svg width="100%" height="100%" viewBox={`0 0 ${GAUGE_BOX.width} ${GAUGE_BOX.height}`}>
           {paths.map((d, i) => (

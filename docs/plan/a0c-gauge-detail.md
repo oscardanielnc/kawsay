@@ -21,4 +21,4 @@ JavaScript only: ships with the A6 update.
 
 ## Done when
 
-- [ ] F26 criteria pass; no native module
+- [x] F26 criteria pass; no native module

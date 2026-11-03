@@ -1109,5 +1109,31 @@
       "platelets": "Plaquetas (miles por µL)"
     },
     "footer": "No es un diagnóstico. Metas según OMS, EASL y NICE. Si tienes familiares con hígado graso, pide a tu médico una ecografía."
+  },
+  "gaugeDetail": {
+    "metaTwoSided": "Meta {{target}} {{unit}} · en rango de {{from}} a {{to}}",
+    "metaSugar": "En rango hasta {{limit}} g (5 % de tus calorías)",
+    "metaFlour": "En rango hasta {{limit}} g (tu límite)",
+    "legend": {
+      "in": "En rango",
+      "near": "Cerca",
+      "far": "Lejos"
+    },
+    "gauge": "{{name}}: {{value}} {{unit}}. Límites: {{limits}}. De {{min}} a {{max}}.",
+    "top": "Lo que más sumó",
+    "sub_one": "{{total}} {{unit}} de {{count}} alimento",
+    "sub_other": "{{total}} {{unit}} de {{count}} alimentos",
+    "omitted_one": "{{count}} alimento del día no aporta {{name}}.",
+    "omitted_other": "{{count}} alimentos del día no aportan {{name}}.",
+    "empty": "Nada del día suma aquí todavía.",
+    "pending_one": "{{count}} pendiente sin contar · {{names}}",
+    "pending_other": "{{count}} pendientes sin contar · {{names}}",
+    "sugaryDrinks_one": "🥤 {{count}} bebida azucarada esta semana · meta 0",
+    "sugaryDrinks_other": "🥤 {{count}} bebidas azucaradas esta semana · meta 0",
+    "and": "{{first}} y {{last}}",
+    "row": "{{name}}, {{where}}: {{amount}}, {{pct}} % del día",
+    "servingOne": "{{portion}} ración",
+    "servingMany": "{{portion}} raciones",
+    "grams": "{{grams}} g"
   }
 }

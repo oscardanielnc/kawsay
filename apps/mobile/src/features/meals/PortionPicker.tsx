@@ -4,9 +4,9 @@ import { Segmented } from '@/components/forms/Segmented';
 import { Toggle } from '@/components/forms/Toggle';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
-import { FoodIcon } from './FoodIcon';
+import { FoodIcon } from '@/components/data-display/FoodIcon';
 import type { CatalogItem } from './meals-db';
-import { FRACTIONS, fractionLabel } from './portion';
+import { FRACTIONS, fractionLabel } from '@/lib/portion';
 
 export interface Portion {
   servings: number;

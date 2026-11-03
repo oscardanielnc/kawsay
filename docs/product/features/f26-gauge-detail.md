@@ -31,9 +31,19 @@ Tap a gauge → a sheet with that gauge large, every limit labelled, and the lis
 
 ## Acceptance criteria
 
-- [ ] With a 2,000 kcal target the calories detail shows 1.600, 1.800, 2.200 and 2.400 on the sides and 0 and
+- [x] With a 2,000 kcal target the calories detail shows 1.600, 1.800, 2.200 and 2.400 on the sides and 0 and
       3.200 under the ends
-- [ ] A layout test for every gauge kind and extreme targets finds no labels overlapping and none inside the arc band
-- [ ] Pollo a la brasa, 878 kcal at lunch, is the first calories row with its share of the day
-- [ ] An Inca Kola at lunch and another at dinner are one row with the sum and "Almuerzo y cena"
-- [ ] Switching to Azúcar añadida reorders the list by grams of added sugar and leaves out foods without it
+- [x] A layout test for every gauge kind and extreme targets finds no labels overlapping and none inside the arc band
+- [x] Pollo a la brasa, 878 kcal at lunch, is the first calories row with its share of the day
+- [x] An Inca Kola at lunch and another at dinner are one row with the sum and "Almuerzo y cena"
+- [x] Switching to Azúcar añadida reorders the list by grams of added sugar and leaves out foods without it
+
+## Build notes
+
+- 2026-11-03 (A0c): `@kawsay/core/gauge/label-layout` (side columns, 30 apart, pushed up past the bottom, leaders in
+  arc order; tests for every gauge kind and extreme targets) · `@kawsay/core/day/contributions` (rows by food or
+  dish, largest first, zeros counted apart) · mobile `BigGauge` and `GaugeDetailSheet`, opened from Today's gauges
+  (also on past days, the same route). Numbers use the app's es-PE format ("1,600"), as everywhere else
+- The gauge's text description reads "Calorías: 1,630 kcal. Límites: 1,600, 1,800, 2,200, 2,400. De 0 a 3,200."
+- "Completar" on the pending line closes the sheet and scrolls Today to Meals, where the pending chip is completed
+- `FoodIcon` moved to `components/data-display` and `portion.ts` to `lib/`: features may not import each other

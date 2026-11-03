@@ -3,7 +3,7 @@ import { Keyboard, Pressable, StyleSheet, Text, TextInput, View } from 'react-na
 import { Button } from '@/components/primitives/Button';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
-import { FoodIcon } from './FoodIcon';
+import { FoodIcon } from '@/components/data-display/FoodIcon';
 import type { CatalogItem } from './meals-db';
 import { searchCatalog } from './search';
 

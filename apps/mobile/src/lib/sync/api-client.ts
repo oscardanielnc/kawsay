@@ -1,4 +1,5 @@
 import { TokenResponse } from '@kawsay/contracts/auth';
+import { AiDishProposal, CatalogDishesResponse } from '@kawsay/contracts/catalog';
 import { type AnalysisRequest, SummaryResponse } from '@kawsay/contracts/insights';
 import { type Change, PullResponse, PushResponse } from '@kawsay/contracts/sync';
 import type { SyncApi } from './engine';
@@ -45,6 +46,10 @@ export interface ApiClient {
   /** On-demand AI analysis (F17). */
   /** The short AI summary (F17 redesign, ADR 0022). */
   summarize(request: AnalysisRequest): Promise<SummaryResponse>;
+  /** Dishes delivered by catalog sync (F23 piece 5): nothing new, or the current list. */
+  catalogDishes(version: string | null): Promise<CatalogDishesResponse>;
+  /** "Crear «…» con IA" (F07 v0.2): ingredients and grams; the phone computes the nutrients. */
+  proposeDish(name: string): Promise<AiDishProposal>;
 }
 
 /**
@@ -149,6 +154,16 @@ export function createApiClient({
     summarize: async (request) =>
       SummaryResponse.parse(
         await authed('/insights/summary', { method: 'POST', body: JSON.stringify(request) }),
+      ),
+
+    catalogDishes: async (version) =>
+      CatalogDishesResponse.parse(
+        await authed(`/catalog/dishes${version ? `?version=${encodeURIComponent(version)}` : ''}`),
+      ),
+
+    proposeDish: async (name) =>
+      AiDishProposal.parse(
+        await authed('/catalog/ai-dish', { method: 'POST', body: JSON.stringify({ name }) }),
       ),
   };
 }

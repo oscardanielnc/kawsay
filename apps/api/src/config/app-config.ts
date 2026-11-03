@@ -22,6 +22,8 @@ export class AppConfig {
     readonly databaseUrl: string,
     readonly auth: AuthConfig,
     readonly ai: AiConfig = { deepseekApiKey: null, model: 'deepseek-flash', dailyLimit: 3 },
+    /** Folder of the published catalog files (dishes.json, foods.json). */
+    readonly catalogDir: string = '../../packages/catalog/remote',
   ) {}
 
   static fromEnv(env: Env): AppConfig {
@@ -40,6 +42,7 @@ export class AppConfig {
         model: env.DEEPSEEK_MODEL,
         dailyLimit: env.AI_DAILY_LIMIT,
       },
+      env.CATALOG_DIR,
     );
   }
 }

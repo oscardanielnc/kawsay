@@ -1,3 +1,4 @@
+import { applyRemoteCatalog, remoteCatalogVersion } from '../db/remote-catalog';
 import type { Db, RecordEnv } from '../db/types';
 import {
   type AccountState,
@@ -109,6 +110,7 @@ export class SyncController {
     try {
       await syncOnce(this.db, this.env, this.client.sync);
       await markSynced(this.db, this.env.now());
+      await this.refreshCatalog();
     } catch (error) {
       if (error instanceof SignedOutError) {
         await forgetAccount(this.db);
@@ -118,6 +120,16 @@ export class SyncController {
       }
     }
     await this.refreshState({ status });
+  }
+
+  /** Dishes published on the API reach the phone without an app update (F23 piece 5); a failure waits for next time. */
+  private async refreshCatalog(): Promise<void> {
+    try {
+      const response = await this.client.catalogDishes(await remoteCatalogVersion(this.db));
+      await applyRemoteCatalog(this.db, response);
+    } catch (error) {
+      if (error instanceof SignedOutError) throw error;
+    }
   }
 
   private async refreshState(patch: Partial<SyncState> = {}): Promise<void> {

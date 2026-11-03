@@ -30,6 +30,10 @@ function client(overrides: Partial<ApiClient['sync']> & Partial<Omit<ApiClient, 
     signIn: overrides.signIn ?? (() => Promise.resolve(oscar)),
     signOut: overrides.signOut ?? (() => Promise.resolve()),
     summarize: overrides.summarize ?? (() => Promise.reject(new Error('not in these tests'))),
+    catalogDishes:
+      overrides.catalogDishes ??
+      (() => Promise.resolve({ version: 'r0', upToDate: true as const })),
+    proposeDish: overrides.proposeDish ?? (() => Promise.reject(new Error('not in these tests'))),
     sync: {
       push:
         overrides.push ??
@@ -66,6 +70,24 @@ async function logWeight(db: Db, e: RecordEnv) {
 }
 
 describe('SyncController (F02)', () => {
+  it('after syncing it asks for the catalog with the version it holds (F23 piece 5); a failure is ignored', async () => {
+    const db = await createTestDb();
+    const asked: (string | null)[] = [];
+    const { api } = client({
+      catalogDishes: (version) => {
+        asked.push(version);
+        return asked.length === 1
+          ? Promise.resolve({ version: 'r1', bundledVersion: 'b', dishes: [] })
+          : Promise.reject(new TypeError('Network request failed'));
+      },
+    });
+    const controller = new SyncController(db, env(), api);
+    await controller.signIn('oscar@kawsay.test', 'pw');
+    await controller.sync();
+    expect(asked).toEqual([null, 'r1']);
+    expect(controller.current.status).toBe('idle');
+  });
+
   it('signing in brings the history down and pushes what the phone had', async () => {
     const db = await createTestDb();
     const e = env();

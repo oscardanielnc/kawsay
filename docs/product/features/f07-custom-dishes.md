@@ -26,5 +26,16 @@ Build dishes the catalog lacks, or a personal version of a seed dish.
 ## Acceptance criteria
 
 - [x] A saved dish is logged with one tap and portion 1
-- [ ] An AI-built dish shows each ingredient with its catalog source before saving
+- [x] An AI-built dish shows each ingredient with its catalog source before saving
 - [x] Changing chicken from 1/8 to 1/16 updates the totals before saving
+
+## Build notes
+
+- 2026-11-03 (A0d): "✨ Crear «…» con IA" appears in the search when nothing matches and the phone has an account.
+  `POST /v1/catalog/ai-dish {name}` → `{ name, icon, servings, items: [{ food, grams }] }` (no nutrient field):
+  DeepSeek writes the recipe over the catalog food list (`packages/catalog/remote/foods.json`); readable slugs
+  ("lucuma") are matched to catalog ids by name (`@kawsay/core/food/resolve-ids`); one corrected retry; 10 a day per
+  user (in memory until the `ai_call` table, A2). The proposal opens in Create dish with a note and each ingredient's
+  source; the user edits and saves as usual, and the phone computes every number
+- Not built yet: step 3's "no encontrado" rows (an unknown ingredient after the retry fails the proposal instead) and
+  "¿Qué falta?"

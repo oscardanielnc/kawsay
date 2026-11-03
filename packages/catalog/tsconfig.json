@@ -9,5 +9,5 @@
     "erasableSyntaxOnly": true,
     "resolveJsonModule": true
   },
-  "include": ["src", "vitest.config.ts"]
+  "include": ["src", "scripts/**/*.ts", "vitest.config.ts"]
 }

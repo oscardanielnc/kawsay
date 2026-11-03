@@ -1,0 +1,2397 @@
+{
+  "version": "fe3d3a04ac67293b",
+  "foods": [
+    { "id": "arroz-cocido", "name": "Arroz blanco cocido", "unit": "1 taza=160g" },
+    { "id": "fideo-cocido", "name": "Fideos / tallarín cocido", "unit": "1 taza=140g" },
+    { "id": "pan-frances", "name": "Pan francés", "unit": "1 pan=35g" },
+    { "id": "pan-comun", "name": "Pan común (pan simple)", "unit": "1 pan=30g" },
+    { "id": "pan-integral-molde", "name": "Pan de molde integral", "unit": "1 tajada=28g" },
+    { "id": "tortilla-trigo", "name": "Tortilla de trigo (wrap)", "unit": "1 tortilla=45g" },
+    { "id": "harina-trigo", "name": "Harina de trigo", "unit": "1 cda=8g" },
+    { "id": "avena", "name": "Avena en hojuelas (cruda)", "unit": "4 cdas=40g" },
+    { "id": "pan-rallado", "name": "Pan rallado / panko", "unit": "1 cda=8g" },
+    { "id": "galleta-soda", "name": "Galleta de soda", "unit": "1 galleta=8g" },
+    { "id": "papa-sancochada", "name": "Papa blanca sancochada", "unit": "1 papa mediana=150g" },
+    {
+      "id": "papa-amarilla-sancochada",
+      "name": "Papa amarilla sancochada",
+      "unit": "1 papa mediana=120g"
+    },
+    { "id": "papa-frita", "name": "Papas fritas", "unit": "1 porción=120g" },
+    { "id": "camote-sancochado", "name": "Camote sancochado", "unit": "1 trozo=100g" },
+    { "id": "yuca-sancochada", "name": "Yuca sancochada", "unit": "1 trozo=100g" },
+    {
+      "id": "platano-verde-asado",
+      "name": "Plátano verde (bellaco) asado",
+      "unit": "1 plátano=180g"
+    },
+    { "id": "platano-maduro", "name": "Plátano maduro (bellaco)", "unit": "1 plátano=150g" },
+    { "id": "choclo", "name": "Choclo desgranado cocido", "unit": "1 taza=150g" },
+    { "id": "pollo-carne", "name": "Pollo, carne con piel, cocida", "unit": "1/32 de pollo=30g" },
+    { "id": "pollo-pechuga", "name": "Pollo, pechuga sin piel, cocida", "unit": "1 filete=120g" },
+    { "id": "gallina", "name": "Gallina, carne cocida", "unit": "1 presa=120g" },
+    { "id": "pollo-broaster", "name": "Pollo frito apanado (broaster)", "unit": "1 presa=180g" },
+    { "id": "nuggets-pollo", "name": "Nuggets de pollo (congelados)", "unit": "1 nugget=18g" },
+    { "id": "pollo-rostizado", "name": "Pollo rostizado sin piel", "unit": "1 porción=80g" },
+    { "id": "res-carne", "name": "Res, carne magra cocida", "unit": "1 bistec=100g" },
+    { "id": "res-corazon", "name": "Corazón de res a la parrilla", "unit": "1 palito=50g" },
+    {
+      "id": "cerdo-chuleta",
+      "name": "Cerdo, chuleta cocida (sin hueso)",
+      "unit": "1 chuleta=120g"
+    },
+    { "id": "cerdo-carne", "name": "Cerdo, carne cocida", "unit": "1 porción=150g" },
+    { "id": "chicharron-cerdo", "name": "Chicharrón de cerdo", "unit": "1 porción=150g" },
+    { "id": "manteca-cerdo", "name": "Manteca de cerdo", "unit": "1 cda=13g" },
+    { "id": "chorizo", "name": "Chorizo", "unit": "1 chorizo=80g" },
+    { "id": "salchicha", "name": "Salchicha (hot dog)", "unit": "1 salchicha=40g" },
+    { "id": "res-molida", "name": "Carne molida de res cocida", "unit": "½ taza=70g" },
+    { "id": "huevo", "name": "Huevo de gallina", "unit": "1 huevo=50g" },
+    { "id": "pescado-tilapia", "name": "Tilapia, filete", "unit": "1 filete=150g" },
+    {
+      "id": "pescado-rio",
+      "name": "Pescado de río (boquichico, doncella)",
+      "unit": "1 porción=150g"
+    },
+    { "id": "pescado-mar", "name": "Pescado de mar (jurel, bonito)", "unit": "1 porción=150g" },
+    { "id": "toyo", "name": "Toyo (tollo)", "unit": "1 porción=150g" },
+    { "id": "pota", "name": "Pota", "unit": "1 porción=150g" },
+    { "id": "mariscos-mix", "name": "Mariscos mixtos", "unit": "1 porción=100g" },
+    { "id": "langostino", "name": "Langostino", "unit": "3 langostinos=45g" },
+    { "id": "kanikama", "name": "Kanikama", "unit": "2 barritas=40g" },
+    { "id": "atun-lata", "name": "Atún en lata (escurrido)", "unit": "1 lata escurrida=120g" },
+    { "id": "leche-evaporada", "name": "Leche evaporada", "unit": "1 cda=15g" },
+    { "id": "leche-entera", "name": "Leche fresca entera", "unit": "1 vaso=250g" },
+    { "id": "leche-condensada", "name": "Leche condensada", "unit": "1 cda=20g" },
+    { "id": "queso-fresco", "name": "Queso fresco", "unit": "1 tajada=30g" },
+    { "id": "queso-crema", "name": "Queso crema", "unit": "1 cda=15g" },
+    { "id": "queso-cheddar", "name": "Queso cheddar", "unit": "1 tajada=20g" },
+    { "id": "crema-leche", "name": "Crema de leche", "unit": "1 cda=15g" },
+    { "id": "mantequilla", "name": "Mantequilla", "unit": "1 cdta=5g" },
+    { "id": "yogurt-bebible", "name": "Yogurt bebible", "unit": "1 vaso=250g" },
+    {
+      "id": "yogurt-griego",
+      "name": "Yogurt griego Laive (frutos rojos, sin azúcar añadida)",
+      "unit": "1 porción=200g"
+    },
+    { "id": "helado-crema", "name": "Helado de vainilla (de crema)", "unit": "1 bola=70g" },
+    { "id": "helado-chocolate", "name": "Helado de chocolate", "unit": "1 bola=70g" },
+    { "id": "helado-fresa", "name": "Helado de fresa", "unit": "1 bola=70g" },
+    { "id": "helado-paleta", "name": "Helado de paleta (de agua o fruta)", "unit": "1 paleta=60g" },
+    {
+      "id": "helado-paleta-chocolate",
+      "name": "Helado de paleta con cobertura de chocolate",
+      "unit": "1 paleta=60g"
+    },
+    { "id": "manjar-blanco", "name": "Manjar blanco", "unit": "1 cda=20g" },
+    { "id": "whey", "name": "Proteína whey chocolate (Iovate)", "unit": "1 cda=15g" },
+    { "id": "lentejas", "name": "Lentejas cocidas", "unit": "1 taza=200g" },
+    { "id": "frejol-canario", "name": "Frejol canario cocido", "unit": "1 taza=180g" },
+    { "id": "alverja-verde", "name": "Alverja verde cocida", "unit": "¼ taza=40g" },
+    { "id": "alverja-seca", "name": "Alverja seca partida cocida", "unit": "1 taza=200g" },
+    { "id": "habas", "name": "Habas verdes cocidas", "unit": "½ taza=60g" },
+    { "id": "cebolla-roja", "name": "Cebolla roja", "unit": "1 cda picada=10g" },
+    { "id": "cebolla-china", "name": "Cebolla china", "unit": "1 cda=8g" },
+    { "id": "tomate", "name": "Tomate", "unit": "1 tomate=120g" },
+    { "id": "ajo", "name": "Ajo", "unit": "1 diente=4g" },
+    { "id": "aji-amarillo", "name": "Ají amarillo", "unit": "1 cda en pasta=15g" },
+    { "id": "aji-panca", "name": "Ají panca en pasta", "unit": "1 cda=15g" },
+    { "id": "aji-charapita", "name": "Ají charapita", "unit": "5 ajíes=2g" },
+    { "id": "rocoto", "name": "Rocoto", "unit": "½ rocoto=30g" },
+    { "id": "culantro", "name": "Culantro", "unit": "1 cda=4g" },
+    { "id": "sachaculantro", "name": "Sachaculantro", "unit": "2 hojas=2g" },
+    { "id": "palillo", "name": "Palillo (cúrcuma)", "unit": "1 pizca=1g" },
+    { "id": "kion", "name": "Kion (jengibre)", "unit": "1 trocito=3g" },
+    { "id": "albahaca", "name": "Albahaca", "unit": "½ taza=15g" },
+    { "id": "espinaca", "name": "Espinaca", "unit": "1 taza=30g" },
+    { "id": "lechuga", "name": "Lechuga", "unit": "1 taza=50g" },
+    { "id": "pepino", "name": "Pepino", "unit": "½ pepino=100g" },
+    { "id": "zanahoria", "name": "Zanahoria", "unit": "1 mediana=80g" },
+    { "id": "zapallo", "name": "Zapallo", "unit": "1 trozo=100g" },
+    { "id": "vainita", "name": "Vainita", "unit": "½ taza=60g" },
+    { "id": "brocoli", "name": "Brócoli", "unit": "1 taza=90g" },
+    { "id": "beterraga", "name": "Beterraga cocida", "unit": "1 mediana=100g" },
+    { "id": "col", "name": "Col", "unit": "1 taza=70g" },
+    { "id": "pimiento", "name": "Pimiento", "unit": "½ pimiento=60g" },
+    { "id": "apio", "name": "Apio", "unit": "1 rama=40g" },
+    { "id": "brote-soya", "name": "Frejolito chino (brotes)", "unit": "½ taza=50g" },
+    { "id": "palta", "name": "Palta", "unit": "¼ palta=50g" },
+    { "id": "aceituna", "name": "Aceituna de botija", "unit": "1 aceituna=6g" },
+    { "id": "limon-jugo", "name": "Limón, jugo", "unit": "1 limón=15g" },
+    { "id": "maiz-morado", "name": "Maíz morado (infusión)", "unit": "1 vaso=5g" },
+    { "id": "cebada-tostada", "name": "Cebada tostada (refresco)", "unit": "1 vaso=5g" },
+    { "id": "mandarina", "name": "Mandarina", "unit": "1 mandarina=80g" },
+    { "id": "naranja", "name": "Naranja", "unit": "1 naranja=130g" },
+    { "id": "naranja-jugo", "name": "Naranja, jugo", "unit": "1 vaso=250g" },
+    { "id": "manzana", "name": "Manzana", "unit": "1 manzana=150g" },
+    { "id": "platano-seda", "name": "Plátano de seda", "unit": "1 plátano=100g" },
+    { "id": "papaya", "name": "Papaya", "unit": "1 taza=140g" },
+    { "id": "pina", "name": "Piña", "unit": "1 rodaja=85g" },
+    { "id": "granadilla", "name": "Granadilla (pulpa)", "unit": "1 granadilla=60g" },
+    { "id": "mango", "name": "Mango", "unit": "1 mango=150g" },
+    { "id": "sandia", "name": "Sandía", "unit": "1 tajada=200g" },
+    { "id": "melon", "name": "Melón", "unit": "1 tajada=160g" },
+    { "id": "uva", "name": "Uva", "unit": "1 taza=150g" },
+    { "id": "fresa", "name": "Fresa", "unit": "1 taza=150g" },
+    { "id": "maracuya-pulpa", "name": "Maracuyá, pulpa", "unit": "1 maracuyá=20g" },
+    { "id": "cocona", "name": "Cocona", "unit": "1 cocona=50g" },
+    { "id": "aguaje", "name": "Aguaje, pulpa", "unit": "1 aguaje=12g" },
+    { "id": "guanabana", "name": "Guanábana", "unit": "1 taza=225g" },
+    { "id": "carambola", "name": "Carambola", "unit": "1 carambola=90g" },
+    { "id": "agua", "name": "Agua", "unit": "1 vaso=250g" },
+    { "id": "agua-coco", "name": "Agua de coco", "unit": "1 vaso=250g" },
+    { "id": "azucar", "name": "Azúcar blanca", "unit": "1 cdta=5g" },
+    { "id": "cafe-soluble", "name": "Café soluble", "unit": "1 cdta=2g" },
+    { "id": "cocoa", "name": "Cocoa en polvo", "unit": "1 cda=7g" },
+    { "id": "chocolate", "name": "Chocolate de taza / cobertura", "unit": "1 onza=10g" },
+    { "id": "vinagre", "name": "Vinagre", "unit": "1 cda=15g" },
+    { "id": "aceite-vegetal", "name": "Aceite vegetal", "unit": "1 cdta=5g" },
+    { "id": "aceite-oliva", "name": "Aceite de oliva", "unit": "1 cdta=5g" },
+    { "id": "mayonesa", "name": "Mayonesa (AlaCena)", "unit": "1 porción=40g" },
+    { "id": "ketchup", "name": "Ketchup", "unit": "1 porción=40g" },
+    { "id": "mostaza", "name": "Mostaza (AlaCena)", "unit": "1 porción=40g" },
+    { "id": "sillao", "name": "Sillao (salsa de soya)", "unit": "1 cda=15g" },
+    { "id": "mayopalta", "name": "Mayopalta (Aliexperú)", "unit": "1 porción=40g" },
+    {
+      "id": "salsa-acevichada-envasada",
+      "name": "Salsa acevichada (envasada)",
+      "unit": "1 porción=40g"
+    },
+    { "id": "tari", "name": "Tarí (crema de ají Alacena)", "unit": "1 porción=40g" },
+    { "id": "perejil", "name": "Perejil", "unit": "2 cdas picado=10g" },
+    { "id": "oregano", "name": "Orégano seco", "unit": "1 cdta=1g" },
+    { "id": "ajonjoli", "name": "Ajonjolí", "unit": "1 cdta=3g" },
+    { "id": "chia", "name": "Chía (semilla)", "unit": "1 cda=10g" },
+    { "id": "canela", "name": "Canela molida", "unit": "1 cdta=2g" },
+    { "id": "bizcocho", "name": "Bizcocho (queque simple)", "unit": "1 tajada=50g" },
+    { "id": "galleta-vainilla", "name": "Galleta de vainilla", "unit": "1 galleta=8g" },
+    { "id": "pizza", "name": "Pizza americana / pepperoni", "unit": "1 tajada=110g" },
+    { "id": "choco-soda", "name": "Chokosoda (Field)", "unit": "1 Chokosoda=36g" },
+    {
+      "id": "galleta-chispas",
+      "name": "Choco Chips (galleta con chispas de chocolate)",
+      "unit": "1 galleta=34g"
+    },
+    { "id": "mani-tostado", "name": "Maní tostado", "unit": "1 puñado=30g" },
+    { "id": "mantequilla-mani", "name": "Mantequilla de maní", "unit": "1 cda=16g" },
+    { "id": "almendra", "name": "Almendra", "unit": "10 almendras=12g" },
+    { "id": "nuez", "name": "Nuez", "unit": "3 mitades=10g" },
+    { "id": "arandano-seco", "name": "Arándano deshidratado", "unit": "1 cda=10g" },
+    { "id": "pasas", "name": "Pasas", "unit": "1 cda=10g" },
+    { "id": "oreo", "name": "Oreo chocolate", "unit": "1 paquete=36g" },
+    { "id": "morochas", "name": "Morochas (Nestlé)", "unit": "1 bolsa=42g" },
+    { "id": "reyenito", "name": "Bizcocho Reyenito", "unit": "1 unidad=37g" },
+    { "id": "galleta-kiwicha", "name": "Galleta de kiwicha", "unit": "1 galleta=10g" },
+    { "id": "coca-cola", "name": "Coca-Cola (sabor original)", "unit": "1 vaso (250 ml)=250g" },
+    { "id": "inca-kola", "name": "Inca Kola", "unit": "1 vaso (250 ml)=250g" },
+    { "id": "ins-a1", "name": "Kiwicha, achita o achis o amaranto", "unit": null, "generic": true },
+    { "id": "ins-a3", "name": "Arroz blanco corriente", "unit": null, "generic": true },
+    { "id": "ins-a4", "name": "Arroz con cáscara", "unit": null, "generic": true },
+    { "id": "ins-a5", "name": "Avena envasada", "unit": null, "generic": true },
+    { "id": "ins-a6", "name": "Avena, hojuela cocida", "unit": null, "generic": true },
+    { "id": "ins-a8", "name": "Cañihua, variedad amarilla", "unit": null, "generic": true },
+    { "id": "ins-a9", "name": "Cañihua gris", "unit": null, "generic": true },
+    { "id": "ins-a10", "name": "Cañihua, hojuela de", "unit": null, "generic": true },
+    { "id": "ins-a11", "name": "Cañihua parda", "unit": null, "generic": true },
+    {
+      "id": "ins-a13",
+      "name": "Cebada, llunka de (morón americano)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a14", "name": "Cebada, mashka o machica", "unit": null, "generic": true },
+    { "id": "ins-a15", "name": "Cebada para mote, pelada", "unit": null, "generic": true },
+    { "id": "ins-a16", "name": "Cebada tostada, harina integral", "unit": null, "generic": true },
+    { "id": "ins-a17", "name": "Cebada perlada o resbalada cocida", "unit": null, "generic": true },
+    { "id": "ins-a18", "name": "Cebada perlada o resbalada cruda", "unit": null, "generic": true },
+    {
+      "id": "ins-a19",
+      "name": "Cebada tostada y molida (chaquepa)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a20", "name": "Chancay (bizcocho)", "unit": null, "generic": true },
+    {
+      "id": "ins-a21",
+      "name": "Fideo crudo fortificado con hierro",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a22",
+      "name": "Fideo tallarín crudo fortificado con hierro",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a26", "name": "Maíz alazán", "unit": null, "generic": true },
+    { "id": "ins-a27", "name": "Maíz alazán, jora fresca de", "unit": null, "generic": true },
+    { "id": "ins-a28", "name": "Maíz alazán, jora seca de", "unit": null, "generic": true },
+    { "id": "ins-a29", "name": "Maíz amarillo", "unit": null, "generic": true },
+    { "id": "ins-a30", "name": "Maíz blanco crudo", "unit": null, "generic": true },
+    { "id": "ins-a31", "name": "Maíz blanco tostado", "unit": null, "generic": true },
+    { "id": "ins-a32", "name": "Maíz cancha tostada de", "unit": null, "generic": true },
+    { "id": "ins-a33", "name": "Maíz, chochoca de, sin moler", "unit": null, "generic": true },
+    { "id": "ins-a35", "name": "Maíz, germinado seco", "unit": null, "generic": true },
+    { "id": "ins-a36", "name": "Maíz, harina de", "unit": null, "generic": true },
+    { "id": "ins-a37", "name": "Maíz, maicena", "unit": null, "generic": true },
+    { "id": "ins-a39", "name": "Maíz, mote de, sancochado", "unit": null, "generic": true },
+    { "id": "ins-a40", "name": "Maíz, pachuco de", "unit": null, "generic": true },
+    { "id": "ins-a41", "name": "Maíz, para mote pelado", "unit": null, "generic": true },
+    { "id": "ins-a42", "name": "Maíz, para mote sin pelar", "unit": null, "generic": true },
+    { "id": "ins-a43", "name": "Maíz, polenta cruda de", "unit": null, "generic": true },
+    { "id": "ins-a44", "name": "Maíz, tocosh crudo", "unit": null, "generic": true },
+    { "id": "ins-a45", "name": "Pan de cebada (serrano)", "unit": null, "generic": true },
+    { "id": "ins-a46", "name": "Pan de labranza", "unit": null, "generic": true },
+    { "id": "ins-a47", "name": "Pan de molde", "unit": null, "generic": true },
+    {
+      "id": "ins-a48",
+      "name": "Pan bollo o bollitos de queso de Huancavelica",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a50", "name": "Quinua, afrecho de", "unit": null, "generic": true },
+    { "id": "ins-a51", "name": "Quinua blanca, (Junín)", "unit": null, "generic": true },
+    { "id": "ins-a52", "name": "Quinua blanca (Puno)", "unit": null, "generic": true },
+    { "id": "ins-a53", "name": "Quinua cocida", "unit": null, "generic": true },
+    { "id": "ins-a54", "name": "Quinua", "unit": null, "generic": true },
+    { "id": "ins-a55", "name": "Quinua dulce, blanca (Junín)", "unit": null, "generic": true },
+    { "id": "ins-a56", "name": "Quinua dulce, blanca (Puno)", "unit": null, "generic": true },
+    { "id": "ins-a57", "name": "Quinua dulce, rosada (Junín)", "unit": null, "generic": true },
+    { "id": "ins-a58", "name": "Quinua, harina de", "unit": null, "generic": true },
+    { "id": "ins-a59", "name": "Quinua, hojuela de", "unit": null, "generic": true },
+    { "id": "ins-a60", "name": "Quinua rosada (Puno)", "unit": null, "generic": true },
+    { "id": "ins-a61", "name": "Quinua, sémola de", "unit": null, "generic": true },
+    { "id": "ins-a62", "name": "Sorgo", "unit": null, "generic": true },
+    { "id": "ins-a64", "name": "Trigo, llunka de", "unit": null, "generic": true },
+    {
+      "id": "ins-a65",
+      "name": "Trigo, harina tostada de (machica)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a66", "name": "Trigo, mote de, sancochado", "unit": null, "generic": true },
+    { "id": "ins-a67", "name": "Trigo para mote pelado cocido", "unit": null, "generic": true },
+    { "id": "ins-a68", "name": "Trigo para mote pelado crudo", "unit": null, "generic": true },
+    { "id": "ins-a69", "name": "Trigo, pelado", "unit": null, "generic": true },
+    { "id": "ins-a70", "name": "Trigo resbalado cocido", "unit": null, "generic": true },
+    { "id": "ins-a71", "name": "Trigo resbalado crudo", "unit": null, "generic": true },
+    { "id": "ins-a72", "name": "Trigo, sémola de", "unit": null, "generic": true },
+    { "id": "ins-a73", "name": "Trigo", "unit": null, "generic": true },
+    {
+      "id": "ins-a74",
+      "name": "Barra de cereales (avena y arrocillo) con maní y pasas",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a75",
+      "name": "Barra de cereales con sabor a chocolate y chocochips",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a76",
+      "name": "Barra de cereales (avena, arroz) con aguaymanto",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a77",
+      "name": "Barra de cereales (maíz, trigo, arroz) sabor a miel con leche, vitaminas y minerales",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a78", "name": "Bollito de maíz de Huánuco", "unit": null, "generic": true },
+    { "id": "ins-a79", "name": "Bollito de yema de Huánuco", "unit": null, "generic": true },
+    { "id": "ins-a80", "name": "Cañihua, harina de", "unit": null, "generic": true },
+    { "id": "ins-a81", "name": "Cañihua, variedad roja", "unit": null, "generic": true },
+    { "id": "ins-a82", "name": "Cañihua, variedad blanca", "unit": null, "generic": true },
+    { "id": "ins-a83", "name": "Galleta de soda (San Jorge)", "unit": null, "generic": true },
+    { "id": "ins-a84", "name": "Galleta de vainilla (Field)", "unit": null, "generic": true },
+    {
+      "id": "ins-a85",
+      "name": "Galleta dulce con avena y base sabor a chocolate (con fibra)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a86",
+      "name": "Galleta dulce con avena y base sabor a frutos rojos",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a87",
+      "name": "Galleta dulce con avena y granola (con fibra)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a88",
+      "name": "Galleta dulce con avena, manzana y canela (con fibra)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a90",
+      "name": "Galleta dulce con relleno (Casino)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a91",
+      "name": "Galleta dulce con relleno \"chocolate\" (Coronita)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a92", "name": "Galletas nutritivas de maca", "unit": null, "generic": true },
+    { "id": "ins-a93", "name": "Hiwicto marfil oscuro", "unit": null, "generic": true },
+    { "id": "ins-a94", "name": "Hiwicto negro", "unit": null, "generic": true },
+    { "id": "ins-a95", "name": "Kara ceniza o kala", "unit": null, "generic": true },
+    { "id": "ins-a96", "name": "Kara color pajizo", "unit": null, "generic": true },
+    { "id": "ins-a97", "name": "Kiwicha, harina de", "unit": null, "generic": true },
+    {
+      "id": "ins-a98",
+      "name": "Kiwicha pop de Huánuco (listo para consumo)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a99", "name": "Kiwicha, precocida, hojuela de", "unit": null, "generic": true },
+    {
+      "id": "ins-a100",
+      "name": "Kiwicha, precocida, hojuela de (orgánica)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a101", "name": "Llipta sara, variedad de maíz", "unit": null, "generic": true },
+    { "id": "ins-a102", "name": "Maíz blanco, harina", "unit": null, "generic": true },
+    {
+      "id": "ins-a103",
+      "name": "Maíz blanco precocido, harina de (chochoca)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a104", "name": "Maíz morado, harina de (api)", "unit": null, "generic": true },
+    { "id": "ins-a105", "name": "Pan árabe", "unit": null, "generic": true },
+    { "id": "ins-a106", "name": "Pan cachanga", "unit": null, "generic": true },
+    { "id": "ins-a107", "name": "Pan campesino de Lima", "unit": null, "generic": true },
+    { "id": "ins-a108", "name": "Pan ciabatta", "unit": null, "generic": true },
+    { "id": "ins-a109", "name": "Pan chapla", "unit": null, "generic": true },
+    { "id": "ins-a110", "name": "Pan chuta", "unit": null, "generic": true },
+    { "id": "ins-a111", "name": "Pan cortadillo de Cajamarca", "unit": null, "generic": true },
+    { "id": "ins-a112", "name": "Pan cuay de trigo de Carhuaz", "unit": null, "generic": true },
+    { "id": "ins-a113", "name": "Pan cuay de trigo de Huaraz", "unit": null, "generic": true },
+    { "id": "ins-a114", "name": "Pan de calabaza de Huancavelica", "unit": null, "generic": true },
+    { "id": "ins-a115", "name": "Pan de chicharrón de Chiclayo", "unit": null, "generic": true },
+    { "id": "ins-a116", "name": "Pan de girasol de Lima", "unit": null, "generic": true },
+    { "id": "ins-a117", "name": "Pan de hamburguesa de Iquitos", "unit": null, "generic": true },
+    { "id": "ins-a118", "name": "Pan de huevo", "unit": null, "generic": true },
+    { "id": "ins-a119", "name": "Pan de maíz", "unit": null, "generic": true },
+    { "id": "ins-a120", "name": "Pan de maíz de Carhuaz", "unit": null, "generic": true },
+    { "id": "ins-a121", "name": "Pan de maíz de Huaraz", "unit": null, "generic": true },
+    { "id": "ins-a122", "name": "Pan de quinua de Lima", "unit": null, "generic": true },
+    {
+      "id": "ins-a123",
+      "name": "Pan de trigo artesanal de Carhuaz",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a124", "name": "Pan de yema", "unit": null, "generic": true },
+    { "id": "ins-a125", "name": "Pan de yema de Cajamarca", "unit": null, "generic": true },
+    { "id": "ins-a126", "name": "Pan dulce de Lima", "unit": null, "generic": true },
+    { "id": "ins-a127", "name": "Pan huaro", "unit": null, "generic": true },
+    { "id": "ins-a128", "name": "Pan Huascarán de Lima", "unit": null, "generic": true },
+    { "id": "ins-a129", "name": "Pan integral", "unit": null, "generic": true },
+    { "id": "ins-a130", "name": "Pan marraqueta de Chiclayo", "unit": null, "generic": true },
+    { "id": "ins-a131", "name": "Pan mestizo de Huánuco", "unit": null, "generic": true },
+    { "id": "ins-a132", "name": "Pan mishtishongo de Huánuco", "unit": null, "generic": true },
+    { "id": "ins-a133", "name": "Pan mollete de Chiclayo", "unit": null, "generic": true },
+    { "id": "ins-a134", "name": "Pan mollete, \"chico\"de Huaraz", "unit": null, "generic": true },
+    { "id": "ins-a135", "name": "Pan torta de Cajamarca", "unit": null, "generic": true },
+    {
+      "id": "ins-a136",
+      "name": "Pan 3 granos (quinua, cañihua y kiwicha) de Lima",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a137", "name": "Pan vico", "unit": null, "generic": true },
+    { "id": "ins-a138", "name": "Pan vico de Iquitos", "unit": null, "generic": true },
+    {
+      "id": "ins-a139",
+      "name": "Pasta con huevo sin fortificar, cruda",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a140",
+      "name": "Pasta con huevo fortificada, cruda",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a141", "name": "Pasta fortificada, cruda", "unit": null, "generic": true },
+    { "id": "ins-a142", "name": "Pasta sin fortificar, cruda", "unit": null, "generic": true },
+    { "id": "ins-a143", "name": "Quinua, variedad real", "unit": null, "generic": true },
+    { "id": "ins-a144", "name": "Quinua, variedad Ayara (Puno)", "unit": null, "generic": true },
+    {
+      "id": "ins-a145",
+      "name": "Quinua, variedad blanca de Juli (Puno)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a146", "name": "Quinua, variedad CICA-18 (Puno)", "unit": null, "generic": true },
+    { "id": "ins-a147", "name": "Quinua, variedad CICA-127 (Puno)", "unit": null, "generic": true },
+    {
+      "id": "ins-a148",
+      "name": "Quinua, variedad Cuchiwilla (Puno)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a149", "name": "Quinua, variedad Choclito (Puno)", "unit": null, "generic": true },
+    {
+      "id": "ins-a150",
+      "name": "Quinua, variedad Chullpi- roja (Puno)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a151",
+      "name": "Quinua, variedad Misa Jiura (Puno)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a152",
+      "name": "Quinua, variedad Pasankalla-roja (Puno)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a153",
+      "name": "Quinua, variedad Q' OITU-negra (Puno)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a154",
+      "name": "Quinua, variedad Wariponcho (Puno)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a155", "name": "Quinua, variedad Witulla (Puno)", "unit": null, "generic": true },
+    { "id": "ins-a156", "name": "Rosquita de almidón de Iquitos", "unit": null, "generic": true },
+    {
+      "id": "ins-a157",
+      "name": "Siete harinas (trigo, habas, arvejas, kiwicha, cañihua, cebada, quinua)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a158", "name": "Trigo, hojuela de (chaque)", "unit": null, "generic": true },
+    { "id": "ins-a159", "name": "Trigo sin tostar (chaquepa)", "unit": null, "generic": true },
+    { "id": "ins-a160", "name": "Trigo tostado (chaquepa)", "unit": null, "generic": true },
+    {
+      "id": "ins-a161",
+      "name": "Alfajor con relleno de leche y maní cubierto con chocolate, envasado",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a162", "name": "Avena cañihua, hojuela de", "unit": null, "generic": true },
+    {
+      "id": "ins-a163",
+      "name": "Avena con chía, hojuela precocida de",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a164",
+      "name": "Avena con kiwicha, canela y clavo en polvo, hojuela precocida de",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a165",
+      "name": "Avena con maca, hojuela precocida de",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a166",
+      "name": "Avena con cereales andinos (cañihua, kiwicha y quinua), hojuela precocida de",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a167",
+      "name": "Avena con quinua, hojuela precocida de",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a168",
+      "name": "Avena con quinua, canela y clavo en polvo, hojuela precocida de",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a169",
+      "name": "Croissant de mantequilla o cachito de mantequilla",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a170",
+      "name": "Galletas con salvado de trigo con sabor a miel",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a171",
+      "name": "Galleta cubierta con higo,confites, grageas y miel (Turrón de Doña Pepa). envasado",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a172", "name": "Galleta de agua", "unit": null, "generic": true },
+    {
+      "id": "ins-a173",
+      "name": "Granola de avena con cebada, pasas, maní y almendras",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a174",
+      "name": "Galleta de soda con cobertura sabor a chocolate",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a175",
+      "name": "Galleta dulce, rellena con crema sabor coco",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a176",
+      "name": "Galleta sabor chocolate, rellena con crema sabor vainilla",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a177",
+      "name": "Kiwicha pop de Lima (listo para consumo)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a178", "name": "Kiwicha tostada, harina de", "unit": null, "generic": true },
+    {
+      "id": "ins-a179",
+      "name": "Maíz, extruído con cocoa, sabor chocolate (listo para consumo)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a180",
+      "name": "Maíz, hojuela azucarada (listo para consumo)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a181",
+      "name": "Maíz, hojuela para desayuno (listo para consumo)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a182",
+      "name": "Maíz pop corn, para cancha, crudo",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a183", "name": "Masa para wantán, cruda", "unit": null, "generic": true },
+    {
+      "id": "ins-a184",
+      "name": "Palitos de harina de trigo con ajonjolí, envasado",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a185",
+      "name": "Palomitas de maíz, sabor natural con sal y aceite vegetal, para microondas (Pop corn)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a187", "name": "Pan pita, envasado", "unit": null, "generic": true },
+    {
+      "id": "ins-a188",
+      "name": "Pastel sabor chocolate, relleno con crema sabor vainilla y decorado con glase, envasado",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a189",
+      "name": "Panetón relleno con chispas de chocolate",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a190",
+      "name": "Panetón relleno de pasas y frutas confitadas",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a191",
+      "name": "Queque marmoleado con sabor chocolate y vainilla, envasado",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a192", "name": "Queque sabor naranja, envasado", "unit": null, "generic": true },
+    {
+      "id": "ins-a193",
+      "name": "Queque sabor vainilla, mezcla en polvo para preparar, envasado",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a194",
+      "name": "Queque sabor vainilla, sin relleno, envasado",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-a195", "name": "Tostada de pan blanco, envasada", "unit": null, "generic": true },
+    {
+      "id": "ins-a196",
+      "name": "Trigo, inflado sin miel (listo para consumo)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-a198",
+      "name": "Wafer relleno con crema sabor vainilla",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-b1", "name": "Acelga, hojas de, sin tallo", "unit": null, "generic": true },
+    { "id": "ins-b2", "name": "Acelga, tallos de", "unit": null, "generic": true },
+    {
+      "id": "ins-b4",
+      "name": "Ají amarillo fresco, molido sin sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-b5", "name": "Ají amarillo seco", "unit": null, "generic": true },
+    { "id": "ins-b6", "name": "Ají panca", "unit": null, "generic": true },
+    {
+      "id": "ins-b8",
+      "name": "Ají colorado, picante molido con sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-b9", "name": "Ají de mesa", "unit": null, "generic": true },
+    { "id": "ins-b10", "name": "Ají de vaina", "unit": null, "generic": true },
+    { "id": "ins-b11", "name": "Ají dulce", "unit": null, "generic": true },
+    { "id": "ins-b12", "name": "Ají verde", "unit": null, "generic": true },
+    { "id": "ins-b15", "name": "Alcachofa", "unit": null, "generic": true },
+    { "id": "ins-b16", "name": "Alfalfa brotes tiernos", "unit": null, "generic": true },
+    { "id": "ins-b18", "name": "Berenjena", "unit": null, "generic": true },
+    {
+      "id": "ins-b19",
+      "name": "Berenjena Costeña o tomate de árbol",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-b20", "name": "Berro", "unit": null, "generic": true },
+    { "id": "ins-b22", "name": "Caigua", "unit": null, "generic": true },
+    { "id": "ins-b23", "name": "Caigua serrana", "unit": null, "generic": true },
+    { "id": "ins-b24", "name": "Calabaza china", "unit": null, "generic": true },
+    { "id": "ins-b25", "name": "Calabaza italiana", "unit": null, "generic": true },
+    { "id": "ins-b26", "name": "Cebolla blanca", "unit": null, "generic": true },
+    { "id": "ins-b27", "name": "Cebolla chilena", "unit": null, "generic": true },
+    { "id": "ins-b30", "name": "Cebolla de cola", "unit": null, "generic": true },
+    { "id": "ins-b32", "name": "Col crespa o repollo, sin cogollo", "unit": null, "generic": true },
+    { "id": "ins-b33", "name": "Col china sin tallo", "unit": null, "generic": true },
+    { "id": "ins-b34", "name": "Col de \"Bruselas\"", "unit": null, "generic": true },
+    { "id": "ins-b35", "name": "Col, hojas de", "unit": null, "generic": true },
+    { "id": "ins-b36", "name": "Col negra", "unit": null, "generic": true },
+    { "id": "ins-b37", "name": "Col silvestre", "unit": null, "generic": true },
+    { "id": "ins-b38", "name": "Coliflor sin tallo y sin hojas", "unit": null, "generic": true },
+    { "id": "ins-b40", "name": "Chiclayo, calabaza", "unit": null, "generic": true },
+    { "id": "ins-b41", "name": "Chonta", "unit": null, "generic": true },
+    { "id": "ins-b42", "name": "Escarola", "unit": null, "generic": true },
+    { "id": "ins-b43", "name": "Esparragos", "unit": null, "generic": true },
+    { "id": "ins-b44", "name": "Espinaca blanca", "unit": null, "generic": true },
+    { "id": "ins-b45", "name": "Espinaca negra sin tronco", "unit": null, "generic": true },
+    { "id": "ins-b47", "name": "Hierbabuena", "unit": null, "generic": true },
+    { "id": "ins-b48", "name": "Huacatay sin tallo", "unit": null, "generic": true },
+    { "id": "ins-b49", "name": "Janchoy, hojas de", "unit": null, "generic": true },
+    { "id": "ins-b50", "name": "Jetka. hojas de", "unit": null, "generic": true },
+    { "id": "ins-b51", "name": "Kailán, hojas de", "unit": null, "generic": true },
+    { "id": "ins-b52", "name": "Kailán, tallos de", "unit": null, "generic": true },
+    { "id": "ins-b54", "name": "Lechuga larga", "unit": null, "generic": true },
+    { "id": "ins-b55", "name": "Lechuga redonda", "unit": null, "generic": true },
+    { "id": "ins-b56", "name": "Manchay", "unit": null, "generic": true },
+    { "id": "ins-b57", "name": "Mastuerzo, hojas de", "unit": null, "generic": true },
+    { "id": "ins-b58", "name": "Mostaza, hojas de", "unit": null, "generic": true },
+    { "id": "ins-b59", "name": "Muña, seca", "unit": null, "generic": true },
+    { "id": "ins-b60", "name": "Nabo", "unit": null, "generic": true },
+    { "id": "ins-b61", "name": "Nabo, hojas de", "unit": null, "generic": true },
+    { "id": "ins-b62", "name": "Orégano fresco", "unit": null, "generic": true },
+    { "id": "ins-b63", "name": "Pacchoy, hojas de", "unit": null, "generic": true },
+    { "id": "ins-b64", "name": "Pacchoy, tallos de", "unit": null, "generic": true },
+    { "id": "ins-b65", "name": "Paico", "unit": null, "generic": true },
+    { "id": "ins-b66", "name": "Pajuro", "unit": null, "generic": true },
+    { "id": "ins-b67", "name": "Pepinillo sin cáscara", "unit": null, "generic": true },
+    { "id": "ins-b70", "name": "Pirca", "unit": null, "generic": true },
+    { "id": "ins-b71", "name": "Poro sin hojas", "unit": null, "generic": true },
+    { "id": "ins-b72", "name": "Quinua, hojas de", "unit": null, "generic": true },
+    { "id": "ins-b73", "name": "Rabanitos", "unit": null, "generic": true },
+    { "id": "ins-b74", "name": "Rabicol", "unit": null, "generic": true },
+    { "id": "ins-b75", "name": "Radicheta o achicoria", "unit": null, "generic": true },
+    { "id": "ins-b77", "name": "Ruda", "unit": null, "generic": true },
+    { "id": "ins-b78", "name": "Siuca culantro", "unit": null, "generic": true },
+    { "id": "ins-b80", "name": "Tomate italiano", "unit": null, "generic": true },
+    { "id": "ins-b81", "name": "Tomate, con carne salsa de", "unit": null, "generic": true },
+    { "id": "ins-b82", "name": "Tomate, salsa de", "unit": null, "generic": true },
+    { "id": "ins-b83", "name": "Tomate, salsa concentrada de", "unit": null, "generic": true },
+    { "id": "ins-b84", "name": "Vainitas", "unit": null, "generic": true },
+    { "id": "ins-b86", "name": "Zanahoria, harina de", "unit": null, "generic": true },
+    { "id": "ins-b87", "name": "Zapallo italiano", "unit": null, "generic": true },
+    { "id": "ins-b88", "name": "Zapallo loche", "unit": null, "generic": true },
+    {
+      "id": "ins-b91",
+      "name": "Ají cerezo, sin pepas y sin tronco",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-b92", "name": "Ají colorado seco, sin pepas", "unit": null, "generic": true },
+    { "id": "ins-b93", "name": "Ají uña de pava", "unit": null, "generic": true },
+    { "id": "ins-b94", "name": "Ajos variedad Barranquino", "unit": null, "generic": true },
+    { "id": "ins-b95", "name": "Ajos variedad Napuri", "unit": null, "generic": true },
+    {
+      "id": "ins-b96",
+      "name": "Ajos variedad Napuri fresco, molido en aceite sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-b97",
+      "name": "Ajos variedad Napuri fresco, molido en aceite con sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-b98",
+      "name": "Ajos variedad Napuri fresco, molido en agua sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-b99",
+      "name": "Ajos variedad Napuri fresco, molido en agua con sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-b100", "name": "Alcaparras", "unit": null, "generic": true },
+    { "id": "ins-b101", "name": "Cebolla variedad americana", "unit": null, "generic": true },
+    { "id": "ins-b102", "name": "Cebolla variedad perilla", "unit": null, "generic": true },
+    { "id": "ins-b103", "name": "Chijchipa", "unit": null, "generic": true },
+    { "id": "ins-b104", "name": "Chullcos, ajos silvestres", "unit": null, "generic": true },
+    { "id": "ins-b105", "name": "Col china con hoja y tallo", "unit": null, "generic": true },
+    { "id": "ins-b106", "name": "Coliflor con tallo y sin hojas", "unit": null, "generic": true },
+    { "id": "ins-b107", "name": "Culantro, con hojas y tallo", "unit": null, "generic": true },
+    { "id": "ins-b109", "name": "Estragón, secos", "unit": null, "generic": true },
+    { "id": "ins-b110", "name": "Hinojo, tallo, fresco, crudo", "unit": null, "generic": true },
+    { "id": "ins-b112", "name": "Lechuga de seda", "unit": null, "generic": true },
+    { "id": "ins-b113", "name": "Llampun Cjana \"Cjana-cjana\"", "unit": null, "generic": true },
+    { "id": "ins-b114", "name": "Pacchoy con hojas y tallo", "unit": null, "generic": true },
+    { "id": "ins-b115", "name": "Paico, hojas de", "unit": null, "generic": true },
+    { "id": "ins-b116", "name": "Pimiento verde", "unit": null, "generic": true },
+    {
+      "id": "ins-b117",
+      "name": "Rocoto fresco, molido con cáscara, en agua sin sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-b118", "name": "Romero fresco", "unit": null, "generic": true },
+    { "id": "ins-b119", "name": "Tomate de palito", "unit": null, "generic": true },
+    { "id": "ins-b120", "name": "Tomate redondo, con cáscara", "unit": null, "generic": true },
+    { "id": "ins-b121", "name": "Tomillo seco", "unit": null, "generic": true },
+    { "id": "ins-b122", "name": "Zapallito", "unit": null, "generic": true },
+    { "id": "ins-b123", "name": "Zapallo avinca", "unit": null, "generic": true },
+    { "id": "ins-b124", "name": "Zapallo criollo", "unit": null, "generic": true },
+    { "id": "ins-b125", "name": "Zapallo ombligo", "unit": null, "generic": true },
+    { "id": "ins-b126", "name": "Atago, hojas sin tallo", "unit": null, "generic": true },
+    { "id": "ins-b127", "name": "Col morada, hojas sin tallo", "unit": null, "generic": true },
+    { "id": "ins-b128", "name": "Lechuga morada, hojas sin tallo", "unit": null, "generic": true },
+    {
+      "id": "ins-b130",
+      "name": "Pepinillo japonés con cáscara y pepas",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-b131", "name": "Pimiento amarillo", "unit": null, "generic": true },
+    {
+      "id": "ins-b132",
+      "name": "Tomate italiano, sin pepas, sin cáscara",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-b133", "name": "Vainita, sancochada, sin sal", "unit": null, "generic": true },
+    { "id": "ins-c1", "name": "Abridores", "unit": null, "generic": true },
+    { "id": "ins-c3", "name": "Aceitunas negras preparadas", "unit": null, "generic": true },
+    { "id": "ins-c4", "name": "Airampo", "unit": null, "generic": true },
+    { "id": "ins-c6", "name": "Anona", "unit": null, "generic": true },
+    { "id": "ins-c7", "name": "Durazno-Melocotón", "unit": null, "generic": true },
+    { "id": "ins-c8", "name": "Caimito", "unit": null, "generic": true },
+    { "id": "ins-c9", "name": "Camu-camu", "unit": null, "generic": true },
+    { "id": "ins-c10", "name": "Capulí", "unit": null, "generic": true },
+    { "id": "ins-c11", "name": "Chambiro", "unit": null, "generic": true },
+    { "id": "ins-c12", "name": "Chirimoya", "unit": null, "generic": true },
+    { "id": "ins-c13", "name": "Ciruela", "unit": null, "generic": true },
+    { "id": "ins-c14", "name": "Coco", "unit": null, "generic": true },
+    { "id": "ins-c15", "name": "Coco, agua de", "unit": null, "generic": true },
+    { "id": "ins-c17", "name": "Dátiles", "unit": null, "generic": true },
+    { "id": "ins-c19", "name": "Granada", "unit": null, "generic": true },
+    { "id": "ins-c21", "name": "Granadilla, jugo enlatado de", "unit": null, "generic": true },
+    { "id": "ins-c23", "name": "Guayaba", "unit": null, "generic": true },
+    { "id": "ins-c24", "name": "Guayaba amarilla con cáscara", "unit": null, "generic": true },
+    { "id": "ins-c25", "name": "Guayaba rosada", "unit": null, "generic": true },
+    { "id": "ins-c26", "name": "Guayaba verde", "unit": null, "generic": true },
+    { "id": "ins-c27", "name": "Higo negro", "unit": null, "generic": true },
+    { "id": "ins-c28", "name": "Higo seco", "unit": null, "generic": true },
+    { "id": "ins-c29", "name": "Huito", "unit": null, "generic": true },
+    {
+      "id": "ins-c30",
+      "name": "Humarí / Umari, sin pepa y sin cáscara",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c31", "name": "Kaki", "unit": null, "generic": true },
+    { "id": "ins-c32", "name": "Kumuvi", "unit": null, "generic": true },
+    { "id": "ins-c33", "name": "Lima", "unit": null, "generic": true },
+    { "id": "ins-c35", "name": "Lúcuma", "unit": null, "generic": true },
+    { "id": "ins-c36", "name": "Lúcuma, harina de", "unit": null, "generic": true },
+    { "id": "ins-c37", "name": "Macambo, pulpa y semilla", "unit": null, "generic": true },
+    { "id": "ins-c38", "name": "Macambo, pulpa de", "unit": null, "generic": true },
+    { "id": "ins-c39", "name": "Mamey maduro", "unit": null, "generic": true },
+    { "id": "ins-c44", "name": "Marañón", "unit": null, "generic": true },
+    { "id": "ins-c46", "name": "Melón enano", "unit": null, "generic": true },
+    { "id": "ins-c47", "name": "Membrillo", "unit": null, "generic": true },
+    { "id": "ins-c49", "name": "Naranja agria, jugo de", "unit": null, "generic": true },
+    { "id": "ins-c50", "name": "Naranja de Guayaquil", "unit": null, "generic": true },
+    { "id": "ins-c51", "name": "Naranja de Huando", "unit": null, "generic": true },
+    { "id": "ins-c52", "name": "Níspero", "unit": null, "generic": true },
+    { "id": "ins-c53", "name": "Nuzive", "unit": null, "generic": true },
+    { "id": "ins-c54", "name": "Pacae o Guaba", "unit": null, "generic": true },
+    { "id": "ins-c55", "name": "Palta", "unit": null, "generic": true },
+    { "id": "ins-c56", "name": "Pan de árbol con semilla", "unit": null, "generic": true },
+    { "id": "ins-c57", "name": "Pan de árbol sin semilla", "unit": null, "generic": true },
+    { "id": "ins-c58", "name": "Pan-Meo", "unit": null, "generic": true },
+    { "id": "ins-c61", "name": "Pepino dulce", "unit": null, "generic": true },
+    { "id": "ins-c62", "name": "Pera chilena", "unit": null, "generic": true },
+    { "id": "ins-c63", "name": "Pera de agua", "unit": null, "generic": true },
+    { "id": "ins-c64", "name": "Pera nacional", "unit": null, "generic": true },
+    { "id": "ins-c65", "name": "Pera perilla", "unit": null, "generic": true },
+    { "id": "ins-c66", "name": "Pero", "unit": null, "generic": true },
+    { "id": "ins-c67", "name": "Pijuayo", "unit": null, "generic": true },
+    {
+      "id": "ins-c68",
+      "name": "Pijuayo sancochado, sin cáscara y sin pepas",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c70", "name": "Plátano de isla", "unit": null, "generic": true },
+    { "id": "ins-c72", "name": "Plátano guineo", "unit": null, "generic": true },
+    { "id": "ins-c73", "name": "Plátano manzano", "unit": null, "generic": true },
+    { "id": "ins-c74", "name": "Plátano, harina de", "unit": null, "generic": true },
+    { "id": "ins-c76", "name": "Plátano morado", "unit": null, "generic": true },
+    { "id": "ins-c77", "name": "Plátano seco (orejón)", "unit": null, "generic": true },
+    { "id": "ins-c78", "name": "Plátano verde", "unit": null, "generic": true },
+    { "id": "ins-c80", "name": "Plátano verde sancochado", "unit": null, "generic": true },
+    { "id": "ins-c81", "name": "Pomarosa", "unit": null, "generic": true },
+    { "id": "ins-c82", "name": "Purunkari", "unit": null, "generic": true },
+    { "id": "ins-c84", "name": "Shiwawaco, semilla", "unit": null, "generic": true },
+    { "id": "ins-c85", "name": "Tamarindo", "unit": null, "generic": true },
+    { "id": "ins-c86", "name": "Mango ciruelo o taperibá", "unit": null, "generic": true },
+    { "id": "ins-c87", "name": "Toronja", "unit": null, "generic": true },
+    { "id": "ins-c88", "name": "Tumbo costeño", "unit": null, "generic": true },
+    {
+      "id": "ins-c89",
+      "name": "Tumbo serrano sin cáscara o poro poro",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c90", "name": "Tuna", "unit": null, "generic": true },
+    { "id": "ins-c91", "name": "Tuna roja", "unit": null, "generic": true },
+    { "id": "ins-c92", "name": "Ungurauy, unguraui o ungurahui", "unit": null, "generic": true },
+    { "id": "ins-c93", "name": "Uva blanca", "unit": null, "generic": true },
+    { "id": "ins-c94", "name": "Uva borgoña", "unit": null, "generic": true },
+    { "id": "ins-c95", "name": "Uva italia", "unit": null, "generic": true },
+    { "id": "ins-c96", "name": "Uva negra", "unit": null, "generic": true },
+    { "id": "ins-c97", "name": "Uva quebranta", "unit": null, "generic": true },
+    { "id": "ins-c98", "name": "Uvilla", "unit": null, "generic": true },
+    { "id": "ins-c99", "name": "Zapote", "unit": null, "generic": true },
+    { "id": "ins-c100", "name": "Aguaymanto", "unit": null, "generic": true },
+    { "id": "ins-c101", "name": "Blanquillo", "unit": null, "generic": true },
+    {
+      "id": "ins-c103",
+      "name": "Carambola, refresco natural, cocido, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-c104",
+      "name": "Carambola, refresco natural, crudo, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c105", "name": "Coco rallado", "unit": null, "generic": true },
+    {
+      "id": "ins-c106",
+      "name": "Cocona, jugo natural, cocido, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c107", "name": "Durazno, néctar envasado", "unit": null, "generic": true },
+    {
+      "id": "ins-c108",
+      "name": "Granadilla, jugo natural, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c109", "name": "Guindón sin pepa", "unit": null, "generic": true },
+    { "id": "ins-c110", "name": "Kiwi, sin cáscara", "unit": null, "generic": true },
+    { "id": "ins-c111", "name": "Limón dulce, sin cáscara", "unit": null, "generic": true },
+    { "id": "ins-c112", "name": "Limón, néctar envasado", "unit": null, "generic": true },
+    { "id": "ins-c113", "name": "Mango, néctar envasado", "unit": null, "generic": true },
+    {
+      "id": "ins-c114",
+      "name": "Manzana chilena verde con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-c115",
+      "name": "Manzana delicia \"helada\" con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c116", "name": "Manzana delicia roja con cáscara", "unit": null, "generic": true },
+    { "id": "ins-c117", "name": "Manzana israel con cáscara", "unit": null, "generic": true },
+    { "id": "ins-c118", "name": "Manzana, jugo natural, envasado", "unit": null, "generic": true },
+    { "id": "ins-c119", "name": "Manzana, néctar envasado", "unit": null, "generic": true },
+    {
+      "id": "ins-c120",
+      "name": "Manzana pero con cáscara (para agua)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-c121",
+      "name": "Manzana santa rosa, golden o caña con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c122", "name": "Manzana winter con cáscara", "unit": null, "generic": true },
+    { "id": "ins-c123", "name": "Maracuyá, jugo natural, envasado", "unit": null, "generic": true },
+    { "id": "ins-c124", "name": "Maracuyá, néctar envasado", "unit": null, "generic": true },
+    { "id": "ins-c125", "name": "Naranja, bebida envasada", "unit": null, "generic": true },
+    { "id": "ins-c126", "name": "Naranja, jugo natural, envasado", "unit": null, "generic": true },
+    { "id": "ins-c127", "name": "Naranja, néctar envasado", "unit": null, "generic": true },
+    { "id": "ins-c128", "name": "Naranja tangelo", "unit": null, "generic": true },
+    { "id": "ins-c129", "name": "Naranja tangelo, jugo natural", "unit": null, "generic": true },
+    { "id": "ins-c130", "name": "Naranjilla", "unit": null, "generic": true },
+    { "id": "ins-c132", "name": "Papaya arequipeña", "unit": null, "generic": true },
+    { "id": "ins-c133", "name": "Pera, néctar envasado", "unit": null, "generic": true },
+    { "id": "ins-c134", "name": "Piña, bebida envasada", "unit": null, "generic": true },
+    { "id": "ins-c135", "name": "Plátano \"bellaco\"", "unit": null, "generic": true },
+    { "id": "ins-c136", "name": "Plátano \"moquicho\"", "unit": null, "generic": true },
+    { "id": "ins-c137", "name": "Plátano palillo", "unit": null, "generic": true },
+    {
+      "id": "ins-c138",
+      "name": "Plátano palillo maduro, harina de",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c139", "name": "Plátano palillo verde, harina de", "unit": null, "generic": true },
+    { "id": "ins-c140", "name": "Sancayo", "unit": null, "generic": true },
+    { "id": "ins-c141", "name": "Warr'a", "unit": null, "generic": true },
+    { "id": "ins-c142", "name": "Yak'u", "unit": null, "generic": true },
+    { "id": "ins-c143", "name": "Aceituna verde", "unit": null, "generic": true },
+    {
+      "id": "ins-c144",
+      "name": "Aguaje, néctar natural, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c145", "name": "Arándano", "unit": null, "generic": true },
+    {
+      "id": "ins-c146",
+      "name": "Arándano, néctar natural, con cáscara, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c147", "name": "Cereza", "unit": null, "generic": true },
+    {
+      "id": "ins-c148",
+      "name": "Ciruela albaricoque, con cáscara, sin pepa",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-c149",
+      "name": "Cidra o limón cidra, sin cáscara, sin pepas",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c150", "name": "Frambuesa", "unit": null, "generic": true },
+    { "id": "ins-c151", "name": "Mango criollo", "unit": null, "generic": true },
+    { "id": "ins-c152", "name": "Mango Edward", "unit": null, "generic": true },
+    {
+      "id": "ins-c153",
+      "name": "Mango Edward, néctar natural, sin cáscara, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c154", "name": "Mango kafro", "unit": null, "generic": true },
+    { "id": "ins-c155", "name": "Mango kent", "unit": null, "generic": true },
+    { "id": "ins-c156", "name": "Manzana Royal o gala", "unit": null, "generic": true },
+    {
+      "id": "ins-c157",
+      "name": "Manzana verde nacional, refresco natural, cocido, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c158", "name": "Mora o zarzamora", "unit": null, "generic": true },
+    { "id": "ins-c159", "name": "Noni, con cáscara, sin pepas", "unit": null, "generic": true },
+    { "id": "ins-c160", "name": "Palta dedo o cocktail", "unit": null, "generic": true },
+    { "id": "ins-c161", "name": "Palta Hass", "unit": null, "generic": true },
+    {
+      "id": "ins-c162",
+      "name": "Papaya, néctar natural, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c163", "name": "Pasa rubia", "unit": null, "generic": true },
+    { "id": "ins-c164", "name": "Piña Golden o baby golden", "unit": null, "generic": true },
+    { "id": "ins-c165", "name": "Piña Hawaiana", "unit": null, "generic": true },
+    { "id": "ins-c166", "name": "Piña Selva", "unit": null, "generic": true },
+    {
+      "id": "ins-c167",
+      "name": "Piña Selva, néctar natural, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-c168", "name": "Pitajaya roja", "unit": null, "generic": true },
+    {
+      "id": "ins-c169",
+      "name": "Plátano bellaco maduro, frito en aceite vegetal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-d1",
+      "name": "Aceite compuesto (vegetal 70% pescado 30% )",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-d2", "name": "Aceite de pescado, hidrogenado", "unit": null, "generic": true },
+    { "id": "ins-d3", "name": "Aceite vegetal de algodón", "unit": null, "generic": true },
+    { "id": "ins-d4", "name": "Aceite vegetal de girasol", "unit": null, "generic": true },
+    { "id": "ins-d5", "name": "Aceite vegetal de maíz", "unit": null, "generic": true },
+    { "id": "ins-d6", "name": "Aceite vegetal de maní", "unit": null, "generic": true },
+    { "id": "ins-d7", "name": "Aceite vegetal de olivo", "unit": null, "generic": true },
+    { "id": "ins-d8", "name": "Aceite vegetal de palma", "unit": null, "generic": true },
+    { "id": "ins-d11", "name": "Avellana", "unit": null, "generic": true },
+    { "id": "ins-d12", "name": "Cacao, semillas secas", "unit": null, "generic": true },
+    { "id": "ins-d13", "name": "Castaña peruana o nuez de Brasil", "unit": null, "generic": true },
+    { "id": "ins-d14", "name": "Maní crudo, sin cáscara con piel", "unit": null, "generic": true },
+    { "id": "ins-d15", "name": "Maní sancochado", "unit": null, "generic": true },
+    { "id": "ins-d18", "name": "Manteca vegetal", "unit": null, "generic": true },
+    { "id": "ins-d20", "name": "Mantequilla con sal", "unit": null, "generic": true },
+    { "id": "ins-d21", "name": "Margarina vegetal con sal", "unit": null, "generic": true },
+    { "id": "ins-d23", "name": "Cashú o castaña de cashú", "unit": null, "generic": true },
+    { "id": "ins-d25", "name": "Linaza, semilla de", "unit": null, "generic": true },
+    {
+      "id": "ins-d26",
+      "name": "Margarina, Astra de La Danesa 60% grasa vegetal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-d27",
+      "name": "Margarina, Dorina Batida al 70% de grasa",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-d28",
+      "name": "Margarina, Dorina Clásica al 70% de grasa",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-d29",
+      "name": "Margarina, Dorina Light al 50% de grasa",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-d30",
+      "name": "Margarina, La Danesa 70% de grasa vegetal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-d31", "name": "Margarina, La Preferida 70% grasa", "unit": null, "generic": true },
+    {
+      "id": "ins-d32",
+      "name": "Margarina, Manty 40% de grasa vegetal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-d33", "name": "Margarina, Sello de Oro", "unit": null, "generic": true },
+    { "id": "ins-d34", "name": "Margarina, Swis Light", "unit": null, "generic": true },
+    { "id": "ins-d35", "name": "Margarina, Swis 60% de grasa", "unit": null, "generic": true },
+    { "id": "ins-d36", "name": "Ñuña tostada", "unit": null, "generic": true },
+    { "id": "ins-d37", "name": "Pecana", "unit": null, "generic": true },
+    { "id": "ins-d38", "name": "Sacha Inchi tostado", "unit": null, "generic": true },
+    { "id": "ins-d40", "name": "Ajonjolí negro, semilla de", "unit": null, "generic": true },
+    { "id": "ins-d41", "name": "Girasol, semilla de", "unit": null, "generic": true },
+    {
+      "id": "ins-d42",
+      "name": "Aceite vegetal de girasol con adición de EPA y DHA",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-d43",
+      "name": "Aceite vegetal de girasol con canola",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-d45", "name": "Aceite vegetal de sacha Inchi", "unit": null, "generic": true },
+    { "id": "ins-d46", "name": "Mantequilla sin sal", "unit": null, "generic": true },
+    {
+      "id": "ins-d47",
+      "name": "Maní tostado, acaramelado con ajonjolí, envasado",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-d49", "name": "Pistasho", "unit": null, "generic": true },
+    { "id": "ins-e1", "name": "Almeja blanca", "unit": null, "generic": true },
+    {
+      "id": "ins-e2",
+      "name": "Aska (crustáceo), al estado natural",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-e3",
+      "name": "Aska, sometido a cocción (crustáceo)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-e4", "name": "Barquillos", "unit": null, "generic": true },
+    { "id": "ins-e5", "name": "Camaroncito seco (chino)", "unit": null, "generic": true },
+    { "id": "ins-e6", "name": "Camarones frescos", "unit": null, "generic": true },
+    { "id": "ins-e7", "name": "Cangrejo", "unit": null, "generic": true },
+    { "id": "ins-e8", "name": "Cangrejo cocido", "unit": null, "generic": true },
+    { "id": "ins-e9", "name": "Caracol", "unit": null, "generic": true },
+    { "id": "ins-e10", "name": "Chanque, loco o tolina", "unit": null, "generic": true },
+    { "id": "ins-e11", "name": "Choros", "unit": null, "generic": true },
+    { "id": "ins-e12", "name": "Concha de abanico", "unit": null, "generic": true },
+    { "id": "ins-e13", "name": "Erizo", "unit": null, "generic": true },
+    { "id": "ins-e15", "name": "Lapas", "unit": null, "generic": true },
+    { "id": "ins-e16", "name": "Machas", "unit": null, "generic": true },
+    {
+      "id": "ins-e17",
+      "name": "Pescado acarabuazú, salado deshidratado",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-e18", "name": "Pescado anchoveta", "unit": null, "generic": true },
+    { "id": "ins-e20", "name": "Pescado atún, enlatado en agua", "unit": null, "generic": true },
+    { "id": "ins-e21", "name": "Pescado atún, enlatado en aceite", "unit": null, "generic": true },
+    { "id": "ins-e22", "name": "Pescado atún, fresco", "unit": null, "generic": true },
+    { "id": "ins-e23", "name": "Pescado ayanque o cachema", "unit": null, "generic": true },
+    { "id": "ins-e24", "name": "Pescado bacalao fresco", "unit": null, "generic": true },
+    { "id": "ins-e25", "name": "Pescado bacalao seco salado", "unit": null, "generic": true },
+    { "id": "ins-e26", "name": "Pescado bagre", "unit": null, "generic": true },
+    { "id": "ins-e27", "name": "Pescado bonito", "unit": null, "generic": true },
+    { "id": "ins-e28", "name": "Pescado bonito, huevera de", "unit": null, "generic": true },
+    {
+      "id": "ins-e29",
+      "name": "Pescado bonito fresco, músculo claro",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-e30",
+      "name": "Pescado bonito fresco, músculo oscuro",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-e31", "name": "Pescado bonito, pulpa asada", "unit": null, "generic": true },
+    { "id": "ins-e32", "name": "Pescado bonito, seco salado", "unit": null, "generic": true },
+    {
+      "id": "ins-e33",
+      "name": "Pescado boquichico, salado deshidratado",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-e34", "name": "Pescado caballa, en conserva", "unit": null, "generic": true },
+    { "id": "ins-e35", "name": "Pescado caballa, fresco", "unit": null, "generic": true },
+    { "id": "ins-e36", "name": "Pescado caballa, salado", "unit": null, "generic": true },
+    { "id": "ins-e37", "name": "Pescado cabinza", "unit": null, "generic": true },
+    { "id": "ins-e38", "name": "Pescado cabrilla", "unit": null, "generic": true },
+    { "id": "ins-e39", "name": "Pescado carachama", "unit": null, "generic": true },
+    { "id": "ins-e40", "name": "Pescado cazón", "unit": null, "generic": true },
+    { "id": "ins-e41", "name": "Pescado chita", "unit": null, "generic": true },
+    { "id": "ins-e42", "name": "Pescado chita, huevera de", "unit": null, "generic": true },
+    { "id": "ins-e43", "name": "Pescado chita, pulpa asada", "unit": null, "generic": true },
+    { "id": "ins-e44", "name": "Pescado coco", "unit": null, "generic": true },
+    { "id": "ins-e45", "name": "Pescado cojinova", "unit": null, "generic": true },
+    { "id": "ins-e46", "name": "Pescado congrio", "unit": null, "generic": true },
+    { "id": "ins-e47", "name": "Pescado corvina", "unit": null, "generic": true },
+    { "id": "ins-e48", "name": "Pescado fuasaco, con espinas", "unit": null, "generic": true },
+    { "id": "ins-e49", "name": "Pescado jurel, en conserva", "unit": null, "generic": true },
+    { "id": "ins-e51", "name": "Pescado lenguado", "unit": null, "generic": true },
+    { "id": "ins-e52", "name": "Pescado lisa", "unit": null, "generic": true },
+    { "id": "ins-e53", "name": "Pescado lorna, fresco", "unit": null, "generic": true },
+    { "id": "ins-e54", "name": "Pescado lorna, pulpa seca salada", "unit": null, "generic": true },
+    { "id": "ins-e55", "name": "Pescado machete", "unit": null, "generic": true },
+    { "id": "ins-e56", "name": "Pescado maparate, con espinas", "unit": null, "generic": true },
+    { "id": "ins-e57", "name": "Pescado merluza, fresco", "unit": null, "generic": true },
+    { "id": "ins-e58", "name": "Pescado merluza, seco", "unit": null, "generic": true },
+    { "id": "ins-e59", "name": "Pescado mero, fresco", "unit": null, "generic": true },
+    { "id": "ins-e60", "name": "Pescado paiche, seco", "unit": null, "generic": true },
+    { "id": "ins-e61", "name": "Pescado pampanito", "unit": null, "generic": true },
+    { "id": "ins-e62", "name": "Pescado paña, salado deshidratado", "unit": null, "generic": true },
+    { "id": "ins-e63", "name": "Pescado pejerrey", "unit": null, "generic": true },
+    { "id": "ins-e64", "name": "Pescado pejesapo", "unit": null, "generic": true },
+    { "id": "ins-e65", "name": "Pescado pejesapo, pulpa asada", "unit": null, "generic": true },
+    {
+      "id": "ins-e66",
+      "name": "Pescado pejesapo, pulpa sancochada",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-e67",
+      "name": "Pescado perico, fresco, pulpa sin piel",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-e68", "name": "Pescado pintadilla", "unit": null, "generic": true },
+    { "id": "ins-e69", "name": "Pescado ractacara, con espinas", "unit": null, "generic": true },
+    { "id": "ins-e70", "name": "Pescado raya, pulpa asada", "unit": null, "generic": true },
+    { "id": "ins-e71", "name": "Pescado róbalo", "unit": null, "generic": true },
+    {
+      "id": "ins-e72",
+      "name": "Pescado sardina, en aceite vegetal, conserva",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-e73",
+      "name": "Pescado sardina, en salsa de tomate, conserva",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-e74",
+      "name": "Pescado sardina, en grated, conserva",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-e75", "name": "Pescado sardina, filete, conserva", "unit": null, "generic": true },
+    { "id": "ins-e76", "name": "Pescado sardina, fresco", "unit": null, "generic": true },
+    { "id": "ins-e79", "name": "Pescado toyo, seco salado", "unit": null, "generic": true },
+    { "id": "ins-e80", "name": "Pescado tramboyo", "unit": null, "generic": true },
+    { "id": "ins-e81", "name": "Pescado trucha rosada", "unit": null, "generic": true },
+    { "id": "ins-e82", "name": "Pescado trucha, en conserva", "unit": null, "generic": true },
+    { "id": "ins-e83", "name": "Pescado trucha, fresca", "unit": null, "generic": true },
+    { "id": "ins-e84", "name": "Pescado yahuarachi, con espinas", "unit": null, "generic": true },
+    { "id": "ins-e85", "name": "Pescado yuliya, con espinas", "unit": null, "generic": true },
+    {
+      "id": "ins-e86",
+      "name": "Pescado zúngaro, salado deshidratado",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-e87", "name": "Pique", "unit": null, "generic": true },
+    { "id": "ins-e89", "name": "Pota, concentrado proteico de", "unit": null, "generic": true },
+    { "id": "ins-e90", "name": "Pulpo", "unit": null, "generic": true },
+    { "id": "ins-e91", "name": "Choro, pulpa cocida, envasado", "unit": null, "generic": true },
+    {
+      "id": "ins-e93",
+      "name": "Pescado ayanque o cachema, pulpa con piel, sancochado sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-e95",
+      "name": "Pescado Cojinova, pulpa con piel, sancochado sin sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-e96", "name": "Pescado Doncella, fresco", "unit": null, "generic": true },
+    {
+      "id": "ins-e97",
+      "name": "Pescado jurel, pulpa con piel, frita en aceite vegetal, sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-e98",
+      "name": "Pescado Jurel, pulpa con piel, sancochado sin sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-e99", "name": "Pescado Paco, fresco", "unit": null, "generic": true },
+    { "id": "ins-e100", "name": "Pescado Palometa, fresco", "unit": null, "generic": true },
+    { "id": "ins-e101", "name": "Pescado Reyneta, fresco", "unit": null, "generic": true },
+    { "id": "ins-e102", "name": "Pez espada, fresco", "unit": null, "generic": true },
+    {
+      "id": "ins-e103",
+      "name": "Pescado trucha rosada, pulpa con piel, sancochado sin sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-f1", "name": "Ballena, carne pulpa de", "unit": null, "generic": true },
+    { "id": "ins-f2", "name": "Carnero, cabeza sancochada de", "unit": null, "generic": true },
+    { "id": "ins-f3", "name": "Carnero, corazón de", "unit": null, "generic": true },
+    { "id": "ins-f4", "name": "Carnero, hígado de", "unit": null, "generic": true },
+    { "id": "ins-f5", "name": "Carnero, panza de (mondongo)", "unit": null, "generic": true },
+    { "id": "ins-f6", "name": "Carnero, patas sancochadas de", "unit": null, "generic": true },
+    { "id": "ins-f7", "name": "Carnero, pulmón de (bofe)", "unit": null, "generic": true },
+    { "id": "ins-f8", "name": "Carnero, riñón", "unit": null, "generic": true },
+    { "id": "ins-f9", "name": "Carnero, sesos de", "unit": null, "generic": true },
+    { "id": "ins-f10", "name": "Carnero, pulpa gorda", "unit": null, "generic": true },
+    { "id": "ins-f11", "name": "Carnero, pulpa muy magra", "unit": null, "generic": true },
+    { "id": "ins-f12", "name": "Carnero, pulpa semigorda", "unit": null, "generic": true },
+    { "id": "ins-f13", "name": "Cerdo, carne sin hueso", "unit": null, "generic": true },
+    { "id": "ins-f14", "name": "Cerdo, hígado de", "unit": null, "generic": true },
+    { "id": "ins-f15", "name": "Cerdo, patas semigordas", "unit": null, "generic": true },
+    { "id": "ins-f16", "name": "Cerdo, pulmón de (bofe)", "unit": null, "generic": true },
+    { "id": "ins-f17", "name": "Cerdo, riñón de", "unit": null, "generic": true },
+    { "id": "ins-f18", "name": "Chivo, carne pulpa de", "unit": null, "generic": true },
+    { "id": "ins-f19", "name": "Conejo, carne pulpa de", "unit": null, "generic": true },
+    { "id": "ins-f20", "name": "Gallina, pechuga de, sin piel", "unit": null, "generic": true },
+    { "id": "ins-f21", "name": "Gallina, pierna de, sin piel", "unit": null, "generic": true },
+    { "id": "ins-f22", "name": "Majaz, carne pulpa de", "unit": null, "generic": true },
+    { "id": "ins-f23", "name": "Motelo, carne pulpa de", "unit": null, "generic": true },
+    { "id": "ins-f24", "name": "Pato, carne de", "unit": null, "generic": true },
+    { "id": "ins-f25", "name": "Pavo, carne de", "unit": null, "generic": true },
+    { "id": "ins-f26", "name": "Pollo, carne pulpa", "unit": null, "generic": true },
+    { "id": "ins-f27", "name": "Pollo, corazón de", "unit": null, "generic": true },
+    { "id": "ins-f28", "name": "Pollo, hígado de", "unit": null, "generic": true },
+    {
+      "id": "ins-f29",
+      "name": "Pollo, sangre de, sancochada sin sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-f30", "name": "Pollo, sangre cruda de", "unit": null, "generic": true },
+    { "id": "ins-f31", "name": "Rana, carne de", "unit": null, "generic": true },
+    { "id": "ins-f32", "name": "Tortuga charapa, carne de", "unit": null, "generic": true },
+    { "id": "ins-f33", "name": "Res, bazo de", "unit": null, "generic": true },
+    { "id": "ins-f34", "name": "Res, cabeza sancochada de", "unit": null, "generic": true },
+    { "id": "ins-f36", "name": "Res, corazón de", "unit": null, "generic": true },
+    { "id": "ins-f37", "name": "Res, criadillas de", "unit": null, "generic": true },
+    { "id": "ins-f38", "name": "Res, hígado de", "unit": null, "generic": true },
+    { "id": "ins-f39", "name": "Res, lengua de", "unit": null, "generic": true },
+    { "id": "ins-f40", "name": "Res, panza de (mondongo)", "unit": null, "generic": true },
+    { "id": "ins-f41", "name": "Res, pata sancochada de", "unit": null, "generic": true },
+    { "id": "ins-f42", "name": "Res, pulmón de (bofe)", "unit": null, "generic": true },
+    { "id": "ins-f43", "name": "Res, riñón de", "unit": null, "generic": true },
+    { "id": "ins-f44", "name": "Res, sesos de", "unit": null, "generic": true },
+    { "id": "ins-f45", "name": "Res, ubre de", "unit": null, "generic": true },
+    {
+      "id": "ins-f46",
+      "name": "Carnero, carne seca sin hueso (chalona)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-f48", "name": "Chicharrón de prensa", "unit": null, "generic": true },
+    { "id": "ins-f49", "name": "Chorizo", "unit": null, "generic": true },
+    { "id": "ins-f50", "name": "Jamón del país", "unit": null, "generic": true },
+    { "id": "ins-f51", "name": "Jamonada", "unit": null, "generic": true },
+    { "id": "ins-f52", "name": "Mortadela", "unit": null, "generic": true },
+    { "id": "ins-f53", "name": "Paté", "unit": null, "generic": true },
+    { "id": "ins-f54", "name": "Queso de chancho", "unit": null, "generic": true },
+    { "id": "ins-f55", "name": "Relleno", "unit": null, "generic": true },
+    { "id": "ins-f56", "name": "Salchicha blanca chica", "unit": null, "generic": true },
+    { "id": "ins-f57", "name": "Salchicha blanca grande", "unit": null, "generic": true },
+    { "id": "ins-f58", "name": "Hot Dog", "unit": null, "generic": true },
+    { "id": "ins-f59", "name": "Salchicha de \"Huacho\"", "unit": null, "generic": true },
+    { "id": "ins-f60", "name": "Tocino", "unit": null, "generic": true },
+    { "id": "ins-f61", "name": "Alpaca, carne pulpa de", "unit": null, "generic": true },
+    { "id": "ins-f62", "name": "Carnero, criadillas fritas", "unit": null, "generic": true },
+    { "id": "ins-f63", "name": "Carnero, panza cocida (mondongo)", "unit": null, "generic": true },
+    { "id": "ins-f64", "name": "Carnero, pierna cocida", "unit": null, "generic": true },
+    { "id": "ins-f65", "name": "Carnero, sangre cocida", "unit": null, "generic": true },
+    { "id": "ins-f66", "name": "Cerdo, carne magra, cruda", "unit": null, "generic": true },
+    { "id": "ins-f67", "name": "Cerdo, corazón de", "unit": null, "generic": true },
+    {
+      "id": "ins-f68",
+      "name": "Cerdo, costilla con piel y grasa, crudo",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-f69", "name": "Cerdo, cuero o pellejo crocante", "unit": null, "generic": true },
+    { "id": "ins-f70", "name": "Cerdo, cuero", "unit": null, "generic": true },
+    { "id": "ins-f71", "name": "Cerdo, lengua cocida de", "unit": null, "generic": true },
+    { "id": "ins-f72", "name": "Cordero, pierna cruda", "unit": null, "generic": true },
+    { "id": "ins-f73", "name": "Codorniz, carne cocida de", "unit": null, "generic": true },
+    { "id": "ins-f74", "name": "Cuy, carne de", "unit": null, "generic": true },
+    { "id": "ins-f75", "name": "Llama, carne fresca de", "unit": null, "generic": true },
+    { "id": "ins-f76", "name": "Llama, carne seca de (charqui)", "unit": null, "generic": true },
+    { "id": "ins-f77", "name": "Pate de hígado de pollo, envasado", "unit": null, "generic": true },
+    { "id": "ins-f78", "name": "Pollo, alas con piel, crudas", "unit": null, "generic": true },
+    { "id": "ins-f79", "name": "Pollo, molleja, cruda", "unit": null, "generic": true },
+    {
+      "id": "ins-f80",
+      "name": "Pollo, molleja de, sancochada sin sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-f81", "name": "Pollo, pata de, con piel, cruda", "unit": null, "generic": true },
+    {
+      "id": "ins-f83",
+      "name": "Pollo, pechuga de, sin piel, frita en aceite vegetal, sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f85",
+      "name": "Pollo, pierna de, con piel, frita en aceite vegetal, sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f86",
+      "name": "Pollo, vísceras o menudencia cruda",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-f87", "name": "Res, bazo de, sancochado sin sal", "unit": null, "generic": true },
+    { "id": "ins-f88", "name": "Res, carne frita", "unit": null, "generic": true },
+    { "id": "ins-f89", "name": "Res, carne molida de, cruda", "unit": null, "generic": true },
+    { "id": "ins-f91", "name": "Res, charque crudo", "unit": null, "generic": true },
+    { "id": "ins-f92", "name": "Res, cuadril, churrasco", "unit": null, "generic": true },
+    { "id": "ins-f93", "name": "Res (ternera), costilla cruda", "unit": null, "generic": true },
+    {
+      "id": "ins-f94",
+      "name": "Res, hígado de, frito en aceite vegetal, sin sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-f95", "name": "Res, lengua cocida", "unit": null, "generic": true },
+    {
+      "id": "ins-f96",
+      "name": "Res, panza de (mondongo), sancochado sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f97",
+      "name": "Res, pata de, con piel y grasa, cruda",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-f98", "name": "Res, sangre cocida", "unit": null, "generic": true },
+    { "id": "ins-f99", "name": "Res, sangre cruda", "unit": null, "generic": true },
+    { "id": "ins-f100", "name": "Sajino, carne pulpa de", "unit": null, "generic": true },
+    { "id": "ins-f101", "name": "Venado, carne pulpa de", "unit": null, "generic": true },
+    { "id": "ins-f102", "name": "Venado, carne seca de", "unit": null, "generic": true },
+    { "id": "ins-f103", "name": "Ziqui - zapa (hormiga)", "unit": null, "generic": true },
+    {
+      "id": "ins-f104",
+      "name": "Cabanossi, embutido cocido y ahumado",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f105",
+      "name": "Carnero, pulpa de, sin piel, sancochada sin sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-f106", "name": "Cecina", "unit": null, "generic": true },
+    {
+      "id": "ins-f109",
+      "name": "Cerdo, sangre de, cocida, envasada",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f111",
+      "name": "Cuy, pecho de, pulpa con piel, cruda",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f112",
+      "name": "Cuy, pierna de, pulpa con piel, cruda",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-f115", "name": "Jamonada especial", "unit": null, "generic": true },
+    {
+      "id": "ins-f116",
+      "name": "Majaz, pulpa ahumada de, sancochada sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f117",
+      "name": "Paté de hígado de pollo, pavo y carne de cerdo",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-f118", "name": "Pavo, pechuga de, con piel", "unit": null, "generic": true },
+    { "id": "ins-f119", "name": "Pavo, pierna de, con piel", "unit": null, "generic": true },
+    {
+      "id": "ins-f120",
+      "name": "Pollo, ala de, con piel, sancochada sin sal (brazuelo, centro y punta)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f121",
+      "name": "Pollo, corazón de, sancochado sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f122",
+      "name": "Pollo, encuentro de, con piel, frito en aceite vegetal, sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f123",
+      "name": "Pollo, encuentro de, con piel, sancochado sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f124",
+      "name": "Pollo, hamburguesa de, cruda, envasada",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f125",
+      "name": "Pollo, hígado de, sancochado sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f127",
+      "name": "Pollo, pecho y ala de, con piel a la brasa",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f128",
+      "name": "Pollo, pierna y encuentro de, con piel a la brasa",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f129",
+      "name": "Res, bofe de, con verduras, cocido, envasado",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f130",
+      "name": "Res, hamburguesa de carne de, cruda, envasada",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-f131", "name": "Res, osobuco de", "unit": null, "generic": true },
+    {
+      "id": "ins-f132",
+      "name": "Sajino ahumado, pulpa de, sancochada sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-f133",
+      "name": "Salchicha de Huacho, frita en aceite vegetal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-f134", "name": "Tocino, sancochado", "unit": null, "generic": true },
+    { "id": "ins-g2", "name": "Crema de leche, rala", "unit": null, "generic": true },
+    { "id": "ins-g4", "name": "Leche en polvo descremada", "unit": null, "generic": true },
+    { "id": "ins-g5", "name": "Leche en polvo entera", "unit": null, "generic": true },
+    { "id": "ins-g6", "name": "Leche evaporada descremada", "unit": null, "generic": true },
+    { "id": "ins-g8", "name": "Leche fresca c/menos de 1% grasa", "unit": null, "generic": true },
+    { "id": "ins-g9", "name": "Leche fresca entera (Plusa)", "unit": null, "generic": true },
+    { "id": "ins-g10", "name": "Leche fresca de cabra", "unit": null, "generic": true },
+    { "id": "ins-g12", "name": "Leche materna", "unit": null, "generic": true },
+    { "id": "ins-g13", "name": "Queso fresco de cabra", "unit": null, "generic": true },
+    { "id": "ins-g15", "name": "Queso mantecoso", "unit": null, "generic": true },
+    { "id": "ins-g16", "name": "Queso parmesano duro", "unit": null, "generic": true },
+    { "id": "ins-g17", "name": "Yogurt de leche entera", "unit": null, "generic": true },
+    {
+      "id": "ins-g18",
+      "name": "Yogurt frutado de leche semidescremada",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-g19",
+      "name": "Yogurt frutado de leche descremada",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-g20",
+      "name": "Yogurt natural de leche descremada",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-g21", "name": "Leche fresca de vaca, descremada", "unit": null, "generic": true },
+    {
+      "id": "ins-g22",
+      "name": "Leche parcialmente descremada sabor \"chocolate\" UHT",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-g23", "name": "Queso andino", "unit": null, "generic": true },
+    { "id": "ins-g24", "name": "Queso paria", "unit": null, "generic": true },
+    {
+      "id": "ins-g25",
+      "name": "Yogurt bebible descremado durazno con calcio",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-g27",
+      "name": "Leche concentrada endulzada, enriquecida con DHA, zinc y vitaminas",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-g28", "name": "Leche concentrada, sin lactosa", "unit": null, "generic": true },
+    { "id": "ins-g29", "name": "Queso cabaña (cottage)", "unit": null, "generic": true },
+    { "id": "ins-g30", "name": "Queso edam", "unit": null, "generic": true },
+    {
+      "id": "ins-g31",
+      "name": "Queso fresco, parcialmente descremado, reducido en grasa",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-g32", "name": "Queso Mozarella", "unit": null, "generic": true },
+    { "id": "ins-g33", "name": "Queso ricotta", "unit": null, "generic": true },
+    {
+      "id": "ins-g34",
+      "name": "Yogurt bebible descremado, endulzado con stevia, linaza en almibar y frutos secos",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-g35",
+      "name": "Yogurt bebible parcialmente descremado con mora",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-g36",
+      "name": "Yogurt bebible parcialmente descremado con sauco",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-g37",
+      "name": "Yogurt griego descremado con fresas",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-g38", "name": "Yogurt griego natural sin azúcar", "unit": null, "generic": true },
+    { "id": "ins-h1", "name": "Cerveza", "unit": null, "generic": true },
+    { "id": "ins-h2", "name": "Chicha de aguaje", "unit": null, "generic": true },
+    { "id": "ins-h3", "name": "Chicha de cebada", "unit": null, "generic": true },
+    { "id": "ins-h4", "name": "Chicha de jora", "unit": null, "generic": true },
+    { "id": "ins-h5", "name": "Chicha de maíz morado con azúcar", "unit": null, "generic": true },
+    { "id": "ins-h6", "name": "Chicha de maní", "unit": null, "generic": true },
+    { "id": "ins-h7", "name": "Chicha de pijuayo", "unit": null, "generic": true },
+    { "id": "ins-h8", "name": "Chicha de soya", "unit": null, "generic": true },
+    { "id": "ins-h9", "name": "Chicha de yuca (masato)", "unit": null, "generic": true },
+    { "id": "ins-h10", "name": "Coca Cola", "unit": null, "generic": true },
+    { "id": "ins-h11", "name": "Inca Kola", "unit": null, "generic": true },
+    { "id": "ins-h12", "name": "Bebida de soya", "unit": null, "generic": true },
+    { "id": "ins-h13", "name": "Té sin azúcar", "unit": null, "generic": true },
+    {
+      "id": "ins-h14",
+      "name": "Vino blanco (grado alcohólico: 12.0)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-h15",
+      "name": "Vino tinto (grado alcohólico: 10.2)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-h16", "name": "Café sin azúcar", "unit": null, "generic": true },
+    {
+      "id": "ins-h17",
+      "name": "Ajonjolí, bebida de, natural, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-h18",
+      "name": "Almendra, bebida de, natural, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-h19",
+      "name": "Arándano y uva, bebida de, envasada",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-h20",
+      "name": "Avellana, bebida de, natural, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-h21",
+      "name": "Carambola, refresco de, con azúcar",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-h22",
+      "name": "Cebada, agua de , natural, sin azúcar",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-h23", "name": "Cebada, refresco de, con azúcar", "unit": null, "generic": true },
+    { "id": "ins-h24", "name": "Emoliente, con azúcar", "unit": null, "generic": true },
+    { "id": "ins-h25", "name": "Infusión de hierbas, con azúcar", "unit": null, "generic": true },
+    {
+      "id": "ins-h26",
+      "name": "Infusión de hierba luisa, con azúcar",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-h27",
+      "name": "Maíz morado, chicha de, natural, sin azúcar, sin limón",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-h28",
+      "name": "Malta, bebida de, sin alcohol, envasada",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-h29", "name": "Manzana, refresco de, con azúcar", "unit": null, "generic": true },
+    { "id": "ins-h30", "name": "Maracuyá, refresco de, con azúcar", "unit": null, "generic": true },
+    {
+      "id": "ins-h31",
+      "name": "Naranja, mandarina y limón, bebida sabor a, envasada",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-h32",
+      "name": "Piña, néctar de, con edulcorante, envasada",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-j1", "name": "Huevo de charapa", "unit": null, "generic": true },
+    { "id": "ins-j2", "name": "Huevo de gallina, clara de", "unit": null, "generic": true },
+    {
+      "id": "ins-j3",
+      "name": "Huevo de gallina entero, sancochado en agua",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-j5", "name": "Huevo de gallina, yema de", "unit": null, "generic": true },
+    { "id": "ins-j6", "name": "Huevo de tortuga motelo", "unit": null, "generic": true },
+    { "id": "ins-j7", "name": "Huevo de pata", "unit": null, "generic": true },
+    { "id": "ins-j8", "name": "Huevo de pata, yema de", "unit": null, "generic": true },
+    { "id": "ins-j9", "name": "Huevo de tortuga taricaya", "unit": null, "generic": true },
+    {
+      "id": "ins-j10",
+      "name": "Huevo de gallina, clara sancochada en agua",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-j11",
+      "name": "Huevo de gallina, yema sancochada en agua",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-j12", "name": "Huevo de codorniz, entero crudo", "unit": null, "generic": true },
+    {
+      "id": "ins-j13",
+      "name": "Huevo de codorniz, entero sancochado en agua",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-j14",
+      "name": "Huevo de codorniz, clara sancochada en agua",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-j15",
+      "name": "Huevo de codorniz, yema sancochada en agua",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-j16",
+      "name": "Huevo de gallina, entero, frito en aceite vegetal, sin sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-k2", "name": "Azúcar rubia", "unit": null, "generic": true },
+    { "id": "ins-k3", "name": "Chancaca", "unit": null, "generic": true },
+    { "id": "ins-k4", "name": "Miel de abeja", "unit": null, "generic": true },
+    { "id": "ins-k5", "name": "Miel de caña", "unit": null, "generic": true },
+    { "id": "ins-k6", "name": "Mermelada de durazno", "unit": null, "generic": true },
+    { "id": "ins-k7", "name": "Mermelada frutilla", "unit": null, "generic": true },
+    { "id": "ins-k8", "name": "Mermelada de sauco", "unit": null, "generic": true },
+    { "id": "ins-l1", "name": "Achiote seco", "unit": null, "generic": true },
+    { "id": "ins-l2", "name": "Algas", "unit": null, "generic": true },
+    {
+      "id": "ins-l3",
+      "name": "Azafrán de raíz, cúrcuma o palillo fresco, sin cáscara",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-l4", "name": "Café grano sin tostar", "unit": null, "generic": true },
+    { "id": "ins-l5", "name": "Cochayuyo fresco", "unit": null, "generic": true },
+    { "id": "ins-l7", "name": "Cominos", "unit": null, "generic": true },
+    { "id": "ins-l8", "name": "Extracto de algarrobo en polvo", "unit": null, "generic": true },
+    { "id": "ins-l9", "name": "Champiñones u hongos (Callampa)", "unit": null, "generic": true },
+    { "id": "ins-l10", "name": "Laurel", "unit": null, "generic": true },
+    { "id": "ins-l11", "name": "Pimienta negra", "unit": null, "generic": true },
+    { "id": "ins-l12", "name": "Té hojas secas", "unit": null, "generic": true },
+    { "id": "ins-l13", "name": "Yuyo fresco", "unit": null, "generic": true },
+    { "id": "ins-l14", "name": "Ají dulce seco, molido (paprika)", "unit": null, "generic": true },
+    { "id": "ins-l15", "name": "Algarrobina, líquida", "unit": null, "generic": true },
+    { "id": "ins-l16", "name": "Anís, semilla", "unit": null, "generic": true },
+    { "id": "ins-l17", "name": "Caldo de res", "unit": null, "generic": true },
+    { "id": "ins-l18", "name": "Caldo de pollo, o gallina", "unit": null, "generic": true },
+    { "id": "ins-l19", "name": "Clavo de olor, molido", "unit": null, "generic": true },
+    {
+      "id": "ins-l21",
+      "name": "Condimentos o especies molidas no especificadas",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-l22",
+      "name": "Cushuro o nostoc deshidratada (alga)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-l23", "name": "Levadura fresca para pan", "unit": null, "generic": true },
+    { "id": "ins-l24", "name": "Levadura seca", "unit": null, "generic": true },
+    { "id": "ins-l25", "name": "Nuez moscada, molida", "unit": null, "generic": true },
+    { "id": "ins-l26", "name": "Pimienta blanca", "unit": null, "generic": true },
+    { "id": "ins-l27", "name": "Salsa envasada, inglesa", "unit": null, "generic": true },
+    { "id": "ins-l28", "name": "Setas", "unit": null, "generic": true },
+    { "id": "ins-l29", "name": "Vainilla, extracto", "unit": null, "generic": true },
+    {
+      "id": "ins-l30",
+      "name": "Alimento granulado con malta, leche, cacao y azúcar, en polvo, para bebida",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-l32", "name": "Cachanga, frita en aceite", "unit": null, "generic": true },
+    { "id": "ins-l33", "name": "Caldo de ave, tabletas", "unit": null, "generic": true },
+    { "id": "ins-l34", "name": "Caldo de carne, tabletas", "unit": null, "generic": true },
+    {
+      "id": "ins-l35",
+      "name": "Camote, hojuela frita en aceite vegetal, endulzado, envasado",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-l36",
+      "name": "\"Chicharrón\" (piel de cerdo, frito en aceite vegetal con sal), envasado",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-l37",
+      "name": "Chocolate con leche y maní, barra, envasado",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-l39",
+      "name": "Churro relleno con crema pastelera, frito en aceite",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-l40",
+      "name": "Churro relleno con majarblanco, frito en aceite",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-l41",
+      "name": "Haba, frita en aceite vegetal con sal, envasada",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-l42", "name": "Mayonesa con sal, envasada", "unit": null, "generic": true },
+    {
+      "id": "ins-l43",
+      "name": "Papa, al hilo frita en aceite vegetal con sal, envasada",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-l44",
+      "name": "Papa, hojuela frita en aceite vegetal con sal, envasada",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-l45",
+      "name": "Pizza americana, (listo para consumo)",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-l46",
+      "name": "Plátano, hojuela frita en aceite vegetal con sal (chifles), envasado",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-l47",
+      "name": "Ravioles relleno con carne, crudo, envasado",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-l49",
+      "name": "Sopa con fideo precocido y sazonador en polvo sabor a pollo, envasado",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-l51",
+      "name": "\"Yuquita\" de harina, frita en aceite con sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-q1", "name": "Al 110 maternizada", "unit": null, "generic": true },
+    { "id": "ins-q2", "name": "Cerelac manzana", "unit": null, "generic": true },
+    { "id": "ins-q3", "name": "Cerelac trigo", "unit": null, "generic": true },
+    { "id": "ins-q4", "name": "Eledón maternizada", "unit": null, "generic": true },
+    { "id": "ins-q5", "name": "Nan maternizada", "unit": null, "generic": true },
+    { "id": "ins-q6", "name": "Nestúm cereal mixto", "unit": null, "generic": true },
+    { "id": "ins-q7", "name": "Nestúm tres cereales", "unit": null, "generic": true },
+    { "id": "ins-q8", "name": "Pelargón maternizada", "unit": null, "generic": true },
+    {
+      "id": "ins-q9",
+      "name": "Alimento instantáneo en polvo, a base de harina de arroz, para niños a partir de 6 meses de edad",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-q10",
+      "name": "base de leche descremada, Alimento complementario en polvo, a maltodextrina, vitaminas y minerales, para mayores de 2 años de edad",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-q11",
+      "name": "descremada, prebióticos, probióticos, Alimento lácteo en polvo con leche vitaminas y minerales, para mayores de 2 años de edad",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-q12",
+      "name": "prebióticos, vitaminas y minerales, sin Fórmula infantil, en polvo con DHA, sacarosa y fructosa, niños en crecimiento",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-q13",
+      "name": "Fórmula láctea infantil, líquida con hierro y prebióticos; a partir de los 6 meses de edad",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-q14",
+      "name": "Fórmula láctea infantil, en polvo con hierro y probióticos, lactantes a partir de los 6 meses de edad",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-q15",
+      "name": "Fórmula láctea para lactantes, a base de leche; en polvo, de 0 a 6 meses de edad",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-q16",
+      "name": "Fórmula láctea para lactantes, a base de leche; en polvo, lactantes a partir de 6 meses de edad",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-q17",
+      "name": "Fórmula láctea para lactantes, en polvo con DHA, ARA, hierro,vitaminas y minerales; de 0 a 12 meses de edad",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-q18",
+      "name": "polvo (harinas de trigo, arroz, maíz, Mezcla de cereales instantánea en cebada y avena) con leche descremada en polvo, a partir de 6 meses de edad",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-t1", "name": "Arveja partida, harina de", "unit": null, "generic": true },
+    { "id": "ins-t3", "name": "Arveja, seca sin cáscara", "unit": null, "generic": true },
+    { "id": "ins-t4", "name": "Arvejón", "unit": null, "generic": true },
+    { "id": "ins-t5", "name": "Frejol aguisho", "unit": null, "generic": true },
+    { "id": "ins-t6", "name": "Frejol amarillo común", "unit": null, "generic": true },
+    { "id": "ins-t7", "name": "Frejol bayo", "unit": null, "generic": true },
+    { "id": "ins-t8", "name": "Frejol bayo americano", "unit": null, "generic": true },
+    {
+      "id": "ins-t9",
+      "name": "Frejol zarandaja, chileno, cancate, bocón",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-t10", "name": "Frejol bountiful bean", "unit": null, "generic": true },
+    { "id": "ins-t11", "name": "Frejol bush bean", "unit": null, "generic": true },
+    { "id": "ins-t12", "name": "Frejol caballero", "unit": null, "generic": true },
+    { "id": "ins-t13", "name": "Frejol caballero o blanco cocido", "unit": null, "generic": true },
+    { "id": "ins-t14", "name": "Frejol california", "unit": null, "generic": true },
+    { "id": "ins-t15", "name": "Frejol canario", "unit": null, "generic": true },
+    {
+      "id": "ins-t17",
+      "name": "Frejol canario, fresco (frejol verde)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-t18", "name": "Frejol canario serranito", "unit": null, "generic": true },
+    { "id": "ins-t19", "name": "Frejol caraotas", "unit": null, "generic": true },
+    { "id": "ins-t20", "name": "Frejol castilla", "unit": null, "generic": true },
+    { "id": "ins-t21", "name": "Frejol chavín", "unit": null, "generic": true },
+    { "id": "ins-t22", "name": "Frejol chiclayo", "unit": null, "generic": true },
+    { "id": "ins-t23", "name": "Frejol chiclayo dosmesino fresco", "unit": null, "generic": true },
+    { "id": "ins-t24", "name": "Frejol cocacho", "unit": null, "generic": true },
+    { "id": "ins-t25", "name": "Frejol dulce (Ancash)", "unit": null, "generic": true },
+    { "id": "ins-t26", "name": "Frejol negro", "unit": null, "generic": true },
+    { "id": "ins-t27", "name": "Frejol nucya blanco", "unit": null, "generic": true },
+    { "id": "ins-t28", "name": "Frejol nucya plomo", "unit": null, "generic": true },
+    { "id": "ins-t29", "name": "Frejol palo", "unit": null, "generic": true },
+    {
+      "id": "ins-t30",
+      "name": "Frejol palo, fresco (Lenteja verde)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-t31", "name": "Frejol panamito", "unit": null, "generic": true },
+    { "id": "ins-t32", "name": "Frejol plomo", "unit": null, "generic": true },
+    { "id": "ins-t33", "name": "Frejol pole bean", "unit": null, "generic": true },
+    { "id": "ins-t34", "name": "Frejol red kidney", "unit": null, "generic": true },
+    { "id": "ins-t35", "name": "Frejol shimpe fresco", "unit": null, "generic": true },
+    { "id": "ins-t36", "name": "Frejol soya", "unit": null, "generic": true },
+    {
+      "id": "ins-t37",
+      "name": "Frejol tarhui o chocho cocido con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-t38", "name": "Frejol tarhui o chocho, harina de", "unit": null, "generic": true },
+    { "id": "ins-t39", "name": "Frejol tarhui o chocho, seco", "unit": null, "generic": true },
+    { "id": "ins-t40", "name": "Frejol terciopelo", "unit": null, "generic": true },
+    { "id": "ins-t41", "name": "Frejol vacapaleta", "unit": null, "generic": true },
+    { "id": "ins-t42", "name": "Frejol white kidney", "unit": null, "generic": true },
+    { "id": "ins-t43", "name": "Garbanzo, cocido", "unit": null, "generic": true },
+    { "id": "ins-t44", "name": "Garbanzo", "unit": null, "generic": true },
+    { "id": "ins-t45", "name": "Guaba fresco", "unit": null, "generic": true },
+    { "id": "ins-t46", "name": "Guaba seco", "unit": null, "generic": true },
+    { "id": "ins-t48", "name": "Habas secas con cáscara cruda", "unit": null, "generic": true },
+    { "id": "ins-t49", "name": "Habas secas sin cáscara", "unit": null, "generic": true },
+    { "id": "ins-t50", "name": "Habas secas sin cáscara cocida", "unit": null, "generic": true },
+    { "id": "ins-t51", "name": "Habas, harina de", "unit": null, "generic": true },
+    { "id": "ins-t52", "name": "Lentejas chicas", "unit": null, "generic": true },
+    { "id": "ins-t54", "name": "Lentejas grandes", "unit": null, "generic": true },
+    { "id": "ins-t55", "name": "Pallar morado", "unit": null, "generic": true },
+    { "id": "ins-t56", "name": "Pallar seco", "unit": null, "generic": true },
+    { "id": "ins-t57", "name": "Pallar sin cáscara", "unit": null, "generic": true },
+    { "id": "ins-t58", "name": "Pallar cocido, con cáscara", "unit": null, "generic": true },
+    { "id": "ins-t59", "name": "Arveja colantao, fresca", "unit": null, "generic": true },
+    { "id": "ins-t60", "name": "Arveja, harina de", "unit": null, "generic": true },
+    { "id": "ins-t62", "name": "Caza o parka", "unit": null, "generic": true },
+    { "id": "ins-t63", "name": "Frejol bayo sancochado sin sal", "unit": null, "generic": true },
+    {
+      "id": "ins-t64",
+      "name": "Frejol castilla sancochado sin sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-t65", "name": "Frejol chiclayo marrón", "unit": null, "generic": true },
+    { "id": "ins-t66", "name": "Frejol chiclayo pindayllo", "unit": null, "generic": true },
+    { "id": "ins-t67", "name": "Frejol chiclayo rojo", "unit": null, "generic": true },
+    { "id": "ins-t68", "name": "Frejol de Iberia", "unit": null, "generic": true },
+    { "id": "ins-t69", "name": "Frejol negro sancochado sin sal", "unit": null, "generic": true },
+    { "id": "ins-t70", "name": "Frejol ñuña", "unit": null, "generic": true },
+    {
+      "id": "ins-t71",
+      "name": "Frejol panamito sancochado sin sal",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-t72",
+      "name": "Frejol soya, bebida de, (\"leche\" de soya",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-t73", "name": "Frejol soya, cocido", "unit": null, "generic": true },
+    { "id": "ins-t74", "name": "Frejol soya, harina integral", "unit": null, "generic": true },
+    {
+      "id": "ins-t75",
+      "name": "Frejol soya, harina integral tostada",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-t76", "name": "Frejol ucayalino", "unit": null, "generic": true },
+    {
+      "id": "ins-t77",
+      "name": "Frejol zarandaja, chileno, cancate o bocón, sancochado sin sal",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-t78", "name": "Gigante rojo, cáscara del grano", "unit": null, "generic": true },
+    {
+      "id": "ins-t79",
+      "name": "Gigante rojo, cáscara fresca del grano",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-t80", "name": "Gigante rojo, pulpa fresca", "unit": null, "generic": true },
+    { "id": "ins-t81", "name": "Gigante rojo, pulpa seca", "unit": null, "generic": true },
+    { "id": "ins-t82", "name": "Hemico leguminoso", "unit": null, "generic": true },
+    { "id": "ins-t83", "name": "Pallar del río Manú", "unit": null, "generic": true },
+    { "id": "ins-t84", "name": "Poroto de cumbasa", "unit": null, "generic": true },
+    { "id": "ins-t85", "name": "Proteínas, (proteína de soya)", "unit": null, "generic": true },
+    { "id": "ins-t86", "name": "Arverja verde, partida, seca", "unit": null, "generic": true },
+    { "id": "ins-t87", "name": "Frejol chuyo", "unit": null, "generic": true },
+    { "id": "ins-t88", "name": "Tofu o \"queso\" de soya, crudo", "unit": null, "generic": true },
+    { "id": "ins-u1", "name": "Arracacha o racacha", "unit": null, "generic": true },
+    { "id": "ins-u2", "name": "Ashipa", "unit": null, "generic": true },
+    { "id": "ins-u4", "name": "Camote blanco", "unit": null, "generic": true },
+    { "id": "ins-u5", "name": "Camote morado sin cáscara", "unit": null, "generic": true },
+    { "id": "ins-u6", "name": "Camote, harina de", "unit": null, "generic": true },
+    { "id": "ins-u7", "name": "Curao", "unit": null, "generic": true },
+    { "id": "ins-u8", "name": "Koshñipa", "unit": null, "generic": true },
+    { "id": "ins-u9", "name": "Kuros", "unit": null, "generic": true },
+    { "id": "ins-u10", "name": "Llacón", "unit": null, "generic": true },
+    { "id": "ins-u11", "name": "Maca (tubérculo seco)", "unit": null, "generic": true },
+    { "id": "ins-u12", "name": "Maca silvestre", "unit": null, "generic": true },
+    { "id": "ins-u13", "name": "Maca, afrechillo", "unit": null, "generic": true },
+    { "id": "ins-u14", "name": "Maca, almidón", "unit": null, "generic": true },
+    { "id": "ins-u15", "name": "Maca, pasta integral", "unit": null, "generic": true },
+    { "id": "ins-u16", "name": "Mashua o isaño", "unit": null, "generic": true },
+    { "id": "ins-u17", "name": "Olluco sin cáscara", "unit": null, "generic": true },
+    { "id": "ins-u20", "name": "Papa chuño negro", "unit": null, "generic": true },
+    { "id": "ins-u21", "name": "Papa color morado deshidratada", "unit": null, "generic": true },
+    { "id": "ins-u22", "name": "Papa helada amarga", "unit": null, "generic": true },
+    { "id": "ins-u23", "name": "Papa huayro con cáscara", "unit": null, "generic": true },
+    { "id": "ins-u24", "name": "Papa moraya chuño pelado", "unit": null, "generic": true },
+    { "id": "ins-u25", "name": "Papa seca", "unit": null, "generic": true },
+    { "id": "ins-u26", "name": "Papa, harina de", "unit": null, "generic": true },
+    { "id": "ins-u27", "name": "Papas deshidratadas con lejía", "unit": null, "generic": true },
+    { "id": "ins-u28", "name": "Pituca o taro", "unit": null, "generic": true },
+    { "id": "ins-u29", "name": "Pituca, harina de", "unit": null, "generic": true },
+    { "id": "ins-u30", "name": "Radiche", "unit": null, "generic": true },
+    { "id": "ins-u32", "name": "Sachapapa", "unit": null, "generic": true },
+    { "id": "ins-u33", "name": "Sachapapa blanca, bulbo", "unit": null, "generic": true },
+    { "id": "ins-u34", "name": "Yuca amarilla fresca sin cáscara", "unit": null, "generic": true },
+    { "id": "ins-u35", "name": "Yuca asada", "unit": null, "generic": true },
+    { "id": "ins-u36", "name": "Yuca blanca fresca sin cáscara", "unit": null, "generic": true },
+    { "id": "ins-u38", "name": "Yuca, harina de", "unit": null, "generic": true },
+    { "id": "ins-u39", "name": "Achira blanca (rizoma, raíz)", "unit": null, "generic": true },
+    { "id": "ins-u40", "name": "Achira morada (rizoma, raíz)", "unit": null, "generic": true },
+    { "id": "ins-u41", "name": "Camote de Huarayoc", "unit": null, "generic": true },
+    { "id": "ins-u42", "name": "Camote deshidratado", "unit": null, "generic": true },
+    {
+      "id": "ins-u43",
+      "name": "Camote deshidratado tratado con lejía",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-u44", "name": "Cushusho (tubérculo)", "unit": null, "generic": true },
+    { "id": "ins-u45", "name": "Dale - Dale (tubérculo)", "unit": null, "generic": true },
+    { "id": "ins-u46", "name": "Iguana papa (tubérculo)", "unit": null, "generic": true },
+    { "id": "ins-u47", "name": "Maca, harina de", "unit": null, "generic": true },
+    { "id": "ins-u48", "name": "Nopu - zumaca (tubérculo)", "unit": null, "generic": true },
+    { "id": "ins-u49", "name": "Oca deshidratada (ccaya)", "unit": null, "generic": true },
+    { "id": "ins-u50", "name": "Oca sin cáscara", "unit": null, "generic": true },
+    {
+      "id": "ins-u51",
+      "name": "Oca variedad nativa ccaya oga con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u52",
+      "name": "Oca variedad nativa garwuaricra con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-u53", "name": "Papa canchan", "unit": null, "generic": true },
+    { "id": "ins-u54", "name": "Papa, chuño negro, harina de", "unit": null, "generic": true },
+    { "id": "ins-u55", "name": "Papa moraya, harina de", "unit": null, "generic": true },
+    { "id": "ins-u56", "name": "Papa negra andina", "unit": null, "generic": true },
+    {
+      "id": "ins-u57",
+      "name": "Papa sin cáscara, variedad amarilis",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u58",
+      "name": "Papa sin cáscara, variedad huevo de indio",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-u59", "name": "Papa sin cáscara, variedad tumbay", "unit": null, "generic": true },
+    { "id": "ins-u60", "name": "Papa sin cáscara, variedad única", "unit": null, "generic": true },
+    { "id": "ins-u61", "name": "Papa sin cáscara, variedad Yungay", "unit": null, "generic": true },
+    {
+      "id": "ins-u62",
+      "name": "Papa variedad nativa capulí con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u63",
+      "name": "Papa variedad nativa caramarquina con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u64",
+      "name": "Papa variedad nativa chimbina amarilla con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u65",
+      "name": "Papa variedad nativa huagalina con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u66",
+      "name": "Papa variedad nativa hualash con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u67",
+      "name": "Papa variedad nativa huayro con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u68",
+      "name": "Papa variedad nativa huevo de toro con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u69",
+      "name": "Papa variedad nativa limeña con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u70",
+      "name": "Papa variedad nativa maga blanca con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u71",
+      "name": "Papa variedad nativa peruanita con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u72",
+      "name": "Papa variedad nativa puca pampamachay con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u73",
+      "name": "Papa variedad nativa puca pishgosh con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u74",
+      "name": "Papa variedad nativa quinuapa tulum con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u75",
+      "name": "Papa variedad nativa sapa negra con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u76",
+      "name": "Papa variedad nativa yana shaque con cáscara",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-u77", "name": "Quillu uncucha (tubérculo)", "unit": null, "generic": true },
+    { "id": "ins-u78", "name": "Sachapapa, bulbo aéreo", "unit": null, "generic": true },
+    { "id": "ins-u79", "name": "Tallapaqui culli (tubérculo)", "unit": null, "generic": true },
+    { "id": "ins-u80", "name": "Tallapaqui yurak (tubérculo)", "unit": null, "generic": true },
+    { "id": "ins-u81", "name": "Yuca de moja", "unit": null, "generic": true },
+    {
+      "id": "ins-u82",
+      "name": "Papa \"cóctel\", con cáscara, cruda",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u83",
+      "name": "Papa, prefrita en aceite vegetal, congelada, envasada",
+      "unit": null,
+      "generic": true
+    },
+    {
+      "id": "ins-u84",
+      "name": "Papa, chuño de, envasado (almidón de papa o fécula de papa)",
+      "unit": null,
+      "generic": true
+    },
+    { "id": "ins-u85", "name": "Papa morada sin cáscara", "unit": null, "generic": true },
+    { "id": "ins-u86", "name": "Papa, tocosh fresco", "unit": null, "generic": true },
+    { "id": "ins-u87", "name": "Papa, tocosh harina", "unit": null, "generic": true }
+  ]
+}

@@ -287,3 +287,39 @@ describe('MealsSection (F05)', () => {
     expect(screen.getByText('Mucho azúcar para una comida')).toBeOnTheScreen();
   });
 });
+
+describe('MealsSection: "Crear «…» con IA" (F07 v0.2, F23 piece 4)', () => {
+  it('from an empty search, a fake model proposes the dish and it opens in Create dish to edit', async () => {
+    const proposeDish = jest.fn(() =>
+      Promise.resolve({ name: 'Torta helada', icon: 'dulce', servings: 8, items: [] }),
+    );
+    const { view } = renderSection({ proposeDish });
+    await view;
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar a Desayuno' }));
+    await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'torta helada');
+    await fireEvent.press(screen.getByRole('button', { name: '✨ Crear «torta helada» con IA' }));
+    expect(proposeDish).toHaveBeenCalledWith('torta helada');
+    expect(await screen.findByText(/Receta propuesta por IA/)).toBeOnTheScreen();
+    expect(screen.getByLabelText('Nombre del plato').props.value).toBe('torta helada');
+  });
+
+  it('offline it says so and offers to create the dish by hand', async () => {
+    const proposeDish = jest.fn(() => Promise.reject(new TypeError('Network request failed')));
+    const { view } = renderSection({ proposeDish });
+    await view;
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar a Desayuno' }));
+    await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'tequeños');
+    await fireEvent.press(screen.getByRole('button', { name: '✨ Crear «tequeños» con IA' }));
+    expect(await screen.findByText(/Sin conexión/)).toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('button', { name: '+ Crear plato "tequeños"' }));
+    expect(screen.getByLabelText('Nombre del plato')).toBeOnTheScreen();
+  });
+
+  it('without an account there is no AI button', async () => {
+    const { view } = renderSection();
+    await view;
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar a Desayuno' }));
+    await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'torta helada');
+    expect(screen.queryByRole('button', { name: /con IA/ })).toBeNull();
+  });
+});

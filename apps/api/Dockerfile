@@ -9,17 +9,23 @@ RUN npm install -g pnpm@12.6.0
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/config packages/config
 COPY packages/contracts packages/contracts
+COPY packages/core packages/core
+COPY packages/catalog/remote packages/catalog/remote
 COPY apps/api apps/api
 RUN pnpm install --frozen-lockfile --filter "@kawsay/api..."
 RUN pnpm --filter @kawsay/contracts build \
+  && pnpm --filter @kawsay/core build \
   && pnpm --filter @kawsay/api generate \
   && pnpm --filter @kawsay/api build
 RUN pnpm --filter @kawsay/api deploy --prod --legacy /out \
-  && cp -r apps/api/dist apps/api/prisma apps/api/prisma.config.ts /out/
+  && cp -r apps/api/dist apps/api/prisma apps/api/prisma.config.ts /out/ \
+  && cp -r packages/catalog/remote /out/catalog
 
 FROM node:24-alpine
 WORKDIR /app
 ENV NODE_ENV=production
+# The published catalog (ADR 0028): dishes delivered by sync and the food list for AI recipes.
+ENV CATALOG_DIR=/app/catalog
 COPY --from=build --chown=node:node /out /app
 USER node
 EXPOSE 3000

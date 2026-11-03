@@ -20,6 +20,8 @@ interface Props {
   onCreate: (name: string) => void;
   /** Saves the search text as a pending meal, to complete later (F23). */
   onSavePending?: (name: string) => void;
+  /** "Crear «…» con IA" when nothing matches (F07 v0.2, F23 piece 4); absent without an account. */
+  onCreateWithAi?: (name: string) => void;
 }
 
 /** Search box, 12 recent dishes as tiles (filtered while typing) and the "Create dish" button (F05). */
@@ -31,6 +33,7 @@ export function DishPicker({
   onPick,
   onCreate,
   onSavePending,
+  onCreateWithAi,
 }: Props) {
   const { t } = useTranslation();
   const shown = query.trim() ? searchCatalog(query, items).slice(0, TILES * 2) : recent;
@@ -71,6 +74,15 @@ export function DishPicker({
           <Text style={[type.body, styles.muted]}>{t('meals.noMatch')}</Text>
         ) : null}
       </View>
+      {onCreateWithAi && query.trim() && shown.length === 0 ? (
+        <Button
+          label={t('meals.createWithAi', { name: query.trim() })}
+          onPress={() => {
+            Keyboard.dismiss();
+            onCreateWithAi(query.trim());
+          }}
+        />
+      ) : null}
       <Button
         variant="secondary"
         label={query.trim() ? t('meals.createNamed', { name: query.trim() }) : t('meals.create')}

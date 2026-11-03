@@ -71,6 +71,7 @@ import { newRecord } from '@/lib/db/record';
 import { deviceTimeZone } from '@/lib/time-zone';
 import { today } from '@/lib/today';
 import { useLoad } from '@/lib/use-load';
+import { useSync } from '@/lib/sync/SyncProvider';
 import { useReloadOnFocus } from '@/lib/use-reload-on-focus';
 import { unlockWithDevice } from '@/lib/unlock';
 import { color, type } from '@/lib/theme';
@@ -87,6 +88,7 @@ function hourIn(timeZone: string): number {
 export default function TodayRoute() {
   const { t } = useTranslation();
   const { db, env } = useDb();
+  const sync = useSync();
   const [timeZone] = useState(deviceTimeZone);
   // The shown day lives in the URL, so the calendar can open any day ("Open this day", F14).
   const params = useLocalSearchParams<{ day?: string; focus?: string; at?: string }>();
@@ -303,6 +305,9 @@ export default function TodayRoute() {
                 }
               : null
           }
+          {...(sync.account?.kind === 'signed-in' && {
+            proposeDish: (name: string) => sync.proposeDish(name),
+          })}
           onCreateDish={(meal: Meal, dish: NewDish) =>
             run(async () => {
               const { id } = await saveUserDish(db, env, dish);

@@ -73,3 +73,55 @@ describe('CreateDish (F07, manual)', () => {
     });
   });
 });
+
+describe('CreateDish from an AI proposal (F07 v0.2)', () => {
+  const proposal = {
+    icon: 'arroz',
+    servings: 4,
+    items: [
+      { food: 'arroz-cocido', grams: 640 },
+      { food: 'pollo-carne', grams: 480 },
+    ],
+  };
+
+  it('an AI-built dish shows each ingredient with its catalog source before saving', async () => {
+    await render(
+      <CreateDish
+        initialName="Arroz con pollo"
+        foods={foods}
+        units={units}
+        onSave={jest.fn()}
+        proposal={proposal}
+      />,
+    );
+    expect(screen.getByText(/Receta propuesta por IA/)).toBeOnTheScreen();
+    expect(screen.getByText('640 g · 832 kcal · Tablas peruanas INS 2023')).toBeOnTheScreen();
+    expect(screen.getByText('480 g · 960 kcal · Tablas peruanas INS 2023')).toBeOnTheScreen();
+  });
+
+  it('every number comes from the table: totals per serving from the proposed grams, and the user can edit', async () => {
+    const onSave = jest.fn();
+    await render(
+      <CreateDish
+        initialName="Arroz con pollo"
+        foods={foods}
+        units={units}
+        onSave={onSave}
+        proposal={proposal}
+      />,
+    );
+    // (640 × 1.30 + 480 × 2.00) / 4 servings = 448 kcal
+    expect(screen.getByText(/^Por ración: 448 kcal/)).toBeOnTheScreen();
+    await fireEvent.press(
+      screen.getByRole('button', { name: 'Quitar Pollo, carne con piel, cocida' }),
+    );
+    await fireEvent.press(screen.getByRole('button', { name: 'Guardar y agregar 1 ración' }));
+    expect(onSave).toHaveBeenCalledWith(
+      expect.objectContaining({
+        icon: 'arroz',
+        servings: 4,
+        items: [expect.objectContaining({ foodId: 'arroz-cocido', grams: 640 })],
+      }),
+    );
+  });
+});

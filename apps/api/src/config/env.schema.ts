@@ -17,6 +17,8 @@ export const envSchema = z.object({
   DEEPSEEK_MODEL: z.string().min(1).default('deepseek-flash'),
   /** AI analyses per user in any 24 h (F17). */
   AI_DAILY_LIMIT: z.coerce.number().int().min(1).max(50).default(3),
+  /** The published catalog (packages/catalog/remote): dishes delivered by sync and the AI food list (ADR 0028). */
+  CATALOG_DIR: z.string().min(1).default('../../packages/catalog/remote'),
 });
 
 export type Env = z.infer<typeof envSchema>;

@@ -1,3 +1,4 @@
+import { eq } from 'drizzle-orm';
 import { dish, dishItem, food, foodUnit, meta } from './schema';
 import { inTransaction } from './transaction';
 import type { Db } from './types';
@@ -61,6 +62,8 @@ export async function loadCatalog(
 
   await inTransaction(db, async () => {
     for (const table of [dishItem, dish, foodUnit, food]) await db.delete(table);
+    // Dishes delivered by sync went with the table: the next pull brings them again (F23 piece 5).
+    await db.delete(meta).where(eq(meta.key, 'remoteCatalogVersion'));
     await insertChunked(
       catalog.foods.map((f) => ({
         id: f.id,

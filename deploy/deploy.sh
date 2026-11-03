@@ -18,7 +18,7 @@ esac
 
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 SSH=(ssh ${DEPLOY_SSH_KEY:+-i "$DEPLOY_SSH_KEY"})
-if ! git diff --quiet HEAD -- apps/api packages/contracts packages/config deploy; then
+if ! git diff --quiet HEAD -- apps/api packages/contracts packages/config packages/core packages/catalog/remote deploy; then
   echo "Uncommitted API changes: commit first, the VM only gets what is committed." >&2
   exit 1
 fi
@@ -26,7 +26,7 @@ fi
 echo "==> Shipping $(git rev-parse --short HEAD) to $TARGET:~/kawsay"
 git archive --format=tar HEAD \
   package.json pnpm-lock.yaml pnpm-workspace.yaml .dockerignore \
-  packages/config packages/contracts apps/api deploy \
+  packages/config packages/contracts packages/core packages/catalog/remote apps/api deploy \
   | "${SSH[@]}" "$TARGET" 'mkdir -p ~/kawsay && tar -xf - -C ~/kawsay'
 
 echo "==> Building and starting kawsay-$ENVIRONMENT on 127.0.0.1:$PORT"

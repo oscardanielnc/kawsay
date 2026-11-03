@@ -12,7 +12,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@kawsay/core": "workspace:*"
+    "@kawsay/core": "workspace:*",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@kawsay/config": "workspace:*",

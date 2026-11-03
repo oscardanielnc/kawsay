@@ -12,6 +12,7 @@ import {
 } from 'react';
 import { AppState } from 'react-native';
 import { useDb } from '../db/DatabaseProvider';
+import type { AiDishProposal } from '@kawsay/contracts/catalog';
 import type { AnalysisRequest, SummaryResponse } from '@kawsay/contracts/insights';
 import { createApiClient, type TokenStore } from './api-client';
 import { SYNCED_TABLES } from './collections';
@@ -24,6 +25,8 @@ export interface SyncContextValue extends SyncState {
   syncNow(): Promise<void>;
   /** On-demand AI analysis (F17); needs an account and signal. */
   summarize(request: AnalysisRequest): Promise<SummaryResponse>;
+  /** "Crear «…» con IA" (F07 v0.2); needs an account and signal. */
+  proposeDish(name: string): Promise<AiDishProposal>;
 }
 
 const SyncContext = createContext<SyncContextValue | null>(null);
@@ -92,6 +95,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
         signOut: () => controller.signOut(),
         syncNow: () => controller.sync(),
         summarize: (request) => client.summarize(request),
+        proposeDish: (name) => client.proposeDish(name),
       }}
     >
       {children}

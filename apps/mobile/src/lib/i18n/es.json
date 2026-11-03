@@ -227,7 +227,14 @@
     "entryKcal": "{{kcal}} kcal en {{meal}}",
     "leftover": "Resto guardado de ayer",
     "remove": "Quitar",
-    "empty": "Sin registrar todavía"
+    "empty": "Sin registrar todavía",
+    "createWithAi": "✨ Crear «{{name}}» con IA",
+    "aiWorking": "Armando la receta de «{{name}}» con ingredientes de la tabla…",
+    "aiFailed": {
+      "offline": "Sin conexión: la IA no está disponible. Puedes crearlo a mano.",
+      "limit": "Llegaste al límite de platos con IA de hoy. Puedes crearlo a mano.",
+      "other": "La IA no pudo armar la receta. Puedes crearlo a mano."
+    }
   },
   "activity": {
     "title": "Actividad física",
@@ -629,7 +636,8 @@
     "remove": "Quitar {{name}}",
     "done": "Listo",
     "perServing": "Por ración: {{kcal}} kcal · {{protein}} g proteína · {{fat}} g grasa · {{carbs}} g carbohidratos",
-    "saveAndAdd": "Guardar y agregar 1 ración"
+    "saveAndAdd": "Guardar y agregar 1 ración",
+    "aiNote": "Receta propuesta por IA: revisa ingredientes y gramos antes de guardar. Los nutrientes salen de la tabla, no de la IA."
   },
   "private": {
     "title": "Privado",

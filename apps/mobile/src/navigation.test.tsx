@@ -75,6 +75,7 @@ jest.mock('@/lib/sync/SyncProvider', () => {
             },
             syncNow: () => Promise.resolve(),
             summarize: () => Promise.reject(new Error('offline')),
+            proposeDish: () => Promise.reject(new Error('offline')),
           }}
         >
           {children}

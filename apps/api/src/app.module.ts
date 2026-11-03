@@ -3,6 +3,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { AppConfig } from './config/app-config';
 import { ConfigModule } from './config/config.module';
 import { HealthController } from './health/health.controller';
+import { CatalogModule } from './modules/catalog/catalog.module';
 import { IdentityModule } from './modules/identity/identity.module';
 import { InsightsModule } from './modules/insights/insights.module';
 import { SyncModule } from './modules/sync/sync.module';
@@ -20,6 +21,7 @@ export class AppModule {
         IdentityModule,
         SyncModule,
         InsightsModule,
+        CatalogModule,
       ],
       controllers: [HealthController],
       providers: [{ provide: APP_FILTER, useClass: ProblemDetailsFilter }],

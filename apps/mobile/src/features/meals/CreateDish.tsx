@@ -28,6 +28,12 @@ interface Props {
   foods: readonly CatalogItem[];
   units: Record<string, Unit[]>;
   onSave: (dish: NewDish) => void;
+  /** An AI proposal to start from (F07 v0.2): catalog ids and grams; every number comes from the table. */
+  proposal?: {
+    icon: string;
+    servings: number;
+    items: readonly { food: string; grams: number }[];
+  } | null;
 }
 
 type Mode =
@@ -36,16 +42,28 @@ type Mode =
 const KEYS = ['energyKcal', 'proteinG', 'fatG', 'carbsTotalG'] as const;
 const RESULTS = 20;
 
+const SOURCES = ['INS', 'USDA', 'label', 'none'] as const;
+/** Where an ingredient's numbers come from, shown on an AI proposal (F07: each ingredient with its source). */
+const sourceKey = (source: string) =>
+  (SOURCES as readonly string[]).includes(source) ? (source as (typeof SOURCES)[number]) : 'none';
+
 const gramsOf = (i: Ingredient) => (i.unit ? i.unit.grams * i.count : Number(i.grams) || 0);
 const kcalOf = (i: Ingredient) => ((i.food.per100g?.energyKcal ?? 0) * gramsOf(i)) / 100;
 
 /** Create dish, manual (F07 v0.1): name, icon, servings it yields, catalog foods in household units or grams. */
-export function CreateDish({ initialName, foods, units, onSave }: Props) {
+export function CreateDish({ initialName, foods, units, onSave, proposal = null }: Props) {
   const { t } = useTranslation();
   const [name, setName] = useState(initialName);
-  const [icon, setIcon] = useState('plato');
-  const [servings, setServings] = useState(1);
-  const [items, setItems] = useState<Ingredient[]>([]);
+  const [icon, setIcon] = useState(proposal?.icon ?? 'plato');
+  const [servings, setServings] = useState(Math.max(1, Math.round(proposal?.servings ?? 1)));
+  const [items, setItems] = useState<Ingredient[]>(() =>
+    (proposal?.items ?? []).flatMap((item) => {
+      const found = foods.find((f) => f.id === item.food);
+      return found
+        ? [{ food: found, unit: null, count: 1, grams: String(Math.round(item.grams)) }]
+        : [];
+    }),
+  );
   const [mode, setMode] = useState<Mode>({ kind: 'list' });
 
   const amountLabel = (i: Ingredient) =>
@@ -195,6 +213,7 @@ export function CreateDish({ initialName, foods, units, onSave }: Props) {
         onDecrement={() => setServings(Math.max(1, servings - 1))}
         onIncrement={() => setServings(servings + 1)}
       />
+      {proposal ? <Text style={[type.caption, styles.aiNote]}>{t('dish.aiNote')}</Text> : null}
       <Text style={[type.label, styles.muted]}>{t('dish.ingredients')}</Text>
       {items.map((item, index) => (
         <View key={`${item.food.id}-${index}`} style={styles.ingredient}>
@@ -207,6 +226,7 @@ export function CreateDish({ initialName, foods, units, onSave }: Props) {
             <Text style={[type.heading, styles.ink]}>{item.food.name}</Text>
             <Text style={[type.caption, styles.muted]}>
               {`${amountLabel(item)} · ${t('dish.kcal', { kcal: formatNumber(kcalOf(item)) })}`}
+              {proposal ? ` · ${t(`detail.sources.${sourceKey(item.food.source)}`)}` : ''}
             </Text>
           </Pressable>
           <Pressable
@@ -258,6 +278,12 @@ export function CreateDish({ initialName, foods, units, onSave }: Props) {
 }
 
 const styles = StyleSheet.create({
+  aiNote: {
+    color: color.peach800,
+    backgroundColor: color.peach50,
+    borderRadius: radius.chip,
+    padding: space.sm,
+  },
   input: {
     minHeight: 48,
     borderWidth: 1,

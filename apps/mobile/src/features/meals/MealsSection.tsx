@@ -1,6 +1,7 @@
+import type { AiDishProposal } from '@kawsay/contracts/catalog';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { Sheet } from '@/components/feedback/Sheet';
 import { Card } from '@/components/layout/Card';
@@ -51,6 +52,8 @@ interface Props {
   loadDetail: (item: CatalogItem) => Promise<ItemDetail>;
   /** The day's targets and totals, for the portion impact preview (F05); absent without a weight yet. */
   day?: DayContext | null;
+  /** "Crear «…» con IA" (F07 v0.2): the API proposes ingredients and grams; absent without an account. */
+  proposeDish?: (name: string) => Promise<AiDishProposal>;
 }
 
 type SheetState =
@@ -66,7 +69,8 @@ type SheetState =
   | { kind: 'pending'; meal: Meal; name: string; portion: string }
   | { kind: 'pendingEntry'; pending: PendingMeal }
   | { kind: 'entry'; entry: MealEntryView }
-  | { kind: 'create'; meal: Meal; name: string }
+  | { kind: 'create'; meal: Meal; name: string; proposal?: AiDishProposal }
+  | { kind: 'proposing'; meal: Meal; name: string; failed: 'offline' | 'limit' | 'other' | null }
   | {
       kind: 'detail';
       back: Extract<SheetState, { kind: 'portion' }>;
@@ -87,6 +91,7 @@ export function MealsSection({
   onCreateDish,
   loadDetail,
   day = null,
+  proposeDish,
 }: Props) {
   const { t } = useTranslation();
   const [sheet, setSheet] = useState<SheetState | null>(null);
@@ -118,6 +123,17 @@ export function MealsSection({
           })
         }
         onCreate={(name) => setSheet({ kind: 'create', meal: sheet.meal, name })}
+        {...(proposeDish && {
+          onCreateWithAi: (name: string) => {
+            const meal = sheet.meal;
+            setSheet({ kind: 'proposing', meal, name, failed: null });
+            proposeDish(name).then(
+              (proposal) => setSheet({ kind: 'create', meal, name, proposal }),
+              (error: unknown) =>
+                setSheet({ kind: 'proposing', meal, name, failed: proposalError(error) }),
+            );
+          },
+        })}
         {...(onAddPending &&
           !sheet.completes && {
             onSavePending: (name: string) =>
@@ -204,11 +220,34 @@ export function MealsSection({
         />
       </View>
     );
+  } else if (sheet?.kind === 'proposing') {
+    const { meal, name, failed } = sheet;
+    title = t('dish.title');
+    body = (
+      <View style={styles.proposing}>
+        {failed === null ? (
+          <>
+            <ActivityIndicator color={color.blue700} />
+            <Text style={[type.body, styles.ink]}>{t('meals.aiWorking', { name })}</Text>
+          </>
+        ) : (
+          <>
+            <Text style={[type.body, styles.ink]}>{t(`meals.aiFailed.${failed}`)}</Text>
+            <Button
+              variant="secondary"
+              label={t('meals.createNamed', { name })}
+              onPress={() => setSheet({ kind: 'create', meal, name })}
+            />
+          </>
+        )}
+      </View>
+    );
   } else if (sheet?.kind === 'create') {
     const { meal, name } = sheet;
     title = t('dish.title');
     body = (
       <CreateDish
+        proposal={sheet.proposal ?? null}
         initialName={name}
         foods={items.filter((i) => i.kind === 'food')}
         units={units}
@@ -393,7 +432,15 @@ export function MealsSection({
   );
 }
 
+/** Why a proposal failed, in the words the sheet shows (offline, the daily limit, anything else). */
+function proposalError(error: unknown): 'offline' | 'limit' | 'other' {
+  if (error instanceof TypeError) return 'offline';
+  if ((error as { code?: string } | null)?.code === 'catalog.ai_dish_limit') return 'limit';
+  return 'other';
+}
+
 const styles = StyleSheet.create({
+  proposing: { alignItems: 'center', gap: space.md, paddingVertical: space.lg },
   slot: { gap: space.sm, paddingVertical: space.xs },
   head: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   grow: { flex: 1 },

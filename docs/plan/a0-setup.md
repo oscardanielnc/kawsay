@@ -22,4 +22,4 @@ Goal: a green start, an honest README, and the facts the agent needs from the AI
 
 ## Done when
 
-- [ ] Baseline recorded; README rewritten; DeepSeek facts in ADR 0023; keys checked
+- [x] Baseline recorded; README rewritten; DeepSeek facts in ADR 0023; keys checked (all five work, GH secret set)

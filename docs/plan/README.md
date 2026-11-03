@@ -11,7 +11,7 @@ this plan.
 
 | # | Milestone | Main docs | Status |
 | --- | --- | --- | --- |
-| [A0](a0-setup.md) | Setup: baseline, README up to date, check the AI API | this plan | ⬜ |
+| [A0](a0-setup.md) | Setup: baseline, README up to date, check the AI API | this plan | ✅ 2026-11-03 |
 | [A0b](a0b-real-scale-gauges.md) | Gauges at real scale (owner's correction, 2026-11-01) | ADR 0027 | ⬜ |
 | [A0c](a0c-gauge-detail.md) | Gauge detail: big gauge with labelled limits + what added most (owner, 2026-11-01) | F26 | ⬜ |
 | [A0d](a0d-thousands-of-dishes.md) | Thousands of dishes: 544 INS dishes (data ready), AI recipes, catalog by sync, "Crear con IA" (owner, 2026-11-02) | ADR 0028 · F23 | 🟡 data of layer 1 ready |
@@ -42,7 +42,7 @@ USD 5 a month for evals and his own use · keep DeepSeek and compare it with `de
   post, the site or the CV · a key that is missing or rejected · a prod deploy or health check that fails
 - One final report at the end (below), plus one lesson per new concept in the vault as you go
 
-Baseline (A0 fills it): —
+Baseline (A0, 2026-11-03): 716 tests green (core 250 · mobile 362 · catalog 61 · api 37 · contracts 6); repo private
 
 ## How to run a milestone
 

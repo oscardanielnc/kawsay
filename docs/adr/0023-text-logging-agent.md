@@ -31,3 +31,10 @@ prompt that returns food names cannot know what the catalog holds, so most names
 
 - The user's edits on confirmation are free labels for the evals (ADR 0025)
 - Offline the text box says "sin conexión"; the manual search still works
+
+## Build notes (api-docs.deepseek.com, read 2026-11-03)
+
+- OpenAI `tools` / `tool_calls`, results as `{ role: 'tool', tool_call_id }`; `arguments` may be invalid JSON;
+  only `json_object` output (Zod validates); `reasoning_effort` `none | low | high | max`, default `high`, we send `low`
+- USD per 1M at peak (off-peak half), in cached · in · out: flash 0.006 · 0.30 · 1.20, v4-pro 0.044 · 1.32 · 3.96;
+  `usage` has cache hit/miss, completion and reasoning tokens, enough to price each call (ADR 0024)

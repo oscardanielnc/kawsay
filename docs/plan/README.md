@@ -20,13 +20,15 @@ this plan.
 | [A3](a3-evals.md) | Evals: golden set, CI gate, model comparison, Python report | ADR 0025 | ✅ 2026-11-03 |
 | [A4](a4-guardrails.md) | Guardrails and the OWASP map | ADR 0026 | ✅ 2026-11-03 |
 | [A5](a5-tell-it.md) | Tell it: README with numbers, write-up, CV line | — | ✅ 2026-11-03 |
-| [A6](a6-release.md) | Release | runbooks | ⏳ prod API live 2026-11-03; app update on Kawsay Dev (group 58139039), production waits for the owner |
+| [A6](a6-release.md) | Release | runbooks | ⏳ prod API and production update 2026-11-03 (group a4125de4); waits for the owner's real text log |
 
 Owner's choices (2026-10-31): traces in **Langfuse Cloud** (EU, free, masked content; ADR 0024) · AI budget about
 USD 5 a month for evals and his own use · keep DeepSeek and compare it with `deepseek-v4-pro` and a Gemini Flash-Lite.
 
 ## Continuous mode (owner, 2026-10-31: "no quiero parar la ejecución a la mitad")
 
+- Owner's hard rule (2026-11-03): app updates go straight to production, never through Kawsay Dev; keep the
+  rollback group id
 - Run A0 → A0b → A0c → A0d → A1 … A6 without waiting between milestones: finish one, merge it into `main` (`git merge --ff-only`), tick it
   ✅ with the date, start the next. Questions that do not block go into the final report
 - **Pre-approved for this plan:** installing packages · additive migrations (new tables, nullable columns) ·

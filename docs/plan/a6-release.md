@@ -23,4 +23,7 @@
 - EAS Update to `development` (Kawsay Dev): group `58139039-acff-4dcf-9b59-3a53b01c8a10`. Production waits for the
   owner to open Kawsay Dev (memory rule after the 2026-10-30 incident). Rollback target for production: group
   `afcd81bd-4267-432d-826e-2304ad568581` ("Today polish")
+- Owner, 2026-11-03: no Kawsay Dev, test in the real app (hard rule). Production update group
+  `a4125de4-b362-4520-8aaa-9f380e57c562`; rollback: `eas update:republish --group afcd81bd-4267-432d-826e-2304ad568581
+  --destination-branch production`
 

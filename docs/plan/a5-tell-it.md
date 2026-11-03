@@ -14,4 +14,4 @@ Goal: proof a recruiter can read in two minutes, with synthetic numbers only.
 
 ## Done when
 
-- [ ] README and write-up ready; audit result reported
+- [x] README and write-up ready; audit result reported

@@ -24,6 +24,9 @@ export interface BundledCatalog {
     servings: number;
     items: { food: string; grams: number }[];
     tags: string[];
+    /** `curated`, `INS-S` or `estimated` (ADR 0028); absent in catalogs built before it. */
+    source?: string;
+    sourceCode?: string;
     totals: {
       grams: number;
       perServing: Record<string, number | null>;
@@ -34,7 +37,7 @@ export interface BundledCatalog {
 
 const CHUNK = 200;
 /** Bump when the loader stores something new, so phones reload a catalog whose data did not change. */
-export const LOADER_VERSION = '3';
+export const LOADER_VERSION = '4';
 
 async function insertChunked<T>(
   rows: T[],
@@ -78,18 +81,23 @@ export async function loadCatalog(
       (rows) => db.insert(foodUnit).values(rows),
     );
     await insertChunked(
-      catalog.dishes.map(({ id, name, group, icon, serving, servings, totals, tags }) => ({
-        id,
-        name,
-        group,
-        icon,
-        serving,
-        servings,
-        servingGrams: totals.grams,
-        perServing: totals.perServing,
-        per100g: totals.per100g,
-        tags,
-      })),
+      catalog.dishes.map((d) => {
+        const { id, name, group, icon, serving, servings, totals, tags } = d;
+        return {
+          id,
+          name,
+          group,
+          icon,
+          serving,
+          servings,
+          servingGrams: totals.grams,
+          perServing: totals.perServing,
+          per100g: totals.per100g,
+          tags,
+          source: d.source ?? 'curated',
+          sourceCode: d.sourceCode ?? null,
+        };
+      }),
       (rows) => db.insert(dish).values(rows),
     );
     await insertChunked(

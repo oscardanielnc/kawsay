@@ -8,8 +8,18 @@ export interface Searchable {
   generic?: boolean;
 }
 
-/** Order of the results (F06): dishes, then Peruvian foods, then USDA, then labels. */
-const RANK: Record<string, number> = { dish: 0, INS: 1, USDA: 2, label: 3 };
+/**
+ * Order of the results (F06, ADR 0028): curated dishes, INS group S dishes, estimated recipes, then Peruvian foods,
+ * USDA and labels.
+ */
+const RANK: Record<string, number> = {
+  dish: 0,
+  'INS-S': 0.4,
+  estimated: 0.6,
+  INS: 1,
+  USDA: 2,
+  label: 3,
+};
 /** Shorter words must match exactly as a prefix: one typo in "pan" is a different word. */
 const TYPO_FROM_LENGTH = 4;
 

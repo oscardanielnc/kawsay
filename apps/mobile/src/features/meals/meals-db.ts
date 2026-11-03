@@ -113,7 +113,8 @@ export async function catalogItems(db: Db): Promise<CatalogItem[]> {
       kind: 'dish' as const,
       id: d.id,
       name: d.name,
-      source: 'dish',
+      // Search order (ADR 0028): curated, INS group S, estimated recipes, then generic INS foods.
+      source: d.source === 'INS-S' || d.source === 'estimated' ? d.source : 'dish',
       icon: d.icon,
       group: d.group,
       servingGrams: d.servingGrams,

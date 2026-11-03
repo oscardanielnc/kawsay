@@ -185,7 +185,7 @@ describe('navigation (design N1, F01)', () => {
     const first = await renderApp({ initialUrl: '/' });
     await tap('Agregar a Almuerzo');
     await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'lomo');
-    await tap(/Lomo saltado/);
+    await tap('Lomo saltado');
     await tap('Agregar 1 ración');
     expect(await screen.findByRole('button', { name: '1 Lomo saltado' })).toBeOnTheScreen();
     await first.unmount();

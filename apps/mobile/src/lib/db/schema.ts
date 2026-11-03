@@ -342,6 +342,12 @@ export const dish = sqliteTable('dish', {
   owner: text('owner'),
   /** Inherited from the ingredients and the group (F24, ADR 0020). */
   tags: text('tags', { mode: 'json' }).$type<string[]>(),
+  /** `curated` (null on old rows), `INS-S` (official values, no ingredients) or `estimated` (ADR 0028). */
+  source: text('source'),
+  /** The INS group S code of an `INS-S` dish. */
+  sourceCode: text('source_code'),
+  /** Catalog version that delivered the dish by sync (F23 piece 5); null for the bundled catalog. */
+  remoteVersion: text('remote_version'),
 });
 
 export const dishItem = sqliteTable(

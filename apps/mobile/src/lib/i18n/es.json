@@ -836,7 +836,9 @@
       "label": "Etiqueta del envase",
       "none": "Sin fuente",
       "dish": "Receta del catálogo, calculada de sus ingredientes",
-      "user": "Tu receta, calculada de sus ingredientes"
+      "user": "Tu receta, calculada de sus ingredientes",
+      "INS-S": "INS (preparaciones)",
+      "estimated": "Receta estimada, calculada de sus ingredientes"
     },
     "nutrients": {
       "energyKcal": "Energía",

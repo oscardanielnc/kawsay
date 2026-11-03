@@ -30,7 +30,7 @@ describe('buildCatalog on the real seed and sources', () => {
   });
 
   it('computes all 107 seed dishes', () => {
-    expect(catalog.dishes).toHaveLength(107);
+    expect(catalog.dishes.filter((d) => d.source === 'curated')).toHaveLength(107);
     const juane = catalog.dishes.find((d) => d.id === 'mini-juane-pollo');
     expect(juane?.totals.perServing.energyKcal).toBeGreaterThan(200);
   });
@@ -56,5 +56,37 @@ describe('buildCatalog on the real seed and sources', () => {
 
   it('cross-checks the dishes linked to group S', () => {
     expect(catalog.crossChecks.length).toBe(24);
+  });
+});
+
+describe('INS group S dishes (ADR 0028 layer 1)', () => {
+  const ins = catalog.dishes.filter((d) => d.source === 'INS-S');
+  const byName = (name: string) => ins.filter((d) => d.name.toLowerCase().includes(name));
+
+  it('adds the 544 official preparations, with no id shared with the curated dishes', () => {
+    expect(ins).toHaveLength(544);
+    expect(new Set(catalog.dishes.map((d) => d.id)).size).toBe(catalog.dishes.length);
+  });
+
+  it('aguadito de pollo: INS SE1 values per 100 g and one ENCONUT plate of 504 g', () => {
+    const aguadito = ins.find((d) => d.id === 'ins-se1')!;
+    expect(aguadito).toMatchObject({ name: 'Aguadito de pollo', serving: '1 plato', items: [] });
+    expect(aguadito.sourceCode).toBe('SE1');
+    expect(aguadito.totals.per100g.energyKcal).toBe(43);
+    expect(aguadito.totals.grams).toBe(504);
+    expect(aguadito.totals.perServing.energyKcal).toBeCloseTo(216.72, 10);
+    expect(aguadito.totals.per100g.waterG).toBeNull();
+  });
+
+  it('finds two of the owner examples: tequeños and arroz árabe', () => {
+    expect(byName('tequeño').length).toBeGreaterThan(0);
+    expect(byName('arroz árabe').length).toBeGreaterThan(0);
+  });
+
+  it('every INS dish ends with a number for added sugar, and drinks carry the drink tag', () => {
+    expect(ins.filter((d) => d.totals.per100g.addedSugarG === null)).toEqual([]);
+    expect(ins.filter((d) => d.group === 'drink').every((d) => d.tags.includes('drink'))).toBe(
+      true,
+    );
   });
 });

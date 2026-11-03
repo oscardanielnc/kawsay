@@ -224,7 +224,7 @@ describe('meal entries (F05)', () => {
   it('lists every dish and food for search, with kcal per serving', async () => {
     const db = await seededDb();
     const items = await catalogItems(db);
-    expect(items.filter((i) => i.kind === 'dish')).toHaveLength(107);
+    expect(items.filter((i) => i.kind === 'dish')).toHaveLength(651);
     expect(items.filter((i) => i.kind === 'food' && !i.generic)).toHaveLength(151);
     // Every other INS food comes as a generic ingredient (F23, ADR 0021).
     expect(items.filter((i) => i.generic)).toHaveLength(1014);

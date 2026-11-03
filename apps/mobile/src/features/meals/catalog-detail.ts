@@ -17,7 +17,7 @@ export const DETAIL_NUTRIENTS = [
 export type DetailNutrient = (typeof DETAIL_NUTRIENTS)[number];
 
 export interface Source {
-  kind: 'INS' | 'USDA' | 'label' | 'none' | 'dish' | 'user';
+  kind: 'INS' | 'USDA' | 'label' | 'none' | 'dish' | 'user' | 'INS-S' | 'estimated';
   code: string | null;
 }
 
@@ -65,6 +65,7 @@ export async function itemDetail(
   }
 
   const seed = (await db.select().from(dish).where(eq(dish.id, item.id)))[0];
+  if (seed?.source === 'INS-S') return insDishDetail(seed);
   const [servings, items, source] = seed
     ? [
         seed.servings,
@@ -73,7 +74,7 @@ export async function itemDetail(
           .from(dishItem)
           .where(eq(dishItem.dishId, item.id))
           .orderBy(asc(dishItem.position)),
-        sourceOf('dish', null),
+        sourceOf(seed.source === 'estimated' ? 'estimated' : 'dish', null),
       ]
     : await userDishParts(db, item.id);
 
@@ -97,6 +98,23 @@ export async function itemDetail(
         source: sourceOf(f?.sourceKind ?? 'none', f?.sourceCode ?? null),
       };
     }),
+  };
+}
+
+/** An INS group S dish (ADR 0028): its official values as printed, no ingredients. */
+function insDishDetail(seed: typeof dish.$inferSelect): ItemDetail {
+  const perServing = Object.fromEntries(
+    DETAIL_NUTRIENTS.map((key) => [key, seed.perServing?.[key] ?? null]),
+  ) as Record<DetailNutrient, number | null>;
+  const coverage = Object.fromEntries(
+    DETAIL_NUTRIENTS.map((key) => [key, perServing[key] === null ? 0 : 1]),
+  ) as Record<DetailNutrient, number>;
+  return {
+    source: sourceOf('INS-S', seed.sourceCode),
+    servingGrams: seed.servingGrams,
+    perServing,
+    coverage,
+    ingredients: [],
   };
 }
 

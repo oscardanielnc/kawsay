@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { crossCheck, type CrossCheck, type Survey } from './cross-check.ts';
 import { parseCsv } from './csv.ts';
 import { dishTotals, type DishTotals } from './dish-totals.ts';
+import { insDish, type DishSource, type InsDishRow } from './ins-dishes.ts';
 import { resolveFood, type ResolvedFood, type Sources } from './resolve-food.ts';
 import type { FoodMatch, SeedDish, SeedFood } from './seed.ts';
 
@@ -22,6 +23,8 @@ export interface Inputs {
   addedSugar: Record<string, { g: number; from?: string; doubtful?: true }>;
   /** Food ids per tag (seed/tags). */
   tags: Record<Tag, string[]>;
+  /** INS group S preparations as dishes (ADR 0028 layer 1). */
+  insDishes: InsDishRow[];
 }
 
 export const TAGS = ['refined-flour', 'drink'] as const;
@@ -31,7 +34,12 @@ export interface Catalog {
   version: string;
   sources: { ins: string; usda: string };
   foods: ResolvedFood[];
-  dishes: (SeedDish & { totals: DishTotals; tags: Tag[] })[];
+  dishes: (SeedDish & {
+    totals: DishTotals;
+    tags: Tag[];
+    source: DishSource;
+    sourceCode?: string;
+  })[];
   crossChecks: (CrossCheck & { dish: string; acceptedBecause?: string })[];
 }
 
@@ -46,6 +54,7 @@ export function readInputs(root: URL): Inputs {
     dishes: json<{ dishes: SeedDish[] }>('seed/dishes.json').dishes,
     matches: json<Inputs['matches']>('seed/matches.json'),
     addedSugar: json<{ foods: Inputs['addedSugar'] }>('seed/added-sugar.json').foods,
+    insDishes: json<{ dishes: InsDishRow[] }>('seed/generated/ins-dishes.json').dishes,
     tags: Object.fromEntries(
       TAGS.map((tag) => [tag, json<{ foods: string[] }>(`seed/tags/${tag}.json`).foods]),
     ) as Inputs['tags'],
@@ -160,13 +169,19 @@ export function buildCatalog(inputs: Inputs): Catalog {
   );
   const foods = withTags([...curated, ...genericFoods(inputs, curatedCodes)], inputs.tags);
   const byId = new Map(foods.map((food) => [food.id, food]));
-  const dishes = inputs.dishes.map((dish) => ({
+  const curatedDishes = inputs.dishes.map((dish) => ({
     ...dish,
     totals: dishTotals(dish, byId),
     tags: dishTags(dish, byId),
+    source: 'curated' as const,
   }));
+  const taken = new Set(curatedDishes.map((d) => d.id));
+  const dishes = [
+    ...curatedDishes,
+    ...inputs.insDishes.filter((row) => !taken.has(row.id)).map(insDish),
+  ];
   const crossChecks = Object.entries(inputs.matches.groupS).map(([dishId, link]) => {
-    const dish = dishes.find((d) => d.id === dishId);
+    const dish = curatedDishes.find((d) => d.id === dishId);
     if (!dish) throw new Error(`groupS names an unknown dish: ${dishId}`);
     let survey: Survey | null = null;
     if (link.enconut) {

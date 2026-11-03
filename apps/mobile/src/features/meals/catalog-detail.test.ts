@@ -25,6 +25,18 @@ describe('catalog search and detail on the real catalog (F06)', () => {
     ).toBe(true);
   });
 
+  it('an INS group S dish shows its official values and "INS (preparaciones)" as source (ADR 0028)', async () => {
+    const db = await seededDb();
+    const found = searchCatalog('tequeños', await catalogItems(db));
+    expect(found[0]?.source).toBe('INS-S');
+    const detail = await itemDetail(db, { kind: 'dish', id: 'ins-se1' });
+    expect(detail.source).toEqual({ kind: 'INS-S', code: 'SE1' });
+    expect(detail.servingGrams).toBe(504);
+    expect(detail.perServing.energyKcal).toBeCloseTo(216.72, 6);
+    expect(detail.ingredients).toEqual([]);
+    expect(searchCatalog('arroz árabe', await catalogItems(db)).length).toBeGreaterThan(0);
+  });
+
   it('"juane" returns the seed dish with its ingredients and sources', async () => {
     const db = await seededDb();
     const juane = searchCatalog('juane', await catalogItems(db)).find(

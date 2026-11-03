@@ -19,6 +19,21 @@ describe('normalize', () => {
 });
 
 describe('searchCatalog (F06)', () => {
+  it('search order (ADR 0028): curated, INS group S, estimated recipes, then generic INS foods', () => {
+    const arroz: Searchable[] = [
+      { kind: 'food', id: 'ins-a1', name: 'Arroz blanco', source: 'INS', generic: true },
+      { kind: 'dish', id: 'gen-arroz-arabe', name: 'Arroz árabe navideño', source: 'estimated' },
+      { kind: 'dish', id: 'ins-ss12', name: 'Arroz árabe con pollo', source: 'INS-S' },
+      { kind: 'dish', id: 'arroz-pollo', name: 'Arroz con pollo', source: 'dish' },
+    ];
+    expect(searchCatalog('arroz', arroz).map((i) => i.id)).toEqual([
+      'arroz-pollo',
+      'ins-ss12',
+      'gen-arroz-arabe',
+      'ins-a1',
+    ]);
+  });
+
   it('generic INS foods come after every curated result, USDA and labels included (F23, ADR 0021)', () => {
     const quinoa: Searchable[] = [
       { kind: 'food', id: 'ins-a53', name: 'Quinua cocida', source: 'INS', generic: true },

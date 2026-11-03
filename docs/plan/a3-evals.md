@@ -23,5 +23,5 @@ Goal: a change that makes text logging worse fails CI (ADR 0025).
 
 ## Done when
 
-- [ ] Baseline committed; a deliberately broken prompt makes the gate fail on a throwaway branch pushed to `origin`
+- [x] Baseline committed; a deliberately broken prompt makes the gate fail on a throwaway branch pushed to `origin`
       (pre-approved), then the branch is deleted

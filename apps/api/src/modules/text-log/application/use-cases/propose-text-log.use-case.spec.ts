@@ -118,7 +118,7 @@ describe('ProposeTextLogUseCase (F16, ADR 0024, 0026)', () => {
       id: ID,
       useCase: 'text-log',
       model: 'deepseek-flash',
-      promptVersion: 'text-log.v1',
+      promptVersion: 'text-log.v2',
       tokensIn: 10_000,
       tokensCached: 8_000,
       outcome: 'ok',

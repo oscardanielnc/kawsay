@@ -2,6 +2,7 @@ import type { ProposedEntry, TextLogProposal, TextLogRequest } from '@kawsay/con
 import { Injectable } from '@nestjs/common';
 import { z } from 'zod';
 import { AgentModel, type ChatMessage, type ModelUsage, type ToolCall } from './ports/agent-model';
+import { keepUnmatched, leaksPrompt } from './guardrails';
 import { ItemSearch, type SearchItem } from './ports/item-search';
 import { TEXT_LOG_TOOLS, textLogSystemPrompt, textLogUserMessage } from './text-log-prompt';
 
@@ -146,7 +147,8 @@ export class TextLogAgent {
     args: z.infer<typeof ProposalArgs>,
   ): Promise<Omit<TextLogProposal, 'id'>> {
     const entries: ProposedEntry[] = [];
-    const unmatched = [...args.unmatched];
+    // Guardrails (ADR 0026): an instruction or a non-food text never becomes a pending item.
+    const unmatched = args.unmatched.filter((u) => keepUnmatched(u.text));
     for (const entry of args.entries) {
       const item = await this.search.get(userId, entry.catalogId);
       if (!item) {
@@ -166,7 +168,11 @@ export class TextLogAgent {
       });
     }
     let question: TextLogProposal['question'];
-    if (args.question && entries.some((e) => e.catalogId === args.question!.replaces)) {
+    if (
+      args.question &&
+      !leaksPrompt(args.question.text) &&
+      entries.some((e) => e.catalogId === args.question!.replaces)
+    ) {
       const options = [];
       for (const option of args.question.options) {
         const item = await this.search.get(userId, option.catalogId);

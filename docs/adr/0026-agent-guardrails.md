@@ -23,3 +23,8 @@ injection first (LLM01), with excessive agency (LLM06) and unbounded consumption
 ## Consequences
 
 - The worst case of an injection is a wrong proposal, which the user sees before saving
+
+## Build notes (2026-11-03, A4)
+
+- `guardrails.ts` after the model; prompt `text-log.v2`: evals 87.8 (injection 90, out of scope 100, ambiguous 70)
+

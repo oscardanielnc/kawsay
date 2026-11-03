@@ -12,4 +12,4 @@ Goal: the controls of ADR 0026, each with a test.
 
 ## Done when
 
-- [ ] Every applicable OWASP item has a control and a passing test; the evals still meet the baseline
+- [x] Every applicable OWASP item has a control and a passing test; the evals still meet the baseline

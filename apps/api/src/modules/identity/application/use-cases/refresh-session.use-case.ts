@@ -15,7 +15,10 @@ export const REUSE_GRACE_MS = 30_000;
  *   valid, unused token  → mark used, issue a new pair in the same session
  *   used less than 30 s ago → the same phone asking twice (two requests at once, or a reply lost on the way):
  *                          issue another pair, the session stays open
- *   used earlier         → it leaked (attacker or victim used it first): revoke the whole session
+ *   used earlier, and no newer token of the session was ever used → the phone never stored the rotated token
+ *                          (closed mid-refresh, reply lost): issue another pair; the owner never gets signed out
+ *                          by his own phone (owner, 2026-11-03: "nunca debería desconectarse")
+ *   used earlier, and a newer token was used too → two holders: it leaked, revoke the whole session
  *   unknown/expired/revoked → sign in again
  */
 @Injectable()
@@ -44,7 +47,8 @@ export class RefreshSessionUseCase {
       if (!(await this.sessions.markRefreshTokenUsed(record.id, now))) {
         const usedAt = (await this.sessions.findRefreshToken(record.id))?.usedAt;
         const race = usedAt && now.getTime() - usedAt.getTime() <= REUSE_GRACE_MS;
-        if (!race) {
+        const leaked = !race && (await this.sessions.newerTokenUsed(session.id, record.createdAt));
+        if (leaked) {
           // Committed (not thrown inside the transaction, which would roll the revocation back).
           await this.sessions.revokeSession(session.id, 'refresh_token_reuse', now);
           return 'reuse' as const;

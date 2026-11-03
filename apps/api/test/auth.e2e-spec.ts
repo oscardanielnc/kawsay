@@ -62,15 +62,25 @@ describe('Sign-in with rotating refresh tokens (real Postgres)', () => {
     await refresh((b.body as TokenResponse).refreshToken).expect(200);
   });
 
-  it('rotates the refresh token, and revokes the session when an old one is reused after 30 s', async () => {
+  it('a phone that never stored the rotated token comes back hours later with the old one and stays signed in', async () => {
     const first = ((await login().expect(200)).body as TokenResponse).refreshToken;
-    const rotated = (await refresh(first).expect(200)).body as TokenResponse;
-    expect(rotated.refreshToken).not.toBe(first);
+    const lost = (await refresh(first).expect(200)).body as TokenResponse;
+    expect(lost.refreshToken).not.toBe(first);
+
+    shiftMs += 6 * 60 * 60 * 1000;
+    const again = (await refresh(first).expect(200)).body as TokenResponse;
+    await refresh(again.refreshToken).expect(200);
+  });
+
+  it('revokes the session when an old token is reused after a newer one was used: two holders', async () => {
+    const first = ((await login().expect(200)).body as TokenResponse).refreshToken;
+    const second = (await refresh(first).expect(200)).body as TokenResponse;
+    const third = (await refresh(second.refreshToken).expect(200)).body as TokenResponse;
 
     shiftMs += 31_000;
     const reuse = await refresh(first).expect(401);
     expect(reuse.body).toMatchObject({ code: 'auth.invalid_session' });
-    await refresh(rotated.refreshToken).expect(401);
+    await refresh(third.refreshToken).expect(401);
   });
 
   it('ends the session on logout', async () => {

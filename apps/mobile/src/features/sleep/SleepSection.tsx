@@ -60,11 +60,9 @@ function Moon({ on }: { on: boolean }) {
 export function SleepSection({ sessions, usualNight, usualNap, onSave, onDelete, newId }: Props) {
   const { t } = useTranslation();
   // Nap drafts with their ids; one stays shown, with its latest values, until the saved nap arrives in `sessions`.
-  const [napDrafts, setNapDrafts] = useState<SleepChange[]>(() =>
-    usualNap && !sessions.some((s) => s.kind === 'nap')
-      ? [{ id: newId(), kind: 'nap', ...usualNap, quality: null, nightmares: false }]
-      : [],
-  );
+  // A nap appears only when the user adds it: the usual nap is a prefill for that tap, never a nap of its own
+  // (owner, 2026-11-03: a second nap kept appearing "de la nada").
+  const [napDrafts, setNapDrafts] = useState<SleepChange[]>([]);
   const savedIds = new Set(sessions.map((s) => s.id));
 
   const shown: Shown[] = sessions.map((s) => ({ ...s, key: s.id }));
@@ -174,7 +172,14 @@ export function SleepSection({ sessions, usualNight, usualNap, onSave, onDelete,
         onPress={() =>
           setNapDrafts((drafts) => [
             ...drafts,
-            { id: newId(), kind: 'nap', ...NEW_NAP, quality: null, nightmares: false },
+            {
+              id: newId(),
+              kind: 'nap',
+              // The first nap of the day starts from the usual schedule; later ones from the default hour.
+              ...(usualNap && !shown.some((x) => x.kind === 'nap') ? usualNap : NEW_NAP),
+              quality: null,
+              nightmares: false,
+            },
           ])
         }
       />

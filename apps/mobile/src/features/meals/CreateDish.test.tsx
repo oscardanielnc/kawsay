@@ -125,3 +125,29 @@ describe('CreateDish from an AI proposal (F07 v0.2)', () => {
     );
   });
 });
+
+describe('CreateDish: "✨ Completar ingredientes con IA" (F07 v0.2)', () => {
+  it('fills icon, servings and ingredients from the AI for the typed name; the table computes', async () => {
+    const propose = jest.fn(() =>
+      Promise.resolve({
+        icon: 'arroz',
+        servings: 2,
+        items: [{ food: 'arroz-cocido', grams: 320 }],
+      }),
+    );
+    await render(
+      <CreateDish
+        initialName="Arroz chaufa"
+        foods={foods}
+        units={units}
+        onSave={jest.fn()}
+        propose={propose}
+      />,
+    );
+    await fireEvent.press(screen.getByRole('button', { name: '✨ Completar ingredientes con IA' }));
+    expect(propose).toHaveBeenCalledWith('Arroz chaufa');
+    expect(await screen.findByText(/Receta propuesta por IA/)).toBeOnTheScreen();
+    // 320 g × 1.30 kcal / 2 servings = 208 kcal
+    expect(screen.getByText(/^Por ración: 208 kcal/)).toBeOnTheScreen();
+  });
+});

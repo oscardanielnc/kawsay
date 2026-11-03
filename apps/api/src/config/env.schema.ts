@@ -9,7 +9,7 @@ export const envSchema = z.object({
   JWT_ACCESS_SECRET: z.string({ error: 'is required' }).min(32, 'must be at least 32 characters'),
   ACCESS_TOKEN_TTL_SECONDS: z.coerce.number().int().min(60).max(3600).default(900),
   /** The phone stays signed in while it opens the app at least this often. */
-  REFRESH_TOKEN_TTL_DAYS: z.coerce.number().int().min(1).max(365).default(90),
+  REFRESH_TOKEN_TTL_DAYS: z.coerce.number().int().min(1).max(3650).default(3650),
   LOGIN_RATE_LIMIT_PER_MINUTE: z.coerce.number().int().min(1).default(5),
 
   /** DeepSeek key for AI analyses (ADR 0007); without it the analysis endpoint answers "AI disabled". */

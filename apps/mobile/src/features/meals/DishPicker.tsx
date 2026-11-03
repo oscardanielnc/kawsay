@@ -20,7 +20,7 @@ interface Props {
   onCreate: (name: string) => void;
   /** Saves the search text as a pending meal, to complete later (F23). */
   onSavePending?: (name: string) => void;
-  /** "Crear «…» con IA" when nothing matches (F07 v0.2, F23 piece 4); absent without an account. */
+  /** "Crear «…» con IA" for any typed name (F07 v0.2, F23 piece 4); absent without an account. */
   onCreateWithAi?: (name: string) => void;
 }
 
@@ -74,7 +74,7 @@ export function DishPicker({
           <Text style={[type.body, styles.muted]}>{t('meals.noMatch')}</Text>
         ) : null}
       </View>
-      {onCreateWithAi && query.trim() && shown.length === 0 ? (
+      {onCreateWithAi && query.trim() ? (
         <Button
           label={t('meals.createWithAi', { name: query.trim() })}
           onPress={() => {

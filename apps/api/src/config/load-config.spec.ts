@@ -7,9 +7,9 @@ const valid = {
 };
 
 describe('loadConfig', () => {
-  it('fills defaults: 15-minute access tokens, 90-day refresh tokens, port 3000', () => {
+  it('fills defaults: 15-minute access tokens, 10-year sliding refresh tokens (owner: never signed out), port 3000', () => {
     const config = loadConfig(valid);
-    expect(config.auth).toMatchObject({ accessTokenTtlSeconds: 900, refreshTokenTtlDays: 90 });
+    expect(config.auth).toMatchObject({ accessTokenTtlSeconds: 900, refreshTokenTtlDays: 3650 });
     expect(config.apiPort).toBe(3000);
   });
 

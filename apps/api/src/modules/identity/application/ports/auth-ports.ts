@@ -20,6 +20,8 @@ export abstract class SessionRepository {
    * Returns false if it was already used: someone presented it twice.
    */
   abstract markRefreshTokenUsed(id: string, at: Date): Promise<boolean>;
+  /** Whether a token issued in this session after `issuedAt` was already used (someone else holds the newer one). */
+  abstract newerTokenUsed(sessionId: string, issuedAt: Date): Promise<boolean>;
 }
 
 /** Slow, salted hashing for human passwords (argon2id, ADR 0005). */

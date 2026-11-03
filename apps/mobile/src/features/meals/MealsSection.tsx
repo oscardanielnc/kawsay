@@ -274,6 +274,7 @@ export function MealsSection({
     body = (
       <CreateDish
         proposal={sheet.proposal ?? null}
+        {...(proposeDish && { propose: proposeDish })}
         initialName={name}
         foods={items.filter((i) => i.kind === 'food')}
         units={units}

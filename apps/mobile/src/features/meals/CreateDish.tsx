@@ -34,6 +34,8 @@ interface Props {
     servings: number;
     items: readonly { food: string; grams: number }[];
   } | null;
+  /** "✨ Completar con IA": ingredients and grams for the typed name; absent without an account. */
+  propose?: (name: string) => Promise<NonNullable<Props['proposal']>>;
 }
 
 type Mode =
@@ -51,19 +53,42 @@ const gramsOf = (i: Ingredient) => (i.unit ? i.unit.grams * i.count : Number(i.g
 const kcalOf = (i: Ingredient) => ((i.food.per100g?.energyKcal ?? 0) * gramsOf(i)) / 100;
 
 /** Create dish, manual (F07 v0.1): name, icon, servings it yields, catalog foods in household units or grams. */
-export function CreateDish({ initialName, foods, units, onSave, proposal = null }: Props) {
+export function CreateDish({
+  initialName,
+  foods,
+  units,
+  onSave,
+  proposal: initialProposal = null,
+  propose,
+}: Props) {
+  const [proposal, setProposal] = useState(initialProposal);
+  const [asking, setAsking] = useState<'idle' | 'working' | 'failed'>('idle');
   const { t } = useTranslation();
   const [name, setName] = useState(initialName);
   const [icon, setIcon] = useState(proposal?.icon ?? 'plato');
   const [servings, setServings] = useState(Math.max(1, Math.round(proposal?.servings ?? 1)));
-  const [items, setItems] = useState<Ingredient[]>(() =>
-    (proposal?.items ?? []).flatMap((item) => {
+  const fromProposal = (p: NonNullable<Props['proposal']> | null): Ingredient[] =>
+    (p?.items ?? []).flatMap((item) => {
       const found = foods.find((f) => f.id === item.food);
       return found
         ? [{ food: found, unit: null, count: 1, grams: String(Math.round(item.grams)) }]
         : [];
-    }),
-  );
+    });
+  const [items, setItems] = useState<Ingredient[]>(() => fromProposal(initialProposal));
+  const askAi = () => {
+    if (!propose || !name.trim()) return;
+    setAsking('working');
+    propose(name.trim()).then(
+      (p) => {
+        setProposal(p);
+        setIcon(p.icon);
+        setServings(Math.max(1, Math.round(p.servings)));
+        setItems(fromProposal(p));
+        setAsking('idle');
+      },
+      () => setAsking('failed'),
+    );
+  };
   const [mode, setMode] = useState<Mode>({ kind: 'list' });
 
   const amountLabel = (i: Ingredient) =>
@@ -192,6 +217,17 @@ export function CreateDish({ initialName, foods, units, onSave, proposal = null 
         onChangeText={setName}
         style={[type.body, styles.input]}
       />
+      {propose ? (
+        <Button
+          variant="secondary"
+          label={asking === 'working' ? t('dish.aiWorking') : t('dish.completeWithAi')}
+          disabled={!name.trim() || asking === 'working'}
+          onPress={askAi}
+        />
+      ) : null}
+      {asking === 'failed' ? (
+        <Text style={[type.caption, styles.muted]}>{t('dish.aiFailed')}</Text>
+      ) : null}
       <Text style={[type.label, styles.muted]}>{t('dish.icon')}</Text>
       <View style={styles.chips}>
         {FOOD_ICONS.map((name) => (

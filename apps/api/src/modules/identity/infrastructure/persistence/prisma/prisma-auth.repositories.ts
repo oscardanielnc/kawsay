@@ -94,4 +94,12 @@ export class PrismaSessionRepository extends SessionRepository {
     });
     return count === 1;
   }
+
+  async newerTokenUsed(sessionId: string, issuedAt: Date): Promise<boolean> {
+    const newer = await this.tx.refreshToken.findFirst({
+      where: { sessionId, createdAt: { gt: issuedAt }, usedAt: { not: null } },
+      select: { id: true },
+    });
+    return newer !== null;
+  }
 }

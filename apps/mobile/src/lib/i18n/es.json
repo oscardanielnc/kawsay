@@ -637,7 +637,10 @@
     "done": "Listo",
     "perServing": "Por ración: {{kcal}} kcal · {{protein}} g proteína · {{fat}} g grasa · {{carbs}} g carbohidratos",
     "saveAndAdd": "Guardar y agregar 1 ración",
-    "aiNote": "Receta propuesta por IA: revisa ingredientes y gramos antes de guardar. Los nutrientes salen de la tabla, no de la IA."
+    "aiNote": "Receta propuesta por IA: revisa ingredientes y gramos antes de guardar. Los nutrientes salen de la tabla, no de la IA.",
+    "completeWithAi": "✨ Completar ingredientes con IA",
+    "aiWorking": "Armando la receta…",
+    "aiFailed": "La IA no pudo armar la receta (sin conexión o límite del día). Puedes agregar los ingredientes a mano."
   },
   "private": {
     "title": "Privado",

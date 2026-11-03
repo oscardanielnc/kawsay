@@ -13,3 +13,14 @@
 ## Done when
 
 - [ ] Oscar logs a real meal by text on his phone
+
+## Run notes (2026-11-03)
+
+- Checks green (gate, 378 mobile tests); evals 87.8 ≥ baseline 86.6
+- Dev deployed and live text log OK; prod backups of 03:15 UTC and a fresh one at 21:35 UTC, then prod deployed:
+  health, text log, catalog sync, `insights/analyze` 200; `insights/summary` gave one 503 (invalid AI output twice,
+  pre-existing) and 200 on retry. Synthetic check account `release-check@kawsay.test` created on prod
+- EAS Update to `development` (Kawsay Dev): group `58139039-acff-4dcf-9b59-3a53b01c8a10`. Production waits for the
+  owner to open Kawsay Dev (memory rule after the 2026-10-30 incident). Rollback target for production: group
+  `afcd81bd-4267-432d-826e-2304ad568581` ("Today polish")
+

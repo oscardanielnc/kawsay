@@ -19,8 +19,8 @@ this plan.
 | [A2](a2-traces.md) | Traces and cost per entry | ADR 0024 | ✅ 2026-11-03 |
 | [A3](a3-evals.md) | Evals: golden set, CI gate, model comparison, Python report | ADR 0025 | ✅ 2026-11-03 |
 | [A4](a4-guardrails.md) | Guardrails and the OWASP map | ADR 0026 | ✅ 2026-11-03 |
-| [A5](a5-tell-it.md) | Tell it: README with numbers, write-up, CV line | — | ⬜ |
-| [A6](a6-release.md) | Release | runbooks | ⬜ |
+| [A5](a5-tell-it.md) | Tell it: README with numbers, write-up, CV line | — | ✅ 2026-11-03 |
+| [A6](a6-release.md) | Release | runbooks | ⏳ prod API live 2026-11-03; app update on Kawsay Dev (group 58139039), production waits for the owner |
 
 Owner's choices (2026-10-31): traces in **Langfuse Cloud** (EU, free, masked content; ADR 0024) · AI budget about
 USD 5 a month for evals and his own use · keep DeepSeek and compare it with `deepseek-v4-pro` and a Gemini Flash-Lite.

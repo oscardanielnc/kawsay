@@ -24,6 +24,6 @@ Goal: "almorcé chaufa e Inca Kola" → proposal cards → "Guardar todo" (F16).
 
 ## Done when
 
-- [ ] F16 criteria pass against the fake model; build notes in F16 and ADR 0023
-- [ ] Deployed to dev (pre-approved) and a few live tries against dev pass; their cost goes in the final report.
+- [x] F16 criteria pass against the fake model; build notes in F16 and ADR 0023
+- [x] Deployed to dev (pre-approved) and a few live tries against dev pass; their cost goes in the final report.
       Prod and the app update wait for A6

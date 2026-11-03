@@ -16,7 +16,7 @@ this plan.
 | [A0c](a0c-gauge-detail.md) | Gauge detail: big gauge with labelled limits + what added most (owner, 2026-11-01) | F26 | ✅ 2026-11-03 |
 | [A0d](a0d-thousands-of-dishes.md) | Thousands of dishes: 544 INS dishes (data ready), AI recipes, catalog by sync, "Crear con IA" (owner, 2026-11-02) | ADR 0028 · F23 | ✅ 2026-11-03 |
 | [A1](a1-text-log.md) | Log by text: agent with tools, proposal, confirmation | F16 · ADR 0023 | ✅ 2026-11-03 |
-| [A2](a2-traces.md) | Traces and cost per entry | ADR 0024 | ⬜ |
+| [A2](a2-traces.md) | Traces and cost per entry | ADR 0024 | ✅ 2026-11-03 |
 | [A3](a3-evals.md) | Evals: golden set, CI gate, model comparison, Python report | ADR 0025 | ⬜ |
 | [A4](a4-guardrails.md) | Guardrails and the OWASP map | ADR 0026 | ⬜ |
 | [A5](a5-tell-it.md) | Tell it: README with numbers, write-up, CV line | — | ⬜ |

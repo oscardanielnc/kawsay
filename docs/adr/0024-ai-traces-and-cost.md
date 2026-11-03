@@ -31,3 +31,10 @@ Postgres, ClickHouse, Redis and blob storage; its documented minimums add up to 
 ## Consequences
 
 - Dashboards without new infrastructure; the owner creates the Langfuse account (an agent cannot create accounts)
+
+## Build notes (2026-11-03, A2)
+
+- Langfuse gets OTLP/HTTP JSON at `/api/public/otel/v1/traces` (its legacy ingestion and v1 read APIs end 2026-11-16);
+  read back with `/api/public/v2/observations`. Content is always `[masked]` from the API; evals send their own
+- `ai-stats` CLI (runbook) · input text cleared after 90 days by a daily timer · ai-dish calls not in `ai_call` yet
+

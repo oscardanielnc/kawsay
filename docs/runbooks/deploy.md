@@ -54,6 +54,15 @@ cd ~/kawsay && read -s -p "Nueva contraseña (12+ caracteres): " p && echo && pr
 - Logs: `docker compose -p kawsay-prod --env-file deploy/prod.env -f deploy/compose.yml logs -f api`
   (they never contain health data: errors are logged by name and code only, ADR 0013)
 
+## AI numbers (ADR 0024)
+
+```bash
+cd ~/kawsay && docker compose -p kawsay-prod --env-file deploy/prod.env -f deploy/compose.yml   exec -T api node dist/modules/text-log/presentation/cli/ai-stats.cli.js
+```
+
+Calls, cost, $ per saved entry, p50/p95 and acceptance for the last 7 and 30 days. Traces: Langfuse Cloud (EU),
+project "kawsay", masked content; `deploy.sh` copies the Langfuse keys from the local environment once.
+
 ## Hardening (why the compose file looks like that)
 
 Loopback-only port, read-only root filesystem, `no-new-privileges`, no capabilities, `noexec` tmpfs and memory, CPU

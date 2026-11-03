@@ -21,5 +21,5 @@ Goal: know what each logged entry costs, how long it takes and how often the pro
 
 ## Done when
 
-- [ ] The CLI prints real numbers on dev; a dev trace shows in Langfuse with masked content (check it with the
+- [x] The CLI prints real numbers on dev; a dev trace shows in Langfuse with masked content (check it with the
       Langfuse public API, not by printing keys)

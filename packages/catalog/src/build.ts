@@ -1,6 +1,11 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { buildCatalog, readInputs } from './build-catalog.ts';
-import { aiFoodList, buildRemoteCatalog, type EstimatedDishRow } from './remote-catalog.ts';
+import {
+  aiFoodList,
+  buildRemoteCatalog,
+  searchIndex,
+  type EstimatedDishRow,
+} from './remote-catalog.ts';
 import { renderReport } from './report.ts';
 
 const root = new URL('..', import.meta.url);
@@ -23,6 +28,7 @@ const remote = buildRemoteCatalog(catalog, rows);
 mkdirSync(new URL('remote/', root), { recursive: true });
 writeFileSync(new URL('remote/dishes.json', root), JSON.stringify(remote));
 writeFileSync(new URL('remote/foods.json', root), JSON.stringify(aiFoodList(catalog)));
+writeFileSync(new URL('remote/index.json', root), JSON.stringify(searchIndex(catalog, remote)));
 process.stdout
   .write(`${remote.dishes.length} estimated dishes -> remote/dishes.json (${remote.version})
 `);

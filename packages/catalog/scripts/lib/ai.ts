@@ -15,6 +15,8 @@ export const GEMINI_MODEL = 'gemini-3.5-flash-lite';
 export const DEEPSEEK_MODEL = 'deepseek-flash';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+/** Set after Gemini keeps answering 429 (free quota spent): the rest of the run goes to DeepSeek. */
+let geminiSpent = false;
 
 async function gemini(
   system: string,
@@ -95,7 +97,7 @@ export async function askJson(label: string, system: string, user: string): Prom
   let provider = 'gemini';
   let answer: { text: string; inTokens: number; outTokens: number } | null;
   // Up to 3 Gemini answers that parse, each with backoff on 429/5xx; then deepseek-flash once.
-  for (let tries = 0; tries < 3 && parsed === undefined; tries++) {
+  for (let tries = 0; tries < 3 && parsed === undefined && !geminiSpent; tries++) {
     answer = null;
     for (let attempt = 0; attempt < 5 && !answer; attempt++) {
       try {
@@ -103,6 +105,10 @@ export async function askJson(label: string, system: string, user: string): Prom
       } catch (error) {
         const message = error instanceof Error ? error.message : 'unknown';
         if (!/HTTP (429|5\d\d)|timeout|fetch failed|aborted/i.test(message)) throw error;
+        if (/HTTP 429/.test(message) && attempt >= 1) {
+          geminiSpent = true;
+          break;
+        }
         await sleep(Math.min(60_000, 5_000 * 2 ** attempt));
       }
     }

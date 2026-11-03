@@ -96,3 +96,53 @@ export function aiFoodList(catalog: Catalog): AiFoodList {
       })),
   };
 }
+
+/**
+ * What the text agent searches (ADR 0023 tools): every food and dish the phone can log, with its household units, in
+ * the search order of ADR 0028 (curated, INS-S, estimated, then generic INS foods).
+ */
+export interface SearchIndex {
+  version: string;
+  items: {
+    kind: 'food' | 'dish';
+    id: string;
+    name: string;
+    aliases?: string[];
+    /** curated · INS-S · estimated · INS · USDA · label */
+    source: string;
+    generic?: boolean;
+    /** Household units with grams; a dish has its serving. */
+    units: { label: string; grams: number }[];
+  }[];
+}
+
+export function searchIndex(catalog: Catalog, remote: RemoteCatalog): SearchIndex {
+  const dishes = [
+    ...catalog.dishes.map((d) => ({
+      kind: 'dish' as const,
+      id: d.id,
+      name: d.name,
+      source: d.source,
+      units: [{ label: d.serving, grams: d.totals.grams }],
+    })),
+    ...remote.dishes.map((d) => ({
+      kind: 'dish' as const,
+      id: d.id,
+      name: d.name,
+      ...(d.aliases.length ? { aliases: d.aliases } : {}),
+      source: 'estimated',
+      units: [{ label: d.serving, grams: d.totals.grams }],
+    })),
+  ];
+  const foods = catalog.foods
+    .filter((f) => f.per100g?.energyKcal != null)
+    .map((f) => ({
+      kind: 'food' as const,
+      id: f.id,
+      name: f.name,
+      source: f.source.kind,
+      ...(f.generic ? { generic: true } : {}),
+      units: f.units.flatMap((u) => (u.grams ? [{ label: u.label, grams: u.grams }] : [])),
+    }));
+  return { version: remote.version, items: [...dishes, ...foods] };
+}

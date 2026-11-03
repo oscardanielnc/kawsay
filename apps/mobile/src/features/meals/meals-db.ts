@@ -5,7 +5,7 @@ import { newRecord } from '@/lib/db/record';
 import { dish, food, foodUnit, mealEntry, userDish, userDishItem } from '@/lib/db/schema';
 import { inTransaction } from '@/lib/db/transaction';
 import type { Db, RecordEnv } from '@/lib/db/types';
-import type { Searchable } from './search';
+import type { Searchable } from '@kawsay/core/food/search';
 
 export type Meal = 'breakfast' | 'lunch' | 'dinner' | 'snack';
 type Nutrients = Record<string, number | null> | null;

@@ -9,7 +9,7 @@ import { color, radius, space, touch, type } from '@/lib/theme';
 import { FOOD_ICONS, FoodIcon } from '@/components/data-display/FoodIcon';
 import type { CatalogItem, NewDish } from './meals-db';
 import { FRACTIONS, fractionLabel } from '@/lib/portion';
-import { searchCatalog } from './search';
+import { searchCatalog } from '@kawsay/core/food/search';
 
 type Unit = { label: string; grams: number };
 

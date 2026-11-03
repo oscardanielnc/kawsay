@@ -53,8 +53,13 @@ Lista de alimentos:
 ${FOOD_LIST}`;
 
 const BATCH = 10;
-const CONCURRENCY = 4;
+const CONCURRENCY = 8;
 const byCategory = new Map(CATEGORIES.map((c) => [c.id, c]));
+/** A soup, broth or chupe named in another category is checked and grouped as a soup. */
+const SOUP =
+  /^(sopa|caldo|chupe|aguadito|consom|crema de|sancochado|chilcano|shambar|inchicapi|patasca|chairo|lawa|menestr[oó]n|parihuela|sudado|wantan|wantán|chupín|timbuche|pusp)/i;
+const checkedAs = (name: string, category: string) =>
+  SOUP.test(name) ? byCategory.get('sopas')! : byCategory.get(category)!;
 
 async function pool<T>(items: T[], run: (item: T) => Promise<void>) {
   let next = 0;
@@ -102,8 +107,9 @@ async function settle(
   recipe: RecipeT | null,
 ): Promise<Outcome> {
   const category = byCategory.get(name.category)!;
+  const ranges = checkedAs(name.name, name.category);
   const fixed = recipe ? resolveIds({ ...recipe, name: name.name }, catalog.foods).recipe : null;
-  const first = fixed ? checkRecipe(fixed, category, foods) : null;
+  const first = fixed ? checkRecipe(fixed, ranges, foods) : null;
   if (fixed && first?.ok)
     return { name, category: category.id, recipe: fixed, checked: first, retried: false };
   const errors = first?.errors ?? ['no recipe in the answer'];
@@ -116,7 +122,7 @@ Usa solo ids EXACTOS de la lista (por ejemplo ins-c35, no lucuma). Corrige ingre
   const second = again.success ? Recipe.safeParse(again.data.recipes[0]) : null;
   if (second?.success) {
     const retried = resolveIds({ ...second.data, name: name.name }, catalog.foods).recipe;
-    const checked = checkRecipe(retried, category, foods);
+    const checked = checkRecipe(retried, ranges, foods);
     return { name, category: category.id, recipe: retried, checked, retried: true };
   }
   return {
@@ -135,7 +141,7 @@ const dishes = accepted
     name: o.name.name,
     aliases: o.name.aliases,
     category: o.category,
-    group: byCategory.get(o.category)!.group,
+    group: checkedAs(o.name.name, o.category).group,
     icon: o.recipe!.icon,
     serving: o.recipe!.serving,
     servings: o.recipe!.servings,

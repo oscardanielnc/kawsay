@@ -5,7 +5,7 @@ import { createTestDb } from '@/lib/db/test-db';
 import type { Db } from '@/lib/db/types';
 import { itemDetail } from './catalog-detail';
 import { catalogItems } from './meals-db';
-import { searchCatalog } from './search';
+import { searchCatalog } from '@kawsay/core/food/search';
 
 async function seededDb(): Promise<Db> {
   const db = await createTestDb();

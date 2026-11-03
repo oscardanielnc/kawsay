@@ -35,7 +35,9 @@ describe('remote catalog (F23 piece 5, ADR 0028 layer 2)', () => {
   it('every estimated dish passes the checks of its category: kcal per 100 g and per serving in range', () => {
     const byId = new Map(CATEGORIES.map((c) => [c.id, c]));
     const outside = remote.dishes.filter((d) => {
-      const category = byId.get(rows.find((r) => r.id === d.id)!.category)!;
+      const row = rows.find((r) => r.id === d.id)!;
+      // Soups named in another category are checked as soups (scripts/generate-recipes.ts).
+      const category = byId.get(row.group === 'soup' ? 'sopas' : row.category)!;
       const per100 = d.totals.per100g.energyKcal ?? -1;
       const serving = d.totals.perServing.energyKcal ?? -1;
       return (

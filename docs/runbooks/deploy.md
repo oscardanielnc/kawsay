@@ -20,6 +20,12 @@ DEPLOY_SSH_KEY=~/sentinel-prod.key ./deploy/deploy.sh opc@<vm-ip> prod    # or d
 Ships the committed sources with `git archive`, builds on the VM, applies migrations on start, waits for
 `/v1/health`. The first run creates `deploy/<env>.env` on the VM with random secrets; they never leave it.
 
+## Publishing catalog dishes (F23 piece 5)
+
+Change `packages/catalog/seed/generated/estimated-dishes.json` (or re-run `node scripts/generate-recipes.ts`), run
+`pnpm --filter @kawsay/catalog build`, commit `packages/catalog/remote/` and deploy the API. Phones pull the new list
+after their next sync; no app update.
+
 ## First time only
 
 1. **Tunnel:** in Cloudflare Zero Trust → Networks → Tunnels → the VM's tunnel → Public hostnames, add

@@ -5,7 +5,7 @@ import { formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
 import { FoodIcon } from '@/components/data-display/FoodIcon';
 import type { CatalogItem } from './meals-db';
-import { searchCatalog } from './search';
+import { searchCatalog } from '@kawsay/core/food/search';
 
 const TILES = 12;
 

@@ -47,6 +47,13 @@ export function resolveIds<R extends { items: readonly Ingredient[] }>(
       items.push(item);
       continue;
     }
+    // An INS code without its prefix: "c47" → "ins-c47".
+    const prefixed = `ins-${item.food.toLowerCase()}`;
+    if (ids.has(prefixed)) {
+      resolved.push({ from: item.food, to: prefixed });
+      items.push({ ...item, food: prefixed });
+      continue;
+    }
     const words = normalizeName(item.food.replace(/[-_]/g, ' '))
       .split(' ')
       .filter((w) => w.length > 2 && w !== 'del' && w !== 'con')

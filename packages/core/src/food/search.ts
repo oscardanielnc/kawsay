@@ -14,6 +14,7 @@ export interface Searchable {
  */
 const RANK: Record<string, number> = {
   dish: 0,
+  curated: 0,
   'INS-S': 0.4,
   estimated: 0.6,
   INS: 1,

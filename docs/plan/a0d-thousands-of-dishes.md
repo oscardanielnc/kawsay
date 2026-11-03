@@ -36,4 +36,4 @@ Goal: at least 2,000 dishes to pick from, new ones without app updates, and "Cre
 
 ## Done when
 
-- [ ] F23 criteria of pieces 4–6 pass; the build report is committed; the AI spend goes in the final report
+- [x] F23 criteria of pieces 4–6 pass; the build report is committed; the AI spend goes in the final report

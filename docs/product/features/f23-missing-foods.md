@@ -37,10 +37,10 @@ coverage is thin (e.g. 273 snacks listed for Peru, October 2026).
 - [x] Completing a pending entry recalculates that day's totals, targets and micronutrients
 - [x] Any INS food can be added to a dish offline
 - [ ] A label food shows "Label" as its source and its date
-- [ ] Searching "torta helada", "tequeños" and "arroz árabe" finds one dish each (the owner's examples)
-- [ ] The catalog has at least 2,000 dishes, every one passing the automatic checks of ADR 0028
-- [ ] A dish published on the API reaches the phone without an app update
-- [ ] "Crear «X» con IA" builds a dish whose nutrients all come from the table
+- [x] Searching "torta helada", "tequeños" and "arroz árabe" finds one dish each (the owner's examples)
+- [x] The catalog has at least 2,000 dishes, every one passing the automatic checks of ADR 0028
+- [x] A dish published on the API reaches the phone without an app update
+- [x] "Crear «X» con IA" builds a dish whose nutrients all come from the table
 
 ## Build notes
 
@@ -51,4 +51,15 @@ coverage is thin (e.g. 273 snacks listed for Peru, October 2026).
 - Every INS row the seed does not curate ships as a generic food `ins-<code>` (1,014 foods): Create dish only,
   after the curated results. USDA stays out of the phone (ADR 0021)
 - The API needs the new contract before the app update reaches a phone (it rejects unknown collections)
+- 2026-11-03, pieces 4–6 (plan A0d, ADR 0028). **2,016 dishes**: 107 curated + 544 INS group S (bundled, source
+  "INS (preparaciones)", official values, no ingredients) + 1,365 estimated recipes (`reports/generated-dishes.md`:
+  1,486 names, 121 left out by the checks). Names and recipes from Gemini (free tier) with DeepSeek as fallback once
+  the free quota ran out; readable slugs and unprefixed INS codes resolved by name (`@kawsay/core/food/resolve-ids`);
+  soups named in other categories are checked and grouped as soups
+- Catalog by sync: `pnpm --filter @kawsay/catalog build` writes `packages/catalog/remote/` (committed: `dishes.json`,
+  `foods.json` for AI recipes, `index.json` for the text agent); the API image ships it; `GET /v1/catalog/dishes?version`
+  answers "up to date" or the list; the phone pulls after every sync and stores the dishes in SQLite with source
+  `estimated` ("Receta estimada"). Publishing a dish = rebuild, commit, deploy the API. A dish whose ingredient the
+  phone lacks waits for the next app update; a new bundled catalog forgets the remote version and pulls again
+- Search order: curated, INS-S, estimated, then generic INS foods. Aliases are served but not searched on the phone yet
 

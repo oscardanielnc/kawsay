@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { normalize, searchCatalog, type Searchable } from './search';
 
 const items: Searchable[] = [

@@ -14,7 +14,7 @@ this plan.
 | [A0](a0-setup.md) | Setup: baseline, README up to date, check the AI API | this plan | ✅ 2026-11-03 |
 | [A0b](a0b-real-scale-gauges.md) | Gauges at real scale (owner's correction, 2026-11-01) | ADR 0027 | ✅ 2026-11-03 |
 | [A0c](a0c-gauge-detail.md) | Gauge detail: big gauge with labelled limits + what added most (owner, 2026-11-01) | F26 | ✅ 2026-11-03 |
-| [A0d](a0d-thousands-of-dishes.md) | Thousands of dishes: 544 INS dishes (data ready), AI recipes, catalog by sync, "Crear con IA" (owner, 2026-11-02) | ADR 0028 · F23 | 🟡 data of layer 1 ready |
+| [A0d](a0d-thousands-of-dishes.md) | Thousands of dishes: 544 INS dishes (data ready), AI recipes, catalog by sync, "Crear con IA" (owner, 2026-11-02) | ADR 0028 · F23 | ✅ 2026-11-03 |
 | [A1](a1-text-log.md) | Log by text: agent with tools, proposal, confirmation | F16 · ADR 0023 | ⬜ |
 | [A2](a2-traces.md) | Traces and cost per entry | ADR 0024 | ⬜ |
 | [A3](a3-evals.md) | Evals: golden set, CI gate, model comparison, Python report | ADR 0025 | ⬜ |

@@ -34,6 +34,12 @@ describe('resolveIds: readable slugs become catalog ids', () => {
     expect(out.resolved).toHaveLength(3);
   });
 
+  it('an INS code without its prefix ("c35") finds its row', () => {
+    expect(resolveIds(recipe([{ food: 'c35', grams: 100 }]), FOODS).recipe.items[0]!.food).toBe(
+      'ins-c35',
+    );
+  });
+
   it('curated rows win over generic ones with the same words', () => {
     expect(resolveIds(recipe([{ food: 'leche', grams: 100 }]), FOODS).recipe.items[0]!.food).toBe(
       'leche-entera',

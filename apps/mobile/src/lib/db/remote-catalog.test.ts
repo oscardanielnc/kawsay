@@ -4,7 +4,7 @@ import type { RemoteDish } from '@kawsay/contracts/catalog';
 import { eq } from 'drizzle-orm';
 import { itemDetail } from '@/features/meals/catalog-detail';
 import { catalogItems } from '@/features/meals/meals-db';
-import { searchCatalog } from '@/features/meals/search';
+import { searchCatalog } from '@kawsay/core/food/search';
 import { LOADER_VERSION, loadCatalog, type BundledCatalog } from './catalog';
 import { applyRemoteCatalog, remoteCatalogVersion } from './remote-catalog';
 import { dish, dishItem, meta } from './schema';

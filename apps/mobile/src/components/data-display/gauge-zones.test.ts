@@ -1,31 +1,37 @@
-import {
-  needleAngle,
-  oneSidedPosition,
-  twoSidedPosition,
-  ZONE_PATHS,
-  ZONES,
-  zoneAt,
-} from './gauge-zones';
+import { RANGE_ZONES } from '@kawsay/core/day/range-state';
+import { oneSidedScale, twoSidedScale } from '@kawsay/core/gauge/scale';
+import { needleAngle, zoneDegrees, zonePaths } from './gauge-zones';
 
-describe('Amanecer gauge (design M3)', () => {
-  it('two-sided zones are coral 10 · amber 18 · blue 44 · amber 18 · coral 10 %', () => {
-    expect(ZONES['two-sided'].map((z) => [z.zone, z.to])).toEqual([
-      ['far', 0.1],
-      ['near', 0.28],
-      ['in', 0.72],
-      ['near', 0.9],
-      ['far', 1],
+const round = ([from, to]: [number, number]) => [
+  Math.round(from * 10) / 10,
+  Math.round(to * 10) / 10,
+];
+
+describe('Amanecer gauge at real scale (ADR 0027)', () => {
+  it('2,000 kcal draws coral to 1,600, amber to 1,800, blue to 2,200, amber to 2,400, coral to 3,200', () => {
+    const zones = twoSidedScale(2000, RANGE_ZONES.calories).zones;
+    // 0–3,200 over 180°: 1,600 → 90°, 1,800 → 101.25°, 2,200 → 123.75°, 2,400 → 135°; a 4.3° gap between zones
+    expect(zones.map(zoneDegrees).map(round)).toEqual([
+      [0, 87.9],
+      [92.2, 99.1],
+      [103.4, 121.6],
+      [125.9, 132.9],
+      [137.2, 180],
     ]);
-    expect(ZONE_PATHS['two-sided']).toHaveLength(5);
+    expect(zones.map((z) => z.tone)).toEqual(['red', 'yellow', 'green', 'yellow', 'red']);
   });
 
-  it('one-sided zones are blue 3/7 · amber 2/7 · coral 2/7', () => {
-    expect(ZONES['one-sided'].map((z) => [z.zone, z.to])).toEqual([
-      ['in', 3 / 7],
-      ['near', 5 / 7],
-      ['far', 1],
-    ]);
-    expect(ZONE_PATHS['one-sided']).toHaveLength(3);
+  it('every zone becomes one arc path from the left end to the right end', () => {
+    // Sugar in thirds: blue ends at 60° minus half a gap (57.85°)
+    const paths = zonePaths(oneSidedScale(25, 50).zones);
+    expect(paths).toHaveLength(3);
+    expect(paths[0]).toBe('M 22.0 100.0 A 78 78 0 0 1 58.5 34.0');
+    expect(paths[2]).toMatch(/A 78 78 0 0 1 178\.0 100\.0$/);
+  });
+
+  it('a zone thinner than the gap still draws 1°', () => {
+    const [from, to] = zoneDegrees({ from: 0.5, to: 0.51, tone: 'yellow' });
+    expect(to - from).toBeCloseTo(1);
   });
 
   it('value → needle angle: 0 left, half up, 1 right, clamped outside', () => {
@@ -34,24 +40,5 @@ describe('Amanecer gauge (design M3)', () => {
     expect(needleAngle(1)).toBe(180);
     expect(needleAngle(-0.2)).toBe(0);
     expect(needleAngle(1.4)).toBe(180);
-  });
-
-  it('a two-sided value sits on its zone by the range thresholds: calories 90–110 % blue', () => {
-    const calories = { yellowFrom: 80, greenFrom: 90, greenTo: 110, yellowTo: 120 };
-    expect(twoSidedPosition(90, calories)).toBeCloseTo(0.28, 10);
-    expect(twoSidedPosition(110, calories)).toBeCloseTo(0.72, 10);
-    expect(zoneAt(twoSidedPosition(100, calories), 'two-sided')).toBe('in');
-    expect(zoneAt(twoSidedPosition(115, calories), 'two-sided')).toBe('near');
-    expect(zoneAt(twoSidedPosition(130, calories), 'two-sided')).toBe('far');
-    expect(zoneAt(twoSidedPosition(70, calories), 'two-sided')).toBe('far');
-    expect(twoSidedPosition(0, calories)).toBe(0);
-  });
-
-  it('a one-sided value is blue up to its ideal, amber up to its max, coral above', () => {
-    expect(zoneAt(oneSidedPosition(14, 21, 42), 'one-sided')).toBe('in');
-    expect(zoneAt(oneSidedPosition(21, 21, 42), 'one-sided')).toBe('in');
-    expect(zoneAt(oneSidedPosition(30, 21, 42), 'one-sided')).toBe('near');
-    expect(zoneAt(oneSidedPosition(50, 21, 42), 'one-sided')).toBe('far');
-    expect(oneSidedPosition(0, 21, 42)).toBe(0);
   });
 });

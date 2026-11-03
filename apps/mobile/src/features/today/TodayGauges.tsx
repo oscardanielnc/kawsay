@@ -1,15 +1,16 @@
 import { addedSugarLimits, addedSugarState } from '@kawsay/core/day/added-sugar';
 import { greenRange, RANGE_ZONES, rangeState, type Metric } from '@kawsay/core/day/range-state';
 import { refinedFlourLimits, refinedFlourState } from '@kawsay/core/day/refined-flour';
+import {
+  gaugePosition,
+  oneSidedScale,
+  twoSidedScale,
+  type GaugeZone,
+} from '@kawsay/core/gauge/scale';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { Pill, type PillTone } from '@/components/data-display/Pill';
-import {
-  oneSidedPosition,
-  twoSidedPosition,
-  type GaugeKind,
-} from '@/components/data-display/gauge-zones';
 import { ZoneGauge } from '@/components/data-display/ZoneGauge';
 import { formatNumber } from '@/lib/format';
 import { color, radius, shadow, space, type } from '@/lib/theme';
@@ -58,8 +59,9 @@ const TONE_PILL = { green: 'in', yellow: 'near', red: 'far' } as const satisfies
 interface Shown {
   key: string;
   name: string;
-  kind: GaugeKind;
+  zones: readonly GaugeZone[];
   position: number | null;
+  overflow: boolean;
   value: string;
   unit: string;
   state: string;
@@ -75,8 +77,9 @@ const GaugeCard = memo(function GaugeCard({ gauge }: { gauge: Shown }) {
         {gauge.name}
       </Text>
       <ZoneGauge
-        kind={gauge.kind}
+        zones={gauge.zones}
         position={gauge.position}
+        overflow={gauge.overflow}
         value={gauge.value}
         unit={gauge.unit}
         accessibilityLabel={`${gauge.name}: ${gauge.value} ${gauge.unit}, ${gauge.state}. ${gauge.range}`}
@@ -115,11 +118,14 @@ export function TodayGauges({ targets, eaten, dayOpen, refinedFlourShare = null 
       const word = state === 'yellow' ? (below ? 'lowish' : 'highish') : below ? 'low' : 'high';
       [label, tone] = [`${below ? '↓' : '↑'} ${t(`ranges.${word}`)}`, TONE_PILL[state]];
     }
+    const scale = twoSidedScale(target, RANGE_ZONES[metric]);
+    const at = gaugePosition(scale, value);
     return {
       key: metric,
       name: t(`ranges.${metric}`),
-      kind: 'two-sided',
-      position: value > 0 ? twoSidedPosition((value / target) * 100, RANGE_ZONES[metric]) : null,
+      zones: scale.zones,
+      position: value > 0 ? at.position : null,
+      overflow: at.overflow,
       value: formatNumber(value),
       unit,
       state: label,
@@ -134,11 +140,12 @@ export function TodayGauges({ targets, eaten, dayOpen, refinedFlourShare = null 
 
   const sugar = addedSugarLimits(targets.targetKcal);
   const sugarTone = addedSugarState(eaten.addedSugarG, sugar);
+  const sugarScale = oneSidedScale(sugar.greenMaxG, sugar.yellowMaxG);
   gauges.push({
     key: 'sugar',
     name: t('sugar.title'),
-    kind: 'one-sided',
-    position: oneSidedPosition(eaten.addedSugarG, sugar.greenMaxG, sugar.yellowMaxG),
+    zones: sugarScale.zones,
+    ...gaugePosition(sugarScale, eaten.addedSugarG),
     value: formatNumber(eaten.addedSugarG),
     unit: 'g',
     state: eaten.addedSugarG === 0 ? t('sugar.none') : t(`sugar.states.${sugarTone}`),
@@ -151,11 +158,12 @@ export function TodayGauges({ targets, eaten, dayOpen, refinedFlourShare = null 
 
   const flour = refinedFlourLimits(targets.carbsG, refinedFlourShare ?? undefined);
   const flourTone = refinedFlourState(eaten.refinedFlourG, flour);
+  const flourScale = oneSidedScale(flour.limitG, flour.maxG);
   gauges.push({
     key: 'flour',
     name: t('flour.title'),
-    kind: 'one-sided',
-    position: oneSidedPosition(eaten.refinedFlourG, flour.limitG, flour.maxG),
+    zones: flourScale.zones,
+    ...gaugePosition(flourScale, eaten.refinedFlourG),
     value: formatNumber(eaten.refinedFlourG),
     unit: 'g',
     state: eaten.refinedFlourG === 0 ? t('flour.none') : t(`flour.states.${flourTone}`),

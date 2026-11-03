@@ -14,40 +14,8 @@ export interface GaugeBand {
   tone: GaugeTone;
 }
 
-/**
- * Zones in sevenths, so their width hints at how narrow green really is (Oscar, 2026-10-12): a range with limits on
- * both sides is red 2 · yellow 1 · green 1 · yellow 1 · red 2.
- */
-export const TWO_SIDED: readonly GaugeBand[] = [
-  { to: 2 / 7, tone: 'red' },
-  { to: 3 / 7, tone: 'yellow' },
-  { to: 4 / 7, tone: 'green' },
-  { to: 5 / 7, tone: 'yellow' },
-  { to: 1, tone: 'red' },
-];
-/** Only a ceiling (added sugar, waist-to-height): green 3 · yellow 2 · red 2. */
-export const UPPER_LIMIT: readonly GaugeBand[] = [
-  { to: 3 / 7, tone: 'green' },
-  { to: 5 / 7, tone: 'yellow' },
-  { to: 1, tone: 'red' },
-];
-
 /** Half the width over which two neighbouring zones blend. */
 const BLEND = 0.035;
-
-/** Linear inside each segment of `points` ([x, y] sorted by x), clamped to the first and last y. */
-export function piecewise(x: number, points: readonly (readonly [number, number])[]): number {
-  const first = points[0]!;
-  const last = points.at(-1)!;
-  if (x <= first[0]) return first[1];
-  if (x >= last[0]) return last[1];
-  for (let i = 1; i < points.length; i++) {
-    const [x1, y1] = points[i]!;
-    const [x0, y0] = points[i - 1]!;
-    if (x <= x1) return y0 + ((x - x0) / (x1 - x0)) * (y1 - y0);
-  }
-  return last[1];
-}
 
 const channels = (hex: string) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
 const toHex = (values: number[]) =>

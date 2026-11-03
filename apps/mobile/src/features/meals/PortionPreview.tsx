@@ -2,6 +2,12 @@ import { RANGE_ZONES } from '@kawsay/core/day/range-state';
 import { refinedFlourLimits } from '@kawsay/core/day/refined-flour';
 import { addedSugarLimits } from '@kawsay/core/day/added-sugar';
 import {
+  gaugePosition,
+  oneSidedScale,
+  twoSidedScale,
+  type GaugeScale,
+} from '@kawsay/core/gauge/scale';
+import {
   IMPACT_GAUGES,
   portionImpact,
   type GaugeAmounts,
@@ -10,7 +16,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { Pill } from '@/components/data-display/Pill';
-import { oneSidedPosition, twoSidedPosition } from '@/components/data-display/gauge-zones';
 import { ZoneGauge } from '@/components/data-display/ZoneGauge';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
@@ -22,12 +27,6 @@ export interface DayContext {
   refinedFlourShare: number | null;
 }
 
-const MACRO_METRIC = {
-  calories: 'calories',
-  protein: 'protein',
-  fat: 'fat',
-  carbs: 'carbs',
-} as const;
 const UNIT: Record<ImpactGauge, string> = {
   calories: 'kcal',
   protein: 'g',
@@ -64,18 +63,16 @@ export function PortionPreview({ day, portion }: { day: DayContext; portion: Gau
   const impact = portionImpact({ ...day, portion, refinedFlourShare: share });
   const sugar = addedSugarLimits(day.targets.targetKcal);
   const flour = refinedFlourLimits(day.targets.carbsG, share);
-  const position = (gauge: ImpactGauge, value: number) => {
-    if (gauge === 'addedSugar') return oneSidedPosition(value, sugar.greenMaxG, sugar.yellowMaxG);
-    if (gauge === 'refinedFlour') return oneSidedPosition(value, flour.limitG, flour.maxG);
-    const metric = MACRO_METRIC[gauge];
-    const target =
-      day.targets[
-        ({ calories: 'targetKcal', protein: 'proteinG', fat: 'fatG', carbs: 'carbsG' } as const)[
-          gauge
-        ]
-      ];
-    return twoSidedPosition((value / target) * 100, RANGE_ZONES[metric]);
+  const scales: Record<ImpactGauge, GaugeScale> = {
+    calories: twoSidedScale(day.targets.targetKcal, RANGE_ZONES.calories),
+    protein: twoSidedScale(day.targets.proteinG, RANGE_ZONES.protein),
+    fat: twoSidedScale(day.targets.fatG, RANGE_ZONES.fat),
+    carbs: twoSidedScale(day.targets.carbsG, RANGE_ZONES.carbs),
+    addedSugar: oneSidedScale(sugar.greenMaxG, sugar.yellowMaxG),
+    refinedFlour: oneSidedScale(flour.limitG, flour.maxG),
   };
+  const position = (gauge: ImpactGauge, value: number) =>
+    gaugePosition(scales[gauge], value).position;
   const calories = impact.gauges.calories;
   return (
     <View style={styles.wrap}>
@@ -124,9 +121,7 @@ export function PortionPreview({ day, portion }: { day: DayContext; portion: Gau
                 {name}
               </Text>
               <ZoneGauge
-                kind={
-                  gauge === 'addedSugar' || gauge === 'refinedFlour' ? 'one-sided' : 'two-sided'
-                }
+                zones={scales[gauge].zones}
                 position={position(gauge, g.after)}
                 before={position(gauge, g.now)}
                 value=""

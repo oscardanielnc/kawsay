@@ -38,3 +38,5 @@ but give **no numeric limit**, so any ceiling here is a personal target, never a
   totals and user dishes add it up like any nutrient
 - 2026-10-30 (M4): `@kawsay/core/day/refined-flour`: blue up to the limit (default 50% of the carbohydrate target,
   `profile.refinedFlourShare`, 10–100%), amber up to 150% of it, coral above. Sixth gauge "Harinas" on Today
+- 2026-11-03 (A0b): zones from `@kawsay/core/gauge/scale` (`oneSidedScale(limit, 1.5 × limit)`): 0 to 2.25 × the
+  limit, blue 44.4 · amber 22.2 · coral 33.3 %

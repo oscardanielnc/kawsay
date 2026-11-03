@@ -20,5 +20,5 @@ Goal: the coloured zones of every gauge at their real size (ADR 0027). JavaScrip
 
 ## Done when
 
-- [ ] The 2,000 kcal test draws coral to 1,600, amber to 1,800, blue to 2,200, amber to 2,400, coral to 3,200
-- [ ] `rg "A 78 78"` finds no hard-coded zone path outside the generator; F22 and F24 criteria still pass
+- [x] The 2,000 kcal test draws coral to 1,600, amber to 1,800, blue to 2,200, amber to 2,400, coral to 3,200
+- [x] `rg "A 78 78"` finds no hard-coded zone path outside the generator; F22 and F24 criteria still pass

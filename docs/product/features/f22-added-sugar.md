@@ -33,3 +33,8 @@ A fifth gauge on Today: grams of added sugar eaten, against a ceiling that follo
 - [x] Every packaged or prepared food of the catalog has an explicit added-sugar value
 - [x] A personal Coca-Cola shows "Mucho azúcar para una comida" before adding it and counts as one sugary drink
 - [x] A drink with 4 g of added sugar is not a sugary drink; one with 8 g is
+
+## Build notes
+
+- 2026-11-03 (A0b): the gauge takes its zones from `@kawsay/core/gauge/scale` (`oneSidedScale`): 0–15% of the
+  target kcal in thirds; Today and the portion preview draw the same arcs

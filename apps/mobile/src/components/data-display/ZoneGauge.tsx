@@ -1,21 +1,16 @@
-import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle, G, Path } from 'react-native-svg';
 import { useAnimatedTo } from '@/lib/motion';
 import { color, motion, type } from '@/lib/theme';
-import {
-  GAUGE_BOX,
-  needleAngle,
-  ZONE_COLOR,
-  ZONE_PATHS,
-  ZONES,
-  type GaugeKind,
-} from './gauge-zones';
+import type { GaugeZone } from '@kawsay/core/gauge/scale';
+import { useEffect, useMemo, useState } from 'react';
+import { GAUGE_BOX, needleAngle, ZONE_COLOR, zonePaths } from './gauge-zones';
 
 const { cx, cy } = GAUGE_BOX;
 
 interface Props {
-  kind: GaugeKind;
+  /** Zones at their real share of the arc (`packages/core` `gauge/scale`, ADR 0027). */
+  zones: readonly GaugeZone[];
   /** Where the needle points (0–1); null hides it (nothing logged yet). */
   position: number | null;
   /** A second, grey needle: where the value is now, before a change (portion preview, M5). */
@@ -23,29 +18,33 @@ interface Props {
   value: string;
   unit: string;
   accessibilityLabel: string;
+  /** The value is past the gauge's maximum: the needle stops at the end and the number shows "+". */
+  overflow?: boolean;
   /** Smaller numbers for the mini gauges of the portion preview. */
   compact?: boolean;
 }
 
-/** Arc gauge of the Amanecer redesign: fixed zones, a needle that sweeps in, the value under the arc. */
+/** Arc gauge of the Amanecer redesign: zones at real scale, a needle that sweeps in, the value under the arc. */
 export function ZoneGauge({
-  kind,
+  zones,
   position,
   before = null,
   value,
   unit,
   accessibilityLabel,
+  overflow = false,
   compact = false,
 }: Props) {
+  const paths = useMemo(() => zonePaths(zones), [zones]);
   return (
     <View accessible accessibilityLabel={accessibilityLabel}>
       <View style={styles.box}>
         <Svg width="100%" height="100%" viewBox={`0 0 ${GAUGE_BOX.width} ${GAUGE_BOX.height}`}>
-          {ZONE_PATHS[kind].map((d, i) => (
+          {paths.map((d, i) => (
             <Path
               key={d}
               d={d}
-              stroke={position === null ? color.noData : ZONE_COLOR[ZONES[kind][i]!.zone]}
+              stroke={position === null ? color.noData : ZONE_COLOR[zones[i]!.tone]}
               strokeWidth={12}
               strokeLinecap="round"
               fill="none"
@@ -65,7 +64,7 @@ export function ZoneGauge({
             numberOfLines={1}
             adjustsFontSizeToFit
           >
-            {value}
+            {overflow ? `${value}+` : value}
           </Text>
           <Text style={[type.label, styles.muted]}>{unit}</Text>
         </View>

@@ -5,8 +5,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { ArcGauge } from '@/components/data-display/ArcGauge';
-import { piecewise, UPPER_LIMIT } from '@/components/data-display/gauge';
-import { BMI_BANDS, bmiPosition } from './bmi-gauge';
+import { BMI_BANDS, bmiPosition, WAIST_BANDS, waistPosition } from './body-gauges';
 import { formatNumber } from '@/lib/format';
 import { color, radius, space, type } from '@/lib/theme';
 
@@ -20,14 +19,6 @@ const TONE_PILL: Record<Tone, string> = {
   yellow: color.amber50,
   red: color.coral50,
 };
-/** Waist-to-height (NICE) on the upper-limit gauge: green below 0.5, yellow to 0.6, red above. */
-const WAIST_POINTS: readonly [number, number][] = [
-  [0.35, 0],
-  [0.5, 3 / 7],
-  [0.6, 5 / 7],
-  [0.7, 1],
-];
-
 function Pill({ tone, text }: { tone: Tone; text: string }) {
   return (
     <View style={[styles.pill, { backgroundColor: TONE_PILL[tone] }]}>
@@ -102,12 +93,12 @@ export function StatusCard({ weightKg, heightCm, goalWeightKg, waistCm = null }:
               {t('waist.profileLine')}
             </Text>
             <ArcGauge
-              bands={UPPER_LIMIT}
+              bands={WAIST_BANDS}
               limits={[
-                { at: 3 / 7, text: formatNumber(0.5, 2), strong: true },
-                { at: 5 / 7, text: formatNumber(0.6, 2) },
+                { at: waistPosition(0.5), text: formatNumber(0.5, 2), strong: true },
+                { at: waistPosition(0.6), text: formatNumber(0.6, 2) },
               ]}
-              needle={piecewise(waist.ratio, WAIST_POINTS)}
+              needle={waistPosition(waist.ratio)}
               value={formatNumber(waist.ratio, 2)}
               unit={t('waist.unit')}
               accessibilityLabel={t('waist.ratio', {

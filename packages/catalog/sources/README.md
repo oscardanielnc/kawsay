@@ -47,6 +47,7 @@ python scripts/extract_usda.py sr/FoodData_Central_sr_legacy_food_csv_2018-04 so
   survey found it in. Compare a seed dish against the median of its rows
 - `stratum` empty and `analysed = yes`: values from chemical analysis (the PDF marks them `•` and `*`)
 - Subgroups by code prefix: `SB` breakfast drinks · `SE` starters · `SS` main dishes · `SR` soft drinks · `SP` desserts
-- Used only to cross-check seed dishes (ADR 0014), never as the dish itself
+- Cross-checks seed dishes (ADR 0014) and, since ADR 0028, is also shipped as dishes: `scripts/build_ins_dishes.py`
+  → `seed/generated/ins-dishes.json` (median of the strata, water left out)
 - Energy matches the Atwater factors (median kcal ÷ (4P + 9F + 4C) = 1.03), but `water_g` leaves out the water added
   while cooking: the proximate components sum to ~70 g. Compare energy, not water

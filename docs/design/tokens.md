@@ -61,5 +61,6 @@ so they ship by OTA update. Bricolage Grotesque leaves `app.config.ts` with the 
 ## Gauges
 
 `ZoneGauge` (`src/components/data-display`): arc centre (100, 100), radius 78, zone paths from the Amanecer README.
-Two-sided (calories, macros) coral 10 · amber 18 · blue 44 · amber 18 · coral 10 %; one-sided (added sugar, refined
-flours) blue 3/7 · amber 2/7 · coral 2/7. Thresholds stay as in [direction.md](direction.md).
+~~Two-sided (calories, macros) coral 10 · amber 18 · blue 44 · amber 18 · coral 10 %; one-sided (added sugar, refined
+flours) blue 3/7 · amber 2/7 · coral 2/7.~~ **Replaced by ADR 0027 (2026-11-01): zones at real scale**, computed by
+`packages/core` `gauge/scale`. Thresholds stay as in [direction.md](direction.md).

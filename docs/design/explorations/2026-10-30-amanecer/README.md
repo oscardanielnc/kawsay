@@ -58,6 +58,7 @@ everything off with the system "reduce motion".
 ## Gauges
 
 - Arc: centre (100, 100), radius 78, from 180° to 0°; needle = rotate(f × 180°) around the centre
+- **2026-11-01: zones are now at real scale (ADR 0027)**; the fixed paths below are history, kept for reference.
 - Two-sided zones at fixed fractions 10 · 18 · 44 · 18 · 10% (coral · amber · blue · amber · coral). Paths:
   `M 22.0 100.0 A 78 78 0 0 1 25.0 78.7` · `M 26.8 73.1 A 78 78 0 0 1 48.1 41.8` ·
   `M 52.6 38.1 A 78 78 0 0 1 147.4 38.1` · `M 151.9 41.8 A 78 78 0 0 1 173.2 73.1` · `M 175.0 78.7 A 78 78 0 0 1 178.0 100.0`

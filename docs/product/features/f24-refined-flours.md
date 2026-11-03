@@ -18,7 +18,8 @@ but give **no numeric limit**, so any ceiling here is a personal target, never a
 - Foods tagged `refined-flour` in the catalog: white rice, white bread, cookies, cakes, pasta, crackers, noodles;
   dishes inherit it from their ingredients
 - Measure: grams of carbohydrate coming from tagged foods, computed by the table (ADR 0008)
-- Sixth gauge on Today, one-sided like added sugar (F22): blue · amber · coral
+- Sixth gauge on Today, one-sided like added sugar (F22): blue · amber · coral, at real scale (ADR 0027: 0 to 2.25 ×
+  the limit; blue 44.4 · amber 22.2 · coral 33.3 %)
 - Default personal ceiling: 50% of the day's carbohydrate target, editable in Profile. Shown as "your limit", never
   as a health threshold
 - Sugar is more specific to liver fat than flours (F25); this gauge is about overeating, not the liver

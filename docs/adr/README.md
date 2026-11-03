@@ -27,3 +27,9 @@ Template: [template.md](template.md).
 | [0020](0020-liver-health-targets.md) | Liver-health targets: sugar, drinks, movement, alcohol, sleep | Accepted |
 | [0021](0021-every-ins-food-on-the-phone.md) | Every INS food on the phone; USDA stays a source, not a list | Accepted |
 | [0022](0022-ai-summary-endpoint.md) | The short AI summary is a new endpoint; the old analysis keeps answering | Accepted |
+| [0023](0023-text-logging-agent.md) | Text logging agent: read-only tools on the API, proposal on the phone | Accepted |
+| [0024](0024-ai-traces-and-cost.md) | AI traces and cost: own table first, Langfuse Cloud with masked content | Accepted |
+| [0025](0025-evals-and-ci-gate.md) | Evals: synthetic golden set, exact checks, a gate in CI, model comparison | Accepted |
+| [0026](0026-agent-guardrails.md) | Guardrails for the text agent | Accepted |
+| [0027](0027-gauges-at-real-scale.md) | Gauges at real scale | Accepted |
+| [0028](0028-thousands-of-dishes.md) | Thousands of dishes: INS group S first, AI recipes over the table next, delivered by sync | Accepted |

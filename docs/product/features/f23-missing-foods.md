@@ -1,7 +1,8 @@
 # F23. Missing foods without a new release
 
 - Release: proposal
-- Status: **Pieces 1 and 2 approved by the owner 2026-10-30**, built first · pieces 3–5 later
+- Status: **Pieces 1 and 2 approved by the owner 2026-10-30**, built (plan M2) · **pieces 4, 5 and the new piece 6
+  approved 2026-11-02** (plan A0d, ADR 0028): the owner found no new dishes after M2, only ingredients · piece 3 later
 
 ## Problem
 
@@ -18,6 +19,7 @@ Meanwhile the full sources already sit in the repo: INS 2023 (1,125 foods) and U
 | 3 | **Own food from a label:** create a product from its label (per 100 g or per serving); later, a label photo is read by an AI vision model and the user confirms each number | Branded cookies, ice cream, sauces | Reads, never invents |
 | 4 | **AI dish (F07 v0.2):** name → AI proposes ingredients and grams → the table computes → confirm. Already designed | New Peruvian dishes in seconds | Picks, table computes (ADR 0008) |
 | 5 | **Catalog by sync:** curated additions arrive from the API, not inside the app bundle | Curation without app updates | No |
+| 6 | **Thousands of dishes:** 544 official INS group S dishes (data ready 2026-11-02) + AI recipes over the catalog foods up to ≥ 2,000, checked automatically, shown as "Receta estimada" (ADR 0028) | Torta helada, tequeños, arroz árabe in one tap | Picks, table computes |
 
 Not proposed now: barcode lookup in Open Food Facts. It is crowd-sourced (discarded in ADR 0014), and Peruvian
 coverage is thin (e.g. 273 snacks listed for Peru, October 2026).
@@ -35,6 +37,10 @@ coverage is thin (e.g. 273 snacks listed for Peru, October 2026).
 - [x] Completing a pending entry recalculates that day's totals, targets and micronutrients
 - [x] Any INS food can be added to a dish offline
 - [ ] A label food shows "Label" as its source and its date
+- [ ] Searching "torta helada", "tequeños" and "arroz árabe" finds one dish each (the owner's examples)
+- [ ] The catalog has at least 2,000 dishes, every one passing the automatic checks of ADR 0028
+- [ ] A dish published on the API reaches the phone without an app update
+- [ ] "Crear «X» con IA" builds a dish whose nutrients all come from the table
 
 ## Build notes
 

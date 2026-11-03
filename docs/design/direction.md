@@ -86,6 +86,10 @@ Approved 2026-10-07; implemented in `packages/core` `day/range-state`.
 While the day is still open, values below green read **"N left"** in a neutral colour; only overshooting shows
 yellow or red.
 
+**Gauge scale (owner, 2026-11-01; ADR 0027):** every gauge is drawn at real scale. Two-sided gauges run from 0 to the
+upper red start + 40% of the target (calories 0–160%: at 2,000 kcal the arc is 0–3,200 with red 0–1,600 and
+2,400–3,200); one-sided gauges run from 0 to 1.5 × the red start. This replaces the fixed zone widths of 2026-10-12.
+
 ## Activity logging
 
 | Level | What the user enters | Release |
@@ -110,6 +114,8 @@ weight trend, weekly waist (if enabled), drinks and bloating.
 - Monthly chart, one metric at a time (chips): bars for calories, protein, movement and drinks, coloured dark green when inside **that day's** range; dots + trend line (moving average) for weight and waist; hover/tap tooltip per day
 
 ## Change history
+
+- 2026-11-01 — Gauges at real scale, replacing the fixed zone widths (owner: "los velocímetros son confusos"; ADR 0027)
 
 - 2026-10-12 — Insights tab built without AI (week, nutrients, relations)
 

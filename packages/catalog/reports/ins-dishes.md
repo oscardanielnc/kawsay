@@ -1,0 +1,280 @@
+# INS group S dishes (generated)
+
+- Source rows: 1103 · preparations: 567 · dishes written: **544**
+- Left out: 23 (already curated or without energy)
+- By group: drink 27 · main 359 · salad 11 · side 51 · soup 79 · sweet 17
+- Serving from ENCONUT: 301 · group median: 243 (drink 320 g, main 520 g, salad 146 g, side 190 g, soup 520 g, sweet 97 g)
+- Estimated, not published by INS: added sugar and refined-flour carbohydrate (rule per dish in the JSON)
+- Available carbohydrate derived as total − fiber (published value missing or off by > 20 %): 93
+
+## Left out
+
+- SE12 Caldo de pollo (curated seed dish)
+- SE21 Causa rellena (curated seed dish)
+- SE28 Cebiche de pota (curated seed dish)
+- SE50 Crema de arveja (curated seed dish)
+- SE64 Ensalada rusa (curated seed dish)
+- SE74 Papa a la huancaína (curated seed dish)
+- SE78 Papa rellena (curated seed dish)
+- SE144 Ensalada de palta (curated seed dish)
+- SS8 Aeropuerto de pollo (curated seed dish)
+- SS23 Arroz chaufa de pollo (curated seed dish)
+- SS31 Arroz con mariscos (curated seed dish)
+- SS33 Arroz con pollo (curated seed dish)
+- SS76 Chuleta de cerdo con papas fritas y arroz (curated seed dish)
+- SS79 Churrasco con papas fritas, ensalada y arroz (curated seed dish)
+- SS93 Escabeche de pollo con arroz (curated seed dish)
+- SS155 Lomo saltado con arroz (curated seed dish)
+- SS195 Pizza americana personal (curated seed dish)
+- SS196 Pollo a la brasa con papas fritas (curated seed dish)
+- SS238 Pollo broaster (curated seed dish)
+- SS248 Pollo frito con arroz (curated seed dish)
+- SS268 Saltado de pollo con arroz (curated seed dish)
+- SR12 Refresco de maracuyá (curated seed dish)
+- SR19 Chicha morada (curated seed dish)
+
+## Serving from the group median (check if one looks wrong)
+
+- Causa de palta
+- Causa de pescado
+- Causa de pollo
+- Causa de pulpa de cangrejo
+- Chicharrón con sarsa criolla y leche de tigre
+- Adobo de cerdo con menestra y arroz
+- Adobo de cerdo con puré y arroz
+- Adobo de pollo con ensalada y arroz
+- Adobo de res con menestra y arroz
+- Alita broaster con papas fritas y arroz
+- Anticucho con papa y arroz
+- Arroz blanco con filete de pollo, papas sancochadas y ensalada
+- Arroz chaufa con pollo al tamarindo
+- Arroz con cerdo y sarsa criolla
+- Arroz con fréjol y seco de res
+- Arroz con fréjoles y seco de pollo
+- Arroz con lentejas y churrasco
+- Arvejita verde partida con estofado de pollo y arroz
+- Arvejita verde partida con guiso de pollo y arroz
+- Arvejita verde partida con hígado frito y arroz
+- Arvejita verde partida con pollo al horno y arroz
+- Arvejita verde partida con pescado frito y arroz
+- Asado de cerdo con arvejita verde y arroz
+- Asado de cerdo con menestra y arroz
+- Asado de pollo con menestra y arroz
+- Asado de pollo con puré y arroz
+- Asado de res con menestra y arroz
+- Asado de res con puré y arroz
+- Bisteck de res con papas fritas y arroz
+- Cabrito con fréjoles y arroz
+- Carne de res con ensalada y arroz
+- Causa con pollo al horno y arroz
+- Chicharrón de pescado con ensalada y arroz
+- Chicharrón de pescado con fréjoles y arroz
+- Chicharrón de pescado con yuca frita y arroz
+- Chicharrón de pescado con yucas doradas
+- Chicharrón de pollo con ensalada y arroz
+- Chicharrón mixto con sarsa criolla y arroz
+- Churrasco con fréjoles y arroz
+- Cordero a la norteña con fréjoles y arroz
+- Costillas barbiquiu con arroz y camote
+- Costillas con papa y arroz
+- Costillas a la norteña con fréjoles y arroz
+- Encebollado de hígado con fréjoles y arroz
+- Ensalada rusa con pollo broaster y arroz
+- Ensalada rusa con pollo a la brasa y arroz
+- Ensalada rusa con pollo al horno y arroz
+- Ensalada rusa con pollo frito y arroz
+- Estofado de pavita con arroz y ensalada
+- Estofado de pollo con arroz y ensalada
+- Estofado de pollo con menestra y arroz
+- Estofado de res con menestra y arroz
+- Filete de pescado con menestra y arroz
+- Filete de pescado con papas fritas, sarsa criolla y arroz
+- Filete de pollo con papas fritas y arroz
+- Filete de pollo con papas fritas, ensalada y arroz
+- Filete de pollo a la parrilla con ensalada y arroz
+- Fréjoles con asado de carne y arroz
+- Fréjoles con bisteck y arroz
+- Fréjoles con cabrito a la norteña y arroz
+- Fréjoles con pescado y arroz
+- Fréjoles con pescado, ensalada y arroz
+- Fréjoles con pollo a la norteña y arroz
+- Fréjoles con pollo al vino
+- Fréjoles con seco a la norteña y arroz
+- Fréjoles con seco y arroz
+- Fréjoles con seco, ensalada y arroz
+- Garbanzo con chuleta y arroz
+- Garbanzo con churrasco, ensalada y arroz
+- Garbanzo con pescado y arroz
+- Garbanzo con pollo y arroz
+- Guiso de quinua con pescado y arroz
+- Guiso de trigo con lomo de socona y arroz
+- Guiso de trigo con pollo y arroz
+- Guiso de vainita con pollo y arroz
+- Lenteja con adobo y arroz
+- Lenteja con bisteck y arroz
+- Lenteja con chuleta y arroz
+- Lenteja con estofado y arroz
+- Lenteja con filete de pechuga y arroz
+- Lenteja con hígado y arroz
+- Lenteja con lomito y arroz
+- Lenteja con milanesa y arroz
+- Lenteja con pescado y arroz
+- Locro de zapallo con bisteck y arroz
+- Locro de zapallo con filete de pollo y arroz
+- Lomo al jugo con menestra y arroz
+- Lomo saltado con menestra y arroz
+- Milanesa con ensalada y arroz
+- Milanesa con menestra y arroz
+- Milanesa con papas fritas y arroz
+- Pallares con chuleta y arroz
+- Pallares con guiso de pollo y arroz
+- Pallares con pescado y arroz
+- Pallares con pollo y arroz
+- Pavita con ensalada y arroz
+- Pavita con menestra y arroz
+- Pavita con puré y arroz
+- Patita con maní y arroz
+- Pechuga a la plancha con ensalada y arroz
+- Pescado con ensalada y arroz
+- Pescado con menestra y arroz
+- Pollo a la brasa + 1 palito de anticucho con papas fritas
+- Pollo a la chiclayana con menestra y arroz
+- Pollo a la norteña con menestra y arroz
+- Pollo a la huachana con menestra y arroz
+- Pollo a la olla con menestra y arroz
+- Pollo a la olla con ensalada y arroz
+- Pollo a la olla con puré y arroz
+- Pollo a la parrilla con arroz y papas fritas
+- Pollo a la parrilla con ensalada y arroz
+- Pollo a la parrilla con ensalada rusa y arroz
+- Pollo a la parrilla con puré y arroz
+- Pollo a la plancha con ensalada y arroz
+- Pollo a la plancha con menestra y arroz
+- Pollo a la plancha con papas doradas y arroz
+- Pollo a la plancha con papas fritas y arroz
+- Pollo a la plancha con papas fritas, ensalada y arroz
+- Pollo a la plancha con puré y arroz
+- Pollo al ají con menestra y arroz
+- Pollo al horno con ensalada y arroz
+- Pollo al horno con ensalada rusa y arroz
+- Pollo al horno con menestra y arroz
+- Pollo al horno con menestra, ensalada y arroz
+- Pollo al horno con puré y arroz
+- Pollo al horno con puré, ensalada y arroz
+- Pollo al jugo con menestra y arroz
+- Pollo al maní con ensalada y arroz
+- Pollo al maní con menestra y arroz
+- Pollo al sillao con ensalada y arroz
+- Pollo al vino con ensalada y arroz
+- Pollo al vino con menestra y arroz
+- Pollo broaster con ensalada rusa y arroz
+- Pollo broaster con papas fritas y arroz
+- Pollo broaster con papas fritas, ensalada y arroz
+- Pollo con maní y arroz
+- Pollo con verduras y arroz
+- Pollo con verduras y arroz chaufa
+- Pollo dorado con papas fritas y arroz
+- Pollo frito con ensalada y arroz
+- Pollo frito con ensalada rusa y arroz
+- Pollo frito con menestra y arroz
+- Pollo frito con papas fritas y arroz
+- Pollo frito con puré y arroz
+- Pollo frito con papas fritas, ensalada y arroz
+- Puré con bisteck y arroz
+- Puré con churrasco y arroz
+- Puré con pavita y arroz
+- Puré con pollo al sillao y arroz
+- Puré con pollo y arroz
+- Puré con asado y arroz integral
+- Puré con pollo, ensalada y arroz
+- Quinua guisada con pollo y arroz
+- Saltado de pollo con papas fritas y arroz
+- Seco a la huachana con menestra y arroz
+- Seco a la norteña con menestra y arroz
+- Seco a la norteña con menestra, sarsa criolla y arroz
+- Seco a la norteña con sarsa criolla y arroz
+- Seco a la norteña de pollo con menestra y arroz
+- Seco a la norteña de res con menestra y arroz
+- Seco a la norteña de res con menestra, sarsa criolla y arroz
+- Seco a la norteña con menestra, ensalada y arroz
+- Seco con menestra y arroz
+- Seco de cabrito a la norteña con menestra y arroz
+- Seco de cabrito con menestra y arroz
+- Seco de cabrito con menestra, sarsa criolla y arroz
+- Seco de costillar con menestra y arroz
+- Seco de cordero con menestra y arroz
+- Seco de cordero con menestra, sarsa criolla y arroz
+- Seco de pollo con menestra y arroz
+- Seco de pollo con sarsa criolla y arroz
+- Seco de res a la huachana con menestra y arroz
+- Seco de res a la norteña con menestra y arroz
+- Seco de res con menestra y arroz
+- Seco de res con menestra, ensalada y arroz
+- Seco de res con menestra, sarsa criolla y arroz
+- Seco de ternera con menestra y arroz
+- Seco huachano con menestra y arroz
+- Sopa seca con carapulcra y arroz
+- Spaguetti con crema
+- Tacu tacu con lomo y arroz
+- Tallarines con pollo y crema a la huancaína
+- Tallarines saltados con pollo
+- Tallarines verdes con churrasco y crema a la huancaína
+- Tallarines verdes con pollo y crema a la huancaína
+- Trigo con pollo y arroz
+- Trigo guisado con pollo y arroz
+- Trucha con menestra y arroz
+- Ají de gallina con papa blanca más arroz
+- Ají de pollo con zanahoria más arroz blanco
+- Ajiaco de papa con huevo duro y arroz blanco
+- Arroz blanco con guiso de pota
+- Arroz blanco con tortilla de atún
+- Arroz blanco con tortilla de atún con pota
+- Arvejita verde partida con arroz blanco y ceviche de pollo
+- Arvejita verde partida con croquetas de pescado y arroz blanco
+- Arverjita verde partida con guiso de pescado y arroz
+- Arvejita verde partida con hígado entomatado más arroz blanco
+- Arvejita verde partida con papa e hígado frito más arroz blanco
+- Arvejita con papa e hígado entomatado
+- Arvejita con papa e hígado empimentado con arroz
+- Cau cau de pollo e hígado de pollo con arroz
+- Carapulcra de morón con pollo y yuca
+- Carapulcra de trigo con papa y pollo más arroz
+- Fréjol panamíto con atún al jugo más arroz blanco
+- Fréjol panamito con papa y sangrecita entomatada
+- Guiso de caigua con pollo
+- Guiso de fréjol panamito con atún más ensalada de pepinillo
+- Guiso de fréjol panamito con pescado frito más ensalada de pepinillo
+- Lentejas con ensalada de atún y arroz blanco
+- Lentejas con huevo sancochado y ensalada de zanahoria más arroz blanco
+- Lentejas con pollo e hígado de pollo al jugo con arroz
+- Lentejas y papa con guiso de sangrecita más arroz blanco
+- Locro de zapallo con huevo sancochado y arroz blanco
+- Locro de zapallo con leche, habas frescas y guiso de hígado con arroz blanco
+- Lomito saltado con hígado
+- Lomito saltado con sangrecita e hígado
+- Puré de brócoli con papa y guiso de carne más arroz
+- Puré de espinaca con huevo sancochado y arroz blanco
+- Puré de papa con hígado al jugo y arroz
+- Puré de papa con huevo sancochado y arroz
+- Saltado de fideos con sangrecita de pollo
+- Saltado de vainita con guiso de corazón más arroz
+- Saltado de vainita y papa con guiso de corazón más arroz blanco
+- Tallarines con salsa de tomate, carne, hígado de pollo
+- Tallarines rojos con atún
+- Tallarines rojos con carne y rodajas de camote
+- Tallarines rojos con conserva de anchoveta
+- Tallarines rojos con hígado de pollo
+- Tallarín saltado más papa frita y sangrecita
+- Tallarines verdes con hígado al jugo más camote
+- Hojuela de cereal, con canela, bebida de
+- Hojuela de cereal, con cocoa, clavo de olor y canela, bebida de
+- Hojuela de cereal, con membrillo, bebida de
+- Hojuela de cereal, con avena precocida, bebida de
+- Hojuela de cereal, con leche evaporada entera UHT, bebida de
+- Hojuela de cereal, con leche evaporada entera UHT, avena, clavo de olor, canela y vainilla, bebida de
+- Hojuela de quinua con cereales, leche evaporada entera, canela y clavo de olor, bebida de
+- Hojuela de quinua con cereales, leche evaporada entera UHT, azúcar rubia,clavo de olor y canela, bebida de
+- Hojuela de cereales con soya precocidos con leche evaporada, bebida de
+- Arroz zambito
+- Dulce de cañihua
+- Tiramisú

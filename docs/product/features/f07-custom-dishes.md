@@ -10,7 +10,7 @@ Build dishes the catalog lacks, or a personal version of a seed dish.
 ## Rules
 
 - v0.1: the user builds the dish from catalog foods in household units or grams
-- v0.2 AI flow:
+- v0.2 AI flow (built in plan A0d as "Crear «…» con IA", ADR 0028):
   1. The user types a name ("juane de pollo"); existing dishes are searched first, without AI
   2. If nothing matches, the API asks the AI for ingredients and amounts only (JSON validated with Zod)
   3. Each ingredient is matched to a catalog food; unmatched ones show "no encontrado" and open the search

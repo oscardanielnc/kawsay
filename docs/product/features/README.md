@@ -17,7 +17,7 @@
 | [F13](f13-custom-symptoms.md) | Custom symptoms | v0.1 | Approved |
 | [F14](f14-calendar.md) | Calendar | v0.1 | Approved |
 | [F15](f15-export.md) | Export history | v0.1 | Approved |
-| [F16](f16-text-shortcut.md) | Free-text shortcut | later | Approved |
+| [F16](f16-text-shortcut.md) | Log by text (agent) | next | Approved |
 | [F17](f17-insights.md) | On-demand insights | v0.1 without AI · AI later | Approved |
 | [F18](f18-routines.md) | Routines | v0.1 | Approved |
 | [F19](f19-micronutrients.md) | Vitamins, minerals and fibre | v0.1 | Approved |
@@ -27,3 +27,4 @@
 | [F23](f23-missing-foods.md) | Missing foods without a new release | proposal | Pieces 1–2 approved |
 | [F24](f24-refined-flours.md) | Refined flours gauge | next | Accepted |
 | [F25](f25-liver-health.md) | Liver health | next | Approved |
+| [F26](f26-gauge-detail.md) | Gauge detail: big gauge and what added most | next | Approved |

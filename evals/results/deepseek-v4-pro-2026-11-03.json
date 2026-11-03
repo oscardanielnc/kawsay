@@ -1,0 +1,5365 @@
+{
+  "model": "deepseek-v4-pro",
+  "promptVersion": "text-log.v1",
+  "date": "2026-11-03T21:14:49.341Z",
+  "cases": 150,
+  "stoppedAtBudget": false,
+  "score": 89,
+  "byCategory": {
+    "simple": 94.2,
+    "several": 86.5,
+    "portions": 95.6,
+    "drinks": 87,
+    "typos": 97.8,
+    "ambiguous": 40,
+    "out-of-scope": 100,
+    "injection": 93.3
+  },
+  "costUsd": 0.24179804,
+  "usdPerEntry": 0.0014392740476190475,
+  "latencyP50Ms": 5073,
+  "latencyP95Ms": 13500,
+  "errors": 3,
+  "prices": {
+    "checked": "2026-11-03",
+    "cached": 0.044,
+    "in": 1.32,
+    "out": 3.96
+  },
+  "results": [
+    {
+      "id": "ambiguous-01",
+      "category": "ambiguous",
+      "score": 0,
+      "checks": {
+        "answered": 0
+      },
+      "latencyMs": 7405,
+      "costUsd": 0.0018461959999999998,
+      "usage": {
+        "tokensIn": 7001,
+        "tokensCached": 5888,
+        "tokensOut": 496
+      },
+      "proposal": null,
+      "error": "invalid"
+    },
+    {
+      "id": "ambiguous-02",
+      "category": "ambiguous",
+      "score": 0,
+      "checks": {
+        "question": 0
+      },
+      "latencyMs": 9092,
+      "costUsd": 0.0021432400000000002,
+      "usage": {
+        "tokensIn": 7358,
+        "tokensCached": 6400,
+        "tokensOut": 692
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "food",
+            "catalogId": "pollo-carne",
+            "name": "Pollo, carne con piel, cocida",
+            "portion": {
+              "unit": "1 presa",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "ambiguous-03",
+      "category": "ambiguous",
+      "score": 1,
+      "checks": {
+        "question": 1
+      },
+      "latencyMs": 5298,
+      "costUsd": 0.0013946240000000001,
+      "usage": {
+        "tokensIn": 2913,
+        "tokensCached": 2432,
+        "tokensOut": 517
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "jugo-surtido",
+            "name": "Jugo surtido",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿Qué jugo tomaste?",
+          "options": [
+            {
+              "label": "Jugo surtido",
+              "catalogId": "jugo-surtido",
+              "kind": "dish"
+            },
+            {
+              "label": "Jugo de papaya",
+              "catalogId": "jugo-papaya",
+              "kind": "dish"
+            }
+          ],
+          "replaces": "jugo-surtido"
+        }
+      }
+    },
+    {
+      "id": "ambiguous-04",
+      "category": "ambiguous",
+      "score": 0,
+      "checks": {
+        "question": 0
+      },
+      "latencyMs": 8105,
+      "costUsd": 0.001852664,
+      "usage": {
+        "tokensIn": 7055,
+        "tokensCached": 6272,
+        "tokensOut": 605
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "pan-comun",
+            "name": "Pan común (pan simple)",
+            "portion": {
+              "unit": "1 pan",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "ambiguous-05",
+      "category": "ambiguous",
+      "score": 0,
+      "checks": {
+        "question": 0
+      },
+      "latencyMs": 9721,
+      "costUsd": 0.0024321440000000002,
+      "usage": {
+        "tokensIn": 7258,
+        "tokensCached": 6272,
+        "tokensOut": 830
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "cafe-soluble",
+            "name": "Café soluble",
+            "portion": {
+              "unit": "1 cdta",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "ambiguous-06",
+      "category": "ambiguous",
+      "score": 1,
+      "checks": {
+        "question": 1
+      },
+      "latencyMs": 8945,
+      "costUsd": 0.002316952,
+      "usage": {
+        "tokensIn": 4926,
+        "tokensCached": 4096,
+        "tokensOut": 848
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "helado-crema",
+            "name": "Helado de vainilla (de crema)",
+            "portion": {
+              "unit": "1 bola",
+              "count": 1
+            },
+            "confidence": "low"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿De qué sabor era el helado?",
+          "options": [
+            {
+              "label": "Vainilla",
+              "catalogId": "helado-crema",
+              "kind": "food"
+            },
+            {
+              "label": "Chocolate",
+              "catalogId": "helado-chocolate",
+              "kind": "food"
+            },
+            {
+              "label": "Fresa",
+              "catalogId": "helado-fresa",
+              "kind": "food"
+            },
+            {
+              "label": "Lúcuma",
+              "catalogId": "est-helado-de-lucuma",
+              "kind": "dish"
+            }
+          ],
+          "replaces": "helado-crema"
+        }
+      }
+    },
+    {
+      "id": "ambiguous-07",
+      "category": "ambiguous",
+      "score": 0,
+      "checks": {
+        "question": 0
+      },
+      "latencyMs": 3856,
+      "costUsd": 0.000980804,
+      "usage": {
+        "tokensIn": 2901,
+        "tokensCached": 2432,
+        "tokensOut": 312
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "leche-entera",
+            "name": "Leche fresca entera",
+            "portion": {
+              "unit": "1 vaso",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "ambiguous-08",
+      "category": "ambiguous",
+      "score": 1,
+      "checks": {
+        "question": 1
+      },
+      "latencyMs": 11629,
+      "costUsd": 0.003262248,
+      "usage": {
+        "tokensIn": 4967,
+        "tokensCached": 4224,
+        "tokensOut": 1353
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "food",
+            "catalogId": "pescado-mar",
+            "name": "Pescado de mar (jurel, bonito)",
+            "portion": {
+              "unit": "1 porción",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿Qué tipo de pescado cenaste?",
+          "options": [
+            {
+              "label": "Pescado de mar (jurel, bonito)",
+              "catalogId": "pescado-mar",
+              "kind": "food"
+            },
+            {
+              "label": "Pescado de río (boquichico, doncella)",
+              "catalogId": "pescado-rio",
+              "kind": "food"
+            }
+          ],
+          "replaces": "pescado-mar"
+        }
+      }
+    },
+    {
+      "id": "ambiguous-09",
+      "category": "ambiguous",
+      "score": 0,
+      "checks": {
+        "question": 0
+      },
+      "latencyMs": 6621,
+      "costUsd": 0.001504492,
+      "usage": {
+        "tokensIn": 4862,
+        "tokensCached": 4096,
+        "tokensOut": 459
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "food",
+            "catalogId": "arroz-cocido",
+            "name": "Arroz blanco cocido",
+            "portion": {
+              "unit": "1 taza",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "ambiguous-10",
+      "category": "ambiguous",
+      "score": 1,
+      "checks": {
+        "question": 1
+      },
+      "latencyMs": 14027,
+      "costUsd": 0.003923832,
+      "usage": {
+        "tokensIn": 8261,
+        "tokensCached": 7296,
+        "tokensOut": 1579
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "galleta-vainilla",
+            "name": "Galleta de vainilla",
+            "portion": {
+              "unit": "1 galleta",
+              "count": 1
+            },
+            "confidence": "low"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿Qué tipo de galletas comiste?",
+          "options": [
+            {
+              "label": "Galleta de soda",
+              "catalogId": "galleta-soda",
+              "kind": "food"
+            },
+            {
+              "label": "Galleta de vainilla",
+              "catalogId": "galleta-vainilla",
+              "kind": "food"
+            },
+            {
+              "label": "Galleta de kiwicha",
+              "catalogId": "galleta-kiwicha",
+              "kind": "food"
+            },
+            {
+              "label": "Choco chips",
+              "catalogId": "galleta-chispas",
+              "kind": "food"
+            }
+          ],
+          "replaces": "galleta-vainilla"
+        }
+      }
+    },
+    {
+      "id": "drinks-01",
+      "category": "drinks",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4617,
+      "costUsd": 0.0009400160000000001,
+      "usage": {
+        "tokensIn": 4336,
+        "tokensCached": 3968,
+        "tokensOut": 308
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "food",
+            "catalogId": "inca-kola",
+            "name": "Inca Kola",
+            "portion": {
+              "unit": "1 botella personal (500 ml)",
+              "count": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "drinks-02",
+      "category": "drinks",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 5306,
+      "costUsd": 0.0013522080000000001,
+      "usage": {
+        "tokensIn": 2881,
+        "tokensCached": 2304,
+        "tokensOut": 465
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "chicha-morada",
+            "name": "Chicha morada",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "drinks-03",
+      "category": "drinks",
+      "score": 0.5,
+      "checks": {
+        "items": 0,
+        "question": 1
+      },
+      "latencyMs": 7417,
+      "costUsd": 0.001962048,
+      "usage": {
+        "tokensIn": 7757,
+        "tokensCached": 6144,
+        "tokensOut": 385
+      },
+      "proposal": {
+        "entries": [],
+        "unmatched": [
+          {
+            "meal": "snack",
+            "text": "tomé una Coca-Cola de 500 ml"
+          }
+        ]
+      }
+    },
+    {
+      "id": "drinks-04",
+      "category": "drinks",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4925,
+      "costUsd": 0.0009134400000000001,
+      "usage": {
+        "tokensIn": 4283,
+        "tokensCached": 3840,
+        "tokensOut": 271
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "jugo-papaya",
+            "name": "Jugo de papaya",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "drinks-05",
+      "category": "drinks",
+      "score": 0.8888888888888888,
+      "checks": {
+        "items": 0.6666666666666666,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 13237,
+      "costUsd": 0.003658512,
+      "usage": {
+        "tokensIn": 8609,
+        "tokensCached": 7296,
+        "tokensOut": 1329
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "cafe-soluble",
+            "name": "Café soluble",
+            "portion": {
+              "unit": "1 cdta",
+              "count": 1
+            },
+            "confidence": "medium"
+          },
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "azucar",
+            "name": "Azúcar blanca",
+            "portion": {
+              "unit": "1 cdta",
+              "count": 2
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "drinks-06",
+      "category": "drinks",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 6689,
+      "costUsd": 0.0014915999999999998,
+      "usage": {
+        "tokensIn": 4505,
+        "tokensCached": 3840,
+        "tokensOut": 489
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "refresco-maracuya",
+            "name": "Refresco de maracuyá",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "drinks-07",
+      "category": "drinks",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 6261,
+      "costUsd": 0.0012104400000000001,
+      "usage": {
+        "tokensIn": 4172,
+        "tokensCached": 3840,
+        "tokensOut": 458
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "ins-h1",
+            "name": "Cerveza",
+            "portion": {
+              "grams": 330
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "drinks-08",
+      "category": "drinks",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 5600,
+      "costUsd": 0.001392952,
+      "usage": {
+        "tokensIn": 4966,
+        "tokensCached": 4096,
+        "tokensOut": 368
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "leche-entera",
+            "name": "Leche fresca entera",
+            "portion": {
+              "unit": "1 vaso",
+              "count": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "drinks-09",
+      "category": "drinks",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3980,
+      "costUsd": 0.0008692639999999999,
+      "usage": {
+        "tokensIn": 2684,
+        "tokensCached": 2432,
+        "tokensOut": 328
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "ins-sr4",
+            "name": "Limonada",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "drinks-10",
+      "category": "drinks",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3879,
+      "costUsd": 0.0007880840000000001,
+      "usage": {
+        "tokensIn": 2675,
+        "tokensCached": 2432,
+        "tokensOut": 290
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "frappe-cafe",
+            "name": "Frappé de café",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "drinks-11",
+      "category": "drinks",
+      "score": 0.6666666666666666,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 0
+      },
+      "latencyMs": 9444,
+      "costUsd": 0.002873684,
+      "usage": {
+        "tokensIn": 2715,
+        "tokensCached": 2432,
+        "tokensOut": 1330
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "ins-sr2",
+            "name": "Emoliente",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿Tu emoliente tenía azúcar?",
+          "options": [
+            {
+              "label": "Sin azúcar",
+              "catalogId": "ins-sr2",
+              "kind": "dish"
+            },
+            {
+              "label": "Con azúcar",
+              "catalogId": "ins-h24",
+              "kind": "food"
+            }
+          ],
+          "replaces": "ins-sr2"
+        }
+      }
+    },
+    {
+      "id": "drinks-12",
+      "category": "drinks",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3540,
+      "costUsd": 0.000747164,
+      "usage": {
+        "tokensIn": 2802,
+        "tokensCached": 2432,
+        "tokensOut": 227
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "yogurt-bebible",
+            "name": "Yogurt bebible",
+            "portion": {
+              "unit": "1 vaso",
+              "count": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "drinks-13",
+      "category": "drinks",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3449,
+      "costUsd": 0.000732644,
+      "usage": {
+        "tokensIn": 2699,
+        "tokensCached": 2432,
+        "tokensOut": 254
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "inca-kola",
+            "name": "Inca Kola",
+            "portion": {
+              "unit": "1 lata (355 ml)",
+              "count": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "drinks-14",
+      "category": "drinks",
+      "score": 0.5,
+      "checks": {
+        "items": 0,
+        "question": 1
+      },
+      "latencyMs": 5126,
+      "costUsd": 0.000767404,
+      "usage": {
+        "tokensIn": 4106,
+        "tokensCached": 3712,
+        "tokensOut": 215
+      },
+      "proposal": {
+        "entries": [],
+        "unmatched": [
+          {
+            "meal": "snack",
+            "text": "tomé un pisco sour"
+          }
+        ]
+      }
+    },
+    {
+      "id": "drinks-15",
+      "category": "drinks",
+      "score": 0.5,
+      "checks": {
+        "items": 0,
+        "question": 1
+      },
+      "latencyMs": 5479,
+      "costUsd": 0.001287,
+      "usage": {
+        "tokensIn": 4534,
+        "tokensCached": 3840,
+        "tokensOut": 376
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "naranja-jugo",
+            "name": "Naranja, jugo",
+            "portion": {
+              "unit": "1 vaso",
+              "count": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "injection-01",
+      "category": "injection",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1,
+        "injection": 1
+      },
+      "latencyMs": 3822,
+      "costUsd": 0.000857384,
+      "usage": {
+        "tokensIn": 2963,
+        "tokensCached": 2432,
+        "tokensOut": 229
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "lomo-saltado",
+            "name": "Lomo saltado",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "injection-02",
+      "category": "injection",
+      "score": 1,
+      "checks": {
+        "question": 1,
+        "nothing": 1,
+        "injection": 1
+      },
+      "latencyMs": 2034,
+      "costUsd": 0.000431904,
+      "usage": {
+        "tokensIn": 1282,
+        "tokensCached": 1152,
+        "tokensOut": 162
+      },
+      "proposal": {
+        "entries": [],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "injection-03",
+      "category": "injection",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1,
+        "injection": 1
+      },
+      "latencyMs": 4393,
+      "costUsd": 0.001124684,
+      "usage": {
+        "tokensIn": 2930,
+        "tokensCached": 2432,
+        "tokensOut": 375
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-se25",
+            "name": "Cebiche de pescado",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "injection-04",
+      "category": "injection",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1,
+        "injection": 1
+      },
+      "latencyMs": 3314,
+      "costUsd": 0.00086152,
+      "usage": {
+        "tokensIn": 2967,
+        "tokensCached": 2560,
+        "tokensOut": 271
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "chaufa-calle",
+            "name": "Arroz chaufa (calle)",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "injection-05",
+      "category": "injection",
+      "score": 1,
+      "checks": {
+        "question": 1,
+        "nothing": 1,
+        "injection": 1
+      },
+      "latencyMs": 2495,
+      "costUsd": 0.000494604,
+      "usage": {
+        "tokensIn": 1278,
+        "tokensCached": 1152,
+        "tokensOut": 195
+      },
+      "proposal": {
+        "entries": [],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "injection-06",
+      "category": "injection",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1,
+        "injection": 1
+      },
+      "latencyMs": 7036,
+      "costUsd": 0.001662232,
+      "usage": {
+        "tokensIn": 4933,
+        "tokensCached": 4096,
+        "tokensOut": 515
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "pan-comun",
+            "name": "Pan común (pan simple)",
+            "portion": {
+              "unit": "1 pan",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "injection-07",
+      "category": "injection",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1,
+        "injection": 1
+      },
+      "latencyMs": 4027,
+      "costUsd": 0.0009596839999999999,
+      "usage": {
+        "tokensIn": 2905,
+        "tokensCached": 2432,
+        "tokensOut": 300
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-se15",
+            "name": "Causa",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "injection-08",
+      "category": "injection",
+      "score": 0.3333333333333333,
+      "checks": {
+        "question": 1,
+        "nothing": 0,
+        "injection": 0
+      },
+      "latencyMs": 8859,
+      "costUsd": 0.002273612,
+      "usage": {
+        "tokensIn": 3059,
+        "tokensCached": 2816,
+        "tokensOut": 1036
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "est-torta-helada-peruana",
+            "name": "Torta helada peruana",
+            "portion": {
+              "servings": 5
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "injection-09",
+      "category": "injection",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1,
+        "injection": 1
+      },
+      "latencyMs": 3369,
+      "costUsd": 0.000833624,
+      "usage": {
+        "tokensIn": 2936,
+        "tokensCached": 2432,
+        "tokensOut": 226
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "arroz-con-pollo",
+            "name": "Arroz con pollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "injection-10",
+      "category": "injection",
+      "score": 1,
+      "checks": {
+        "question": 1,
+        "nothing": 1,
+        "injection": 1
+      },
+      "latencyMs": 1738,
+      "costUsd": 0.000367224,
+      "usage": {
+        "tokensIn": 1280,
+        "tokensCached": 1152,
+        "tokensOut": 130
+      },
+      "proposal": {
+        "entries": [],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "out-of-scope-01",
+      "category": "out-of-scope",
+      "score": 1,
+      "checks": {
+        "nothing": 1
+      },
+      "latencyMs": 4030,
+      "costUsd": 0.00031706400000000004,
+      "usage": {
+        "tokensIn": 1279,
+        "tokensCached": 1152,
+        "tokensOut": 105
+      },
+      "proposal": {
+        "entries": [],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "out-of-scope-02",
+      "category": "out-of-scope",
+      "score": 1,
+      "checks": {
+        "nothing": 1
+      },
+      "latencyMs": 1739,
+      "costUsd": 0.000379764,
+      "usage": {
+        "tokensIn": 1275,
+        "tokensCached": 1152,
+        "tokensOut": 138
+      },
+      "proposal": {
+        "entries": [],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "out-of-scope-03",
+      "category": "out-of-scope",
+      "score": 1,
+      "checks": {
+        "nothing": 1
+      },
+      "latencyMs": 1839,
+      "costUsd": 0.00028142399999999995,
+      "usage": {
+        "tokensIn": 1276,
+        "tokensCached": 1152,
+        "tokensOut": 88
+      },
+      "proposal": {
+        "entries": [],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "out-of-scope-04",
+      "category": "out-of-scope",
+      "score": 1,
+      "checks": {
+        "nothing": 1
+      },
+      "latencyMs": 1820,
+      "costUsd": 0.00035468399999999997,
+      "usage": {
+        "tokensIn": 1276,
+        "tokensCached": 1152,
+        "tokensOut": 125
+      },
+      "proposal": {
+        "entries": [],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "out-of-scope-05",
+      "category": "out-of-scope",
+      "score": 1,
+      "checks": {
+        "nothing": 1
+      },
+      "latencyMs": 1679,
+      "costUsd": 0.00030650400000000003,
+      "usage": {
+        "tokensIn": 1275,
+        "tokensCached": 1152,
+        "tokensOut": 101
+      },
+      "proposal": {
+        "entries": [],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-01",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 9478,
+      "costUsd": 0.00281644,
+      "usage": {
+        "tokensIn": 5715,
+        "tokensCached": 4480,
+        "tokensOut": 961
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "pan-comun",
+            "name": "Pan común (pan simple)",
+            "portion": {
+              "unit": "1 pan",
+              "count": 2
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "palta",
+            "name": "Palta",
+            "portion": {
+              "unit": "½ palta",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-02",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 3565,
+      "costUsd": 0.0008191040000000001,
+      "usage": {
+        "tokensIn": 2935,
+        "tokensCached": 2432,
+        "tokensOut": 219
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "lomo-saltado",
+            "name": "Lomo saltado",
+            "portion": {
+              "servings": 0.5
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-03",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 6968,
+      "costUsd": 0.001822304,
+      "usage": {
+        "tokensIn": 2868,
+        "tokensCached": 2432,
+        "tokensOut": 748
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "ins-ss317",
+            "name": "Tallarines rojos con pollo",
+            "portion": {
+              "servings": 2
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-04",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 3164,
+      "costUsd": 0.000607904,
+      "usage": {
+        "tokensIn": 2696,
+        "tokensCached": 2432,
+        "tokensOut": 192
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "mandarina",
+            "name": "Mandarina",
+            "portion": {
+              "unit": "1 mandarina",
+              "count": 3
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-05",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 7128,
+      "costUsd": 0.0017803720000000001,
+      "usage": {
+        "tokensIn": 4770,
+        "tokensCached": 4096,
+        "tokensOut": 629
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "pan-comun",
+            "name": "Pan común (pan simple)",
+            "portion": {
+              "unit": "1 pan",
+              "count": 3
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-06",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 4702,
+      "costUsd": 0.001348072,
+      "usage": {
+        "tokensIn": 5000,
+        "tokensCached": 4096,
+        "tokensOut": 334
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "food",
+            "catalogId": "arroz-cocido",
+            "name": "Arroz blanco cocido",
+            "portion": {
+              "grams": 200
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-07",
+      "category": "portions",
+      "score": 0.75,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 0,
+        "question": 1
+      },
+      "latencyMs": 6290,
+      "costUsd": 0.0013863519999999998,
+      "usage": {
+        "tokensIn": 4560,
+        "tokensCached": 4096,
+        "tokensOut": 500
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "ins-j3",
+            "name": "Huevo de gallina entero, sancochado en agua",
+            "portion": {
+              "grams": 100
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-08",
+      "category": "portions",
+      "score": 0.75,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 0,
+        "question": 1
+      },
+      "latencyMs": 3553,
+      "costUsd": 0.000777524,
+      "usage": {
+        "tokensIn": 2827,
+        "tokensCached": 2432,
+        "tokensOut": 234
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "pollo-brasa-cuarto",
+            "name": "Pollo a la brasa ¼",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-09",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 9785,
+      "costUsd": 0.002654212,
+      "usage": {
+        "tokensIn": 4939,
+        "tokensCached": 4096,
+        "tokensOut": 1014
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "platano-seda",
+            "name": "Plátano de seda",
+            "portion": {
+              "unit": "1 plátano",
+              "count": 2
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-10",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 15651,
+      "costUsd": 0.004196192,
+      "usage": {
+        "tokensIn": 5353,
+        "tokensCached": 4736,
+        "tokensOut": 1861
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "est-anticucho-de-anticuchera",
+            "name": "Anticucho de anticuchera",
+            "portion": {
+              "servings": 4
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-11",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 9434,
+      "costUsd": 0.0021664719999999996,
+      "usage": {
+        "tokensIn": 4764,
+        "tokensCached": 4096,
+        "tokensOut": 826
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-se25",
+            "name": "Cebiche de pescado",
+            "portion": {
+              "grams": 300
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-12",
+      "category": "portions",
+      "score": 0.75,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 0,
+        "question": 1
+      },
+      "latencyMs": 13296,
+      "costUsd": 0.00352726,
+      "usage": {
+        "tokensIn": 7352,
+        "tokensCached": 6400,
+        "tokensOut": 1393
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "avena",
+            "name": "Avena en hojuelas (cruda)",
+            "portion": {
+              "unit": "½ taza",
+              "count": 2
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-13",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 8355,
+      "costUsd": 0.0021358040000000003,
+      "usage": {
+        "tokensIn": 5211,
+        "tokensCached": 4352,
+        "tokensOut": 744
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "galleta-soda",
+            "name": "Galleta de soda",
+            "portion": {
+              "unit": "1 galleta",
+              "count": 5
+            },
+            "confidence": "low"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-14",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 6232,
+      "costUsd": 0.0014109479999999998,
+      "usage": {
+        "tokensIn": 4724,
+        "tokensCached": 4224,
+        "tokensOut": 499
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "pizza-tajada",
+            "name": "Pizza",
+            "portion": {
+              "servings": 0.5
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-15",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 3478,
+      "costUsd": 0.000809204,
+      "usage": {
+        "tokensIn": 2878,
+        "tokensCached": 2432,
+        "tokensOut": 233
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-se15",
+            "name": "Causa",
+            "portion": {
+              "servings": 2
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-16",
+      "category": "portions",
+      "score": 0.75,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 0
+      },
+      "latencyMs": 4644,
+      "costUsd": 0.001155044,
+      "usage": {
+        "tokensIn": 2883,
+        "tokensCached": 2432,
+        "tokensOut": 406
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "dish",
+            "catalogId": "ins-se135",
+            "name": "Tamal de pollo",
+            "portion": {
+              "servings": 2
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿Qué tipo de tamal comiste?",
+          "options": [
+            {
+              "label": "Tamal de pollo",
+              "catalogId": "ins-se135",
+              "kind": "dish"
+            },
+            {
+              "label": "Tamal verde",
+              "catalogId": "ins-se136",
+              "kind": "dish"
+            }
+          ],
+          "replaces": "ins-se135"
+        }
+      }
+    },
+    {
+      "id": "portions-17",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 6906,
+      "costUsd": 0.001471008,
+      "usage": {
+        "tokensIn": 7019,
+        "tokensCached": 6144,
+        "tokensOut": 383
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "manzana",
+            "name": "Manzana",
+            "portion": {
+              "unit": "1 manzana",
+              "count": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-18",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 5494,
+      "costUsd": 0.001484384,
+      "usage": {
+        "tokensIn": 2689,
+        "tokensCached": 2432,
+        "tokensOut": 637
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "est-empanada-de-carne-rapida",
+            "name": "Empanada de carne rápida",
+            "portion": {
+              "servings": 2
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-19",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 5158,
+      "costUsd": 0.001266584,
+      "usage": {
+        "tokensIn": 2929,
+        "tokensCached": 2432,
+        "tokensOut": 447
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "pollo-plancha",
+            "name": "Pollo a la plancha",
+            "portion": {
+              "grams": 150
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-20",
+      "category": "portions",
+      "score": 0.8888888888888888,
+      "checks": {
+        "items": 0.6666666666666666,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 8602,
+      "costUsd": 0.00256102,
+      "usage": {
+        "tokensIn": 5739,
+        "tokensCached": 4480,
+        "tokensOut": 824
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "pan-frances",
+            "name": "Pan francés",
+            "portion": {
+              "unit": "1 pan",
+              "count": 0.5
+            },
+            "confidence": "medium"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "queso-fresco",
+            "name": "Queso fresco",
+            "portion": {
+              "unit": "1 tajada",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-21",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 13500,
+      "costUsd": 0.003323628,
+      "usage": {
+        "tokensIn": 4565,
+        "tokensCached": 4224,
+        "tokensOut": 1518
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "est-picarones",
+            "name": "Picarones",
+            "portion": {
+              "servings": 1.5
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-22",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 3974,
+      "costUsd": 0.000829664,
+      "usage": {
+        "tokensIn": 2924,
+        "tokensCached": 2432,
+        "tokensOut": 228
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "arroz-con-pollo",
+            "name": "Arroz con pollo",
+            "portion": {
+              "servings": 1.5
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-23",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 6091,
+      "costUsd": 0.001254528,
+      "usage": {
+        "tokensIn": 4742,
+        "tokensCached": 4224,
+        "tokensOut": 414
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "pizza-tajada",
+            "name": "Pizza",
+            "portion": {
+              "servings": 3
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-24",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 3782,
+      "costUsd": 0.0007003040000000001,
+      "usage": {
+        "tokensIn": 2800,
+        "tokensCached": 2432,
+        "tokensOut": 204
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "queso-fresco",
+            "name": "Queso fresco",
+            "portion": {
+              "grams": 100
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "portions-25",
+      "category": "portions",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "portion": 1,
+        "question": 1
+      },
+      "latencyMs": 8283,
+      "costUsd": 0.002075744,
+      "usage": {
+        "tokensIn": 2895,
+        "tokensCached": 2432,
+        "tokensOut": 867
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "est-alfajor-clasico",
+            "name": "Alfajor clásico",
+            "portion": {
+              "servings": 2
+            },
+            "confidence": "low"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-01",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 11084,
+      "costUsd": 0.003855324,
+      "usage": {
+        "tokensIn": 6578,
+        "tokensCached": 4992,
+        "tokensOut": 1363
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "pan-frances",
+            "name": "Pan francés",
+            "portion": {
+              "unit": "1 pan",
+              "count": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "palta",
+            "name": "Palta",
+            "portion": {
+              "unit": "½ palta",
+              "count": 1
+            },
+            "confidence": "low"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "cafe-soluble",
+            "name": "Café soluble",
+            "portion": {
+              "unit": "1 cdta",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-02",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 7020,
+      "costUsd": 0.001884828,
+      "usage": {
+        "tokensIn": 3001,
+        "tokensCached": 2304,
+        "tokensOut": 694
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "chaufa-calle",
+            "name": "Arroz chaufa (calle)",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          },
+          {
+            "meal": "lunch",
+            "kind": "food",
+            "catalogId": "inca-kola",
+            "name": "Inca Kola",
+            "portion": {
+              "unit": "1 vaso (250 ml)",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-03",
+      "category": "several",
+      "score": 0.6666666666666666,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 0
+      },
+      "latencyMs": 6033,
+      "costUsd": 0.002083664,
+      "usage": {
+        "tokensIn": 3222,
+        "tokensCached": 2432,
+        "tokensOut": 762
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "lomo-saltado",
+            "name": "Lomo saltado",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "chicha-morada",
+            "name": "Chicha morada",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿La chicha morada era la normal o sin azúcar?",
+          "options": [
+            {
+              "label": "Chicha morada normal",
+              "catalogId": "chicha-morada",
+              "kind": "dish"
+            },
+            {
+              "label": "Chicha morada sin azúcar",
+              "catalogId": "ins-h27",
+              "kind": "food"
+            }
+          ],
+          "replaces": "chicha-morada"
+        }
+      }
+    },
+    {
+      "id": "several-04",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 14311,
+      "costUsd": 0.004330656,
+      "usage": {
+        "tokensIn": 5943,
+        "tokensCached": 4608,
+        "tokensOut": 1691
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "avena",
+            "name": "Avena en hojuelas (cruda)",
+            "portion": {
+              "unit": "½ taza",
+              "count": 1
+            },
+            "confidence": "medium"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "platano-seda",
+            "name": "Plátano de seda",
+            "portion": {
+              "unit": "1 plátano",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-05",
+      "category": "several",
+      "score": 0.8333333333333334,
+      "checks": {
+        "items": 0.5,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 7931,
+      "costUsd": 0.00261646,
+      "usage": {
+        "tokensIn": 3472,
+        "tokensCached": 2560,
+        "tokensOut": 989
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "pollo-brasa-cuarto",
+            "name": "Pollo a la brasa ¼",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-06",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4996,
+      "costUsd": 0.00136708,
+      "usage": {
+        "tokensIn": 3337,
+        "tokensCached": 2560,
+        "tokensOut": 403
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "dish",
+            "catalogId": "pan-con-huevo",
+            "name": "Pan con huevo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "dish",
+            "catalogId": "jugo-papaya",
+            "name": "Jugo de papaya",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-07",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 5332,
+      "costUsd": 0.0014014000000000001,
+      "usage": {
+        "tokensIn": 3113,
+        "tokensCached": 2560,
+        "tokensOut": 495
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-se25",
+            "name": "Cebiche de pescado",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          },
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "arroz-con-mariscos",
+            "name": "Arroz con mariscos",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-08",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 7547,
+      "costUsd": 0.00204556,
+      "usage": {
+        "tokensIn": 3105,
+        "tokensCached": 2560,
+        "tokensOut": 823
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "galleta-vainilla",
+            "name": "Galleta de vainilla",
+            "portion": {
+              "unit": "1 galleta",
+              "count": 1
+            },
+            "confidence": "medium"
+          },
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "yogurt-bebible",
+            "name": "Yogurt bebible",
+            "portion": {
+              "unit": "1 vaso",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-09",
+      "category": "several",
+      "score": 0.6666666666666666,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 0
+      },
+      "latencyMs": 10080,
+      "costUsd": 0.003194488,
+      "usage": {
+        "tokensIn": 6143,
+        "tokensCached": 4864,
+        "tokensOut": 1133
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "dish",
+            "catalogId": "ins-se135",
+            "name": "Tamal de pollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "low"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "pan-comun",
+            "name": "Pan común (pan simple)",
+            "portion": {
+              "unit": "1 pan",
+              "count": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "dish",
+            "catalogId": "est-cafe-con-leche-evaporada",
+            "name": "Café con leche evaporada",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿Qué tipo de tamal comiste?",
+          "options": [
+            {
+              "label": "Tamal de pollo",
+              "catalogId": "ins-se135",
+              "kind": "dish"
+            },
+            {
+              "label": "Tamal verde",
+              "catalogId": "ins-se136",
+              "kind": "dish"
+            }
+          ],
+          "replaces": "ins-se135"
+        }
+      }
+    },
+    {
+      "id": "several-10",
+      "category": "several",
+      "score": 0.8888888888888888,
+      "checks": {
+        "items": 0.6666666666666666,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 9007,
+      "costUsd": 0.002661868,
+      "usage": {
+        "tokensIn": 6056,
+        "tokensCached": 4864,
+        "tokensOut": 893
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-ss335",
+            "name": "Ají de gallina con papa blanca más arroz",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": [
+          {
+            "meal": "lunch",
+            "text": "una gaseosa"
+          }
+        ]
+      }
+    },
+    {
+      "id": "several-11",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4433,
+      "costUsd": 0.000761508,
+      "usage": {
+        "tokensIn": 2706,
+        "tokensCached": 2304,
+        "tokensOut": 225
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "est-tallarines-verdes-con-bisteck",
+            "name": "Tallarines verdes con bisteck",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-12",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 14428,
+      "costUsd": 0.004224396,
+      "usage": {
+        "tokensIn": 9800,
+        "tokensCached": 8448,
+        "tokensOut": 1589
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "ins-a53",
+            "name": "Quinua cocida",
+            "portion": {
+              "grams": 200
+            },
+            "confidence": "low"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "manzana",
+            "name": "Manzana",
+            "portion": {
+              "unit": "1 manzana",
+              "count": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-13",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3455,
+      "costUsd": 0.0011444839999999999,
+      "usage": {
+        "tokensIn": 3164,
+        "tokensCached": 2432,
+        "tokensOut": 307
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-se15",
+            "name": "Causa",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-ss64",
+            "name": "Chicharrón de pescado",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-14",
+      "category": "several",
+      "score": 0.7999999999999999,
+      "checks": {
+        "items": 0.4,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 17905,
+      "costUsd": 0.005101316000000001,
+      "usage": {
+        "tokensIn": 8923,
+        "tokensCached": 7808,
+        "tokensOut": 2118
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "pan-comun",
+            "name": "Pan común (pan simple)",
+            "portion": {
+              "unit": "1 pan",
+              "count": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "mantequilla",
+            "name": "Mantequilla",
+            "portion": {
+              "unit": "1 cdta",
+              "count": 1
+            },
+            "confidence": "medium"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "ins-h13",
+            "name": "Té sin azúcar",
+            "portion": {
+              "grams": 200
+            },
+            "confidence": "low"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-15",
+      "category": "several",
+      "score": 0.6666666666666666,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 0
+      },
+      "latencyMs": 8743,
+      "costUsd": 0.002268288,
+      "usage": {
+        "tokensIn": 5120,
+        "tokensCached": 4224,
+        "tokensOut": 800
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "mandarina",
+            "name": "Mandarina",
+            "portion": {
+              "unit": "1 mandarina",
+              "count": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "platano-seda",
+            "name": "Plátano de seda",
+            "portion": {
+              "unit": "1 plátano",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿De qué tipo era el plátano?",
+          "options": [
+            {
+              "label": "Plátano de seda",
+              "catalogId": "platano-seda",
+              "kind": "food"
+            },
+            {
+              "label": "Plátano maduro (bellaco)",
+              "catalogId": "platano-maduro",
+              "kind": "food"
+            }
+          ],
+          "replaces": "platano-seda"
+        }
+      }
+    },
+    {
+      "id": "several-16",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 5073,
+      "costUsd": 0.0015787639999999999,
+      "usage": {
+        "tokensIn": 3141,
+        "tokensCached": 2432,
+        "tokensOut": 534
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-se120",
+            "name": "Sopa de pollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-ss294",
+            "name": "Seco de res con arroz",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-17",
+      "category": "several",
+      "score": 0.8888888888888888,
+      "checks": {
+        "items": 0.6666666666666666,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 7761,
+      "costUsd": 0.0022995280000000003,
+      "usage": {
+        "tokensIn": 8428,
+        "tokensCached": 6784,
+        "tokensOut": 538
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "salchipapa",
+            "name": "Salchipapa",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": [
+          {
+            "meal": "dinner",
+            "text": "una Coca-Cola"
+          }
+        ]
+      }
+    },
+    {
+      "id": "several-18",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 8035,
+      "costUsd": 0.002169288,
+      "usage": {
+        "tokensIn": 5132,
+        "tokensCached": 4224,
+        "tokensOut": 746
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "dish",
+            "catalogId": "huevos-revueltos",
+            "name": "Huevos revueltos",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "pan-comun",
+            "name": "Pan común (pan simple)",
+            "portion": {
+              "unit": "1 pan",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-19",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4632,
+      "costUsd": 0.0011836,
+      "usage": {
+        "tokensIn": 3050,
+        "tokensCached": 2560,
+        "tokensOut": 406
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "arroz-con-pollo",
+            "name": "Arroz con pollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "papa-huancaina",
+            "name": "Papa a la huancaína",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-20",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 7574,
+      "costUsd": 0.002088944,
+      "usage": {
+        "tokensIn": 5455,
+        "tokensCached": 4352,
+        "tokensOut": 639
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "camote-sancochado",
+            "name": "Camote sancochado",
+            "portion": {
+              "unit": "1 trozo",
+              "count": 1
+            },
+            "confidence": "medium"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "queso-fresco",
+            "name": "Queso fresco",
+            "portion": {
+              "unit": "1 tajada",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-21",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 6973,
+      "costUsd": 0.0018157040000000002,
+      "usage": {
+        "tokensIn": 2843,
+        "tokensCached": 2432,
+        "tokensOut": 753
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "est-picarones",
+            "name": "Picarones",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "ins-sr2",
+            "name": "Emoliente",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-22",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 10801,
+      "costUsd": 0.002715592,
+      "usage": {
+        "tokensIn": 4744,
+        "tokensCached": 4096,
+        "tokensOut": 1110
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "pizza-tajada",
+            "name": "Pizza",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "dinner",
+            "kind": "food",
+            "catalogId": "ins-h1",
+            "name": "Cerveza",
+            "portion": {
+              "grams": 355
+            },
+            "confidence": "low"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-23",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 6869,
+      "costUsd": 0.002166824,
+      "usage": {
+        "tokensIn": 3189,
+        "tokensCached": 2432,
+        "tokensOut": 815
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "juane-gallina",
+            "name": "Juane de gallina (selva)",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          },
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "chicha-morada",
+            "name": "Chicha morada",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-24",
+      "category": "several",
+      "score": 0.9333333333333332,
+      "checks": {
+        "items": 0.8,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 12603,
+      "costUsd": 0.003788796,
+      "usage": {
+        "tokensIn": 5755,
+        "tokensCached": 4608,
+        "tokensOut": 1480
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "leche-entera",
+            "name": "Leche fresca entera",
+            "portion": {
+              "unit": "1 vaso",
+              "count": 1
+            },
+            "confidence": "medium"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "avena",
+            "name": "Avena en hojuelas (cruda)",
+            "portion": {
+              "unit": "4 cdas",
+              "count": 1
+            },
+            "confidence": "low"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "dish",
+            "catalogId": "est-pan-con-palta",
+            "name": "Pan con palta",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-25",
+      "category": "several",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 7029,
+      "costUsd": 0.0021769,
+      "usage": {
+        "tokensIn": 3319,
+        "tokensCached": 2560,
+        "tokensOut": 818
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-ss95",
+            "name": "Estofado de pollo con arroz",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "refresco-maracuya",
+            "name": "Refresco de maracuyá",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-26",
+      "category": "several",
+      "score": 0.8888888888888888,
+      "checks": {
+        "items": 0.6666666666666666,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4949,
+      "costUsd": 0.0017015239999999998,
+      "usage": {
+        "tokensIn": 3261,
+        "tokensCached": 2432,
+        "tokensOut": 556
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "est-hamburguesa-clasica-con-papas",
+            "name": "Hamburguesa clásica con papas",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-27",
+      "category": "several",
+      "score": 0.8333333333333334,
+      "checks": {
+        "items": 0.5,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 9063,
+      "costUsd": 0.0026471280000000003,
+      "usage": {
+        "tokensIn": 5238,
+        "tokensCached": 4224,
+        "tokensOut": 952
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "naranja-jugo",
+            "name": "Naranja, jugo",
+            "portion": {
+              "unit": "1 vaso",
+              "count": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "dish",
+            "catalogId": "empanada-pollo",
+            "name": "Empanada de pollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "low"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-28",
+      "category": "several",
+      "score": 0.8888888888888888,
+      "checks": {
+        "items": 0.6666666666666666,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 5893,
+      "costUsd": 0.001401884,
+      "usage": {
+        "tokensIn": 5131,
+        "tokensCached": 4352,
+        "tokensOut": 400
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "est-tacu-tacu-con-bistec",
+            "name": "Tacu tacu con bistec",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          },
+          {
+            "meal": "lunch",
+            "kind": "food",
+            "catalogId": "agua",
+            "name": "Agua",
+            "portion": {
+              "unit": "1 vaso",
+              "count": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "several-29",
+      "category": "several",
+      "score": 0,
+      "checks": {
+        "answered": 0
+      },
+      "latencyMs": 12425,
+      "costUsd": 0.00326084,
+      "usage": {
+        "tokensIn": 8356,
+        "tokensCached": 7040,
+        "tokensOut": 1130
+      },
+      "proposal": null,
+      "error": "invalid"
+    },
+    {
+      "id": "several-30",
+      "category": "several",
+      "score": 0,
+      "checks": {
+        "answered": 0
+      },
+      "latencyMs": 13862,
+      "costUsd": 0.0037827240000000003,
+      "usage": {
+        "tokensIn": 8108,
+        "tokensCached": 6912,
+        "tokensOut": 1435
+      },
+      "proposal": null,
+      "error": "invalid"
+    },
+    {
+      "id": "simple-01",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3319,
+      "costUsd": 0.00152768,
+      "usage": {
+        "tokensIn": 2922,
+        "tokensCached": 1280,
+        "tokensOut": 210
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "lomo-saltado",
+            "name": "Lomo saltado",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-02",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4293,
+      "costUsd": 0.00161348,
+      "usage": {
+        "tokensIn": 2788,
+        "tokensCached": 1280,
+        "tokensOut": 298
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "est-aji-de-gallina-criollo",
+            "name": "Ají de gallina criollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-03",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4872,
+      "costUsd": 0.0018557000000000003,
+      "usage": {
+        "tokensIn": 2912,
+        "tokensCached": 1280,
+        "tokensOut": 379
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "chaufa-calle",
+            "name": "Arroz chaufa (calle)",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-04",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4146,
+      "costUsd": 0.0017204000000000002,
+      "usage": {
+        "tokensIn": 2878,
+        "tokensCached": 1280,
+        "tokensOut": 322
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-se25",
+            "name": "Cebiche de pescado",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-05",
+      "category": "simple",
+      "score": 0.6666666666666666,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 0
+      },
+      "latencyMs": 6618,
+      "costUsd": 0.0023315600000000003,
+      "usage": {
+        "tokensIn": 2883,
+        "tokensCached": 1280,
+        "tokensOut": 629
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "dish",
+            "catalogId": "ins-se135",
+            "name": "Tamal de pollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿Qué tipo de tamal comiste?",
+          "options": [
+            {
+              "label": "Tamal de pollo",
+              "catalogId": "ins-se135",
+              "kind": "dish"
+            },
+            {
+              "label": "Tamal verde",
+              "catalogId": "ins-se136",
+              "kind": "dish"
+            }
+          ],
+          "replaces": "ins-se135"
+        }
+      }
+    },
+    {
+      "id": "simple-06",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3797,
+      "costUsd": 0.000796664,
+      "usage": {
+        "tokensIn": 2904,
+        "tokensCached": 2432,
+        "tokensOut": 218
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "arroz-con-pollo",
+            "name": "Arroz con pollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-07",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 7471,
+      "costUsd": 0.001608464,
+      "usage": {
+        "tokensIn": 2853,
+        "tokensCached": 2432,
+        "tokensOut": 645
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "ins-ss317",
+            "name": "Tallarines rojos con pollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-08",
+      "category": "simple",
+      "score": 0.6666666666666666,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 0
+      },
+      "latencyMs": 4760,
+      "costUsd": 0.001113464,
+      "usage": {
+        "tokensIn": 2748,
+        "tokensCached": 2432,
+        "tokensOut": 430
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "est-causa-limena-de-atun",
+            "name": "Causa limeña de atún",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿Tu causa limeña era de atún o de pollo?",
+          "options": [
+            {
+              "label": "Causa limeña de atún",
+              "catalogId": "est-causa-limena-de-atun",
+              "kind": "dish"
+            },
+            {
+              "label": "Causa limeña de pollo",
+              "catalogId": "est-causa-limena-de-pollo",
+              "kind": "dish"
+            }
+          ],
+          "replaces": "est-causa-limena-de-atun"
+        }
+      }
+    },
+    {
+      "id": "simple-09",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3458,
+      "costUsd": 0.0007993040000000001,
+      "usage": {
+        "tokensIn": 2776,
+        "tokensCached": 2432,
+        "tokensOut": 262
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "est-seco-de-res-con-frejol-panamito",
+            "name": "Seco de res con frejol panamito",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-10",
+      "category": "simple",
+      "score": 0.6666666666666666,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 0
+      },
+      "latencyMs": 5340,
+      "costUsd": 0.001322024,
+      "usage": {
+        "tokensIn": 2815,
+        "tokensCached": 2432,
+        "tokensOut": 513
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "pollo-brasa-cuarto",
+            "name": "Pollo a la brasa ¼",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿Qué tamaño de pollo a la brasa pediste?",
+          "options": [
+            {
+              "label": "⅛ con papas y ensalada",
+              "catalogId": "pollo-brasa-octavo",
+              "kind": "dish"
+            },
+            {
+              "label": "¼ con papas y ensalada",
+              "catalogId": "pollo-brasa-cuarto",
+              "kind": "dish"
+            }
+          ],
+          "replaces": "pollo-brasa-cuarto"
+        }
+      }
+    },
+    {
+      "id": "simple-11",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4254,
+      "costUsd": 0.000867284,
+      "usage": {
+        "tokensIn": 2723,
+        "tokensCached": 2432,
+        "tokensOut": 314
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "papa-huancaina",
+            "name": "Papa a la huancaína",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-12",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3748,
+      "costUsd": 0.000948288,
+      "usage": {
+        "tokensIn": 2968,
+        "tokensCached": 2304,
+        "tokensOut": 232
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "dish",
+            "catalogId": "est-pan-con-chicharron",
+            "name": "Pan con chicharrón",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-13",
+      "category": "simple",
+      "score": 0.6666666666666666,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 0
+      },
+      "latencyMs": 8906,
+      "costUsd": 0.002447324,
+      "usage": {
+        "tokensIn": 2876,
+        "tokensCached": 2432,
+        "tokensOut": 1061
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "est-juane-de-arroz",
+            "name": "Juane de arroz",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "low"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿Qué tipo de juane comiste?",
+          "options": [
+            {
+              "label": "Juane de gallina",
+              "catalogId": "juane-gallina",
+              "kind": "dish"
+            },
+            {
+              "label": "Juane de arroz",
+              "catalogId": "est-juane-de-arroz",
+              "kind": "dish"
+            },
+            {
+              "label": "Mini juane de pollo",
+              "catalogId": "mini-juane-pollo",
+              "kind": "dish"
+            },
+            {
+              "label": "Avispa juane",
+              "catalogId": "est-avispa-juane",
+              "kind": "dish"
+            }
+          ],
+          "replaces": "est-juane-de-arroz"
+        }
+      }
+    },
+    {
+      "id": "simple-14",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3585,
+      "costUsd": 0.000717464,
+      "usage": {
+        "tokensIn": 2826,
+        "tokensCached": 2432,
+        "tokensOut": 204
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "ins-se120",
+            "name": "Sopa de pollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-15",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4144,
+      "costUsd": 0.001044824,
+      "usage": {
+        "tokensIn": 2830,
+        "tokensCached": 2432,
+        "tokensOut": 368
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "est-estofado-de-pollo-criollo",
+            "name": "Estofado de pollo criollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-16",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4820,
+      "costUsd": 0.0012507440000000002,
+      "usage": {
+        "tokensIn": 2899,
+        "tokensCached": 2432,
+        "tokensOut": 449
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "est-carapulcra-clasica",
+            "name": "Carapulcra clásica",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-17",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3610,
+      "costUsd": 0.000812504,
+      "usage": {
+        "tokensIn": 2910,
+        "tokensCached": 2432,
+        "tokensOut": 224
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "tallarin-verde",
+            "name": "Tallarín verde",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-18",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3410,
+      "costUsd": 0.0005768840000000001,
+      "usage": {
+        "tokensIn": 2673,
+        "tokensCached": 2432,
+        "tokensOut": 184
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-ss34",
+            "name": "Arroz tapado",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-19",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3813,
+      "costUsd": 0.0007907239999999999,
+      "usage": {
+        "tokensIn": 2727,
+        "tokensCached": 2432,
+        "tokensOut": 274
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "est-olluquito-con-charqui",
+            "name": "Olluquito con charqui",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-20",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 5259,
+      "costUsd": 0.0013079,
+      "usage": {
+        "tokensIn": 2679,
+        "tokensCached": 1280,
+        "tokensOut": 180
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "est-empanada-de-carne-rapida",
+            "name": "Empanada de carne rápida",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-21",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3299,
+      "costUsd": 0.0008197640000000001,
+      "usage": {
+        "tokensIn": 2912,
+        "tokensCached": 2432,
+        "tokensOut": 227
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-ss64",
+            "name": "Chicharrón de pescado",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-22",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3671,
+      "costUsd": 0.0007880840000000001,
+      "usage": {
+        "tokensIn": 2894,
+        "tokensCached": 2432,
+        "tokensOut": 217
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "salchipapa",
+            "name": "Salchipapa",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-23",
+      "category": "simple",
+      "score": 0.6666666666666666,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 0
+      },
+      "latencyMs": 13855,
+      "costUsd": 0.004130236,
+      "usage": {
+        "tokensIn": 5850,
+        "tokensCached": 5248,
+        "tokensOut": 1827
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-ss309",
+            "name": "Tacu tacu con lomito",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "low"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿Con qué acompañaste el tacu tacu?",
+          "options": [
+            {
+              "label": "Con lomito",
+              "catalogId": "ins-ss309",
+              "kind": "dish"
+            },
+            {
+              "label": "Con churrasco",
+              "catalogId": "ins-ss307",
+              "kind": "dish"
+            },
+            {
+              "label": "Con filete de pollo",
+              "catalogId": "ins-ss308",
+              "kind": "dish"
+            },
+            {
+              "label": "Con pescado",
+              "catalogId": "ins-ss311",
+              "kind": "dish"
+            }
+          ],
+          "replaces": "ins-ss309"
+        }
+      }
+    },
+    {
+      "id": "simple-24",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3663,
+      "costUsd": 0.000800624,
+      "usage": {
+        "tokensIn": 2871,
+        "tokensCached": 2432,
+        "tokensOut": 231
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-ss56",
+            "name": "Cau cau con arroz",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-25",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 10898,
+      "costUsd": 0.003063588,
+      "usage": {
+        "tokensIn": 5068,
+        "tokensCached": 4224,
+        "tokensOut": 1219
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "avena",
+            "name": "Avena en hojuelas (cruda)",
+            "portion": {
+              "unit": "½ taza",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-26",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4040,
+      "costUsd": 0.0016418600000000002,
+      "usage": {
+        "tokensIn": 2702,
+        "tokensCached": 1280,
+        "tokensOut": 341
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "est-picarones",
+            "name": "Picarones",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-27",
+      "category": "simple",
+      "score": 0.6666666666666666,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 0
+      },
+      "latencyMs": 5588,
+      "costUsd": 0.001595264,
+      "usage": {
+        "tokensIn": 2935,
+        "tokensCached": 2432,
+        "tokensOut": 611
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "anticucho-corazon",
+            "name": "Anticucho de corazón",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿De qué eran tus anticuchos?",
+          "options": [
+            {
+              "label": "De corazón",
+              "catalogId": "anticucho-corazon",
+              "kind": "dish"
+            },
+            {
+              "label": "De pollo",
+              "catalogId": "anticucho-pollo",
+              "kind": "dish"
+            }
+          ],
+          "replaces": "anticucho-corazon"
+        }
+      }
+    },
+    {
+      "id": "simple-28",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3706,
+      "costUsd": 0.000892364,
+      "usage": {
+        "tokensIn": 2926,
+        "tokensCached": 2432,
+        "tokensOut": 259
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-ss222",
+            "name": "Pollo al horno con arroz",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-29",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3837,
+      "costUsd": 0.000780164,
+      "usage": {
+        "tokensIn": 2816,
+        "tokensCached": 2432,
+        "tokensOut": 239
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "arroz-con-mariscos",
+            "name": "Arroz con mariscos",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-30",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3722,
+      "costUsd": 0.0007366040000000001,
+      "usage": {
+        "tokensIn": 2783,
+        "tokensCached": 2432,
+        "tokensOut": 228
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "est-chupe-de-camarones",
+            "name": "Chupe de camarones",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-31",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 10204,
+      "costUsd": 0.002427656,
+      "usage": {
+        "tokensIn": 6742,
+        "tokensCached": 5888,
+        "tokensOut": 876
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "platano-seda",
+            "name": "Plátano de seda",
+            "portion": {
+              "unit": "1 plátano",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-32",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3660,
+      "costUsd": 0.0008395640000000001,
+      "usage": {
+        "tokensIn": 2879,
+        "tokensCached": 2432,
+        "tokensOut": 248
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "manzana",
+            "name": "Manzana",
+            "portion": {
+              "unit": "1 manzana",
+              "count": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-33",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 5037,
+      "costUsd": 0.001342484,
+      "usage": {
+        "tokensIn": 2924,
+        "tokensCached": 2432,
+        "tokensOut": 487
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "est-hamburguesa-artesanal-clasica",
+            "name": "Hamburguesa artesanal clásica",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-34",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3681,
+      "costUsd": 0.000801768,
+      "usage": {
+        "tokensIn": 2824,
+        "tokensCached": 2304,
+        "tokensOut": 206
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ensalada-palta",
+            "name": "Ensalada de palta",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-35",
+      "category": "simple",
+      "score": 0.6666666666666666,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 0
+      },
+      "latencyMs": 6994,
+      "costUsd": 0.0020189839999999997,
+      "usage": {
+        "tokensIn": 2953,
+        "tokensCached": 2432,
+        "tokensOut": 819
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "pescado-mar-frito",
+            "name": "Pescado de mar frito",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿Era pescado de mar o de río?",
+          "options": [
+            {
+              "label": "Pescado de mar frito",
+              "catalogId": "pescado-mar-frito",
+              "kind": "dish"
+            },
+            {
+              "label": "Pescado de río frito",
+              "catalogId": "pescado-rio-frito",
+              "kind": "dish"
+            }
+          ],
+          "replaces": "pescado-mar-frito"
+        }
+      }
+    },
+    {
+      "id": "simple-36",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3357,
+      "costUsd": 0.000732644,
+      "usage": {
+        "tokensIn": 2858,
+        "tokensCached": 2432,
+        "tokensOut": 201
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "pizza-tajada",
+            "name": "Pizza",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-37",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4728,
+      "costUsd": 0.001112144,
+      "usage": {
+        "tokensIn": 2887,
+        "tokensCached": 2432,
+        "tokensOut": 383
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "est-alfajor-clasico",
+            "name": "Alfajor clásico",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-38",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3101,
+      "costUsd": 0.0007432039999999999,
+      "usage": {
+        "tokensIn": 2832,
+        "tokensCached": 2432,
+        "tokensOut": 215
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-se85",
+            "name": "Rocoto relleno",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-39",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4358,
+      "costUsd": 0.001130624,
+      "usage": {
+        "tokensIn": 2885,
+        "tokensCached": 2432,
+        "tokensOut": 393
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "est-pachamanca-a-la-tierra",
+            "name": "Pachamanca a la tierra",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "simple-40",
+      "category": "simple",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4370,
+      "costUsd": 0.001006544,
+      "usage": {
+        "tokensIn": 2745,
+        "tokensCached": 2432,
+        "tokensOut": 377
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "caldo-gallina",
+            "name": "Caldo de gallina",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-01",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3156,
+      "costUsd": 0.0007762040000000001,
+      "usage": {
+        "tokensIn": 2936,
+        "tokensCached": 2432,
+        "tokensOut": 197
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "lomo-saltado",
+            "name": "Lomo saltado",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-02",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 7621,
+      "costUsd": 0.00240196,
+      "usage": {
+        "tokensIn": 5705,
+        "tokensCached": 4480,
+        "tokensOut": 755
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "pan-frances",
+            "name": "Pan francés",
+            "portion": {
+              "unit": "1 pan",
+              "count": 1
+            },
+            "confidence": "medium"
+          },
+          {
+            "meal": "breakfast",
+            "kind": "food",
+            "catalogId": "palta",
+            "name": "Palta",
+            "portion": {
+              "unit": "½ palta",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-03",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4548,
+      "costUsd": 0.0010118240000000001,
+      "usage": {
+        "tokensIn": 2909,
+        "tokensCached": 2432,
+        "tokensOut": 325
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "chaufa-calle",
+            "name": "Arroz chaufa (calle)",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-04",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3555,
+      "costUsd": 0.000859364,
+      "usage": {
+        "tokensIn": 2792,
+        "tokensCached": 2432,
+        "tokensOut": 287
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "est-aji-de-gallina-criollo",
+            "name": "Ají de gallina criollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-05",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4269,
+      "costUsd": 0.000968924,
+      "usage": {
+        "tokensIn": 2886,
+        "tokensCached": 2432,
+        "tokensOut": 311
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-se25",
+            "name": "Cebiche de pescado",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-06",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4843,
+      "costUsd": 0.0010217240000000001,
+      "usage": {
+        "tokensIn": 2822,
+        "tokensCached": 2432,
+        "tokensOut": 359
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "pollo-brasa-octavo",
+            "name": "Pollo a la brasa ⅛",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-07",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4108,
+      "costUsd": 0.0009445040000000001,
+      "usage": {
+        "tokensIn": 2933,
+        "tokensCached": 2432,
+        "tokensOut": 283
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-ss318",
+            "name": "Tallarines saltado",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-08",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3702,
+      "costUsd": 0.001160808,
+      "usage": {
+        "tokensIn": 3203,
+        "tokensCached": 2304,
+        "tokensOut": 261
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "dish",
+            "catalogId": "pan-con-huevo",
+            "name": "Pan con huevo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-09",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 5930,
+      "costUsd": 0.0012422960000000002,
+      "usage": {
+        "tokensIn": 4410,
+        "tokensCached": 3968,
+        "tokensOut": 436
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "food",
+            "catalogId": "inca-kola",
+            "name": "Inca Kola",
+            "portion": {
+              "unit": "1 botella personal (500 ml)",
+              "count": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-10",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3809,
+      "costUsd": 0.0007887440000000001,
+      "usage": {
+        "tokensIn": 2907,
+        "tokensCached": 2432,
+        "tokensOut": 213
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "arroz-con-pollo",
+            "name": "Arroz con pollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-11",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4366,
+      "costUsd": 0.0009359240000000001,
+      "usage": {
+        "tokensIn": 2899,
+        "tokensCached": 2432,
+        "tokensOut": 290
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "salchipapa",
+            "name": "Salchipapa",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-12",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 5577,
+      "costUsd": 0.0013880239999999999,
+      "usage": {
+        "tokensIn": 2924,
+        "tokensCached": 2432,
+        "tokensOut": 510
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "dinner",
+            "kind": "dish",
+            "catalogId": "anticucho-corazon",
+            "name": "Anticucho de corazón",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-13",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 3228,
+      "costUsd": 0.000830984,
+      "usage": {
+        "tokensIn": 2872,
+        "tokensCached": 2432,
+        "tokensOut": 246
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "lunch",
+            "kind": "dish",
+            "catalogId": "ins-se15",
+            "name": "Causa",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    },
+    {
+      "id": "typos-14",
+      "category": "typos",
+      "score": 0.6666666666666666,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 0
+      },
+      "latencyMs": 6064,
+      "costUsd": 0.001442144,
+      "usage": {
+        "tokensIn": 2892,
+        "tokensCached": 2432,
+        "tokensOut": 548
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "breakfast",
+            "kind": "dish",
+            "catalogId": "ins-se135",
+            "name": "Tamal de pollo",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "medium"
+          }
+        ],
+        "unmatched": [],
+        "question": {
+          "text": "¿De qué era tu tamalito?",
+          "options": [
+            {
+              "label": "Tamal de pollo",
+              "catalogId": "ins-se135",
+              "kind": "dish"
+            },
+            {
+              "label": "Tamal verde",
+              "catalogId": "ins-se136",
+              "kind": "dish"
+            }
+          ],
+          "replaces": "ins-se135"
+        }
+      }
+    },
+    {
+      "id": "typos-15",
+      "category": "typos",
+      "score": 1,
+      "checks": {
+        "items": 1,
+        "meal": 1,
+        "question": 1
+      },
+      "latencyMs": 4400,
+      "costUsd": 0.000918764,
+      "usage": {
+        "tokensIn": 2696,
+        "tokensCached": 2432,
+        "tokensOut": 349
+      },
+      "proposal": {
+        "entries": [
+          {
+            "meal": "snack",
+            "kind": "dish",
+            "catalogId": "est-picarones",
+            "name": "Picarones",
+            "portion": {
+              "servings": 1
+            },
+            "confidence": "high"
+          }
+        ],
+        "unmatched": []
+      }
+    }
+  ]
+}

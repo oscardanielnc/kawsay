@@ -22,41 +22,54 @@ interface WireMessage {
   role: string;
   content: string | null;
   reasoning_content?: string;
-  tool_calls?: { id: string; type: 'function'; function: { name: string; arguments: string } }[];
+  extra_content?: Record<string, unknown>;
+  tool_calls?: {
+    id: string;
+    type: 'function';
+    function: { name: string; arguments: string };
+    extra_content?: Record<string, unknown>;
+  }[];
   tool_call_id?: string;
 }
 
+export interface ChatToolsOptions {
+  endpoint: string;
+  apiKey: string | null;
+  model: string;
+  /** Provider-specific body fields, e.g. `reasoning_effort`. */
+  extra?: Record<string, unknown>;
+}
+
 /**
- * DeepSeek over its OpenAI-compatible API (ADR 0023 build notes): `tools` with `tool_choice: auto`, low reasoning
- * effort; the thinking text is sent back on the next round as the API expects.
+ * Any OpenAI-compatible chat API with `tools` (DeepSeek, Gemini's compatibility endpoint): one step per call; the
+ * thinking text, when the provider returns one, is sent back on the next round.
  */
-@Injectable()
-export class DeepSeekAgentModel extends AgentModel {
+export class ChatToolsModel extends AgentModel {
   /** Replaced in tests. */
   fetchImpl: typeof fetch = (input, init) => fetch(input, init);
 
-  constructor(private readonly config: AppConfig) {
+  constructor(private readonly options: ChatToolsOptions) {
     super();
   }
 
   get model(): string {
-    return this.config.ai.model;
+    return this.options.model;
   }
 
   async step(
     messages: readonly ChatMessage[],
     tools: readonly ToolDefinition[],
   ): Promise<ModelTurn> {
-    const key = this.config.ai.deepseekApiKey;
+    const key = this.options.apiKey;
     if (!key) throw new ModelCallError('disabled');
     let response: Response;
     try {
-      response = await this.fetchImpl(ENDPOINT, {
+      response = await this.fetchImpl(this.options.endpoint, {
         method: 'POST',
         headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` },
         body: JSON.stringify({
           model: this.model,
-          reasoning_effort: 'low',
+          ...this.options.extra,
           tool_choice: 'auto',
           tools: tools.map((t) => ({
             type: 'function',
@@ -85,11 +98,13 @@ export class DeepSeekAgentModel extends AgentModel {
         role: 'assistant',
         content: message.content ?? null,
         ...(message.reasoning_content && { reasoning: message.reasoning_content }),
+        ...(message.extra_content && { extra: message.extra_content }),
         ...(message.tool_calls?.length && {
           toolCalls: message.tool_calls.map((c) => ({
             id: c.id,
             name: c.function.name,
             arguments: c.function.arguments,
+            ...(c.extra_content && { extra: c.extra_content }),
           })),
         }),
       },
@@ -110,13 +125,28 @@ function toWire(message: ChatMessage): WireMessage {
       role: 'assistant',
       content: message.content,
       ...(message.reasoning && { reasoning_content: message.reasoning }),
+      ...(message.extra && { extra_content: message.extra }),
       ...(message.toolCalls?.length && {
         tool_calls: message.toolCalls.map((c) => ({
           id: c.id,
           type: 'function' as const,
           function: { name: c.name, arguments: c.arguments },
+          ...(c.extra && { extra_content: c.extra }),
         })),
       }),
     };
   return { role: message.role, content: message.content };
+}
+
+/** DeepSeek for the API (ADR 0023 build notes): low reasoning effort. */
+@Injectable()
+export class DeepSeekAgentModel extends ChatToolsModel {
+  constructor(config: AppConfig) {
+    super({
+      endpoint: ENDPOINT,
+      apiKey: config.ai.deepseekApiKey,
+      model: config.ai.model,
+      extra: { reasoning_effort: 'low' },
+    });
+  }
 }

@@ -7,6 +7,8 @@ export type ChatMessage =
       toolCalls?: ToolCall[];
       /** DeepSeek's thinking text, sent back unchanged on the next round. */
       reasoning?: string;
+      /** Provider fields to send back as they came (Gemini's thought signatures). */
+      extra?: Record<string, unknown>;
     }
   | { role: 'tool'; toolCallId: string; content: string };
 
@@ -15,6 +17,8 @@ export interface ToolCall {
   name: string;
   /** JSON as the model wrote it: may be invalid. */
   arguments: string;
+  /** Provider fields of this call, sent back as they came. */
+  extra?: Record<string, unknown>;
 }
 
 export interface ToolDefinition {

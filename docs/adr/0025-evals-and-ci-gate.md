@@ -33,3 +33,10 @@ repository. The owner's AI budget is about USD 5 a month, his own use included.
 ## Consequences
 
 - CI needs a `DEEPSEEK_API_KEY` secret; the compared models need keys only for the manual run
+
+## Build notes (2026-11-03, A3)
+
+- Runner in `apps/api/src/evals` (real agent and adapter, file index, `pnpm evals [--model] [--gate]`); `match` = a
+  catalog search, `a|b` either. Baseline `deepseek-flash` **86.6** · $0.000317/entry · p50 3.6 s; `deepseek-v4-pro`
+  89.0 at 4.5× the cost: **flash stays**. Gemini numbers: `evals/analysis/report.md`
+

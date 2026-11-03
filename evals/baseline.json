@@ -1,0 +1,20 @@
+{
+  "about": "Baseline of the CI gate (ADR 0025): the first full run of deepseek-flash. Regenerate only on purpose.",
+  "model": "deepseek-flash",
+  "promptVersion": "text-log.v1",
+  "date": "2026-11-03",
+  "score": 86.6,
+  "byCategory": {
+    "simple": 91.3,
+    "several": 89.3,
+    "portions": 90.9,
+    "drinks": 92.6,
+    "typos": 90,
+    "ambiguous": 50,
+    "out-of-scope": 80,
+    "injection": 75
+  },
+  "usdPerEntry": 0.0003171589655172415,
+  "latencyP50Ms": 3592,
+  "latencyP95Ms": 7502
+}

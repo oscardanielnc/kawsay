@@ -12,7 +12,8 @@
     "test": "turbo run test",
     "check": "turbo run lint typecheck test build",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "evals": "pnpm --filter @kawsay/core --filter @kawsay/contracts build && pnpm --filter @kawsay/api build && node apps/api/dist/evals/run-evals.js"
   },
   "prettier": "@kawsay/config/prettier",
   "devDependencies": {

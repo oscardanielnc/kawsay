@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { AppConfig } from '../../../config/app-config';
 import {
   CatalogSource,
+  type CatalogIndex,
   type FoodList,
   type RemoteCatalog,
 } from '../application/ports/catalog-source';
@@ -11,7 +12,7 @@ import {
 /** Reads packages/catalog/remote/*.json once (copied into the image at CATALOG_DIR). */
 @Injectable()
 export class FileCatalogSource extends CatalogSource {
-  private cached: { dishes: RemoteCatalog; foods: FoodList } | null = null;
+  private cached: { dishes: RemoteCatalog; foods: FoodList; index: CatalogIndex } | null = null;
 
   constructor(private readonly config: AppConfig) {
     super();
@@ -24,6 +25,7 @@ export class FileCatalogSource extends CatalogSource {
       this.cached = {
         dishes: read<RemoteCatalog>('dishes.json'),
         foods: read<FoodList>('foods.json'),
+        index: read<CatalogIndex>('index.json'),
       };
     }
     return this.cached;
@@ -35,5 +37,9 @@ export class FileCatalogSource extends CatalogSource {
 
   foods(): FoodList {
     return this.load().foods;
+  }
+
+  index(): CatalogIndex {
+    return this.load().index;
   }
 }

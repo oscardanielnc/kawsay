@@ -23,6 +23,9 @@ class FakeSource extends CatalogSource {
   foods() {
     return FOODS;
   }
+  index() {
+    return { version: 'r2', items: [] };
+  }
 }
 /** A fake model: answers the drafts it is given, in order, and records what it was asked. */
 class FakeWriter extends RecipeWriter {

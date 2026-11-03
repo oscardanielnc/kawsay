@@ -18,5 +18,6 @@ import { CatalogController } from './presentation/catalog.controller';
     CatalogDishesUseCase,
     ProposeDishUseCase,
   ],
+  exports: [CatalogSource],
 })
 export class CatalogModule {}

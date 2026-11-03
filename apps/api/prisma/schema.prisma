@@ -20,6 +20,7 @@ model User {
   sessions     Session[]
   records      SyncRecord[]
   analyses     AiAnalysis[]
+  aiCalls      AiCall[]
 
   @@map("users")
 }
@@ -81,3 +82,28 @@ model AiAnalysis {
   @@index([userId, createdAt])
   @@map("ai_analyses")
 }
+
+/// One AI call (ADR 0024): enough for cost, latency and acceptance numbers. The input text is kept 90 days.
+model AiCall {
+  id            String   @id @db.Uuid
+  userId        String   @map("user_id") @db.Uuid
+  useCase       String   @map("use_case")
+  model         String
+  promptVersion String   @map("prompt_version")
+  tokensIn      Int      @map("tokens_in")
+  tokensCached  Int      @map("tokens_cached")
+  tokensOut     Int      @map("tokens_out")
+  latencyMs     Int      @map("latency_ms")
+  costUsd       Float    @map("cost_usd")
+  outcome       String
+  toolRounds    Int      @map("tool_rounds")
+  inputText     String?  @map("input_text")
+  proposal      Json?
+  feedback      Json?
+  createdAt     DateTime @map("created_at") @db.Timestamptz(3)
+  user          User     @relation(fields: [userId], references: [id])
+
+  @@index([userId, createdAt])
+  @@map("ai_call")
+}
+

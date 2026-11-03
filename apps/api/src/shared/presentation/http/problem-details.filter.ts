@@ -30,6 +30,11 @@ const DOMAIN_ERROR_STATUS: Record<string, number> = {
   'user.invalid_email': HttpStatus.BAD_REQUEST,
   'user.weak_password': HttpStatus.BAD_REQUEST,
   'insights.limit_reached': HttpStatus.TOO_MANY_REQUESTS,
+  'ai.text_log_limit': HttpStatus.TOO_MANY_REQUESTS,
+  'ai.text_log_unavailable': HttpStatus.BAD_GATEWAY,
+  'ai.text_log_not_found': HttpStatus.NOT_FOUND,
+  'catalog.ai_dish_limit': HttpStatus.TOO_MANY_REQUESTS,
+  'catalog.ai_dish_unavailable': HttpStatus.BAD_GATEWAY,
   'insights.ai_disabled': HttpStatus.SERVICE_UNAVAILABLE,
   'insights.ai_unavailable': HttpStatus.SERVICE_UNAVAILABLE,
 };

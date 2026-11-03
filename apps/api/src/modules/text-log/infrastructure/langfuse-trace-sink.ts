@@ -7,7 +7,8 @@ import { TraceSink } from '../application/ports/trace-sink';
 export const MASKED = '[masked]';
 
 /**
- * Langfuse Cloud through its public ingestion API (one HTTP call per AI call, no tracing runtime). Numbers only:
+ * Langfuse Cloud through its OpenTelemetry endpoint (OTLP/HTTP JSON, one request per AI call, no tracing runtime;
+ * the legacy ingestion API is deprecated on Langfuse Cloud from 2026-11-16). Numbers only:
  * input and output are always masked from the API; attribute names follow the OpenTelemetry GenAI conventions so
  * another backend is one adapter away. Off without keys.
  */
@@ -21,77 +22,88 @@ export class LangfuseTraceSink extends TraceSink {
     super();
   }
 
-  /** The ingestion batch for one call: a trace and its generation, with masked content. */
-  batch(call: AiCallRecord) {
+  /**
+   * One call as an OTLP/HTTP JSON export (Langfuse's live ingestion path): a generation span with GenAI attributes
+   * and masked content.
+   */
+  otlp(call: AiCallRecord) {
     const environment = this.config.tracing.environment;
-    const start = call.createdAt.toISOString();
-    const end = new Date(call.createdAt.getTime() + call.latencyMs).toISOString();
-    const metadata = {
-      'gen_ai.system': 'deepseek',
-      'gen_ai.request.model': call.model,
-      'gen_ai.usage.input_tokens': call.tokensIn,
-      'gen_ai.usage.cached_input_tokens': call.tokensCached,
-      'gen_ai.usage.output_tokens': call.tokensOut,
-      'kawsay.prompt_version': call.promptVersion,
-      'kawsay.outcome': call.outcome,
-      'kawsay.tool_rounds': call.toolRounds,
-      'kawsay.cost_usd': call.costUsd,
-      'kawsay.entries': entriesOf(call.proposal),
-    };
-    return [
-      {
-        id: `${call.id}-t`,
-        type: 'trace-create',
-        timestamp: start,
-        body: {
-          id: call.id,
-          name: call.useCase,
-          timestamp: start,
-          environment,
-          input: MASKED,
-          output: MASKED,
-          tags: [call.useCase, call.outcome],
-          metadata,
-        },
-      },
-      {
-        id: `${call.id}-g`,
-        type: 'generation-create',
-        timestamp: start,
-        body: {
-          id: `${call.id}-gen`,
-          traceId: call.id,
-          name: `${call.useCase}.agent`,
-          environment,
-          startTime: start,
-          endTime: end,
-          model: call.model,
-          input: MASKED,
-          output: MASKED,
-          level: call.outcome === 'ok' ? 'DEFAULT' : 'ERROR',
-          usageDetails: {
-            input: call.tokensIn - call.tokensCached,
-            input_cached_tokens: call.tokensCached,
-            output: call.tokensOut,
+    const nanos = (ms: number) => `${BigInt(ms) * 1_000_000n}`;
+    const start = call.createdAt.getTime();
+    const str = (key: string, value: string) => ({ key, value: { stringValue: value } });
+    const int = (key: string, value: number) => ({ key, value: { intValue: String(value) } });
+    const traceId = call.id.replace(/-/g, '');
+    return {
+      resourceSpans: [
+        {
+          resource: {
+            attributes: [
+              str('service.name', 'kawsay-api'),
+              str('deployment.environment', environment),
+            ],
           },
-          costDetails: { total: call.costUsd },
-          metadata,
+          scopeSpans: [
+            {
+              scope: { name: 'kawsay.ai' },
+              spans: [
+                {
+                  traceId,
+                  spanId: traceId.slice(0, 16),
+                  name: `${call.useCase}.agent`,
+                  kind: 3,
+                  startTimeUnixNano: nanos(start),
+                  endTimeUnixNano: nanos(start + call.latencyMs),
+                  status: { code: call.outcome === 'ok' ? 1 : 2 },
+                  attributes: [
+                    str('langfuse.observation.type', 'generation'),
+                    str('langfuse.trace.name', call.useCase),
+                    str('langfuse.environment', environment),
+                    str('langfuse.observation.input', MASKED),
+                    str('langfuse.observation.output', MASKED),
+                    str('langfuse.trace.input', MASKED),
+                    str('langfuse.trace.output', MASKED),
+                    str('gen_ai.system', 'deepseek'),
+                    str('gen_ai.operation.name', 'chat'),
+                    str('gen_ai.request.model', call.model),
+                    int('gen_ai.usage.input_tokens', call.tokensIn),
+                    int('gen_ai.usage.output_tokens', call.tokensOut),
+                    str(
+                      'langfuse.observation.usage_details',
+                      JSON.stringify({
+                        input: call.tokensIn - call.tokensCached,
+                        input_cached_tokens: call.tokensCached,
+                        output: call.tokensOut,
+                      }),
+                    ),
+                    str(
+                      'langfuse.observation.cost_details',
+                      JSON.stringify({ total: call.costUsd }),
+                    ),
+                    str('langfuse.observation.metadata.prompt_version', call.promptVersion),
+                    str('langfuse.observation.metadata.outcome', call.outcome),
+                    int('langfuse.observation.metadata.tool_rounds', call.toolRounds),
+                    int('langfuse.observation.metadata.entries', entriesOf(call.proposal)),
+                  ],
+                },
+              ],
+            },
+          ],
         },
-      },
-    ];
+      ],
+    };
   }
 
   async send(call: AiCallRecord): Promise<void> {
     const keys = this.config.tracing.langfuse;
     if (!keys) return;
     try {
-      const response = await this.fetchImpl(`${keys.baseUrl}/api/public/ingestion`, {
+      const response = await this.fetchImpl(`${keys.baseUrl}/api/public/otel/v1/traces`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
           authorization: `Basic ${Buffer.from(`${keys.publicKey}:${keys.secretKey}`).toString('base64')}`,
         },
-        body: JSON.stringify({ batch: this.batch(call) }),
+        body: JSON.stringify(this.otlp(call)),
         signal: AbortSignal.timeout(10_000),
       });
       if (!response.ok) this.logger.warn(`trace not sent: HTTP ${response.status}`);

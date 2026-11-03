@@ -35,16 +35,17 @@ const config = (keys: boolean) =>
 
 describe('LangfuseTraceSink (ADR 0024)', () => {
   it('a masked span contains no input or output text, only numbers', () => {
-    const batch = JSON.stringify(new LangfuseTraceSink(config(true)).batch(call));
+    const batch = JSON.stringify(new LangfuseTraceSink(config(true)).otlp(call));
     expect(batch).not.toContain('lomo');
     expect(batch).not.toContain('tía');
     expect(batch).not.toContain('u1');
     expect(batch).toContain(MASKED);
-    expect(batch).toContain('"gen_ai.usage.input_tokens":12000');
-    expect(batch).toContain('"environment":"prod"');
+    expect(batch).toContain('{"key":"gen_ai.usage.input_tokens","value":{"intValue":"12000"}}');
+    expect(batch).toContain('{"key":"langfuse.environment","value":{"stringValue":"prod"}}');
+    expect(batch).toContain('"traceId":"0e7b3c1a2f4d4b8e9c1a1234567890ab"');
   });
 
-  it('posts one batch to the ingestion API with basic auth; without keys it sends nothing', async () => {
+  it('posts one OTLP export to the OpenTelemetry endpoint with basic auth; without keys it sends nothing', async () => {
     const sent: { url: string; init?: RequestInit }[] = [];
     const sink = new LangfuseTraceSink(config(true));
     sink.fetchImpl = (url, init) => {
@@ -52,7 +53,7 @@ describe('LangfuseTraceSink (ADR 0024)', () => {
       return Promise.resolve(new Response('{}', { status: 207 }));
     };
     await sink.send(call);
-    expect(sent[0]!.url).toBe('https://cloud.langfuse.com/api/public/ingestion');
+    expect(sent[0]!.url).toBe('https://cloud.langfuse.com/api/public/otel/v1/traces');
     expect((sent[0]!.init?.headers as Record<string, string>).authorization).toMatch(/^Basic /);
 
     const off = new LangfuseTraceSink(config(false));

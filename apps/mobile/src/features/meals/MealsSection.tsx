@@ -18,6 +18,9 @@ import { fractionLabel } from '@/lib/portion';
 import { eatenShare, PortionPicker, type Portion } from './PortionPicker';
 import type { ItemDetail } from './catalog-detail';
 import { ItemDetailView } from './ItemDetailView';
+import { TextLogPanel } from './TextLogPanel';
+import type { TextLogEntry } from './text-log-db';
+import type { TextLogFeedback, TextLogProposal } from '@kawsay/contracts/text-log';
 
 export const MEALS: readonly Meal[] = ['breakfast', 'lunch', 'dinner', 'snack'];
 
@@ -54,6 +57,15 @@ interface Props {
   day?: DayContext | null;
   /** "Crear «…» con IA" (F07 v0.2): the API proposes ingredients and grams; absent without an account. */
   proposeDish?: (name: string) => Promise<AiDishProposal>;
+  /** Log by text (F16): null when the phone has no account; absent hides the field. */
+  textLog?: {
+    propose: ((text: string) => Promise<TextLogProposal>) | null;
+    onSave: (
+      entries: TextLogEntry[],
+      pending: { meal: Meal; name: string }[],
+      feedback: { id: string; feedback: TextLogFeedback },
+    ) => void;
+  };
 }
 
 type SheetState =
@@ -92,6 +104,7 @@ export function MealsSection({
   loadDetail,
   day = null,
   proposeDish,
+  textLog,
 }: Props) {
   const { t } = useTranslation();
   const [sheet, setSheet] = useState<SheetState | null>(null);
@@ -107,39 +120,52 @@ export function MealsSection({
   if (sheet?.kind === 'pick') {
     title = mealName(sheet.meal);
     body = (
-      <DishPicker
-        query={sheet.query}
-        onQuery={(query) => setSheet({ ...sheet, query })}
-        recent={recent[sheet.meal]}
-        items={items.filter((i) => !i.generic)}
-        onPick={(item) =>
-          setSheet({
-            kind: 'portion',
-            meal: sheet.meal,
-            query: sheet.query,
-            item,
-            portion: { servings: 1, grams: '', saveRest: false },
-            ...(sheet.completes && { completes: sheet.completes }),
-          })
-        }
-        onCreate={(name) => setSheet({ kind: 'create', meal: sheet.meal, name })}
-        {...(proposeDish && {
-          onCreateWithAi: (name: string) => {
-            const meal = sheet.meal;
-            setSheet({ kind: 'proposing', meal, name, failed: null });
-            proposeDish(name).then(
-              (proposal) => setSheet({ kind: 'create', meal, name, proposal }),
-              (error: unknown) =>
-                setSheet({ kind: 'proposing', meal, name, failed: proposalError(error) }),
-            );
-          },
-        })}
-        {...(onAddPending &&
-          !sheet.completes && {
-            onSavePending: (name: string) =>
-              setSheet({ kind: 'pending', meal: sheet.meal, name, portion: '1' }),
+      <>
+        {textLog && !sheet.completes ? (
+          <TextLogPanel
+            propose={textLog.propose}
+            items={items.filter((i) => !i.generic)}
+            units={units}
+            onSave={(entries, pending, feedback) => {
+              textLog.onSave(entries, pending, feedback);
+              setSheet(null);
+            }}
+          />
+        ) : null}
+        <DishPicker
+          query={sheet.query}
+          onQuery={(query) => setSheet({ ...sheet, query })}
+          recent={recent[sheet.meal]}
+          items={items.filter((i) => !i.generic)}
+          onPick={(item) =>
+            setSheet({
+              kind: 'portion',
+              meal: sheet.meal,
+              query: sheet.query,
+              item,
+              portion: { servings: 1, grams: '', saveRest: false },
+              ...(sheet.completes && { completes: sheet.completes }),
+            })
+          }
+          onCreate={(name) => setSheet({ kind: 'create', meal: sheet.meal, name })}
+          {...(proposeDish && {
+            onCreateWithAi: (name: string) => {
+              const meal = sheet.meal;
+              setSheet({ kind: 'proposing', meal, name, failed: null });
+              proposeDish(name).then(
+                (proposal) => setSheet({ kind: 'create', meal, name, proposal }),
+                (error: unknown) =>
+                  setSheet({ kind: 'proposing', meal, name, failed: proposalError(error) }),
+              );
+            },
           })}
-      />
+          {...(onAddPending &&
+            !sheet.completes && {
+              onSavePending: (name: string) =>
+                setSheet({ kind: 'pending', meal: sheet.meal, name, portion: '1' }),
+            })}
+        />
+      </>
     );
   } else if (sheet?.kind === 'pending') {
     const current = sheet;

@@ -1145,5 +1145,29 @@
     "servingOne": "{{portion}} ración",
     "servingMany": "{{portion}} raciones",
     "grams": "{{grams}} g"
+  },
+  "textLog": {
+    "field": "✍️ Escribir lo que comí",
+    "placeholder": "✍️ Escribe lo que comiste: «almorcé chaufa e Inca Kola»",
+    "offline": "✍️ Escribir lo que comí: necesita tu cuenta y conexión",
+    "working": "Buscando en el catálogo…",
+    "propose": "Proponer",
+    "saveAll": "Guardar todo",
+    "again": "Escribir de nuevo",
+    "empty": "No encontré comidas en el texto.",
+    "servings": "{{portion}} ración",
+    "grams": "{{grams}} g",
+    "units": "{{count}} × {{unit}}",
+    "less": "Menos {{name}}",
+    "more": "Más {{name}}",
+    "mealOf": "{{name}}: {{meal}}. Toca para cambiar la comida",
+    "pendingOn": "No está en el catálogo: se guardará como pendiente",
+    "pendingOff": "No se guardará",
+    "keepPending": "Guardar {{name}} como pendiente",
+    "errors": {
+      "offline": "Sin conexión: usa la búsqueda.",
+      "limit": "Llegaste al límite de hoy. Vuelve mañana o usa la búsqueda.",
+      "other": "No pude entender el texto. Prueba de nuevo o usa la búsqueda."
+    }
   }
 }

@@ -33,6 +33,7 @@ import {
 } from '@/features/meals/meals-db';
 import { itemDetail } from '@/features/meals/catalog-detail';
 import { addPending, completePending, deletePending } from '@/features/meals/pending-db';
+import { saveTextLog } from '@/features/meals/text-log-db';
 import { MEALS, MealsSection, type AddMeal } from '@/features/meals/MealsSection';
 import {
   deleteRoutine,
@@ -308,6 +309,19 @@ export default function TodayRoute() {
           {...(sync.account?.kind === 'signed-in' && {
             proposeDish: (name: string) => sync.proposeDish(name),
           })}
+          textLog={{
+            propose:
+              sync.account?.kind === 'signed-in'
+                ? (text: string) =>
+                    sync.textLog({ text, localDate: day, timeBand: bandAt(hour) })
+                : null,
+            onSave: (entries, pending, { id, feedback }) =>
+              run(async () => {
+                await saveTextLog(db, env, { date: day, timeZone, entries, pending });
+                // Feedback is best effort: the entries are already saved.
+                void sync.textLogFeedback(id, feedback).catch(() => undefined);
+              }),
+          }}
           onCreateDish={(meal: Meal, dish: NewDish) =>
             run(async () => {
               const { id } = await saveUserDish(db, env, dish);

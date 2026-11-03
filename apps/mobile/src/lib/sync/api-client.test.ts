@@ -47,6 +47,30 @@ function scripted(...answers: Response[]) {
 }
 
 describe('API client', () => {
+  it('a text log (F16) sends only the text, the day and the band: no identifiers, no journal (ADR 0026)', async () => {
+    const proposal = { id: '0e7b3c1a-2f4d-4b8e-9c1a-1234567890ab', entries: [], unmatched: [] };
+    const server = scripted(
+      json(200, tokens(2)),
+      json(200, proposal),
+      new Response(null, { status: 204 }),
+    );
+    const client = createApiClient({
+      baseUrl: 'https://api.test/v1',
+      fetch: server.fetch,
+      tokens: memoryTokens('refresh-1'),
+    });
+    const request = {
+      text: 'almorcé lomo saltado',
+      localDate: '2026-11-03',
+      timeBand: 'midday' as const,
+    };
+    expect(await client.textLog(request)).toEqual(proposal);
+    expect(server.calls[1]!.url).toBe('https://api.test/v1/ai/text-log');
+    expect(JSON.parse(server.calls[1]!.init?.body as string)).toEqual(request);
+    await client.textLogFeedback(proposal.id, { entries: [], unmatched: [] });
+    expect(server.calls[2]!.url).toBe(`https://api.test/v1/ai/text-log/${proposal.id}/feedback`);
+  });
+
   it('signs in and keeps the refresh token in secure storage', async () => {
     const store = memoryTokens();
     const { fetch } = scripted(json(200, tokens(1)));

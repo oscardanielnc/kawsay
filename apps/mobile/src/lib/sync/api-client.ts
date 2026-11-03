@@ -1,6 +1,11 @@
 import { TokenResponse } from '@kawsay/contracts/auth';
 import { AiDishProposal, CatalogDishesResponse } from '@kawsay/contracts/catalog';
 import { type AnalysisRequest, SummaryResponse } from '@kawsay/contracts/insights';
+import {
+  type TextLogFeedback,
+  TextLogProposal,
+  type TextLogRequest,
+} from '@kawsay/contracts/text-log';
 import { type Change, PullResponse, PushResponse } from '@kawsay/contracts/sync';
 import type { SyncApi } from './engine';
 
@@ -50,6 +55,9 @@ export interface ApiClient {
   catalogDishes(version: string | null): Promise<CatalogDishesResponse>;
   /** "Crear «…» con IA" (F07 v0.2): ingredients and grams; the phone computes the nutrients. */
   proposeDish(name: string): Promise<AiDishProposal>;
+  /** Log by text (F16): a proposal of entries; nothing is saved on the server. */
+  textLog(request: TextLogRequest): Promise<TextLogProposal>;
+  textLogFeedback(id: string, feedback: TextLogFeedback): Promise<void>;
 }
 
 /**
@@ -104,6 +112,11 @@ export function createApiClient({
 
   /** A signed request; one refresh and retry when the access token is missing or expired. */
   async function authed(path: string, init: RequestInit = {}): Promise<unknown> {
+    const response = await signed(path, init);
+    return response.status === 204 ? null : response.json();
+  }
+
+  async function signed(path: string, init: RequestInit): Promise<Response> {
     for (let attempt = 0; attempt < 2; attempt += 1) {
       if (!accessToken) await refresh();
       const response = await fetch(`${baseUrl}${path}`, {
@@ -121,7 +134,7 @@ export function createApiClient({
         const problem = (await response.json().catch(() => null)) as { code?: string } | null;
         throw new ApiProblemError(response.status, problem?.code ?? null, path);
       }
-      return response.json();
+      return response;
     }
     throw new SignedOutError();
   }
@@ -165,5 +178,17 @@ export function createApiClient({
       AiDishProposal.parse(
         await authed('/catalog/ai-dish', { method: 'POST', body: JSON.stringify({ name }) }),
       ),
+
+    textLog: async (request) =>
+      TextLogProposal.parse(
+        await authed('/ai/text-log', { method: 'POST', body: JSON.stringify(request) }),
+      ),
+
+    textLogFeedback: async (id, feedback) => {
+      await authed(`/ai/text-log/${encodeURIComponent(id)}/feedback`, {
+        method: 'POST',
+        body: JSON.stringify(feedback),
+      });
+    },
   };
 }

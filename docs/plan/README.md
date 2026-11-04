@@ -3,7 +3,7 @@
 **When Oscar says "actualiza el proyecto" (or "sigue con el plan", "continúa"), run the first milestone of the active
 plan below that is not ✅.** The active plan runs in **continuous mode**: A0 → A6 in one go (section below).
 
-## Active: Kawsay with measured AI (approved by the owner 2026-10-31)
+## Last plan: Kawsay with measured AI (approved by the owner 2026-10-31, done 2026-11-03)
 
 Why: it closes the AI Engineer gaps the owner's job search found (an agent with tools and confirmation, traces and
 cost, evals with a CI gate, guardrails), on the one app with real daily use. Publishing on Play Store is not part of
@@ -85,7 +85,15 @@ Baseline (A0, 2026-11-03): 716 tests green (core 250 · mobile 362 · catalog 61
 - Order when contracts change: deploy the API first (it keeps answering the old app), then the app update
 - Design: Amanecer tokens and components ([design/explorations/2026-10-30-amanecer](../design/explorations/2026-10-30-amanecer/README.md))
 
+## Pending (owner, 2026-11-03)
+
+- **F23 piece 3, own food from a label** ("el 1 para después"): type a label per 100 g or per serving, later read
+  from a photo by a vision model with each number confirmed. Write it as a plan when the owner asks for it
+
 ## Done
+
+- **Measured AI** (2026-11-03): A0–A6 ✅; the owner logged real meals by text in production. Then F24's weekly
+  insight "¿De dónde vienen tus calorías?" (F24 and F25 were already built in M4 and M6)
 
 - **Amanecer redesign + liver targets** (2026-10-30): M0–M9 ✅, released to the owner's phone on 2026-10-30
   ([m0](m0-setup.md) … [m9](m9-release.md) kept as history). Baseline then: 628 tests

@@ -1,3 +1,4 @@
+import type { weeklyCalorieSources } from '@kawsay/core/insights/calorie-sources';
 import type { Association } from '@kawsay/core/insights/associations';
 import type { weeklyNutrients } from '@kawsay/core/insights/weekly-nutrients';
 import type { weeklySummary } from '@kawsay/core/insights/weekly-summary';
@@ -44,6 +45,8 @@ export interface InsightsData {
   notes: { date: LocalDate; text: string }[];
   week: ReturnType<typeof weeklySummary>;
   nutrients: ReturnType<typeof weeklyNutrients> | null;
+  /** Where the week's calories come from (F24). */
+  calories: ReturnType<typeof weeklyCalorieSources>;
   /** Per nutrient: the 3 biggest sources of the week and the 5 richest catalog foods per usual portion. */
   sources: Partial<Record<WeeklyNutrient, FoodPick[]>>;
   richest: Partial<Record<WeeklyNutrient, FoodPick[]>>;

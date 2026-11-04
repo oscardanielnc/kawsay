@@ -25,6 +25,6 @@
 | [F21](f21-day-notes.md) | Day notes | v0.1 | Approved |
 | [F22](f22-added-sugar.md) | Added sugar | v0.1 | Approved |
 | [F23](f23-missing-foods.md) | Missing foods without a new release | proposal | Pieces 1–2 approved |
-| [F24](f24-refined-flours.md) | Refined flours gauge | next | Accepted |
-| [F25](f25-liver-health.md) | Liver health | next | Approved |
+| [F24](f24-refined-flours.md) | Refined flours gauge | v0.1 | Built |
+| [F25](f25-liver-health.md) | Liver health | v0.1 | Built |
 | [F26](f26-gauge-detail.md) | Gauge detail: big gauge and what added most | next | Approved |

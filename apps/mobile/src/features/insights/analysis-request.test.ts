@@ -16,6 +16,7 @@ const data: InsightsData = {
     movement: { minutes: 120, goalMinutes: 150 },
     weight: { kind: 'need-more', weights: 2 },
   },
+  calories: { status: 'need-days', countedDays: 0, neededDays: 3 },
   nutrients: {
     status: 'ok',
     countedDays: 7,

@@ -1,6 +1,6 @@
 # F25. Liver health
 
-- Release: next (build plan M6)
+- Release: v0.1 (built in plan M6, 2026-10-30; off by default: Profile → modules → "Hígado")
 - Status: **Approved by the owner 2026-10-30** · targets: ADR 0020 · prototype: the owner's design canvas
   "Kawsay — Hoy rediseñado", Analysis board, "Hígado" card (copy in
   [design/explorations/2026-10-30-amanecer](../../design/explorations/2026-10-30-amanecer/README.md))

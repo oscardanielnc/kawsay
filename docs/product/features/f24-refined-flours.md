@@ -1,6 +1,6 @@
 # F24. Refined flours
 
-- Release: proposal
+- Release: v0.1 (gauge 2026-10-30, weekly insight 2026-11-03)
 - Status: **Accepted 2026-10-30** on the owner's condition that it costs little: it does. One tag per catalog food,
   set by INS group and name and reviewed once (like `added-sugar.json`); no new data source
 
@@ -30,6 +30,7 @@ but give **no numeric limit**, so any ceiling here is a personal target, never a
 
 - [x] A juane counts the carbohydrate of its rice as refined flour, not the rest of the dish
 - [x] Changing the personal ceiling moves the gauge zones the same day
+- [x] Three days of arroz con pollo show its rice apart from the chicken in "¿De dónde vienen tus calorías?"
 
 ## Build notes
 
@@ -40,3 +41,7 @@ but give **no numeric limit**, so any ceiling here is a personal target, never a
   `profile.refinedFlourShare`, 10–100%), amber up to 150% of it, coral above. Sixth gauge "Harinas" on Today
 - 2026-11-03 (A0b): zones from `@kawsay/core/gauge/scale` (`oneSidedScale(limit, 1.5 × limit)`): 0 to 2.25 × the
   limit, blue 44.4 · amber 22.2 · coral 33.3 %
+- 2026-11-03: weekly insight "¿De dónde vienen tus calorías?" (`@kawsay/core/insights/calorie-sources`, card
+  `features/insights/CaloriesCard.tsx`). Buckets: rice and other refined flours (tag), sweets (added sugar ≥ 40% of
+  the food's energy; a sugary cookie stays flour), fruit (INS group C), the rest. A dish splits by the energy of its
+  ingredients; an INS group S dish (no ingredients) by its refined-flour and added-sugar energy. Needs 3 logged days

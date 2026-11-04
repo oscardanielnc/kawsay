@@ -24,6 +24,21 @@ const base: InsightsData = {
       { key: 'sodiumMg', intake: 2500, reference: 2000, percent: 125, tone: 'red', coverage: 1 },
     ],
   },
+  calories: {
+    status: 'ok',
+    countedDays: 5,
+    kcalPerDay: 2000,
+    rows: [
+      { bucket: 'other', kcalPerDay: 1000, share: 0.5, top: [{ name: 'Pollo', kcal: 3000 }] },
+      {
+        bucket: 'rice',
+        kcalPerDay: 700,
+        share: 0.35,
+        top: [{ name: 'Arroz con pollo', kcal: 2100 }],
+      },
+      { bucket: 'sweets', kcalPerDay: 300, share: 0.15, top: [{ name: 'Inca Kola', kcal: 900 }] },
+    ],
+  },
   sources: { ironMg: [{ name: 'Lomo saltado', amount: 3.2 }] },
   richest: { ironMg: [{ name: 'Lentejas cocidas', amount: 4, portion: '1 taza', eaten: true }] },
   relations: {
@@ -81,6 +96,27 @@ describe('InsightsScreen (F17 without AI, F19, F20)', () => {
     expect(screen.getByText('días en verde')).toBeOnTheScreen();
     expect(screen.getByText('120 / 150 min')).toBeOnTheScreen();
     expect(screen.getByText('Pésate más días (2 de 3)')).toBeOnTheScreen();
+  });
+
+  it('where the calories come from: rice 35 % with arroz con pollo, largest bucket first (F24)', async () => {
+    await renderScreen().view;
+    expect(screen.getByText('¿De dónde vienen tus calorías?')).toBeOnTheScreen();
+    expect(screen.getByLabelText('🍚 Arroz: 35 %')).toBeOnTheScreen();
+    expect(screen.getByText(/700 kcal\/día · Arroz con pollo/)).toBeOnTheScreen();
+    const labels = screen.getAllByLabelText(/ %$/).map((n) => n.props.accessibilityLabel as string);
+    expect(labels.slice(0, 3)).toEqual([
+      '🍽️ Lo demás: 50 %',
+      '🍚 Arroz: 35 %',
+      '🍬 Dulces y bebidas azucaradas: 15 %',
+    ]);
+  });
+
+  it('a week with 2 logged days asks for 3 before showing where the calories come from', async () => {
+    await renderScreen({
+      ...base,
+      calories: { status: 'need-days', countedDays: 2, neededDays: 3 },
+    }).view;
+    expect(screen.getByText(/Registra comidas en 3 días.*\(2 de 3\)/)).toBeOnTheScreen();
   });
 
   it('One weights routine in the week shows strength "1 de 2" in amber', async () => {

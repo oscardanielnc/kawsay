@@ -1,4 +1,10 @@
 import { addedSugarLimits } from '@kawsay/core/day/added-sugar';
+import {
+  itemParts,
+  weeklyCalorieSources,
+  type BucketFood,
+  type CaloriePart,
+} from '@kawsay/core/insights/calorie-sources';
 import { findAssociations, type AssociationDay } from '@kawsay/core/insights/associations';
 import { symptomEpisodes } from '@kawsay/core/insights/symptom-episodes';
 import { weeklyNutrients, type NutrientDay } from '@kawsay/core/insights/weekly-nutrients';
@@ -76,7 +82,16 @@ export async function loadInsights(db: Db, end: LocalDate): Promise<InsightsData
       listSymptoms(db),
       db.select().from(dishItem),
       db.select().from(userDishItem).where(isNull(userDishItem.deletedAt)),
-      db.select({ id: food.id, name: food.name, per100g: food.per100g }).from(food),
+      db
+        .select({
+          id: food.id,
+          name: food.name,
+          per100g: food.per100g,
+          tags: food.tags,
+          sourceKind: food.sourceKind,
+          sourceCode: food.sourceCode,
+        })
+        .from(food),
       db.select({ id: dish.id, name: dish.name }).from(dish),
       db.select({ id: userDish.id, name: userDish.name }).from(userDish),
       db.select().from(foodUnit).orderBy(asc(foodUnit.position)),
@@ -89,12 +104,25 @@ export async function loadInsights(db: Db, end: LocalDate): Promise<InsightsData
   ]);
 
   const ingredients = new Map<string, string[]>();
+  const recipe = new Map<string, { food: string; grams: number }[]>();
   for (const i of [
-    ...items.map((x) => ({ owner: x.dishId, food: x.foodId })),
-    ...ownItems.map((x) => ({ owner: x.userDishId, food: x.foodId })),
+    ...items.map((x) => ({ owner: x.dishId, food: x.foodId, grams: x.grams })),
+    ...ownItems.map((x) => ({ owner: x.userDishId, food: x.foodId, grams: x.grams })),
   ]) {
     ingredients.set(i.owner, [...(ingredients.get(i.owner) ?? []), i.food]);
+    recipe.set(i.owner, [...(recipe.get(i.owner) ?? []), { food: i.food, grams: i.grams }]);
   }
+  const bucketFood = new Map<string, BucketFood>(
+    foods.map((f) => [
+      f.id,
+      {
+        name: f.name,
+        tags: f.tags ?? [],
+        insCode: f.sourceKind === 'INS' ? f.sourceCode : null,
+        per100g: f.per100g,
+      },
+    ]),
+  );
   const foodName = new Map(foods.map((f) => [f.id, f.name]));
   const dishName = new Map([...dishes, ...ownDishes].map((d) => [d.id, d.name]));
 
@@ -234,8 +262,29 @@ export async function loadInsights(db: Db, end: LocalDate): Promise<InsightsData
       .slice(0, 5);
   }
 
+  // Where the calories come from (F24): each logged item split into rice, flours, sweets, fruit and the rest.
+  const calorieParts: CaloriePart[][] = week.map((day) =>
+    day.meals.flatMap((m) =>
+      itemParts({
+        name: m.name,
+        kcal: m.kcal,
+        food: m.kind === 'food' ? bucketFood.get(m.itemId) : undefined,
+        ingredients:
+          m.kind === 'dish'
+            ? (recipe.get(m.itemId) ?? []).flatMap((i) => {
+                const f = bucketFood.get(i.food);
+                return f ? [{ food: f, grams: i.grams }] : [];
+              })
+            : undefined,
+        addedSugarG: m.addedSugarG,
+        refinedFlourG: m.refinedFlourG,
+      }),
+    ),
+  );
+
   return {
     from: weekFrom,
+    calories: weeklyCalorieSources(calorieParts),
     to: end,
     relationsFrom: from,
     notes,

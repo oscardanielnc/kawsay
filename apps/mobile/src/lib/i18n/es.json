@@ -900,6 +900,20 @@
       "strength": "Fuerza",
       "strengthValue": "{{days}} de 2 días"
     },
+    "calories": {
+      "title": "¿De dónde vienen tus calorías?",
+      "needDays": "Registra comidas en {{needed}} días de la semana para verlo ({{count}} de {{needed}}).",
+      "average": "Promedio: {{kcal}} kcal por día registrado",
+      "perDay": "{{kcal}} kcal/día",
+      "buckets": {
+        "rice": "🍚 Arroz",
+        "flour": "🍞 Pan, fideos y galletas",
+        "sweets": "🍬 Dulces y bebidas azucaradas",
+        "fruit": "🍓 Fruta",
+        "other": "🍽️ Lo demás"
+      },
+      "why": "Harinas refinadas y dulces son fáciles de comer de más: mira cuál pesa más en tu semana."
+    },
     "nutrients": {
       "title": "Vitaminas y minerales",
       "noProfile": "Completa tu perfil para ver tus referencias.",

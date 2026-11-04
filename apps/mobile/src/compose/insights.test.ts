@@ -124,4 +124,25 @@ describe('insights (F17, F19, F20) from the local database', () => {
     expect(sources.ironMg?.[0]?.name).toBe('Lomo saltado');
     expect(richest.ironMg?.length).toBeGreaterThan(0);
   });
+
+  it('three days of arroz con pollo and an Inca Kola: the rice of the dish shows apart from the rest (F24)', async () => {
+    const { db, e } = await withProfile();
+    for (let i = 0; i < 3; i++) {
+      const date = addDays(end, -i);
+      await meal(db, e, date, 'lunch', 'arroz-con-pollo');
+      await addMeal(db, e, {
+        date,
+        meal: 'lunch',
+        timeZone: lima,
+        item: { kind: 'food', id: 'inca-kola' },
+        grams: 500,
+      });
+    }
+    const { calories } = await loadInsights(db, end);
+    if (calories.status !== 'ok') throw new Error(`expected ok, got ${calories.status}`);
+    const rice = calories.rows.find((r) => r.bucket === 'rice');
+    expect(rice?.top[0]?.name).toMatch(/Arroz con pollo/);
+    expect(calories.rows.find((r) => r.bucket === 'sweets')?.share).toBeGreaterThan(0);
+    expect(calories.rows.reduce((sum, r) => sum + r.share, 0)).toBeCloseTo(1);
+  });
 });

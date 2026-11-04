@@ -8,6 +8,7 @@ import type { InsightsData } from './types';
 import { color, radius, space, type, screenPadding, tabBarSpace } from '@/lib/theme';
 import { AiAnalysisCard, type AnalysisStatus } from './AiAnalysisCard';
 import type { StoredAnalysis } from './analysis-store';
+import { CaloriesCard } from './CaloriesCard';
 import { NutrientsCard } from './NutrientsCard';
 import { RelationsCard } from './RelationsCard';
 import { WeekCard } from './WeekCard';
@@ -73,6 +74,7 @@ export function InsightsScreen({ data, canNext, onPrev, onNext, ai, liver = null
               </View>
               <WeekCard week={data.week} strengthDays={data.strengthDays} />
               {liver}
+              <CaloriesCard calories={data.calories} />
               <NutrientsCard
                 nutrients={data.nutrients}
                 sources={data.sources}

@@ -64,4 +64,5 @@ in `docs/security/llm-threats.md`.
 
 ## Numbers in production
 
-Dev, before release: 7 calls, $0.0037 in all, p50 2.6 s, p95 8.2 s. Production numbers come from the same CLI.
+Dev, before release: 7 calls, $0.0037 in all, p50 2.6 s, p95 8.2 s. Production, first day: 3 calls, $0.00055 per
+saved entry, p50 2.9 s, p95 6.6 s, every proposal saved as is (2 of 2). Same CLI, so the numbers stay comparable.

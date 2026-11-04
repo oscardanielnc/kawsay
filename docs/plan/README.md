@@ -20,7 +20,7 @@ this plan.
 | [A3](a3-evals.md) | Evals: golden set, CI gate, model comparison, Python report | ADR 0025 | ✅ 2026-11-03 |
 | [A4](a4-guardrails.md) | Guardrails and the OWASP map | ADR 0026 | ✅ 2026-11-03 |
 | [A5](a5-tell-it.md) | Tell it: README with numbers, write-up, CV line | — | ✅ 2026-11-03 |
-| [A6](a6-release.md) | Release | runbooks | ⏳ prod API and production update 2026-11-03 (group a4125de4); waits for the owner's real text log |
+| [A6](a6-release.md) | Release | runbooks | ✅ 2026-11-03 |
 
 Owner's choices (2026-10-31): traces in **Langfuse Cloud** (EU, free, masked content; ADR 0024) · AI budget about
 USD 5 a month for evals and his own use · keep DeepSeek and compare it with `deepseek-v4-pro` and a Gemini Flash-Lite.

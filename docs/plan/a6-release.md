@@ -12,7 +12,7 @@
 
 ## Done when
 
-- [ ] Oscar logs a real meal by text on his phone
+- [x] Oscar logs a real meal by text on his phone (2026-11-03: two text logs in production, both saved as proposed)
 
 ## Run notes (2026-11-03)
 
@@ -27,3 +27,6 @@
   `a4125de4-b362-4520-8aaa-9f380e57c562`; rollback: `eas update:republish --group afcd81bd-4267-432d-826e-2304ad568581
   --destination-branch production`
 
+- Production update group `b8398e93-6072-4c63-8184-15867f289962` (sessions, naps, "Crear con IA"); rollback:
+  `eas update:republish --group a4125de4-b362-4520-8aaa-9f380e57c562 --destination-branch production`
+- Owner signed in again and synced; first real numbers: 2 text logs, $0.00055 per entry, p95 6.6 s, accepted 2/2

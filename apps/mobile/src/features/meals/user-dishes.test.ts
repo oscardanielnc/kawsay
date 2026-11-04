@@ -45,6 +45,22 @@ describe('user dishes (F07)', () => {
     expect(first?.kcalPerServing).toBeGreaterThan(0);
   });
 
+  it('the catalog is read once and read again when an own dish is saved', async () => {
+    const db = await createTestDb();
+    await loadCatalog(db, catalog);
+    const before = await catalogItems(db);
+    expect(await catalogItems(db)).toBe(before);
+    const { id } = await saveUserDish(db, env(), {
+      name: 'Batido',
+      icon: 'jugo',
+      servings: 1,
+      items: [{ foodId: 'huevo', grams: 50, unitLabel: '1 huevo', unitCount: 1 }],
+    });
+    const after = await catalogItems(db);
+    expect(after).not.toBe(before);
+    expect(after[0]).toMatchObject({ kind: 'dish', id });
+  });
+
   it('a saved dish is logged like any other, with portion 1', async () => {
     const db = await createTestDb();
     await loadCatalog(db, catalog);

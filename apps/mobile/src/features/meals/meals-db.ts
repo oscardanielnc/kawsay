@@ -1,6 +1,6 @@
 import { recipeTotals } from '@kawsay/core/food/recipe-totals';
 import { addDays, type LocalDate } from '@kawsay/core/shared/local-date';
-import { and, asc, desc, eq, isNull } from 'drizzle-orm';
+import { and, asc, desc, eq, isNull, sql } from 'drizzle-orm';
 import { newRecord } from '@/lib/db/record';
 import { dish, food, foodUnit, mealEntry, userDish, userDishItem } from '@/lib/db/schema';
 import { inTransaction } from '@/lib/db/transaction';
@@ -65,8 +65,39 @@ const GROUPS_FOR: Record<Meal, string[]> = {
 };
 const RECENT = 12;
 
-/** Every dish and food, dishes first (the user's own before the seed), for the add sheet and search (F05–F07). */
-export async function catalogItems(db: Db): Promise<CatalogItem[]> {
+/** The last catalog read per database, with the stamp of the tables it came from. */
+const catalogCache = new WeakMap<Db, { stamp: string; items: Promise<readonly CatalogItem[]> }>();
+
+/**
+ * Changes whenever a catalog table does: row counts, the latest edit of the user's dishes and the catalog versions in
+ * `meta`. Reading it costs a few aggregates; reading the catalog costs thousands of rows and their nutrients.
+ */
+async function catalogStamp(db: Db): Promise<string> {
+  const rows = await db.values<[string]>(sql`
+    select (select count(*) from dish) || ':' || (select count(*) from food) || ':' ||
+      (select count(*) from food_unit) || ':' ||
+      (select count(*) || '/' || coalesce(max(updated_at), 0) from user_dish) || ':' ||
+      (select count(*) || '/' || coalesce(max(updated_at), 0) from user_dish_item) || ':' ||
+      (select coalesce(group_concat(key || '=' || value), '') from meta) as stamp`);
+  return rows[0]?.[0] ?? '';
+}
+
+/**
+ * Every dish and food, dishes first (the user's own before the seed), for the add sheet and search (F05–F07).
+ * Read once and kept until a catalog table changes: Today reads it on every save, and a full read took seconds
+ * (owner, 2026-11-04: "todo demora como 2 segundos"). Callers must not mutate the list.
+ */
+export async function catalogItems(db: Db): Promise<readonly CatalogItem[]> {
+  const stamp = await catalogStamp(db);
+  const cached = catalogCache.get(db);
+  if (cached?.stamp === stamp) return cached.items;
+  const items = readCatalog(db);
+  catalogCache.set(db, { stamp, items });
+  items.catch(() => catalogCache.delete(db));
+  return items;
+}
+
+async function readCatalog(db: Db): Promise<CatalogItem[]> {
   const [dishes, foods, units, ownDishes, ownItems] = await Promise.all([
     db.select().from(dish),
     db.select().from(food),

@@ -63,8 +63,11 @@ describe('SleepSection (F11)', () => {
         newId={newId}
       />,
     );
-    await fireEvent.press(screen.getByRole('button', { name: 'Más Me desperté' }));
-    expect(onSave).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'n', end: '07:15' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Me desperté 07:00' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Me desperté: hora 08' }));
+    expect(onSave).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'n', end: '08:00' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Me desperté: minutos 30' }));
+    expect(onSave).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'n', end: '07:30' }));
     await fireEvent.press(screen.getByRole('switch', { name: 'Tuve pesadillas' }));
     expect(onSave).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'n', nightmares: true }));
   });
@@ -123,6 +126,23 @@ describe('SleepSection (F11)', () => {
     expect(screen.getByText('14:00')).toBeOnTheScreen();
   });
 
+  it('a time moves from 13:00 to 08:00 with one tap on its hour, not twenty taps on minus', async () => {
+    const onSave = jest.fn();
+    await render(
+      <SleepSection
+        {...usual}
+        sessions={[saved({ start: '13:00' })]}
+        onSave={onSave}
+        onDelete={jest.fn()}
+        newId={newId}
+      />,
+    );
+    await fireEvent.press(screen.getByRole('button', { name: 'Me dormí 13:00' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Me dormí: hora 08' }));
+    expect(onSave).toHaveBeenCalledTimes(1);
+    expect(onSave).toHaveBeenLastCalledWith(expect.objectContaining({ start: '08:00' }));
+  });
+
   it("changing the added nap's time with several quick taps leaves one nap", async () => {
     const onSave = jest.fn();
     await render(
@@ -136,8 +156,11 @@ describe('SleepSection (F11)', () => {
       />,
     );
     await fireEvent.press(screen.getByRole('button', { name: '+ Agregar siesta' }));
-    const later = screen.getAllByRole('button', { name: 'Más Me desperté' })[1]!;
-    for (let i = 0; i < 5; i++) await fireEvent.press(later);
+    await fireEvent.press(screen.getByRole('button', { name: 'Me desperté 14:30' }));
+    for (const hour of ['15', '16', '15']) {
+      await fireEvent.press(screen.getByRole('button', { name: `Me desperté: hora ${hour}` }));
+    }
+    await fireEvent.press(screen.getByRole('button', { name: 'Me desperté: minutos 45' }));
     const napIds = new Set(onSave.mock.calls.map(([change]: [{ id: string }]) => change.id));
     expect(napIds.size).toBe(1);
     expect(onSave).toHaveBeenLastCalledWith(

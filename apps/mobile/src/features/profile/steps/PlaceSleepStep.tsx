@@ -1,14 +1,11 @@
-import { shiftTime } from '@kawsay/core/shared/clock-time';
 import { useTranslation } from 'react-i18next';
 import { Text } from 'react-native';
 import { color, type } from '@/lib/theme';
 import { Card } from '@/components/layout/Card';
 import { Segmented } from '@/components/forms/Segmented';
-import { Stepper } from '@/components/forms/Stepper';
+import { TimeField } from '@/components/forms/TimeField';
 import { Toggle } from '@/components/forms/Toggle';
 import type { StepProps } from './BodyStep';
-
-const STEP_MIN = 15;
 
 /** Climate where the user lives: it changes the drinks goal only (F01, F10). */
 export function ClimateBlock({ draft, update }: StepProps) {
@@ -33,12 +30,7 @@ export function ClimateBlock({ draft, update }: StepProps) {
 export function SleepBlock({ draft, update }: StepProps) {
   const { t } = useTranslation();
   const time = (label: string, value: string, set: (v: string) => void) => (
-    <Stepper
-      label={label}
-      value={value}
-      onDecrement={() => set(shiftTime(value, -STEP_MIN))}
-      onIncrement={() => set(shiftTime(value, STEP_MIN))}
-    />
+    <TimeField label={label} value={value} onChange={set} />
   );
   return (
     <>

@@ -1,10 +1,10 @@
-import { shiftTime, type ClockTime } from '@kawsay/core/shared/clock-time';
+import type { ClockTime } from '@kawsay/core/shared/clock-time';
 import { clockHours } from '@kawsay/core/sleep/sleep-session';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import { Stepper } from '@/components/forms/Stepper';
+import { TimeField } from '@/components/forms/TimeField';
 import { Toggle } from '@/components/forms/Toggle';
 import { Card } from '@/components/layout/Card';
 import { Button } from '@/components/primitives/Button';
@@ -38,7 +38,6 @@ interface Shown extends SleepChange {
   draft?: boolean;
 }
 
-const STEP_MIN = 15;
 const QUALITY = [1, 2, 3, 4, 5] as const;
 const NIGHT_INK = '#3D4C8C';
 const NEW_NAP = { start: '14:00', end: '14:30' };
@@ -121,17 +120,15 @@ export function SleepSection({ sessions, usualNight, usualNap, onSave, onDelete,
                 </Pressable>
               ) : null}
             </View>
-            <Stepper
+            <TimeField
               label={t('sleep.fellAsleep')}
               value={s.start}
-              onDecrement={() => change(s, { start: shiftTime(s.start, -STEP_MIN) })}
-              onIncrement={() => change(s, { start: shiftTime(s.start, STEP_MIN) })}
+              onChange={(start) => change(s, { start })}
             />
-            <Stepper
+            <TimeField
               label={t('sleep.wokeUp')}
               value={s.end}
-              onDecrement={() => change(s, { end: shiftTime(s.end, -STEP_MIN) })}
-              onIncrement={() => change(s, { end: shiftTime(s.end, STEP_MIN) })}
+              onChange={(end) => change(s, { end })}
             />
             {unfinished ? (
               <Text style={[type.caption, styles.accent]}>{t('sleep.endBeforeStart')}</Text>

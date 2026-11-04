@@ -71,7 +71,8 @@ Header with ‹ › and the 7 days shown (ending today by default).
 
 Nobody logs minute by minute. Every entry defaults to a **time band** (early morning, morning, midday, afternoon,
 evening, night) taken from when it is logged or from its slot; an exact time is optional. Sleep prefills from the
-user's usual schedule.
+user's usual schedule. A clock time is picked in two taps (`TimeField`: hour grid, then :00 :15 :30 :45), never
+with −/+ steppers.
 
 ## Range thresholds
 

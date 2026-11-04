@@ -92,13 +92,16 @@ function nightsOn(db: Db, date: LocalDate) {
     .orderBy(desc(sleepSession.updatedAt));
 }
 
-/** The day's sessions, night first, then naps by start. */
+/**
+ * The day's sessions, night first, then naps in the order they were added (ids are UUIDv7): a nap whose time is
+ * being edited keeps its place (owner, 2026-11-04: the third nap jumped to second).
+ */
 export async function sleepOn(db: Db, date: LocalDate): Promise<SleepSession[]> {
   const rows = await db
     .select()
     .from(sleepSession)
     .where(and(eq(sleepSession.date, date), isNull(sleepSession.deletedAt)))
-    .orderBy(asc(sleepSession.start));
+    .orderBy(asc(sleepSession.id));
   // A day shows one night: the latest edit, if an older copy is still there (it goes on the next save).
   const night = rows
     .filter((row) => row.kind === 'night')

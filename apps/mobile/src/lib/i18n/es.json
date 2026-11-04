@@ -33,7 +33,13 @@
   },
   "form": {
     "less": "Menos {{label}}",
-    "more": "Más {{label}}"
+    "more": "Más {{label}}",
+    "time": {
+      "hour": "Hora",
+      "minutes": "Minutos",
+      "hourLabel": "{{label}}: hora {{hour}}",
+      "minutesLabel": "{{label}}: minutos {{minutes}}"
+    }
   },
   "onboarding": {
     "welcome": {

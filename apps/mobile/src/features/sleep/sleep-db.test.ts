@@ -128,4 +128,15 @@ describe('sleep sessions (F11)', () => {
     const naps = (await sleepOn(db, today)).filter((s) => s.kind === 'nap');
     expect(naps).toEqual([expect.objectContaining({ id, end: '15:15' })]);
   });
+
+  it('naps keep the order they were added in, even when a later one starts earlier', async () => {
+    const db = await createTestDb();
+    const e = env();
+    const nap = { ...night, kind: 'nap' as const, quality: null };
+    await saveSleep(db, e, { ...nap, start: '10:00', end: '10:30' });
+    await saveSleep(db, e, { ...nap, start: '16:00', end: '16:30' });
+    await saveSleep(db, e, { ...nap, start: '13:00', end: '13:30' });
+    const naps = (await sleepOn(db, today)).filter((s) => s.kind === 'nap');
+    expect(naps.map((s) => s.start)).toEqual(['10:00', '16:00', '13:00']);
+  });
 });

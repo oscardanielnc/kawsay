@@ -1,3 +1,4 @@
+import { isDigestiveName, mayRelate } from '@kawsay/core/insights/relation-pairs';
 import { addedSugarLimits } from '@kawsay/core/day/added-sugar';
 import {
   itemParts,
@@ -29,6 +30,8 @@ export const WEEK_DAYS = 7;
 export const RELATION_DAYS = 42;
 /** Under 6 hours of sleep counts as a short night (an exposure for F17). */
 const SHORT_SLEEP_H = 6;
+/** Two hours or more on the motorbike in a day: the owner's tiring days (F17, 2026-11-04). */
+const LONG_MOTORBIKE_MIN = 120;
 
 /** Bad-day rules: answers on the bad side of each scale (check-in values: see the export README). */
 function badSymptoms(
@@ -144,6 +147,13 @@ export async function loadInsights(db: Db, end: LocalDate): Promise<InsightsData
       exposures.add('tag:sugar-high');
     if (day.sleep.length && daySleepHours(day.sleep.map((s) => s.stamps)) < SHORT_SLEEP_H)
       exposures.add('tag:short-sleep');
+    if (day.sleep.some((s) => s.quality !== null && s.quality <= 2))
+      exposures.add('tag:poor-sleep');
+    const motorbikeMin = day.activities
+      .filter((a) => a.kind === 'motorbike')
+      .reduce((sum, a) => sum + a.minutes, 0);
+    if (motorbikeMin >= LONG_MOTORBIKE_MIN) exposures.add('tag:long-motorbike');
+    if (day.activities.some((a) => a.intensity === 'hard')) exposures.add('tag:hard-activity');
     if (day.activities.length) exposures.add('tag:activity');
     if (day.status.noActivity) exposures.add('tag:no-activity');
     return {
@@ -183,7 +193,12 @@ export async function loadInsights(db: Db, end: LocalDate): Promise<InsightsData
       ? { kind: 'own', id, name: ownName.get(id) ?? id }
       : { kind: 'check', id: id as Extract<SymptomRef, { kind: 'check' }>['id'] };
   };
-  const found = findAssociations(associationDays);
+  const digestiveOwn = new Set(
+    symptoms.filter((s) => isDigestiveName(s.name)).map((s) => `own:${s.id}`),
+  );
+  const found = findAssociations(associationDays, (exposure, symptom) =>
+    mayRelate(exposure, symptom, digestiveOwn),
+  );
   const relations: InsightsData['relations'] =
     found.status === 'need-days'
       ? found

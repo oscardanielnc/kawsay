@@ -41,10 +41,10 @@ describe('associations (F17, computed without AI)', () => {
     });
   });
 
-  it('Minimum data: an exposure seen fewer than 3 times is never a finding', () => {
+  it('Minimum data: an exposure seen fewer than 5 times is never a finding', () => {
     const days = dairyWeeks().map((d, i) => ({
       ...d,
-      exposures: i < 8 ? d.exposures : d.exposures.filter((e) => e !== 'food:leche-entera'),
+      exposures: i < 16 ? d.exposures : d.exposures.filter((e) => e !== 'food:leche-entera'),
     }));
     const result = findAssociations(days);
     if (result.status !== 'ok') throw new Error('expected a result');
@@ -52,7 +52,7 @@ describe('associations (F17, computed without AI)', () => {
   });
 
   it('the window reaches 48 h: exposure two days before still counts', () => {
-    const days: AssociationDay[] = Array.from({ length: 20 }, (_, i) => ({
+    const days: AssociationDay[] = Array.from({ length: 25 }, (_, i) => ({
       date: addDays(start, i),
       exposures: i % 5 === 0 ? ['tag:alcohol'] : [],
       symptoms: { mood: i % 5 === 2 },
@@ -60,5 +60,11 @@ describe('associations (F17, computed without AI)', () => {
     const result = findAssociations(days);
     if (result.status !== 'ok') throw new Error('expected findings');
     expect(result.findings[0]).toMatchObject({ exposure: 'tag:alcohol', symptom: 'mood' });
+  });
+
+  it('a pair left out by the rules is never a finding', () => {
+    const result = findAssociations(dairyWeeks(), (exposure) => !exposure.startsWith('food:'));
+    if (result.status !== 'ok') throw new Error('expected a result');
+    expect(result.findings).toEqual([]);
   });
 });

@@ -28,7 +28,8 @@ export interface Association {
 }
 
 const MIN_DAYS = 10;
-const MIN_OCCURRENCES = 3;
+/** Five, not three: fewer exposures line up with a symptom by chance too often (owner, 2026-11-04). */
+const MIN_OCCURRENCES = 5;
 /** Same day and up to 48 h later. */
 const WINDOW_DAYS = 2;
 /** A relation needs a clear gap: 25 points of rate and at least twice (or half) the baseline. */
@@ -48,6 +49,8 @@ function confidence(occurrences: number, exposedDays: number, gap: number): Conf
  */
 export function findAssociations(
   days: readonly AssociationDay[],
+  /** Pairs worth comparing (`relation-pairs.ts`); every pair when absent. */
+  mayRelate: (exposure: string, symptom: string) => boolean = () => true,
 ):
   | { status: 'need-days'; loggedDays: number; neededDays: number }
   | { status: 'ok'; loggedDays: number; findings: Association[] } {
@@ -69,6 +72,7 @@ export function findAssociations(
   for (const [exposure, on] of exposureDays) {
     if (on.size < MIN_OCCURRENCES) continue;
     for (const symptom of symptoms) {
+      if (!mayRelate(exposure, symptom)) continue;
       let [exposedDays, exposedBad, baselineDays, baselineBad] = [0, 0, 0, 0];
       for (const d of logged) {
         const bad = d.symptoms[symptom];

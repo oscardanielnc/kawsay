@@ -10,7 +10,14 @@ Ask the app what lines up with your symptoms.
 ## Rules
 
 - The phone compares days with X vs without X (foods and their ingredients, drinks, added sugar, sleep, activity) against bad symptom days on the same day and up to 48 h later, against the user's own baseline (ADR 0019). Intimate entries are left out
-- Minimum data: 3 occurrences and 10 days before showing a relation
+- Minimum data: 5 occurrences and 10 days before showing a relation
+- **Which pairs are compared (owner, 2026-11-04):** foods and dishes only against gut symptoms (bloating,
+  diarrhoea, constipation, and own symptoms named like one: "Gases", "Acidez"). Mood, stress, energy, sleep and
+  any other own symptom (mouth ulcers) only against day tags: short or poor sleep, 2 h+ of motorbike, hard
+  activity, activity or none, alcohol, coffee or tea, a high added-sugar day. Testing hundreds of foods against mood
+  only found coincidences ("culantro, less stress"). What happened in the day reaches the AI through the notes
+- The AI prompts say mood, stress, energy, sleep and recurrent mouth ulcers follow rest, the day's load and its
+  events, never a food
 - Without AI the card lists the relations found, each with its counts and a confidence level (low · medium · high)
 - "Analizar con IA" sends those relations (in words, with their counts), the week, the nutrients below reference and the day notes of the six weeks (ADR 0019); the AI (DeepSeek `deepseek-flash`, ADR 0007) answers a summary, findings with confidence and source (data · notes · both), habits to try and warning signs
 - 3 analyses per rolling 24 h per user (`AI_DAILY_LIMIT`); only successful ones count; the server stores only their time
@@ -28,7 +35,9 @@ Ask the app what lines up with your symptoms.
 ## Acceptance criteria
 
 - [x] With seeded data where dairy raises bloating, the insight reports it
-- [x] Fewer than 10 logged days asks for more; an exposure seen fewer than 3 times is never a finding
+- [x] Fewer than 10 logged days asks for more; an exposure seen fewer than 5 times is never a finding
 - [x] A 4th analysis within 24 h is refused with "vuelve mañana"; a failed AI call does not count
 - [x] Invalid AI output is retried once, then a clear error
 - [x] The request carries no identifiers and no intimate entries (the contract refuses extra fields)
+- [x] A food is never compared with mood, stress, energy or sleep: "culantro, less stress" cannot appear
+- [x] Mouth ulcers after long motorbike days relate to the motorbike, never to what was eaten those days

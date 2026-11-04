@@ -12,7 +12,16 @@ export type Exposure =
   | { kind: 'food' | 'dish'; id: string; name: string }
   | {
       kind: 'tag';
-      id: 'alcohol' | 'coffee-tea' | 'sugar-high' | 'short-sleep' | 'activity' | 'no-activity';
+      id:
+        | 'alcohol'
+        | 'coffee-tea'
+        | 'sugar-high'
+        | 'short-sleep'
+        | 'poor-sleep'
+        | 'long-motorbike'
+        | 'hard-activity'
+        | 'activity'
+        | 'no-activity';
     };
 /** A symptom read from check-ins, sleep or the user's own symptoms; `bad` rules in `badSymptoms`. */
 export type SymptomRef =

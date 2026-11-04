@@ -1,6 +1,7 @@
 /** @jest-environment node */
 import catalog from '@kawsay/catalog/catalog.json';
 import { addDays } from '@kawsay/core/shared/local-date';
+import { addActivity } from '@/features/activity/activity-db';
 import { addCheckIn } from '@/features/checkins/checkins-db';
 import { addMeal } from '@/features/meals/meals-db';
 import { answerSymptom, createSymptom } from '@/features/symptoms/symptoms-db';
@@ -48,6 +49,16 @@ async function withProfile(): Promise<{ db: Db; e: RecordEnv }> {
   return { db, e };
 }
 
+const motorbike = (db: Db, e: RecordEnv, date: string, minutes: number) =>
+  addActivity(db, e, {
+    date,
+    timeZone: lima,
+    kind: 'motorbike',
+    intensity: 'medium',
+    minutes,
+    met: 2.8,
+    timeBand: 'morning',
+  });
 const meal = (db: Db, e: RecordEnv, date: string, m: 'breakfast' | 'lunch', id: string) =>
   addMeal(db, e, { date, meal: m, timeZone: lima, item: { kind: 'dish', id }, servings: 1 });
 
@@ -81,11 +92,42 @@ describe('insights (F17, F19, F20) from the local database', () => {
   it('an own symptom marked several days in a row counts once, on its first day (F13)', async () => {
     const { db, e } = await withProfile();
     const { id } = await createSymptom(db, e, { name: 'Dolor de cabeza', scale: 'yes-no' });
-    // Milk on the first day of each 3-day headache, every 6 days; other days answer something else.
+    // Two hours of motorbike on the first day of each 3-day headache, every 6 days; other days answer something else.
     for (let i = 0; i < 36; i++) {
       const date = addDays(end, -35 + i);
       await addCheckIn(db, e, { date, timeZone: lima, kind: 'mood', value: '3' });
-      if (i % 6 === 0)
+      if (i % 6 === 0) await motorbike(db, e, date, 150);
+      if (i % 6 < 3)
+        await answerSymptom(db, e, { date, timeZone: lima, symptomId: id, value: 'yes' });
+    }
+    const { relations } = await loadInsights(db, end);
+    if (relations.status !== 'ok') throw new Error(`expected findings, got ${relations.status}`);
+    const headache = relations.findings.find(
+      (f) =>
+        f.symptom.kind === 'own' && f.exposure.kind === 'tag' && f.exposure.id === 'long-motorbike',
+    );
+    expect(headache).toMatchObject({
+      direction: 'raises',
+      occurrences: 6,
+      exposedRate: 1,
+      // The second and third days of each headache are left out, not counted as headaches without motorbike.
+      baselineRate: 0,
+    });
+  });
+
+  it('mouth ulcers after long motorbike days relate to the motorbike, never to what was eaten those days', async () => {
+    const { db, e } = await withProfile();
+    const { id } = await createSymptom(db, e, { name: 'Llagas', scale: 'yes-no' });
+    for (let i = 0; i < 36; i++) {
+      const date = addDays(end, -35 + i);
+      await addCheckIn(db, e, {
+        date,
+        timeZone: lima,
+        kind: 'mood',
+        value: i % 6 === 0 ? '1' : '4',
+      });
+      if (i % 6 === 0) {
+        await motorbike(db, e, date, 180);
         await addMeal(db, e, {
           date,
           meal: 'breakfast',
@@ -93,22 +135,18 @@ describe('insights (F17, F19, F20) from the local database', () => {
           item: { kind: 'food', id: 'leche-entera' },
           grams: 250,
         });
+      }
       if (i % 6 < 3)
         await answerSymptom(db, e, { date, timeZone: lima, symptomId: id, value: 'yes' });
     }
     const { relations } = await loadInsights(db, end);
     if (relations.status !== 'ok') throw new Error(`expected findings, got ${relations.status}`);
-    const headache = relations.findings.find(
-      (f) => f.symptom.kind === 'own' && f.exposure.kind === 'food',
+    expect(relations.findings.filter((f) => f.exposure.kind !== 'tag')).toEqual([]);
+    const ulcers = relations.findings.find(
+      (f) =>
+        f.symptom.kind === 'own' && f.exposure.kind === 'tag' && f.exposure.id === 'long-motorbike',
     );
-    expect(headache).toMatchObject({
-      exposure: { id: 'leche-entera' },
-      direction: 'raises',
-      occurrences: 6,
-      exposedRate: 1,
-      // The second and third days of each headache are left out, not counted as headaches without milk.
-      baselineRate: 0,
-    });
+    expect(ulcers?.symptom).toMatchObject({ kind: 'own', name: 'Llagas' });
   });
 
   it('a week of two meals a day gives the vitamins card and the week summary', async () => {

@@ -975,6 +975,9 @@
         "coffee-tea": "☕ Café o té",
         "sugar-high": "🍬 Día con mucha azúcar añadida",
         "short-sleep": "🌙 Dormir menos de 6 h",
+        "poor-sleep": "😴 Dormir mal (calidad mala o muy mala)",
+        "long-motorbike": "🏍️ 2 h o más de moto",
+        "hard-activity": "💪 Actividad pesada",
         "activity": "🏃 Actividad física",
         "no-activity": "🛋️ Día sin actividad"
       },

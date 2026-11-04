@@ -92,6 +92,11 @@ Baseline (A0, 2026-11-03): 716 tests green (core 250 · mobile 362 · catalog 61
 
 ## Done
 
+- **Owner's corrections** (2026-11-04): times in two taps (`TimeField`), naps keep their place, catalog read once
+  (logging ~2 s → instant), F17 relations compare foods only with gut symptoms and the AI never ties mood or mouth
+  ulcers to a food. Production update group `8bd518d9-79d8-486c-8517-20e522334906`; rollback group
+  `5eb222ed-0dde-49fd-821a-ce1956ea2312`
+
 - **Measured AI** (2026-11-03): A0–A6 ✅; the owner logged real meals by text in production. Then F24's weekly
   insight "¿De dónde vienen tus calorías?" (F24 and F25 were already built in M4 and M6). Production update group
   `5eb222ed-0dde-49fd-821a-ce1956ea2312`; rollback group `b8398e93-6072-4c63-8184-15867f289962`

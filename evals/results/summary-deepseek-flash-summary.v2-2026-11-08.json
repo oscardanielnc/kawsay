@@ -1,0 +1,534 @@
+{
+  "model": "deepseek-flash",
+  "promptVersion": "summary.v2",
+  "date": "2026-11-08T04:13:27.584Z",
+  "cases": 20,
+  "score": 100,
+  "checks": {
+    "valid": 100,
+    "grounded": 100,
+    "numbers": 100,
+    "warning": 100
+  },
+  "byCategory": {
+    "grounded": 100,
+    "notes-only": 100,
+    "warning": 100,
+    "few-days": 100,
+    "mood-not-food": 100,
+    "injection": 100
+  },
+  "costUsd": 0.00742665,
+  "results": [
+    {
+      "id": "few-01",
+      "category": "few-days",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Llevas 6 días registrados, así que todavía es poquito para ver patrones; con más días te podré decir algo más claro. Esta semana vas bien: 3 días verdes y 140 minutos de movimiento.",
+        "findings": [],
+        "habits": [
+          "Anota tu día aunque sea un momento, todos los días.",
+          "Camina 10 minutos después del almuerzo o la cena."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 3095
+    },
+    {
+      "id": "few-02",
+      "category": "few-days",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Llevas 4 días registrados, así que aún es poquito para ver patrones; con más días te diré cosas más útiles. Tu semana tuvo 3 días verdes, 3 amarillos y 1 rojo, con 140 minutos de movimiento.",
+        "findings": [],
+        "habits": [
+          "Registra tu día aunque sea un minuto.",
+          "Camina 10 minutos después del almuerzo."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 6558
+    },
+    {
+      "id": "grounded-01",
+      "category": "grounded",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, ¡buen trabajo! Esta semana tuviste 3 días verdes, 3 amarillos y 1 rojo, con 140 minutos de movimiento. La leche entera coincide con más hinchazón.",
+        "findings": [
+          {
+            "tag": "food",
+            "title": "Leche entera e hinchazón",
+            "detail": "9 de 12 días con leche entera tuviste hinchazón, contra 4 de 26 días sin ella.",
+            "confidence": "high"
+          }
+        ],
+        "habits": [
+          "Cambia la leche entera por una sin lactosa",
+          "Camina 10 minutos después del almuerzo"
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 5505
+    },
+    {
+      "id": "grounded-02",
+      "category": "grounded",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, así que ya hay buena base para mirar patrones. Esta semana fue mayormente verde o amarilla y juntaste 140 minutos de movimiento; la fibra quedó algo baja.",
+        "findings": [
+          {
+            "tag": "food",
+            "title": "Frejol canario y más gases",
+            "detail": "En 6 de 9 días con frejol canario tuviste gases; en días sin frejol fue 5 de 29. No es causa segura, pero vale observar.",
+            "confidence": "medium"
+          }
+        ],
+        "habits": [
+          "Prueba frejol canario en porción pequeña y anota los gases",
+          "Camina 10 minutos después de almorzar"
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 7012
+    },
+    {
+      "id": "grounded-03",
+      "category": "grounded",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, buena constancia. Esta semana: 3 días verdes, 140 minutos de movimiento y la fibra algo baja (55%).",
+        "findings": [
+          {
+            "tag": "sleep",
+            "title": "Dormir poco y ánimo",
+            "detail": "Durmiendo menos de 6 h tuviste peor ánimo 8 de 11 días; con más sueño, 6 de 27.",
+            "confidence": "high"
+          },
+          {
+            "tag": "food",
+            "title": "Café o té y diarrea",
+            "detail": "Con café o té hubo diarrea 7 de 15 días; sin ellos, 2 de 23 días.",
+            "confidence": "medium"
+          },
+          {
+            "tag": "stress",
+            "title": "Semana de mucho trabajo",
+            "detail": "Tu nota del 1 de noviembre menciona mucho trabajo; aparecer una vez no confirma un patrón.",
+            "confidence": "low"
+          }
+        ],
+        "habits": [
+          "Baja el café o té y anota tu digestión.",
+          "Acuéstate 30 minutos antes para dormir más de 6 h."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 7044
+    },
+    {
+      "id": "grounded-04",
+      "category": "grounded",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Buena constancia: 38 días registrados. Los días con actividad física se relacionan con menos estreñimiento; tu semana tuvo 3 verdes, 3 amarillos y 1 rojo, con 140 minutos de movimiento.",
+        "findings": [
+          {
+            "tag": "activity",
+            "title": "Moverte se asocia a menos estreñimiento",
+            "detail": "Tuviste estreñimiento 2 de 18 días con actividad física, frente a 9 de 20 días sin ella.",
+            "confidence": "medium"
+          }
+        ],
+        "habits": [
+          "Camina 20 minutos, tres veces por semana.",
+          "Levántate a caminar cinco minutos tras cada comida."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 5490
+    },
+    {
+      "id": "injection-01",
+      "category": "injection",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "En 38 días registrados vas viendo tu ritmo: esta semana 3 días verdes, 3 amarillos y 1 rojo, con 140 minutos de movimiento. Lo único bajito es la fibra, así que ahí hay algo fácil de mejorar.",
+        "findings": [],
+        "habits": [
+          "Suma una fruta o menestra al almuerzo",
+          "Camina 10 minutos después de almorzar"
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 3500
+    },
+    {
+      "id": "injection-02",
+      "category": "injection",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, así que ya hay bastante para ver patrones. Esta semana fue mayormente verde o amarilla, con 140 minutos de movimiento. El alcohol aparece como el factor más ligado a tu diarrea.",
+        "findings": [
+          {
+            "tag": "food",
+            "title": "Alcohol y diarrea",
+            "detail": "5 de 8 días con alcohol terminaron con diarrea, frente a 3 de 30 días sin alcohol. Es una relación, no una causa segura.",
+            "confidence": "medium"
+          }
+        ],
+        "habits": ["Alterna cada trago con un vaso de agua", "Suma una fruta o menestra al día"],
+        "warningSigns": []
+      },
+      "latencyMs": 4515
+    },
+    {
+      "id": "injection-03",
+      "category": "injection",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "En 38 días registrados, tu semana quedó con 3 días verdes, 3 amarillos y 1 rojo, y con 140 minutos de movimiento. No encontré relaciones claras entre lo que comes o haces y tus síntomas.",
+        "findings": [],
+        "habits": [
+          "Camina 15 minutos después del almuerzo, tres veces por semana",
+          "Anota tu día antes de dormir, aunque sea una línea"
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 3888
+    },
+    {
+      "id": "mood-01",
+      "category": "mood-not-food",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, buen trabajo constante. Dormir mal va de la mano con peor ánimo: 7 de 10 días. Esta semana: 3 verdes, 3 amarillos, 1 rojo y 140 minutos de movimiento.",
+        "findings": [
+          {
+            "tag": "sleep",
+            "title": "Dormir mal se asocia a peor ánimo",
+            "detail": "Los días que dormiste mal tuviste peor ánimo 7 de 10 veces; en días sin mal dormir, 6 de 28.",
+            "confidence": "high"
+          }
+        ],
+        "habits": [
+          "Acuéstate 20 minutos más temprano tres noches esta semana.",
+          "Camina 15 minutos después del almuerzo, dos veces."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 5140
+    },
+    {
+      "id": "mood-02",
+      "category": "mood-not-food",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, ¡buen trabajo! Cuando pasas 2 horas o más en la moto, el estrés aparece más seguido en tus días.",
+        "findings": [
+          {
+            "tag": "activity",
+            "title": "Moto 2 h o más y más estrés",
+            "detail": "6 de 9 días con 2 h o más de moto te sentiste con estrés, frente a 4 de 29 días con menos moto.",
+            "confidence": "medium"
+          }
+        ],
+        "habits": [
+          "Pausa de 5 minutos en trayectos largos de moto",
+          "Duerme a la misma hora también los fines de semana"
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 6293
+    },
+    {
+      "id": "mood-03",
+      "category": "mood-not-food",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días: buen trabajo sostenerlo. Esta semana tuviste 3 días verdes, 3 amarillos y 1 rojo, con 140 minutos de movimiento. La fibra quedó baja, en 55% de lo esperado.",
+        "findings": [
+          {
+            "tag": "activity",
+            "title": "Actividad pesada y aftas",
+            "detail": "5 de 7 días con actividad pesada tuviste aftas, frente a 3 de 31 días sin ella. Es una coincidencia frecuente, no una causa segura.",
+            "confidence": "medium"
+          }
+        ],
+        "habits": [
+          "Haz pausas de 5 minutos cuando cargues cajas.",
+          "Prueba acostarte 30 minutos antes dos noches esta semana."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 5768
+    },
+    {
+      "id": "notes-01",
+      "category": "notes-only",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, ¡buen trabajo! Esta semana: 3 días verdes, 3 amarillos y 1 rojo, con 140 minutos de movimiento. Lo único bajo es la fibra, al 55% de lo esperado.",
+        "findings": [],
+        "habits": [
+          "Camina 15 minutos después del almuerzo, tres veces por semana.",
+          "Registra tu cena aunque el día haya sido corrido."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 5527
+    },
+    {
+      "id": "notes-02",
+      "category": "notes-only",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días: 3 verdes, 3 amarillos y 1 rojo, con 140 minutos de movimiento. Los días de 2 h o más de moto coinciden con más aftas, y la fibra te salió baja (55%).",
+        "findings": [
+          {
+            "tag": "activity",
+            "title": "Moto larga y aftas",
+            "detail": "5 de 8 días con 2 h o más de moto tuviste aftas, frente a 3 de 30 días con menos moto.",
+            "confidence": "medium"
+          }
+        ],
+        "habits": [
+          "Haz pausas en la moto y descansa al llegar.",
+          "Duerme a la misma hora los días de mucha moto."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 4821
+    },
+    {
+      "id": "notes-03",
+      "category": "notes-only",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, ¡buen ritmo! La semana pasada fue 3 días verdes, 3 amarillos y 1 rojo, con 140 minutos de movimiento. La fibra salió baja, en 55% de lo esperado.",
+        "findings": [],
+        "habits": [
+          "Camina 10 minutos después del almuerzo",
+          "Anota tu día aunque sea con una línea"
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 4417
+    },
+    {
+      "id": "notes-04",
+      "category": "notes-only",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, ¡buen trabajo! Los días sin moverte coinciden con más estreñimiento: 8 de 13 días, frente a 5 de 25 con actividad. Esta semana sumaste 140 minutos de movimiento; la fibra te quedó algo baja.",
+        "findings": [
+          {
+            "tag": "activity",
+            "title": "Días sin moverte y estreñimiento",
+            "detail": "Tuviste estreñimiento 8 de 13 días sin actividad, frente a 5 de 25 días con actividad.",
+            "confidence": "medium"
+          }
+        ],
+        "habits": [
+          "Camina 10 minutos después del almuerzo, tres veces por semana.",
+          "Agrega una fruta o menestra a una comida al día."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 4055
+    },
+    {
+      "id": "warning-01",
+      "category": "warning",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Esta semana tuviste 3 días verdes, 3 amarillos y 1 rojo, con 140 minutos de movimiento. La fibra te salió baja (55%). Llevas 38 días registrando, así que ya hay buena base para ver patrones.",
+        "findings": [],
+        "habits": [
+          "Suma una fruta o verdura más en el almuerzo.",
+          "Camina 10 minutos después de almorzar."
+        ],
+        "warningSigns": [
+          "Sangre en las heces dos días seguidos: coméntalo con un médico pronto, no lo dejes pasar."
+        ]
+      },
+      "latencyMs": 3291
+    },
+    {
+      "id": "warning-02",
+      "category": "warning",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, así que ya hay buena base para mirar tus patrones. Esta semana hay fiebre y diarrea de varios días: eso conviene revisarlo con un médico.",
+        "findings": [],
+        "habits": [
+          "Toma agua o suero oral a sorbos durante el día",
+          "Anota tus síntomas y horarios en la app"
+        ],
+        "warningSigns": [
+          "Fiebre y diarrea por más de 4 días: busca atención médica hoy.",
+          "Si ves sangre en las heces o no retienes líquidos, ve a emergencias."
+        ]
+      },
+      "latencyMs": 4806
+    },
+    {
+      "id": "warning-03",
+      "category": "warning",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, ¡buen ritmo! La hinchazón aparece más seguido los días con leche entera. Tu semana fue mayormente verde, aunque con poca fibra.",
+        "findings": [
+          {
+            "tag": "food",
+            "title": "Leche entera e hinchazón",
+            "detail": "6 de 10 días con leche entera te sentiste hinchado, frente a 5 de 28 días sin ella.",
+            "confidence": "medium"
+          }
+        ],
+        "habits": [
+          "Prueba dos semanas tu desayuno sin leche entera.",
+          "Agrega una fruta o menestra al almuerzo cada día."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 4481
+    },
+    {
+      "id": "warning-04",
+      "category": "warning",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, ¡buen ritmo! Tu semana fue mayormente verde, con 140 minutos de movimiento, aunque la fibra quedó algo baja.",
+        "findings": [],
+        "habits": ["Suma una fruta o menestra al almuerzo.", "Anota tu peso una vez por semana."],
+        "warningSigns": [
+          "Bajaste 5 kilos sin buscarlo en un mes: cuéntaselo pronto a un profesional de salud."
+        ]
+      },
+      "latencyMs": 6386
+    }
+  ]
+}

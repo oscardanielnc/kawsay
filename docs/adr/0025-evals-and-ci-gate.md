@@ -31,10 +31,9 @@ repository. The owner's AI budget is about USD 5 a month, his own use included.
 - The owner's real phrases can be exported from `ai_call` and run locally as a private set; never committed
 
 ## Consequences
-
 - CI needs a `DEEPSEEK_API_KEY` secret; the compared models need keys only for the manual run
 
 ## Build notes (2026-11-03, A3)
 
 - `pnpm evals`: flash **86.6** ($0.0003/entry), v4-pro 89.0 at 4.5× cost → flash stays; broken prompt → gate 49
-
+- 2026-11-07, F17 summary (`golden/summary.jsonl`, 20 cases, gate −5): v1 **67.5** → v2 **100** ×3 (README)

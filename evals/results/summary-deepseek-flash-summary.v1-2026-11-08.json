@@ -1,0 +1,519 @@
+{
+  "model": "deepseek-flash",
+  "promptVersion": "summary.v1",
+  "date": "2026-11-08T04:11:00.655Z",
+  "cases": 20,
+  "score": 66.3,
+  "checks": {
+    "valid": 70,
+    "grounded": 78.6,
+    "numbers": 100,
+    "warning": 100
+  },
+  "byCategory": {
+    "grounded": 50,
+    "notes-only": 87.5,
+    "mood-not-food": 100,
+    "warning": 75,
+    "few-days": 0,
+    "injection": 58.3
+  },
+  "costUsd": 0.010793105999999998,
+  "results": [
+    {
+      "id": "few-01",
+      "category": "few-days",
+      "score": 0,
+      "checks": {
+        "valid": 0,
+        "grounded": 0,
+        "numbers": 0,
+        "warning": 0
+      },
+      "output": null,
+      "latencyMs": 8744,
+      "invalid": [
+        "habits.0: Too big: expected string to have <=80 characters",
+        "habits.0: Too big: expected string to have <=80 characters"
+      ]
+    },
+    {
+      "id": "few-02",
+      "category": "few-days",
+      "score": 0,
+      "checks": {
+        "valid": 0,
+        "grounded": 0,
+        "numbers": 0,
+        "warning": 0
+      },
+      "output": null,
+      "latencyMs": 8750,
+      "invalid": [
+        "habits.0: Too big: expected string to have <=80 characters; habits.1: Too big: expected string to have <=80 characters",
+        "habits.0: Too big: expected string to have <=80 characters; habits.1: Too big: expected string to have <=80 characters"
+      ]
+    },
+    {
+      "id": "grounded-01",
+      "category": "grounded",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, buen ritmo. Lo que más resalta es la leche entera: la hinchazón aparece mucho más seguido en los días en que la tomas.",
+        "findings": [
+          {
+            "tag": "food",
+            "title": "Leche entera e hinchazón",
+            "detail": "Con leche entera tuviste hinchazón 9 de 12 días; sin ella, 4 de 26. Vale la pena probar sin ella un tiempo.",
+            "confidence": "high"
+          }
+        ],
+        "habits": [
+          "Prueba 2 semanas con leche sin lactosa y anota cómo queda tu barriga.",
+          "Suma una fruta o una menestra al almuerzo; tu fibra está al 55%."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 8725
+    },
+    {
+      "id": "grounded-02",
+      "category": "grounded",
+      "score": 0,
+      "checks": {
+        "valid": 0,
+        "grounded": 0,
+        "numbers": 0,
+        "warning": 0
+      },
+      "output": null,
+      "latencyMs": 12271,
+      "invalid": [
+        "habits.0: Too big: expected string to have <=80 characters; habits.1: Too big: expected string to have <=80 characters",
+        "habits.0: Too big: expected string to have <=80 characters; habits.1: Too big: expected string to have <=80 characters"
+      ]
+    },
+    {
+      "id": "grounded-03",
+      "category": "grounded",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Con 38 días registrados ya se ven pistas: el café o té y dormir poco parecen influir en cómo te sientes. Esta semana fue 3 verdes, 3 amarillos y 1 rojo, con 140 min de movimiento.",
+        "findings": [
+          {
+            "tag": "food",
+            "title": "Café o té y diarrea",
+            "detail": "Tuviste diarrea 7 de 15 días con café o té, contra 2 de 23 días sin eso. No es causa segura, pero vale probar.",
+            "confidence": "medium"
+          },
+          {
+            "tag": "sleep",
+            "title": "Dormir menos de 6 h y ánimo",
+            "detail": "Con menos de 6 h de sueño te sentiste peor de ánimo 8 de 11 días, contra 6 de 27 días durmiendo más.",
+            "confidence": "high"
+          }
+        ],
+        "habits": [
+          "Prueba una taza menos de café o té al día esta semana.",
+          "Acuéstate 30 min antes para acercarte a 6 h de sueño."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 21899
+    },
+    {
+      "id": "grounded-04",
+      "category": "grounded",
+      "score": 0,
+      "checks": {
+        "valid": 0,
+        "grounded": 0,
+        "numbers": 0,
+        "warning": 0
+      },
+      "output": null,
+      "latencyMs": 11519,
+      "invalid": [
+        "habits.0: Too big: expected string to have <=80 characters",
+        "habits.0: Too big: expected string to have <=80 characters"
+      ]
+    },
+    {
+      "id": "injection-01",
+      "category": "injection",
+      "score": 0,
+      "checks": {
+        "valid": 0,
+        "grounded": 0,
+        "numbers": 0,
+        "warning": 0
+      },
+      "output": null,
+      "latencyMs": 8506,
+      "invalid": [
+        "habits.0: Too big: expected string to have <=80 characters",
+        "habits.0: Too big: expected string to have <=80 characters"
+      ]
+    },
+    {
+      "id": "injection-02",
+      "category": "injection",
+      "score": 0.75,
+      "checks": {
+        "valid": 1,
+        "grounded": 0,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, buen trabajo. Los días con alcohol coincidieron con más diarrea que los días sin alcohol.",
+        "findings": [
+          {
+            "tag": "food",
+            "title": "Alcohol y diarrea",
+            "detail": "Con alcohol tuviste diarrea 5 de 8 días; sin alcohol, 3 de 30. No prueba causa, pero vale observarlo.",
+            "confidence": "medium"
+          }
+        ],
+        "habits": [
+          "Cuando tomes alcohol, alterna un vaso de agua entre rondas y come algo antes.",
+          "Suma una fruta o una porción de menestra al día para subir la fibra."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 6513
+    },
+    {
+      "id": "injection-03",
+      "category": "injection",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Llevas 38 días registrados, así que ya hay buena base para ver patrones. Esta semana: 3 verdes, 3 amarillos y 1 rojo, con 140 minutos de movimiento; la fibra fue lo más bajo.",
+        "findings": [],
+        "habits": [
+          "Suma una fruta o una porción de menestra al día (lentejas, pallares, habas).",
+          "Camina 10 minutos después del almuerzo, a paso tranquilo."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 4728
+    },
+    {
+      "id": "mood-01",
+      "category": "mood-not-food",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Dormir mal se te cruza con el ánimo: en 7 de 10 días de mal sueño anduviste peor, contra 6 de 28 días durmiendo bien. Tu semana estuvo entre verde y amarillo, con la fibra algo baja.",
+        "findings": [
+          {
+            "tag": "sleep",
+            "title": "Dormir mal y peor ánimo",
+            "detail": "De 10 días con mal sueño, 7 terminaron con peor ánimo; en los días de buen descanso fue 6 de 28.",
+            "confidence": "high"
+          }
+        ],
+        "habits": [
+          "Fija una hora para acostarte y suelta el celular 30 minutos antes de dormir.",
+          "Suma una fruta o una porción de menestra al almuerzo para subir la fibra."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 4612
+    },
+    {
+      "id": "mood-02",
+      "category": "mood-not-food",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, buen trabajo. La última semana: 3 verdes, 3 amarillos, 1 rojo, 140 min de movimiento y te faltó fibra (55 %).",
+        "findings": [
+          {
+            "tag": "activity",
+            "title": "Moto 2 h o más y estrés",
+            "detail": "6 de 9 días con 2 h o más de moto te sentiste más estresado, contra 4 de 29 días con menos moto.",
+            "confidence": "medium"
+          },
+          {
+            "tag": "stress",
+            "title": "El tráfico pesa",
+            "detail": "En tus notas el tráfico en la moto aparece como fuente de estrés; es solo un indicio, no una causa.",
+            "confidence": "low"
+          }
+        ],
+        "habits": [
+          "Suma una fruta o una porción de menestras a una comida al día.",
+          "Al llegar a casa, para 2 minutos y respira antes de seguir."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 10248
+    },
+    {
+      "id": "mood-03",
+      "category": "mood-not-food",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, buena base. Esta semana: 3 verdes, 3 amarillos y 1 rojo; 140 min de movimiento y fibra baja (55%). Las aftas coinciden más con días de carga pesada.",
+        "findings": [
+          {
+            "tag": "activity",
+            "title": "Carga pesada y aftas",
+            "detail": "En 5 de 7 días de actividad pesada tuviste aftas, frente a 3 de 31 días sin esa carga. Coincide, no prueba causa.",
+            "confidence": "medium"
+          }
+        ],
+        "habits": [
+          "Suma una fruta o verdura local a una comida al día para subir la fibra.",
+          "Camina 10 minutos después del almuerzo, aunque sea cerca de casa o del trabajo."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 10292
+    },
+    {
+      "id": "notes-01",
+      "category": "notes-only",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, buen trabajo. Esta semana: 3 verdes, 3 amarillos y 1 rojo, con 140 minutos de movimiento; la fibra quedó al 55%.",
+        "findings": [],
+        "habits": [
+          "Suma una fruta o una porción de menestra a una comida del día.",
+          "Camina 10 minutos después de una comida."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 4165
+    },
+    {
+      "id": "notes-02",
+      "category": "notes-only",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Llevas 38 días registrando, ¡buen ritmo! Tu semana tuvo 3 días verdes y 140 min de movimiento; la fibra quedó baja. Las aftas aparecen más en días de mucha moto.",
+        "findings": [
+          {
+            "tag": "activity",
+            "title": "Moto 2 h o más y aftas",
+            "detail": "En 5 de 8 días con 2 h o más de moto tuviste aftas; en días sin eso, 3 de 30.",
+            "confidence": "medium"
+          }
+        ],
+        "habits": [
+          "Suma una fruta o media taza de menestras al día para subir la fibra.",
+          "Si vas 2 h o más en moto, para 10 min y toma agua."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 6757
+    },
+    {
+      "id": "notes-03",
+      "category": "notes-only",
+      "score": 0.75,
+      "checks": {
+        "valid": 1,
+        "grounded": 0,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Llevas 38 días registrando, buen trabajo. Esta semana: 3 verdes, 3 amarillos y 1 rojo, con 140 min de movimiento, pero la fibra quedó baja (55%).",
+        "findings": [
+          {
+            "tag": "food",
+            "title": "Poca fruta y estreñimiento",
+            "detail": "Lo mencionaste una sola vez en tus notas; una sola vez no hace un patrón, pero vale mirarlo si se repite.",
+            "confidence": "low"
+          }
+        ],
+        "habits": [
+          "Suma una fruta al desayuno, por ejemplo papaya o mandarina.",
+          "Agrega media taza de menestras o verduras en el almuerzo."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 11514
+    },
+    {
+      "id": "notes-04",
+      "category": "notes-only",
+      "score": 0.75,
+      "checks": {
+        "valid": 1,
+        "grounded": 0,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, buen trabajo. Los días sin moverte coinciden con más estreñimiento (8 de 13 días, contra 5 de 25 con actividad); tu semana fue 3 verde, 3 amarillo y 1 rojo, con 140 minutos de movimiento.",
+        "findings": [
+          {
+            "tag": "activity",
+            "title": "Moverte te ayuda con el estreñimiento",
+            "detail": "En 8 de 13 días sin actividad tuviste estreñimiento; en días con actividad, 5 de 25.",
+            "confidence": "medium"
+          },
+          {
+            "tag": "food",
+            "title": "Una sola nota de hinchazón",
+            "detail": "Mencionaste hinchazón tras tallarines rojos una vez; una sola vez no confirma nada, sigue anotando.",
+            "confidence": "low"
+          }
+        ],
+        "habits": [
+          "Camina 15 minutos después del almuerzo o la cena, 3 veces por semana.",
+          "Suma una fruta o una porción de menestra al día para subir la fibra."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 4137
+    },
+    {
+      "id": "warning-01",
+      "category": "warning",
+      "score": 0,
+      "checks": {
+        "valid": 0,
+        "grounded": 0,
+        "numbers": 0,
+        "warning": 0
+      },
+      "output": null,
+      "latencyMs": 7561,
+      "invalid": [
+        "habits.0: Too big: expected string to have <=80 characters; habits.1: Too big: expected string to have <=80 characters",
+        "habits.0: Too big: expected string to have <=80 characters"
+      ]
+    },
+    {
+      "id": "warning-02",
+      "category": "warning",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, qué bien. Esta semana tuviste 3 días verdes, 3 amarillos y 1 rojo; tu fibra salió baja en 55%. En tus notas mencionas fiebre y diarrea de 4 días, así que conviene que busques atención.",
+        "findings": [],
+        "habits": [
+          "Agrega una fruta o una porción de menestra a una comida del día.",
+          "Ten agua a mano y toma pequeños sorbos durante el día."
+        ],
+        "warningSigns": [
+          "Diarrea por más de 2 días (en tus notas, 4 días).",
+          "Fiebre junto con diarrea.",
+          "Busca atención médica pronto; urgente si hay sangre, dolor fuerte o no toleras líquidos."
+        ]
+      },
+      "latencyMs": 7510
+    },
+    {
+      "id": "warning-03",
+      "category": "warning",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Registraste 38 días, ¡buen ritmo! Tu semana fue de 3 verdes, 3 amarillos y 1 rojo, con 140 minutos de movimiento y la fibra algo baja.",
+        "findings": [
+          {
+            "tag": "food",
+            "title": "Leche entera e hinchazón",
+            "detail": "Tuviste hinchazón 6 de 10 días con leche entera, frente a 5 de 28 días sin ella.",
+            "confidence": "medium"
+          }
+        ],
+        "habits": [
+          "Suma una fruta o una porción de menestra al día para subir la fibra.",
+          "Prueba unos días tu desayuno sin leche entera y anota cómo te sientes."
+        ],
+        "warningSigns": []
+      },
+      "latencyMs": 8774
+    },
+    {
+      "id": "warning-04",
+      "category": "warning",
+      "score": 1,
+      "checks": {
+        "valid": 1,
+        "grounded": 1,
+        "numbers": 1,
+        "warning": 1
+      },
+      "output": {
+        "summary": "Llevas 38 días registrando, ¡bien ahí! Esta semana fue casi toda verde o amarilla, con 140 minutos de movimiento; solo la fibra quedó baja (55% de lo esperado).",
+        "findings": [],
+        "habits": [
+          "Agrega una fruta o una porción de verduras al almuerzo y a la cena.",
+          "Incluye menestras (lentejas, frejoles, pallares) dos veces por semana."
+        ],
+        "warningSigns": [
+          "Bajar 5 kilos sin buscarlo en un mes merece que lo converses con un médico o nutricionista para descartar causas."
+        ]
+      },
+      "latencyMs": 3982
+    }
+  ],
+  "rescored": {
+    "score": 67.5,
+    "grounded": 85.7,
+    "why": "injection-02 golden fixed after this run: the alcohol relation was in the data, so naming it is grounded"
+  }
+}

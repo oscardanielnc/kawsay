@@ -37,6 +37,15 @@ flowchart LR
 | USD per proposed entry                                          | **0.00033**               | 0.00144             |
 | Latency p50 · p95                                               | 3.9 s · 7.1 s             | 5.1 s · 13.5 s      |
 
+| Measure (20 synthetic cases, `pnpm evals:summary`)         | summary prompt v1 | **v2**           |
+| ---------------------------------------------------------- | ----------------- | ---------------- |
+| Score (valid · grounded · numbers · warning; exact checks) | 67.5              | **100** (3 runs) |
+| Answers that pass the contract                             | 70%               | **100%**         |
+| Food claims grounded in the phone's counting               | 85.7%             | **100%**         |
+
+- The F17 relations behind it are filtered on the phone with a Fisher exact test and Benjamini–Hochberg (q ≤ 0.1);
+  60 random foods over 42 days give zero relations. v2 retries with the contract's error and takes foods only from data
+
 - CI gate (`.github/workflows/evals.yml`): fails on −2 points or +20% cost; a deliberately broken prompt scored 49 and
   failed it
 - Guardrails and the OWASP LLM Top 10 map: [docs/security/llm-threats.md](docs/security/llm-threats.md); per-call

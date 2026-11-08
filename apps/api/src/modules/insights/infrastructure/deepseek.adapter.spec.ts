@@ -93,4 +93,16 @@ describe('DeepSeekAdapter (ADR 0007)', () => {
     const body = JSON.parse(calls[0]!.init.body as string) as { messages: { content: string }[] };
     expect(body.messages[0]?.content).toMatch(/máx\. 220 caracteres/);
   });
+
+  it('the retry tells the model what broke the contract: habits.0 over 80 characters', async () => {
+    const short = { summary: 'Corto', findings: [], habits: [], warningSigns: [] };
+    const { adapter, calls } = adapterWith([{ ...short, habits: ['x'.repeat(95)] }, short]);
+    await expect(adapter.summarize(request)).resolves.toEqual(short);
+    const retry = JSON.parse(calls[1]!.init.body as string) as {
+      messages: { role: string; content: string }[];
+    };
+    expect(retry.messages.map((m) => m.role)).toEqual(['system', 'user', 'assistant', 'user']);
+    expect(retry.messages[3]?.content).toMatch(/habits\.0/);
+    expect(retry.messages[3]?.content).toMatch(/80/);
+  });
 });

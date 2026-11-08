@@ -2,10 +2,12 @@ name: Evals
 
 # ADR 0025: the text agent against the synthetic golden set. Fails when the score drops more than 2 points or the
 # $ per entry rises more than 20% against evals/baseline.json. The run stops above USD 0.50.
+# The F17 summary has its own set: fails 5 points under evals/summary-baseline.json (USD 0.20 cap).
 on:
   pull_request:
     paths:
       - apps/api/src/modules/text-log/**
+      - apps/api/src/modules/insights/infrastructure/**
       - apps/api/src/evals/**
       - packages/catalog/remote/**
       - packages/core/src/food/**
@@ -36,6 +38,11 @@ jobs:
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: pnpm evals --gate
+      - name: Run the summary golden set and gate
+        if: always()
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: pnpm evals:summary --gate
       - uses: actions/upload-artifact@v4
         if: always()
         with:

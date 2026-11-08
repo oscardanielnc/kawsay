@@ -13,7 +13,8 @@
     "check": "turbo run lint typecheck test build",
     "format": "prettier --write .",
     "prepare": "husky",
-    "evals": "pnpm --filter @kawsay/core --filter @kawsay/contracts build && pnpm --filter @kawsay/api build && node apps/api/dist/evals/run-evals.js"
+    "evals": "pnpm --filter @kawsay/core --filter @kawsay/contracts build && pnpm --filter @kawsay/api build && node apps/api/dist/evals/run-evals.js",
+    "evals:summary": "pnpm --filter @kawsay/core --filter @kawsay/contracts build && pnpm --filter @kawsay/api build && node apps/api/dist/evals/run-summary-evals.js"
   },
   "prettier": "@kawsay/config/prettier",
   "devDependencies": {

@@ -36,16 +36,31 @@ export class DeepSeekAdapter extends AiPort {
   private async ask<T>(schema: ZodType<T>, system: string, request: AnalysisRequest): Promise<T> {
     const key = this.config.ai.deepseekApiKey;
     if (!key) throw new AiDisabledError();
+    const messages: Message[] = [
+      { role: 'system', content: system },
+      { role: 'user', content: JSON.stringify(request) },
+    ];
     for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
-      const content = await this.complete(key, system, JSON.stringify(request));
+      const content = await this.complete(key, messages);
       const parsed = schema.safeParse(parseJson(content));
       if (parsed.success) return parsed.data;
       this.logger.warn(`invalid AI output (attempt ${attempt})`);
+      // The retry says what broke the contract (paths and limits only), so the model fixes it instead of repeating
+      // it: 30% of summaries had a habit over 80 characters (summary evals, 2026-11-07).
+      messages.push(
+        { role: 'assistant', content },
+        {
+          role: 'user',
+          content: `Tu respuesta no cumple el formato: ${parsed.error.issues
+            .map((i) => `${i.path.join('.') || 'raíz'}: ${i.message}`)
+            .join('; ')}. Responde de nuevo el JSON completo, corrigiendo solo eso.`,
+        },
+      );
     }
     throw new AiUnavailableError();
   }
 
-  private async complete(key: string, system: string, user: string): Promise<string> {
+  private async complete(key: string, messages: Message[]): Promise<string> {
     let response: Response;
     try {
       response = await this.fetchImpl(ENDPOINT, {
@@ -54,10 +69,7 @@ export class DeepSeekAdapter extends AiPort {
         body: JSON.stringify({
           model: this.config.ai.model,
           response_format: { type: 'json_object' },
-          messages: [
-            { role: 'system', content: system },
-            { role: 'user', content: user },
-          ],
+          messages,
         }),
         signal: AbortSignal.timeout(TIMEOUT_MS),
       });
@@ -72,6 +84,11 @@ export class DeepSeekAdapter extends AiPort {
     const body = (await response.json()) as { choices?: { message?: { content?: string } }[] };
     return body.choices?.[0]?.message?.content ?? '';
   }
+}
+
+interface Message {
+  role: 'system' | 'user' | 'assistant';
+  content: string;
 }
 
 function parseJson(text: string): unknown {

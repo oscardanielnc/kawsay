@@ -92,6 +92,11 @@ Baseline (A0, 2026-11-03): 716 tests green (core 250 · mobile 362 · catalog 61
 
 ## Done
 
+- **First version closed** (2026-11-08): logged meals edit their amount, the add button keeps its label after
+  "Ver fuentes", F17 relations pass Fisher + Benjamini–Hochberg (garnishes under 25 g do not count), the AI summary
+  has its own evals (v1 67.5 → v2 100) and a CI gate, and the logo (new APK pending for the launcher). Production
+  update group `fc17813a-87cc-49ec-9f1a-f392b39aacaf`; rollback group `8bd518d9-79d8-486c-8517-20e522334906`
+
 - **Owner's corrections** (2026-11-04): times in two taps (`TimeField`), naps keep their place, catalog read once
   (logging ~2 s → instant), F17 relations compare foods only with gut symptoms and the AI never ties mood or mouth
   ulcers to a food. Production update group `8bd518d9-79d8-486c-8517-20e522334906`; rollback group

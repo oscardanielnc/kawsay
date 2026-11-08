@@ -67,4 +67,26 @@ describe('associations (F17, computed without AI)', () => {
     if (result.status !== 'ok') throw new Error('expected a result');
     expect(result.findings).toEqual([]);
   });
+
+  it('noise: 60 foods eaten at random against random constipation over 42 days show no relation', () => {
+    let seed = 7;
+    const random = () => (seed = (seed * 1103515245 + 12345) % 2 ** 31) / 2 ** 31;
+    const days: AssociationDay[] = Array.from({ length: 42 }, (_, i) => ({
+      date: addDays(start, i),
+      exposures: Array.from({ length: 60 }, (_, f) => f).flatMap((f) =>
+        random() < 0.15 ? [`food:f${f}`] : [],
+      ),
+      symptoms: { constipation: random() < 0.25 },
+    }));
+    const result = findAssociations(days);
+    if (result.status !== 'ok') throw new Error('expected a result');
+    expect(result.findings).toEqual([]);
+  });
+
+  it('each finding carries its p and its q after correcting for every pair tested', () => {
+    const result = findAssociations(dairyWeeks());
+    if (result.status !== 'ok') throw new Error('expected findings');
+    expect(result.findings[0]!.pValue).toBeLessThan(0.05);
+    expect(result.findings[0]!.qValue).toBeLessThanOrEqual(0.1);
+  });
 });

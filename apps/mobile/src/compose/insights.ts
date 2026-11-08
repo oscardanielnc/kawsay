@@ -7,6 +7,7 @@ import {
   type CaloriePart,
 } from '@kawsay/core/insights/calorie-sources';
 import { findAssociations, type AssociationDay } from '@kawsay/core/insights/associations';
+import { ingredientsEaten } from '@kawsay/core/insights/ingredient-exposures';
 import { symptomEpisodes } from '@kawsay/core/insights/symptom-episodes';
 import { weeklyNutrients, type NutrientDay } from '@kawsay/core/insights/weekly-nutrients';
 import { weeklySummary } from '@kawsay/core/insights/weekly-summary';
@@ -136,7 +137,8 @@ export async function loadInsights(db: Db, end: LocalDate): Promise<InsightsData
     for (const m of day.meals) {
       exposures.add(`${m.kind}:${m.itemId}`);
       if (m.kind === 'dish')
-        for (const f of ingredients.get(m.itemId) ?? []) exposures.add(`food:${f}`);
+        for (const f of ingredientsEaten(recipe.get(m.itemId) ?? [], m.grams))
+          exposures.add(`food:${f}`);
     }
     if (day.drinks.some((d) => d.kind === 'alcohol')) exposures.add('tag:alcohol');
     if (day.drinks.some((d) => d.kind === 'zero-calorie')) exposures.add('tag:coffee-tea');

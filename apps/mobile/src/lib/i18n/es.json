@@ -961,7 +961,7 @@
     "relations": {
       "title": "Qué se relaciona con tus síntomas",
       "needDays": "Registra cómo te sientes (Cuerpo y ánimo o tus síntomas) 10 días para ver relaciones. Llevas {{count}}.",
-      "none": "Aún no aparece ninguna relación clara en tus últimas 6 semanas. Sigue registrando.",
+      "none": "En tus últimas 6 semanas nada se separa todavía de la casualidad. Sigue registrando.",
       "detail": "{{bad}} {{exposedBad}} de {{exposedDays}} días ({{exposedPct}}) en las 48 h siguientes · sin ello, {{baselineBad}} de {{baselineDays}} ({{baselinePct}})",
       "times": "· {{count}} veces en 6 semanas",
       "confidence": {

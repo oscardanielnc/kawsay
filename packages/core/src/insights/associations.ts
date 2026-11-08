@@ -1,4 +1,6 @@
 import { dayNumber, type LocalDate } from '../shared/local-date';
+import { benjaminiHochberg } from './false-discovery';
+import { fisherExactP } from './fisher-exact';
 
 /** One day: what happened (`food:…`, `tag:…`) and which symptoms were bad, among those answered. */
 export interface AssociationDay {
@@ -24,6 +26,10 @@ export interface Association {
   baselineBad: number;
   exposedRate: number;
   baselineRate: number;
+  /** Fisher exact test: chance of a split this uneven with no relation at all. */
+  pValue: number;
+  /** p corrected for every pair tested (Benjamini–Hochberg). */
+  qValue: number;
   confidence: Confidence;
 }
 
@@ -35,17 +41,22 @@ const WINDOW_DAYS = 2;
 /** A relation needs a clear gap: 25 points of rate and at least twice (or half) the baseline. */
 const MIN_GAP = 0.25;
 const MIN_RATIO = 2;
+/**
+ * At most about one coincidence in ten shown relations (owner, 2026-11-07: "Mandarina → más estreñimiento" was
+ * chance). Hundreds of foods are tested at once; without the correction a few always line up.
+ */
+const MAX_Q = 0.1;
 
-function confidence(occurrences: number, exposedDays: number, gap: number): Confidence {
-  if (occurrences >= 8 && exposedDays >= 8 && gap >= 0.4) return 'high';
-  if (occurrences >= 5 && exposedDays >= 5) return 'medium';
+function confidence(occurrences: number, exposedDays: number, qValue: number): Confidence {
+  if (occurrences >= 8 && exposedDays >= 8 && qValue <= 0.01) return 'high';
+  if (occurrences >= 5 && exposedDays >= 5 && qValue <= 0.05) return 'medium';
   return 'low';
 }
 
 /**
  * What lines up with the user's symptoms (F17): for each exposure and symptom, how often the symptom is bad within
- * 48 h after the exposure vs on days without it, against the user's own baseline. Pure counting; the AI only words
- * the result.
+ * 48 h after the exposure vs on days without it, against the user's own baseline. A relation needs a clear gap and
+ * must survive a Fisher test corrected for every pair tested. Pure counting; the AI only words the result.
  */
 export function findAssociations(
   days: readonly AssociationDay[],
@@ -68,7 +79,7 @@ export function findAssociations(
   }
   const symptoms = [...new Set(logged.flatMap((d) => Object.keys(d.symptoms)))];
 
-  const findings: Association[] = [];
+  const tested: Omit<Association, 'qValue' | 'confidence'>[] = [];
   for (const [exposure, on] of exposureDays) {
     if (on.size < MIN_OCCURRENCES) continue;
     for (const symptom of symptoms) {
@@ -87,14 +98,9 @@ export function findAssociations(
       if (exposedDays < MIN_OCCURRENCES || baselineDays < MIN_OCCURRENCES) continue;
       const exposedRate = exposedBad / exposedDays;
       const baselineRate = baselineBad / baselineDays;
-      const gap = Math.abs(exposedRate - baselineRate);
-      const raises = exposedRate > baselineRate;
-      const [high, low] = raises ? [exposedRate, baselineRate] : [baselineRate, exposedRate];
-      if (gap < MIN_GAP || high < MIN_RATIO * low) continue;
-      findings.push({
+      tested.push({
         exposure,
         symptom,
-        direction: raises ? 'raises' : 'lowers',
         occurrences: on.size,
         exposedDays,
         exposedBad,
@@ -102,10 +108,26 @@ export function findAssociations(
         baselineBad,
         exposedRate,
         baselineRate,
-        confidence: confidence(on.size, exposedDays, gap),
+        direction: exposedRate > baselineRate ? 'raises' : 'lowers',
+        pValue: fisherExactP(
+          exposedBad,
+          exposedDays - exposedBad,
+          baselineBad,
+          baselineDays - baselineBad,
+        ),
       });
     }
   }
+  // Every pair tested counts in the correction, also those that end up with no visible gap.
+  const qValues = benjaminiHochberg(tested.map((t) => t.pValue));
+  const findings: Association[] = tested.flatMap((t, i) => {
+    const qValue = qValues[i]!;
+    const gap = Math.abs(t.exposedRate - t.baselineRate);
+    const [high, low] =
+      t.direction === 'raises' ? [t.exposedRate, t.baselineRate] : [t.baselineRate, t.exposedRate];
+    if (gap < MIN_GAP || high < MIN_RATIO * low || qValue > MAX_Q) return [];
+    return [{ ...t, qValue, confidence: confidence(t.occurrences, t.exposedDays, qValue) }];
+  });
   const rank: Record<Confidence, number> = { high: 0, medium: 1, low: 2 };
   findings.sort(
     (a, b) =>

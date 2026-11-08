@@ -11,6 +11,11 @@ Ask the app what lines up with your symptoms.
 
 - The phone compares days with X vs without X (foods and their ingredients, drinks, added sugar, sleep, activity) against bad symptom days on the same day and up to 48 h later, against the user's own baseline (ADR 0019). Intimate entries are left out
 - Minimum data: 5 occurrences and 10 days before showing a relation
+- **Chance is ruled out (owner, 2026-11-07):** "Mandarina → más estreñimiento" and "Aceituna de botija → menos
+  estreñimiento" were noise. Each pair now passes a two-sided Fisher exact test and Benjamini–Hochberg correction
+  over every pair tested; only q ≤ 0.1 is shown (about one coincidence in ten at most). Confidence comes from q:
+  high ≤ 0.01 with 8+ occurrences, medium ≤ 0.05. A dish's ingredient counts as eaten only from 25 g eaten
+  (a garnish does not). Exposed days overlap through the 48 h window, so the test is a filter, not a proof
 - **Which pairs are compared (owner, 2026-11-04):** foods and dishes only against gut symptoms (bloating,
   diarrhoea, constipation, and own symptoms named like one: "Gases", "Acidez"). Mood, stress, energy, sleep and
   any other own symptom (mouth ulcers) only against day tags: short or poor sleep, 2 h+ of motorbike, hard
@@ -41,3 +46,5 @@ Ask the app what lines up with your symptoms.
 - [x] The request carries no identifiers and no intimate entries (the contract refuses extra fields)
 - [x] A food is never compared with mood, stress, energy or sleep: "culantro, less stress" cannot appear
 - [x] Mouth ulcers after long motorbike days relate to the motorbike, never to what was eaten those days
+- [x] 60 foods eaten at random against random constipation over 42 days show no relation
+- [x] A garnish of 10 g in a 350 g causa is not counted as eaten

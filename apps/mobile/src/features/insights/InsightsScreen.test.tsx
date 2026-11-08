@@ -56,6 +56,8 @@ const base: InsightsData = {
         baselineBad: 2,
         exposedRate: 0.75,
         baselineRate: 0.125,
+        pValue: 0.004,
+        qValue: 0.03,
         confidence: 'medium',
       },
     ],

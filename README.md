@@ -1,3 +1,5 @@
+<p align="center"><img src="apps/mobile/assets/brand/kawsay-logo-512.png" width="112" alt="Kawsay logo: an avocado whose pit is a gauge"></p>
+
 # Kawsay
 
 Mobile journal for food, activity, body and mood. Daily nutrition targets follow the day you actually had, and the
@@ -5,6 +7,10 @@ app shows which foods and habits line up with how your gut, energy and mood feel
 comes from the INS 2023 composition tables, with household units.
 
 Status: in daily use by its author since October 2026 (Android, offline-first). Not a medical device.
+
+<p align="center"><img src="docs/media/demo.gif" width="300" alt="Kawsay on Android: today's gauges, logging lunch with a portion preview, editing the amount, adding a walk, the weekly liver card"></p>
+<p align="center"><sub>The release APK on an Android emulator, fresh install, invented profile and meals (sped up 1.25×).
+Logging by text needs an account, so it is not in this clip.</sub></p>
 
 ## What it does
 

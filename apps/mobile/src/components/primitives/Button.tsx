@@ -33,8 +33,10 @@ export function Button({
         disabled && styles.dim,
       ]}
     >
-      {variant === 'primary' ? (
-        <View style={StyleSheet.absoluteFill} pointerEvents="none">
+      {/* The layer is always there, under the label: inserting it later (a footer that turns from "Volver" into
+          "Agregar 1 ración") drew the gradient over the text on Android and left the button blank. */}
+      <View style={StyleSheet.absoluteFill} pointerEvents="none">
+        {variant === 'primary' ? (
           <Svg width="100%" height="100%" preserveAspectRatio="none">
             <Defs>
               <LinearGradient id="primary" x1="0" y1="0" x2="0" y2="1">
@@ -44,8 +46,8 @@ export function Button({
             </Defs>
             <Rect width="100%" height="100%" fill="url(#primary)" />
           </Svg>
-        </View>
-      ) : null}
+        ) : null}
+      </View>
       <Text
         style={[type.heading, styles.text, variant === 'primary' ? styles.onBlue : styles.onLight]}
       >
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
   link: { backgroundColor: 'transparent', minHeight: touch },
   pressed: { transform: [{ scale: 0.97 }] },
   dim: { opacity: 0.5 },
-  text: { fontSize: 15 },
+  text: { fontSize: 15, zIndex: 1 },
   onBlue: { color: color.white },
   onLight: { color: color.blue700 },
 });

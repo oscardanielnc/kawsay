@@ -347,6 +347,34 @@ export async function deleteMeal(db: Db, env: RecordEnv, id: string): Promise<vo
   await db.update(mealEntry).set({ deletedAt: now, updatedAt: now }).where(eq(mealEntry.id, id));
 }
 
+/**
+ * Changes how much of a logged dish or food was eaten (F05): servings or grams, never both. A drink's volume follows.
+ * A rest already saved for tomorrow stays as it was.
+ */
+export async function updateMealPortion(
+  db: Db,
+  env: RecordEnv,
+  input: { id: string; servings?: number; grams?: number },
+): Promise<void> {
+  const [row] = await db.select().from(mealEntry).where(eq(mealEntry.id, input.id));
+  if (!row) throw new Error(`meal entry ${input.id} does not exist`);
+  const kind = row.dishId ? 'dish' : 'food';
+  const item = (await catalogItems(db)).find(
+    (i) => i.kind === kind && i.id === (row.dishId ?? row.foodId),
+  );
+  const servings = input.grams !== undefined ? null : (input.servings ?? null);
+  const grams = input.grams ?? null;
+  await db
+    .update(mealEntry)
+    .set({
+      servings,
+      grams,
+      volumeMl: item?.isDrink ? gramsEaten(item, servings, grams) : null,
+      updatedAt: env.now(),
+    })
+    .where(eq(mealEntry.id, input.id));
+}
+
 /** Most recently logged dishes and foods first, then dishes suited to this meal, up to 12 (F05). */
 export async function recentFor(db: Db, meal: Meal): Promise<CatalogItem[]> {
   const [rows, items] = await Promise.all([

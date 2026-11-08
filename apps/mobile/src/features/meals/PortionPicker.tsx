@@ -27,10 +27,13 @@ export function PortionPicker({
   item,
   portion,
   onChange,
+  offerRest = true,
 }: {
   item: CatalogItem;
   portion: Portion;
   onChange: (p: Portion) => void;
+  /** False when editing an entry already logged: its rest, if any, was saved when it was added. */
+  offerRest?: boolean;
 }) {
   const { t } = useTranslation();
   const share = eatenShare(item, portion);
@@ -72,7 +75,7 @@ export function PortionPicker({
         onChangeText={(text) => onChange({ ...portion, grams: text.replace(/[^0-9]/g, '') })}
         style={[type.body, styles.input]}
       />
-      {share < 1 ? (
+      {offerRest && share < 1 ? (
         <Toggle
           label={t('meals.saveRest', { rest: fractionLabel(rest) })}
           value={portion.saveRest}

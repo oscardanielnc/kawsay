@@ -23,6 +23,7 @@ import {
   addMeal,
   catalogItems,
   deleteMeal,
+  updateMealPortion,
   foodUnits,
   mealAt,
   mealsOn,
@@ -295,6 +296,7 @@ export default function TodayRoute() {
           recent={data.recent}
           onAdd={addMealEntry}
           onDelete={(id) => run(() => deleteMeal(db, env, id))}
+          onUpdate={(id, amount) => run(() => updateMealPortion(db, env, { id, ...amount }))}
           units={data.units}
           loadDetail={(item) => itemDetail(db, item)}
           day={
@@ -312,8 +314,7 @@ export default function TodayRoute() {
           textLog={{
             propose:
               sync.account?.kind === 'signed-in'
-                ? (text: string) =>
-                    sync.textLog({ text, localDate: day, timeBand: bandAt(hour) })
+                ? (text: string) => sync.textLog({ text, localDate: day, timeBand: bandAt(hour) })
                 : null,
             onSave: (entries, pending, { id, feedback }) =>
               run(async () => {

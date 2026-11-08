@@ -47,6 +47,8 @@ interface Props {
   recent: Record<Meal, readonly CatalogItem[]>;
   onAdd: (meal: AddMeal) => void;
   onDelete: (id: string) => void;
+  /** Changes how much of a logged entry was eaten: servings or grams (F05). */
+  onUpdate: (id: string, amount: { servings: number } | { grams: number }) => void;
   /** Household units per food, for "Create dish" (F07). */
   units: Record<string, { label: string; grams: number }[]>;
   /** Saves the new dish and logs one serving of it in that meal (F07). */
@@ -80,7 +82,7 @@ type SheetState =
     }
   | { kind: 'pending'; meal: Meal; name: string; portion: string }
   | { kind: 'pendingEntry'; pending: PendingMeal }
-  | { kind: 'entry'; entry: MealEntryView }
+  | { kind: 'entry'; entry: MealEntryView; portion: Portion }
   | { kind: 'create'; meal: Meal; name: string; proposal?: AiDishProposal }
   | { kind: 'proposing'; meal: Meal; name: string; failed: 'offline' | 'limit' | 'other' | null }
   | {
@@ -99,6 +101,7 @@ export function MealsSection({
   recent,
   onAdd,
   onDelete,
+  onUpdate,
   units,
   onCreateDish,
   loadDetail,
@@ -338,6 +341,7 @@ export function MealsSection({
     const grams = portion.grams ? Number(portion.grams) : null;
     footer = (
       <Button
+        key="add"
         label={
           grams !== null
             ? t('meals.addGrams', { grams })
@@ -359,29 +363,70 @@ export function MealsSection({
     const { back, detail } = sheet;
     title = back.item.name;
     body = detail ? <ItemDetailView detail={detail} /> : null;
-    footer = <Button variant="secondary" label={t('detail.back')} onPress={() => setSheet(back)} />;
+    footer = (
+      <Button
+        key="back"
+        variant="secondary"
+        label={t('detail.back')}
+        onPress={() => setSheet(back)}
+      />
+    );
   } else if (sheet?.kind === 'entry') {
-    const { entry } = sheet;
+    const { entry, portion } = sheet;
+    const item = items.find((i) => i.kind === entry.kind && i.id === entry.itemId);
     title = chipLabel(entry);
+    const grams = portion.grams ? Number(portion.grams) : null;
+    const amount = grams !== null ? { grams } : { servings: portion.servings };
+    const unchanged =
+      grams !== null
+        ? entry.servings === null && grams === entry.grams
+        : entry.servings === portion.servings;
     body = (
       <>
-        <Text style={[type.body, styles.ink]}>
-          {t('meals.entryKcal', { kcal: formatNumber(entry.kcal), meal: mealName(entry.meal) })}
-        </Text>
+        {item ? (
+          <PortionPicker
+            item={item}
+            portion={portion}
+            offerRest={false}
+            onChange={(next) => setSheet({ ...sheet, portion: next })}
+          />
+        ) : (
+          <Text style={[type.body, styles.ink]}>
+            {t('meals.entryKcal', { kcal: formatNumber(entry.kcal), meal: mealName(entry.meal) })}
+          </Text>
+        )}
         {entry.leftoverOf ? (
           <Text style={[type.caption, styles.muted]}>{t('meals.leftover')}</Text>
         ) : null}
       </>
     );
     footer = (
-      <Button
-        variant="secondary"
-        label={t('meals.remove')}
-        onPress={() => {
-          onDelete(entry.id);
-          setSheet(null);
-        }}
-      />
+      <View style={styles.footerRow}>
+        {item ? (
+          <Button
+            key="save"
+            label={
+              grams !== null
+                ? t('meals.saveGrams', { grams })
+                : t('meals.saveServings', { portion: fractionLabel(portion.servings) })
+            }
+            disabled={unchanged || grams === 0}
+            onPress={() => {
+              onUpdate(entry.id, amount);
+              setSheet(null);
+            }}
+          />
+        ) : null}
+        <Button
+          key="remove"
+          variant="secondary"
+          label={t('meals.remove')}
+          onPress={() => {
+            onDelete(entry.id);
+            setSheet(null);
+          }}
+        />
+      </View>
     );
   }
 
@@ -423,7 +468,7 @@ export function MealsSection({
                     key={entry.id}
                     accessibilityRole="button"
                     accessibilityLabel={chipLabel(entry)}
-                    onPress={() => setSheet({ kind: 'entry', entry })}
+                    onPress={() => setSheet({ kind: 'entry', entry, portion: entryPortion(entry) })}
                     style={styles.chip}
                   >
                     <FoodIcon icon={entry.icon} size={30} />
@@ -457,6 +502,13 @@ export function MealsSection({
       </Sheet>
     </Card>
   );
+}
+
+/** The amount a logged entry opens with: its fraction, or its grams when it was logged in grams. */
+function entryPortion(entry: MealEntryView): Portion {
+  return entry.servings !== null
+    ? { servings: entry.servings, grams: '', saveRest: false }
+    : { servings: 1, grams: String(Math.round(entry.grams ?? 0)), saveRest: false };
 }
 
 /** Why a proposal failed, in the words the sheet shows (offline, the daily limit, anything else). */

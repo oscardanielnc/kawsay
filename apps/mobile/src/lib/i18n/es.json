@@ -230,6 +230,8 @@
     "saveRest": "Guardar el resto ({{rest}}) para el desayuno de mañana",
     "addServings": "Agregar {{portion}} ración",
     "addGrams": "Agregar {{grams}} g",
+    "saveServings": "Guardar {{portion}} ración",
+    "saveGrams": "Guardar {{grams}} g",
     "entryKcal": "{{kcal}} kcal en {{meal}}",
     "leftover": "Resto guardado de ayer",
     "remove": "Quitar",

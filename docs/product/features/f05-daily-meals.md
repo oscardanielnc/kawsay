@@ -22,6 +22,8 @@ Four slots per day: breakfast, lunch, dinner, snacks.
   than 10 g of added sugar (ADR 0020). It updates as the portion changes, so the user decides before eating
 - **The add button never moves** (owner, 2026-10-30): a "+" at the right of each meal's header, not after the chips
 - Logged items appear as icon chips under their slot
+- **Tapping a logged item edits its amount** (owner, 2026-11-07): the same fraction or grams picker, "Guardar" and
+  "Quitar"; a rest already saved for tomorrow is left as it was
 - Day totals vs targets: calories, protein, fat, carbohydrates
 
 ## Acceptance criteria
@@ -32,6 +34,8 @@ Four slots per day: breakfast, lunch, dinner, snacks.
 - [ ] With the keyboard open, one tap on a result opens its portion (checked on the phone)
 - [x] Back from the portion step shows the same query and results
 - [x] Changing the portion from ½ to 1 moves every preview needle and delta before adding
+- [x] A logged item opens with its amount to edit: ½ becomes 1 serving without removing it, or switches to grams
+- [x] After "Ver nutrientes y fuentes" and back, the add button still reads "Agregar 1 ración"
 
 ## Build notes
 
@@ -42,4 +46,6 @@ Four slots per day: breakfast, lunch, dinner, snacks.
 - 2026-10-30 (owner, on the phone): the first tap on a result still only closed the keyboard. Cause: the add sheet
   is a React child of the Today ScrollView, whose default `keyboardShouldPersistTaps="never"` captured the tap first.
   Every screen's ScrollView is now `handled`
-
+- 2026-11-07 (owner, on the phone): back from "Ver nutrientes y fuentes" the add button was blank. The footer's
+  secondary "Volver" turned into the primary button, and the gradient layer, inserted after the label already
+  existed, was drawn over it on Android. `Button` now always keeps that layer under the label (`zIndex` on the text)

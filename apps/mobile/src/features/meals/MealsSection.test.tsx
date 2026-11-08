@@ -57,6 +57,26 @@ const juaneDetail: ItemDetail = {
   ingredients: [{ name: 'Arroz cocido', grams: 120, source: { kind: 'INS', code: 'A2' } }],
 };
 
+const loggedJuane: MealEntryView = {
+  id: 'e1',
+  meal: 'breakfast',
+  kind: 'dish',
+  itemId: 'mini-juane-pollo',
+  name: 'Mini juane de pollo (calle)',
+  icon: 'hoja',
+  servings: 0.5,
+  grams: 150,
+  kcal: 240,
+  proteinG: 10,
+  fatG: 8,
+  carbsG: 30,
+  addedSugarG: 0,
+  refinedFlourG: 0,
+  per100g: null,
+  volumeMl: null,
+  leftoverOf: 'e0',
+};
+
 function renderSection(overrides: Partial<Parameters<typeof MealsSection>[0]> = {}) {
   const props = {
     entries: [] as MealEntryView[],
@@ -64,6 +84,7 @@ function renderSection(overrides: Partial<Parameters<typeof MealsSection>[0]> = 
     recent: { breakfast: [panConHuevo, juane], lunch: [lomo], dinner: [lomo], snack: [] },
     onAdd: jest.fn(),
     onDelete: jest.fn(),
+    onUpdate: jest.fn(),
     units: {},
     onCreateDish: jest.fn(),
     loadDetail: jest.fn(() => Promise.resolve(juaneDetail)),
@@ -160,32 +181,35 @@ describe('MealsSection (F05)', () => {
   });
 
   it('a logged item shows as a chip with its portion, and can be removed', async () => {
-    const entry: MealEntryView = {
-      id: 'e1',
-      meal: 'breakfast',
-      kind: 'dish',
-      itemId: 'mini-juane-pollo',
-      name: 'Mini juane de pollo (calle)',
-      icon: 'hoja',
-      servings: 0.5,
-      grams: 150,
-      kcal: 240,
-      proteinG: 10,
-      fatG: 8,
-      carbsG: 30,
-      addedSugarG: 0,
-      refinedFlourG: 0,
-      per100g: null,
-      volumeMl: null,
-      leftoverOf: 'e0',
-    };
-    const { onDelete, view } = renderSection({ entries: [entry] });
+    const { onDelete, view } = renderSection({ entries: [loggedJuane] });
     await view;
     expect(screen.getByText('240 kcal')).toBeOnTheScreen();
     await fireEvent.press(screen.getByRole('button', { name: /½ Mini juane de pollo/ }));
     expect(screen.getByText(/Resto guardado de ayer/)).toBeOnTheScreen();
     await fireEvent.press(screen.getByRole('button', { name: 'Quitar' }));
     expect(onDelete).toHaveBeenCalledWith('e1');
+  });
+
+  it('a logged item opens with its amount to edit: ½ becomes 1 serving without removing it', async () => {
+    const { onUpdate, onDelete, view } = renderSection({ entries: [loggedJuane] });
+    await view;
+    await fireEvent.press(screen.getByRole('button', { name: /½ Mini juane de pollo/ }));
+    expect(screen.getByRole('button', { name: '½' })).toBeSelected();
+    expect(screen.queryByRole('switch', { name: /Guardar el resto/ })).not.toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('button', { name: '1' }));
+    expect(screen.getByText('480')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('button', { name: 'Guardar 1 ración' }));
+    expect(onUpdate).toHaveBeenCalledWith('e1', { servings: 1 });
+    expect(onDelete).not.toHaveBeenCalled();
+  });
+
+  it('a logged item can switch to grams', async () => {
+    const { onUpdate, view } = renderSection({ entries: [loggedJuane] });
+    await view;
+    await fireEvent.press(screen.getByRole('button', { name: /½ Mini juane de pollo/ }));
+    await fireEvent.changeText(screen.getByLabelText('o en gramos'), '200');
+    await fireEvent.press(screen.getByRole('button', { name: 'Guardar 200 g' }));
+    expect(onUpdate).toHaveBeenCalledWith('e1', { grams: 200 });
   });
 
   it('"Create dish" opens prefilled with the search text (F07)', async () => {

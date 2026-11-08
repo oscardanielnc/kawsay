@@ -12,6 +12,7 @@ import {
   mealAt,
   mealsOn,
   recentFor,
+  updateMealPortion,
 } from './meals-db';
 
 const lima = 'America/Lima';
@@ -138,6 +139,42 @@ describe('meal entries (F05)', () => {
     });
     await deleteMeal(db, e, id);
     expect(await mealsOn(db, today)).toEqual([]);
+  });
+
+  it('editing the amount: 1 serving of lomo saltado becomes ½ and the day halves its calories', async () => {
+    const db = await seededDb();
+    const e = env();
+    const { id } = await addMeal(db, e, {
+      date: today,
+      meal: 'lunch',
+      timeZone: lima,
+      item: { kind: 'dish', id: 'lomo-saltado' },
+      servings: 1,
+    });
+    const before = (await mealsOn(db, today))[0]!;
+    await updateMealPortion(db, e, { id, servings: 0.5 });
+    const after = await mealsOn(db, today);
+    expect(after).toHaveLength(1);
+    expect(after[0]).toMatchObject({ id, servings: 0.5 });
+    expect(after[0]!.kcal).toBeCloseTo(before.kcal / 2, 6);
+  });
+
+  it('editing the amount: servings switch to grams, and a drink keeps its volume in step', async () => {
+    const db = await seededDb();
+    const e = env();
+    const { id } = await addMeal(db, e, {
+      date: today,
+      meal: 'breakfast',
+      timeZone: lima,
+      item: { kind: 'food', id: 'naranja-jugo' },
+      servings: 1,
+    });
+    await updateMealPortion(db, e, { id, grams: 400 });
+    expect((await mealsOn(db, today))[0]).toMatchObject({ servings: null, grams: 400 });
+    expect((await mealsOn(db, today))[0]!.kcal).toBeCloseTo(180, 6);
+    expect(await drinksFromMeals(db, today)).toEqual([
+      { name: 'Naranja, jugo', meal: 'breakfast', volumeMl: 400 },
+    ]);
   });
 
   it("repeating yesterday's breakfast: it is the first recent dish of today's breakfast (F05)", async () => {

@@ -45,7 +45,7 @@ export default (): ExpoConfig => ({
   android: {
     package: isDev ? 'dev.oscarnavarro.kawsay.dev' : 'dev.oscarnavarro.kawsay',
     adaptiveIcon: {
-      backgroundColor: '#F6F2E8',
+      backgroundColor: '#E5EEFB',
       foregroundImage: './assets/android-icon-foreground.png',
       backgroundImage: './assets/android-icon-background.png',
       monochromeImage: './assets/android-icon-monochrome.png',

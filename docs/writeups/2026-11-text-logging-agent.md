@@ -1,6 +1,6 @@
 # A text logging agent that cannot invent a calorie
 
-*Kawsay, November 2026. Every example and number here comes from synthetic data.*
+*Kawsay, November 2026 (updated 2026-11-08). Every example and number here comes from synthetic data.*
 
 ## Problem
 
@@ -61,6 +61,35 @@ in `docs/security/llm-threats.md`.
 - Gemini 3 rejects multi-turn tool calls unless its thought signature is sent back; the adapter now passes provider
   fields through.
 - Langfuse Cloud deprecated its legacy ingestion and read APIs during the build; traces moved to OpenTelemetry.
+
+## The second AI feature: a summary that only says what the data supports
+
+Kawsay also explains which habits line up with the user's symptoms. Two layers can go wrong here, and each got its
+own test.
+
+**The statistics, on the phone.** The app compares days after an exposure (a food, short sleep, a long motorbike
+ride) with the user's other days. With hundreds of foods tested against each gut symptom, some always line up by
+chance. Real use showed it: a fruit eaten most days came up as a cause, and so did an ingredient nobody eats on
+purpose, a 10 g garnish inside a dish. Now every pair needs a two-sided Fisher exact test that survives Benjamini–Hochberg over
+all the pairs tested (q ≤ 0.1), and an ingredient counts as eaten only from 25 g. A test seeds 60 random foods over 42
+days and expects zero relations; a planted dairy → bloating effect still comes through. Days that are close together
+are not independent (the window is 48 h), so this is a filter, not proof of a cause.
+
+**The model, on the API.** A 20-case synthetic set feeds the real adapter and prompt: relations grounded in the data,
+foods that appear only in notes, mood (never blamed on a food), warning signs, too few days, and injections hidden in
+notes. The checks are exact again: the answer passes the contract, every food it names was in the phone's counts,
+every "N of M" it quotes was in the request, and warning signs appear exactly when the notes call for them.
+
+| Summary prompt | Score | Passes the contract | Food claims grounded |
+| --- | --- | --- | --- |
+| v1 (in production) | 67.5 | 70% | 85.7% |
+| v2 | **100** (3 runs) | **100%** | **100%** |
+
+The first run found a production bug nobody had reported: 30% of summaries had a habit longer than 80 characters, and
+the retry asked the same question and got the same answer. The fix sends the contract's error back as the second turn
+("habits.0: too big, max 80"), paths and limits only. A new rule makes food findings come only from the phone's
+counts. One golden case was wrong (an alcohol relation that was in the data); it was corrected and v1 re-scored, which
+is why the table says 67.5 and the raw file says 66.3. A CI step fails if the summary score drops 5 points.
 
 ## Numbers in production
 

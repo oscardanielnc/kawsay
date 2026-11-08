@@ -11,8 +11,8 @@ Ask the app what lines up with your symptoms.
 
 - The phone compares days with X vs without X (foods and their ingredients, drinks, added sugar, sleep, activity) against bad symptom days on the same day and up to 48 h later, against the user's own baseline (ADR 0019). Intimate entries are left out
 - Minimum data: 5 occurrences and 10 days before showing a relation
-- **Chance is ruled out (owner, 2026-11-07):** "Mandarina → más estreñimiento" and "Aceituna de botija → menos
-  estreñimiento" were noise. Each pair now passes a two-sided Fisher exact test and Benjamini–Hochberg correction
+- **Chance is ruled out (owner, 2026-11-07):** real use showed coincidences as relations (a fruit eaten most days, a
+  garnish never eaten on purpose). Each pair now passes a two-sided Fisher exact test and Benjamini–Hochberg correction
   over every pair tested; only q ≤ 0.1 is shown (about one coincidence in ten at most). Confidence comes from q:
   high ≤ 0.01 with 8+ occurrences, medium ≤ 0.05. A dish's ingredient counts as eaten only from 25 g eaten
   (a garnish does not). Exposed days overlap through the 48 h window, so the test is a filter, not a proof

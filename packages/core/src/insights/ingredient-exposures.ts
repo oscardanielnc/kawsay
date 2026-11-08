@@ -1,6 +1,6 @@
 /**
- * Below this many grams eaten, an ingredient of a dish is not counted as eaten (F17, owner 2026-11-07: "Aceituna de
- * botija", a garnish he does not notice, showed up as a relation).
+ * Below this many grams eaten, an ingredient of a dish is not counted as eaten (F17, owner 2026-11-07: a garnish
+ * nobody eats on purpose showed up as a relation).
  */
 export const MIN_INGREDIENT_G = 25;
 

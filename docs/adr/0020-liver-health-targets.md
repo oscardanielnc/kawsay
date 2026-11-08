@@ -5,7 +5,7 @@
 
 ## Context
 
-Owner: targets for fatty liver (MASLD, ~36% of adults in South America, ALEH 2025), sugar first. Drivers: added sugar,
+Goal: habits behind fatty liver (MASLD, ~36% of adults in South America, ALEH 2025), sugar first. Drivers: added sugar,
 above all fructose in drinks (80 g/day doubled liver fat production in 7 weeks, Geidl-Flueck, J Hepatol 2021), excess
 calories and belly fat, alcohol, inactivity, short sleep. Refined flours drive overeating, not liver fat (F24).
 

@@ -42,8 +42,8 @@ const WINDOW_DAYS = 2;
 const MIN_GAP = 0.25;
 const MIN_RATIO = 2;
 /**
- * At most about one coincidence in ten shown relations (owner, 2026-11-07: "Mandarina → más estreñimiento" was
- * chance). Hundreds of foods are tested at once; without the correction a few always line up.
+ * At most about one coincidence in ten shown relations (owner, 2026-11-07: real use showed fruit-and-symptom
+ * coincidences). Hundreds of foods are tested at once; without the correction a few always line up.
  */
 const MAX_Q = 0.1;
 

@@ -9,10 +9,11 @@ export interface Searchable {
 }
 
 /**
- * Order of the results (F06, ADR 0028): curated dishes, INS group S dishes, estimated recipes, then Peruvian foods,
- * USDA and labels.
+ * Order of the results (F06, ADR 0028): the user's own label foods (F23 piece 3: the exact product they buy), curated
+ * dishes, INS group S dishes, estimated recipes, then Peruvian foods, USDA and catalog foods waiting for a label.
  */
 const RANK: Record<string, number> = {
+  'user-label': -1,
   dish: 0,
   curated: 0,
   'INS-S': 0.4,

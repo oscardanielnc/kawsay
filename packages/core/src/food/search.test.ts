@@ -78,6 +78,15 @@ describe('searchCatalog (F06)', () => {
     expect(searchCatalog('choco', mixed).map((x) => x.id)).toEqual(['i', 'u', 'b']);
   });
 
+  it("the user's own label foods come first: the exact product they buy (F23 piece 3)", () => {
+    const mixed: Searchable[] = [
+      { kind: 'dish', id: 'd', name: 'Galletas de casa', source: 'dish' },
+      { kind: 'food', id: 'i', name: 'Galleta de soda', source: 'INS' },
+      { kind: 'food', id: 'own', name: 'Galletas Choco', source: 'user-label' },
+    ];
+    expect(searchCatalog('galletas', mixed).map((x) => x.id)).toEqual(['own', 'd', 'i']);
+  });
+
   it('Spanish plurals find the singular name: "tallarines verdes" → "Tallarín verde", "uvas" → "uva"', () => {
     const dishes: Searchable[] = [
       { kind: 'dish', id: 'tallarin-verde', name: 'Tallarín verde', source: 'dish' },

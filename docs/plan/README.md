@@ -92,7 +92,8 @@ Nothing.
 ## Done
 
 - **Own food from a label** (F23 piece 3, 2026-11-12, owner: "ha llegado el momento"): photo read by Gemini or typed,
-  confirmed number by number (ADR 0029). App 0.2.0: new APK for the camera
+  confirmed number by number (ADR 0029). App 0.2.0: new APK for the camera (build
+  `da7fdcc5-28a3-4069-9b9b-dbfb96c259c9`, 2026-11-12); API on dev, prod deploy pending the owner
 
 - **First version closed** (2026-11-08): logged meals edit their amount, the add button keeps its label after
   "Ver fuentes", F17 relations pass Fisher + Benjamini–Hochberg (garnishes under 25 g do not count), the AI summary

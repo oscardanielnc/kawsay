@@ -47,7 +47,11 @@ const RESULTS = 20;
 const SOURCES = ['INS', 'USDA', 'label', 'none'] as const;
 /** Where an ingredient's numbers come from, shown on an AI proposal (F07: each ingredient with its source). */
 const sourceKey = (source: string) =>
-  (SOURCES as readonly string[]).includes(source) ? (source as (typeof SOURCES)[number]) : 'none';
+  source === 'user-label'
+    ? 'label'
+    : (SOURCES as readonly string[]).includes(source)
+      ? (source as (typeof SOURCES)[number])
+      : 'none';
 
 const gramsOf = (i: Ingredient) => (i.unit ? i.unit.grams * i.count : Number(i.grams) || 0);
 const kcalOf = (i: Ingredient) => ((i.food.per100g?.energyKcal ?? 0) * gramsOf(i)) / 100;

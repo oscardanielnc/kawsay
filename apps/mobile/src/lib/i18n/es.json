@@ -237,6 +237,7 @@
     "remove": "Quitar",
     "empty": "Sin registrar todavía",
     "createWithAi": "✨ Crear «{{name}}» con IA",
+    "createFromLabel": "📷 Crear desde etiqueta",
     "aiWorking": "Armando la receta de «{{name}}» con ingredientes de la tabla…",
     "aiFailed": {
       "offline": "Sin conexión: la IA no está disponible. Puedes crearlo a mano.",
@@ -1197,5 +1198,58 @@
       "limit": "Llegaste al límite de hoy. Vuelve mañana o usa la búsqueda.",
       "other": "No pude entender el texto. Prueba de nuevo o usa la búsqueda."
     }
+  },
+  "label": {
+    "title": "Alimento de etiqueta",
+    "photoHint": "Toma una foto de la tabla nutricional (y de los ingredientes si entran). Recórtala a la tabla para que se lea mejor.",
+    "typeHint": "Copia los números de la tabla nutricional del envase.",
+    "camera": "📷 Tomar foto de la etiqueta",
+    "library": "Elegir foto de la galería",
+    "reading": "Leyendo la etiqueta…",
+    "status": {
+      "read": "Leído por IA: compara cada número con la etiqueta antes de guardar.",
+      "unreadable": "No se ve una tabla nutricional legible. Prueba otra foto, más cerca y con luz, o escribe los números.",
+      "offline": "Sin conexión: escribe los números a mano.",
+      "limit": "Llegaste al límite de etiquetas leídas hoy. Escribe los números a mano.",
+      "failed": "No se pudo leer la etiqueta. Prueba otra foto o escribe los números.",
+      "idle": "",
+      "reading": ""
+    },
+    "name": "Nombre del producto",
+    "brand": "Marca (opcional)",
+    "basis": "La tabla da los valores",
+    "perServing": "Por porción",
+    "per100g": "Por 100 g",
+    "per100ml": "Por 100 ml",
+    "servingLabel": "Porción, ej.: 6 galletas",
+    "servingGrams": "Gramos de una porción ({{unit}})",
+    "needsServing": "Escribe cuántos g o ml tiene una porción: sin eso no se pueden calcular los valores.",
+    "package": "Contenido neto del envase",
+    "packageGrams": "Contenido neto ({{unit}})",
+    "valuesPerServing": "Valores por porción",
+    "valuesPer100g": "Valores por 100 g",
+    "valuesPer100ml": "Valores por 100 ml",
+    "noData": "sin dato",
+    "nutrients": {
+      "energyKcal": "Energía",
+      "fatG": "Grasa total",
+      "saturatedFatG": "Grasa saturada",
+      "transFatG": "Grasa trans",
+      "cholesterolMg": "Colesterol",
+      "sodiumMg": "Sodio",
+      "carbsTotalG": "Carbohidratos totales",
+      "fiberG": "Fibra",
+      "sugarsTotalG": "Azúcares totales",
+      "addedSugarG": "Azúcares añadidos",
+      "proteinG": "Proteína"
+    },
+    "useTotalSugars": "La etiqueta no separa el azúcar añadido: usar los azúcares totales",
+    "isDrink": "Es una bebida",
+    "refinedFlour": "Hecho con harina refinada",
+    "refinedFlourHint": "La lista de ingredientes dice harina de trigo (no integral)",
+    "result": "= {{kcal}} kcal por 100 g",
+    "resultMl": "= {{kcal}} kcal por 100 ml",
+    "energyGap": "La energía no cuadra con proteína, grasa y carbohidratos: revisa la columna (100 g o porción) y los decimales.",
+    "save": "Guardar y elegir cuánto comí"
   }
 }

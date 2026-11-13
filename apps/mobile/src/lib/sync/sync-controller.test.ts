@@ -34,6 +34,7 @@ function client(overrides: Partial<ApiClient['sync']> & Partial<Omit<ApiClient, 
       overrides.catalogDishes ??
       (() => Promise.resolve({ version: 'r0', upToDate: true as const })),
     proposeDish: overrides.proposeDish ?? (() => Promise.reject(new Error('not in these tests'))),
+    readLabel: () => Promise.reject(new Error('not in these tests')),
     textLog: overrides.textLog ?? (() => Promise.reject(new Error('not in these tests'))),
     textLogFeedback: overrides.textLogFeedback ?? (() => Promise.resolve()),
     sync: {

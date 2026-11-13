@@ -18,9 +18,12 @@ import { fractionLabel } from '@/lib/portion';
 import { eatenShare, PortionPicker, type Portion } from './PortionPicker';
 import type { ItemDetail } from './catalog-detail';
 import { ItemDetailView } from './ItemDetailView';
+import { LabelFood, type LabelPhoto } from './LabelFood';
+import type { NewUserFood } from './user-food-db';
 import { TextLogPanel } from './TextLogPanel';
 import type { TextLogEntry } from './text-log-db';
 import type { TextLogFeedback, TextLogProposal } from '@kawsay/contracts/text-log';
+import type { LabelReading } from '@kawsay/contracts/catalog';
 
 export const MEALS: readonly Meal[] = ['breakfast', 'lunch', 'dinner', 'snack'];
 
@@ -59,6 +62,15 @@ interface Props {
   day?: DayContext | null;
   /** "Crear «…» con IA" (F07 v0.2): the API proposes ingredients and grams; absent without an account. */
   proposeDish?: (name: string) => Promise<AiDishProposal>;
+  /**
+   * Own food from a label (F23 piece 3): `onSave` stores it and answers the new catalog item, which opens in the
+   * portion step. Photo reading needs an account (`readLabel`) and a phone that takes photos (`takePhoto`).
+   */
+  labelFood?: {
+    takePhoto?: (from: 'camera' | 'library') => Promise<LabelPhoto | null>;
+    readLabel?: (photo: LabelPhoto) => Promise<LabelReading>;
+    onSave: (food: Omit<NewUserFood, 'labelDate'>) => Promise<CatalogItem>;
+  };
   /** Log by text (F16): null when the phone has no account; absent hides the field. */
   textLog?: {
     propose: ((text: string) => Promise<TextLogProposal>) | null;
@@ -84,6 +96,7 @@ type SheetState =
   | { kind: 'pendingEntry'; pending: PendingMeal }
   | { kind: 'entry'; entry: MealEntryView; portion: Portion }
   | { kind: 'create'; meal: Meal; name: string; proposal?: AiDishProposal }
+  | { kind: 'label'; meal: Meal; name: string; completes?: PendingMeal }
   | { kind: 'proposing'; meal: Meal; name: string; failed: 'offline' | 'limit' | 'other' | null }
   | {
       kind: 'detail';
@@ -107,6 +120,7 @@ export function MealsSection({
   loadDetail,
   day = null,
   proposeDish,
+  labelFood,
   textLog,
 }: Props) {
   const { t } = useTranslation();
@@ -161,6 +175,15 @@ export function MealsSection({
                   setSheet({ kind: 'proposing', meal, name, failed: proposalError(error) }),
               );
             },
+          })}
+          {...(labelFood && {
+            onCreateFromLabel: (name: string) =>
+              setSheet({
+                kind: 'label',
+                meal: sheet.meal,
+                name,
+                ...(sheet.completes && { completes: sheet.completes }),
+              }),
           })}
           {...(onAddPending &&
             !sheet.completes && {
@@ -271,6 +294,33 @@ export function MealsSection({
         )}
       </View>
     );
+  } else if (sheet?.kind === 'label' && labelFood) {
+    const { meal, name, completes } = sheet;
+    title = t('label.title');
+    body = (
+      <LabelFood
+        initialName={name}
+        {...(labelFood.takePhoto && { takePhoto: labelFood.takePhoto })}
+        {...(labelFood.readLabel && { readLabel: labelFood.readLabel })}
+        onSave={(food) => {
+          void labelFood.onSave(food).then((item) =>
+            setSheet({
+              kind: 'portion',
+              meal,
+              query: '',
+              item,
+              // Without a serving on the label, the portion starts at 100 g.
+              portion:
+                item.servingGrams !== null
+                  ? { servings: 1, grams: '', saveRest: false }
+                  : { servings: 1, grams: '100', saveRest: false },
+              ...(completes && { completes }),
+            }),
+          );
+        }}
+      />
+    );
+    footer = <View />;
   } else if (sheet?.kind === 'create') {
     const { meal, name } = sheet;
     title = t('dish.title');

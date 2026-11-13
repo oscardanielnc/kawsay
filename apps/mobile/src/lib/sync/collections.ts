@@ -21,6 +21,7 @@ export const SYNCED_TABLES = {
   user_dish_item: schema.userDishItem,
   day_note: schema.dayNote,
   pending_meal: schema.pendingMeal,
+  user_food: schema.userFood,
 } satisfies Record<Collection, unknown>;
 
 /**

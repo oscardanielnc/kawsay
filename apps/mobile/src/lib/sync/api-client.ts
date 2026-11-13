@@ -1,5 +1,10 @@
 import { TokenResponse } from '@kawsay/contracts/auth';
-import { AiDishProposal, CatalogDishesResponse } from '@kawsay/contracts/catalog';
+import {
+  AiDishProposal,
+  CatalogDishesResponse,
+  LabelReading,
+  type LabelReadRequest,
+} from '@kawsay/contracts/catalog';
 import { type AnalysisRequest, SummaryResponse } from '@kawsay/contracts/insights';
 import {
   type TextLogFeedback,
@@ -55,6 +60,8 @@ export interface ApiClient {
   catalogDishes(version: string | null): Promise<CatalogDishesResponse>;
   /** "Crear «…» con IA" (F07 v0.2): ingredients and grams; the phone computes the nutrients. */
   proposeDish(name: string): Promise<AiDishProposal>;
+  /** "Leer etiqueta" (F23 piece 3): the label's numbers as printed, for the user to confirm. */
+  readLabel(request: LabelReadRequest): Promise<LabelReading>;
   /** Log by text (F16): a proposal of entries; nothing is saved on the server. */
   textLog(request: TextLogRequest): Promise<TextLogProposal>;
   textLogFeedback(id: string, feedback: TextLogFeedback): Promise<void>;
@@ -177,6 +184,11 @@ export function createApiClient({
     proposeDish: async (name) =>
       AiDishProposal.parse(
         await authed('/catalog/ai-dish', { method: 'POST', body: JSON.stringify({ name }) }),
+      ),
+
+    readLabel: async (request) =>
+      LabelReading.parse(
+        await authed('/catalog/label', { method: 'POST', body: JSON.stringify(request) }),
       ),
 
     textLog: async (request) =>

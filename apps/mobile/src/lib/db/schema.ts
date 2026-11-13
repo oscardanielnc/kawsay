@@ -300,6 +300,28 @@ export const userDishItem = sqliteTable(
   (t) => [index('user_dish_item_by_dish').on(t.userDishId)],
 );
 
+/**
+ * A packaged food created from its label (F23 piece 3): numbers per 100 g (ml count as g), typed or read from a photo
+ * by the API and confirmed by the user. Synced; offered next to the catalog foods with source "label".
+ */
+export const userFood = sqliteTable('user_food', {
+  ...synced,
+  name: text('name').notNull(),
+  brand: text('brand'),
+  per100g: text('per_100g', { mode: 'json' }).$type<Record<string, number | null>>().notNull(),
+  /** One serving as the label writes it ("6 galletas") and its grams; null when the label gives none. */
+  servingLabel: text('serving_label'),
+  servingGrams: real('serving_grams'),
+  /** Net content of the package, offered as a second unit. */
+  packageGrams: real('package_grams'),
+  isDrink: integer('is_drink', { mode: 'boolean' }).notNull(),
+  /** Made with refined flour (F24): its available carbohydrate counts as refined flour. */
+  refinedFlour: integer('refined_flour', { mode: 'boolean' }).notNull(),
+  /** The day the label was entered: labels change, so the detail shows it. */
+  labelDate: text('label_date').notNull(),
+  readByAi: integer('read_by_ai', { mode: 'boolean' }).notNull(),
+});
+
 // Catalog (ADR 0014): loaded from @kawsay/catalog, replaced when its version changes. Not synced.
 
 export const food = sqliteTable('food', {

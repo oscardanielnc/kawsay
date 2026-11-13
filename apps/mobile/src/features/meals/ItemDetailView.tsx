@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
-import { formatNumber } from '@/lib/format';
+import { formatNumber, formatShortDate } from '@/lib/format';
 import { color, space, type } from '@/lib/theme';
 import { DETAIL_NUTRIENTS, type ItemDetail, type Source } from './catalog-detail';
 
@@ -9,7 +9,10 @@ export function ItemDetailView({ detail }: { detail: ItemDetail }) {
   const { t } = useTranslation();
   const sourceName = (source: Source) =>
     source.code
-      ? `${t(`detail.sources.${source.kind}`)} · ${source.code}`
+      ? `${t(`detail.sources.${source.kind}`)} · ${
+          // A label food's code is the day its label was entered (F23 piece 3).
+          source.kind === 'label' ? formatShortDate(source.code) : source.code
+        }`
       : t(`detail.sources.${source.kind}`);
 
   return (

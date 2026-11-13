@@ -2,7 +2,8 @@
 
 - Release: proposal
 - Status: **Pieces 1 and 2 approved by the owner 2026-10-30**, built (plan M2) · **pieces 4, 5 and the new piece 6
-  approved 2026-11-02** (plan A0d, ADR 0028): the owner found no new dishes after M2, only ingredients · piece 3 later
+  approved 2026-11-02** (plan A0d, ADR 0028): the owner found no new dishes after M2, only ingredients · **piece 3 built
+  2026-11-12** at the owner's request (ADR 0029)
 
 ## Problem
 
@@ -36,7 +37,8 @@ coverage is thin (e.g. 273 snacks listed for Peru, October 2026).
 - [x] A food missing from the catalog is logged in under 10 s with no app update
 - [x] Completing a pending entry recalculates that day's totals, targets and micronutrients
 - [x] Any INS food can be added to a dish offline
-- [ ] A label food shows "Label" as its source and its date
+- [x] A label food shows "Label" as its source and its date
+- [x] A label photo fills every number, and nothing is saved until the user confirms them
 - [x] Searching "torta helada", "tequeños" and "arroz árabe" finds one dish each (the owner's examples)
 - [x] The catalog has at least 2,000 dishes, every one passing the automatic checks of ADR 0028
 - [x] A dish published on the API reaches the phone without an app update
@@ -62,4 +64,9 @@ coverage is thin (e.g. 273 snacks listed for Peru, October 2026).
   `estimated` ("Receta estimada"). Publishing a dish = rebuild, commit, deploy the API. A dish whose ingredient the
   phone lacks waits for the next app update; a new bundled catalog forgets the remote version and pulls again
 - Search order: curated, INS-S, estimated, then generic INS foods. Aliases are served but not searched on the phone yet
-
+- 2026-11-12, piece 3 (ADR 0029). "📷 Crear desde etiqueta" in the add sheet opens a form: photo (camera or gallery,
+  cropped to the table) read by `POST /v1/catalog/label` with Gemini Flash-Lite, or typed. Values per 100 g or per
+  serving (converted with `@kawsay/core/food/label-per-100g`), serving and package as units, "Es una bebida",
+  "Hecho con harina refinada" (F24), a one-tap "use total sugars" when the label does not split added sugar (F22), and
+  a warning when energy and macronutrients disagree. Saving opens "how much". Synced table `user_food`; label foods
+  rank first in search and work inside own dishes. App 0.2.0 (new APK: camera modules)

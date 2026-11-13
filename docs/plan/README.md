@@ -85,12 +85,14 @@ Baseline (A0, 2026-11-03): 716 tests green (core 250 · mobile 362 · catalog 61
 - Order when contracts change: deploy the API first (it keeps answering the old app), then the app update
 - Design: Amanecer tokens and components ([design/explorations/2026-10-30-amanecer](../design/explorations/2026-10-30-amanecer/README.md))
 
-## Pending (owner, 2026-11-03)
+## Pending
 
-- **F23 piece 3, own food from a label** ("el 1 para después"): type a label per 100 g or per serving, later read
-  from a photo by a vision model with each number confirmed. Write it as a plan when the owner asks for it
+Nothing.
 
 ## Done
+
+- **Own food from a label** (F23 piece 3, 2026-11-12, owner: "ha llegado el momento"): photo read by Gemini or typed,
+  confirmed number by number (ADR 0029). App 0.2.0: new APK for the camera
 
 - **First version closed** (2026-11-08): logged meals edit their amount, the add button keeps its label after
   "Ver fuentes", F17 relations pass Fisher + Benjamini–Hochberg (garnishes under 25 g do not count), the AI summary

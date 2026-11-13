@@ -12,7 +12,7 @@ import {
 } from 'react';
 import { AppState } from 'react-native';
 import { useDb } from '../db/DatabaseProvider';
-import type { AiDishProposal } from '@kawsay/contracts/catalog';
+import type { AiDishProposal, LabelReading, LabelReadRequest } from '@kawsay/contracts/catalog';
 import type { AnalysisRequest, SummaryResponse } from '@kawsay/contracts/insights';
 import type { TextLogFeedback, TextLogProposal, TextLogRequest } from '@kawsay/contracts/text-log';
 import { createApiClient, type TokenStore } from './api-client';
@@ -28,6 +28,8 @@ export interface SyncContextValue extends SyncState {
   summarize(request: AnalysisRequest): Promise<SummaryResponse>;
   /** "Crear «…» con IA" (F07 v0.2); needs an account and signal. */
   proposeDish(name: string): Promise<AiDishProposal>;
+  /** "Leer etiqueta" (F23 piece 3); needs an account and signal. */
+  readLabel(request: LabelReadRequest): Promise<LabelReading>;
   /** Log by text (F16); needs an account and signal. */
   textLog(request: TextLogRequest): Promise<TextLogProposal>;
   textLogFeedback(id: string, feedback: TextLogFeedback): Promise<void>;
@@ -100,6 +102,7 @@ export function SyncProvider({ children }: { children: ReactNode }) {
         syncNow: () => controller.sync(),
         summarize: (request) => client.summarize(request),
         proposeDish: (name) => client.proposeDish(name),
+        readLabel: (request) => client.readLabel(request),
         textLog: (request) => client.textLog(request),
         textLogFeedback: (id, feedback) => client.textLogFeedback(id, feedback),
       }}

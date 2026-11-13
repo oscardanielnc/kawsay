@@ -1,6 +1,7 @@
 import { recipeTotals } from '@kawsay/core/food/recipe-totals';
 import { and, asc, eq, inArray, isNull } from 'drizzle-orm';
-import { dish, dishItem, food, foodUnit, userDish, userDishItem } from '@/lib/db/schema';
+import { dish, dishItem, food, foodUnit, userDish, userDishItem, userFood } from '@/lib/db/schema';
+import { userFoodUnits } from './user-food-db';
 import type { Db } from '@/lib/db/types';
 
 /** Nutrients the detail shows, in this order (F06). */
@@ -48,7 +49,7 @@ export async function itemDetail(
 ): Promise<ItemDetail> {
   if (item.kind === 'food') {
     const [row] = await db.select().from(food).where(eq(food.id, item.id));
-    if (!row) throw new Error(`unknown food ${item.id}`);
+    if (!row) return userFoodDetail(db, item.id);
     const [unit] = await db
       .select()
       .from(foodUnit)
@@ -78,11 +79,24 @@ export async function itemDetail(
       ]
     : await userDishParts(db, item.id);
 
-  const foods = await db
-    .select()
-    .from(food)
-    .where(inArray(food.id, [...new Set(items.map((i) => i.foodId))]));
-  const byId = new Map(foods.map((f) => [f.id, f]));
+  const ids = [...new Set(items.map((i) => i.foodId))];
+  const [foods, labels] = await Promise.all([
+    db.select().from(food).where(inArray(food.id, ids)),
+    db.select().from(userFood).where(inArray(userFood.id, ids)),
+  ]);
+  const byId = new Map<
+    string,
+    { name: string; per100g: Per100g; sourceKind: string; sourceCode: string | null }
+  >([
+    ...foods.map((f) => [f.id, f] as const),
+    ...labels.map(
+      (f) =>
+        [
+          f.id,
+          { name: f.name, per100g: f.per100g, sourceKind: 'label', sourceCode: f.labelDate },
+        ] as const,
+    ),
+  ]);
   const totals = totalsOf(
     items.map((i) => ({ per100g: byId.get(i.foodId)?.per100g ?? null, grams: i.grams })),
     servings,
@@ -98,6 +112,19 @@ export async function itemDetail(
         source: sourceOf(f?.sourceKind ?? 'none', f?.sourceCode ?? null),
       };
     }),
+  };
+}
+
+/** A label food (F23 piece 3): source "label" with the day it was entered, per serving or per 100 g. */
+async function userFoodDetail(db: Db, id: string): Promise<ItemDetail> {
+  const [row] = await db.select().from(userFood).where(eq(userFood.id, id));
+  if (!row) throw new Error(`unknown food ${id}`);
+  const grams = userFoodUnits(row)[0]?.grams ?? null;
+  return {
+    ...totalsOf([{ per100g: row.per100g, grams: grams ?? 100 }], 1),
+    source: sourceOf('label', row.labelDate),
+    servingGrams: grams,
+    ingredients: [],
   };
 }
 

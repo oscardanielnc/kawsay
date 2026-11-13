@@ -2,10 +2,11 @@ import { recipeTotals } from '@kawsay/core/food/recipe-totals';
 import { addDays, type LocalDate } from '@kawsay/core/shared/local-date';
 import { and, asc, desc, eq, isNull, sql } from 'drizzle-orm';
 import { newRecord } from '@/lib/db/record';
-import { dish, food, foodUnit, mealEntry, userDish, userDishItem } from '@/lib/db/schema';
+import { dish, food, foodUnit, mealEntry, userDish, userDishItem, userFood } from '@/lib/db/schema';
 import { inTransaction } from '@/lib/db/transaction';
 import type { Db, RecordEnv } from '@/lib/db/types';
 import type { Searchable } from '@kawsay/core/food/search';
+import { userFoodUnits } from './user-food-db';
 
 export type Meal = 'breakfast' | 'lunch' | 'dinner' | 'snack';
 type Nutrients = Record<string, number | null> | null;
@@ -78,6 +79,7 @@ async function catalogStamp(db: Db): Promise<string> {
       (select count(*) from food_unit) || ':' ||
       (select count(*) || '/' || coalesce(max(updated_at), 0) from user_dish) || ':' ||
       (select count(*) || '/' || coalesce(max(updated_at), 0) from user_dish_item) || ':' ||
+      (select count(*) || '/' || coalesce(max(updated_at), 0) from user_food) || ':' ||
       (select coalesce(group_concat(key || '=' || value), '') from meta) as stamp`);
   return rows[0]?.[0] ?? '';
 }
@@ -98,7 +100,7 @@ export async function catalogItems(db: Db): Promise<readonly CatalogItem[]> {
 }
 
 async function readCatalog(db: Db): Promise<CatalogItem[]> {
-  const [dishes, foods, units, ownDishes, ownItems] = await Promise.all([
+  const [dishes, catalogFoods, units, ownDishes, ownItems, ownFoods] = await Promise.all([
     db.select().from(dish),
     db.select().from(food),
     db.select().from(foodUnit).orderBy(asc(foodUnit.position)),
@@ -108,7 +110,18 @@ async function readCatalog(db: Db): Promise<CatalogItem[]> {
       .from(userDishItem)
       .where(isNull(userDishItem.deletedAt))
       .orderBy(asc(userDishItem.position)),
+    db.select().from(userFood).where(isNull(userFood.deletedAt)).orderBy(asc(userFood.name)),
   ]);
+  // Label foods (F23 piece 3) work like catalog foods everywhere, including inside the user's dishes.
+  const labelFoods = ownFoods.map((f) => ({
+    id: f.id,
+    name: f.brand ? `${f.name} (${f.brand})` : f.name,
+    per100g: f.per100g,
+    tags: [...(f.refinedFlour ? ['refined-flour'] : []), ...(f.isDrink ? ['drink'] : [])],
+    servingGrams: userFoodUnits(f)[0]?.grams ?? null,
+    isDrink: f.isDrink,
+  }));
+  const foods = [...catalogFoods, ...labelFoods.map((f) => ({ ...f, generic: false }))];
   const firstUnit = new Map<string, { label: string; grams: number | null }>();
   for (const unit of units) if (!firstUnit.has(unit.foodId)) firstUnit.set(unit.foodId, unit);
   const foodById = new Map(foods.map((f) => [f.id, f]));
@@ -140,6 +153,24 @@ async function readCatalog(db: Db): Promise<CatalogItem[]> {
         },
       ];
     }),
+    ...labelFoods.map((f) => {
+      const kcal100 = f.per100g.energyKcal;
+      return {
+        kind: 'food' as const,
+        id: f.id,
+        name: f.name,
+        source: 'user-label',
+        icon: f.isDrink ? 'jugo' : 'plato',
+        group: 'food',
+        servingGrams: f.servingGrams,
+        kcalPerServing:
+          f.servingGrams !== null && kcal100 != null ? (kcal100 * f.servingGrams) / 100 : null,
+        isDrink: f.isDrink,
+        tags: f.tags,
+        generic: false,
+        per100g: f.per100g,
+      };
+    }),
     ...dishes.map((d) => ({
       kind: 'dish' as const,
       id: d.id,
@@ -155,7 +186,7 @@ async function readCatalog(db: Db): Promise<CatalogItem[]> {
       generic: false,
       per100g: d.per100g,
     })),
-    ...foods.map((f) => {
+    ...catalogFoods.map((f) => {
       const unit = firstUnit.get(f.id);
       const grams = unit?.grams ?? null;
       const kcal100 = f.per100g?.energyKcal;
@@ -182,10 +213,17 @@ async function readCatalog(db: Db): Promise<CatalogItem[]> {
 export async function foodUnits(
   db: Db,
 ): Promise<Record<string, { label: string; grams: number }[]>> {
-  const rows = await db.select().from(foodUnit).orderBy(asc(foodUnit.position));
+  const [rows, own] = await Promise.all([
+    db.select().from(foodUnit).orderBy(asc(foodUnit.position)),
+    db.select().from(userFood).where(isNull(userFood.deletedAt)),
+  ]);
   const units: Record<string, { label: string; grams: number }[]> = {};
   for (const { foodId, label, grams } of rows) {
     if (grams !== null) (units[foodId] ??= []).push({ label, grams });
+  }
+  for (const f of own) {
+    const list = userFoodUnits(f);
+    if (list.length > 0) units[f.id] = list;
   }
   return units;
 }

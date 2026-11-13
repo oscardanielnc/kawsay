@@ -17,6 +17,7 @@ import m0012 from './0012_catalog_tags_and_pending_meals.sql';
 import m0013 from './0013_profile_refined_flour_share.sql';
 import m0014 from './0014_alcohol_liver_labs.sql';
 import m0015 from './0015_dish_source.sql';
+import m0016 from './0016_user_food.sql';
 
 export default {
   journal,
@@ -37,5 +38,6 @@ export default {
     m0013,
     m0014,
     m0015,
+    m0016,
   },
 };

@@ -113,6 +113,29 @@ describe('MealsSection (F05)', () => {
     expect(screen.getByRole('button', { name: 'Agregar 1 ración' })).toBeOnTheScreen();
   });
 
+  it('a supermarket product is created from its label and goes straight to "how much" (F23 piece 3)', async () => {
+    const cookies = item('own-1', 'Galletas de vainilla', 150, {
+      kind: 'food',
+      source: 'user-label',
+      servingGrams: 30,
+    });
+    const onSave = jest.fn(() => Promise.resolve(cookies));
+    const { onAdd, view } = renderSection({ labelFood: { onSave } });
+    await view;
+    await fireEvent.press(screen.getByRole('button', { name: 'Agregar a Snacks' }));
+    await fireEvent.changeText(screen.getByLabelText('Buscar plato'), 'galletas');
+    await fireEvent.press(screen.getByRole('button', { name: '📷 Crear desde etiqueta' }));
+    expect(screen.getByLabelText('Nombre del producto')).toHaveDisplayValue('galletas');
+    await fireEvent.changeText(screen.getByLabelText('Gramos de una porción (g)'), '30');
+    await fireEvent.changeText(screen.getByLabelText('Energía'), '150');
+    await fireEvent.press(screen.getByRole('button', { name: 'Guardar y elegir cuánto comí' }));
+    expect(onSave).toHaveBeenCalledWith(expect.objectContaining({ name: 'galletas' }));
+    await fireEvent.press(await screen.findByRole('button', { name: 'Agregar 1 ración' }));
+    expect(onAdd).toHaveBeenCalledWith(
+      expect.objectContaining({ meal: 'snack', item: cookies, servings: 1 }),
+    );
+  });
+
   it("repeating yesterday's breakfast takes one tap plus the portion", async () => {
     const { onAdd, view } = renderSection();
     await view;

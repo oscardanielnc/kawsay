@@ -38,7 +38,7 @@ export default (): ExpoConfig => ({
   slug: 'kawsay',
   owner: 'oscardanieldev',
   scheme: isDev ? 'kawsay-dev' : 'kawsay',
-  version: '0.1.0',
+  version: '0.2.0',
   orientation: 'portrait',
   icon: './assets/icon.png',
   userInterfaceStyle: 'light',
@@ -71,6 +71,8 @@ export default (): ExpoConfig => ({
     ['expo-font', { fonts: FONTS }],
     'expo-sharing',
     'expo-file-system',
+    // Label photos (F23 piece 3): camera and gallery; nothing is stored on the phone or the server.
+    ['expo-image-picker', { microphonePermission: false }],
   ],
   experiments: { typedRoutes: true },
   extra: { variant, apiUrl: API_URL, eas: { projectId: EAS_PROJECT_ID } },

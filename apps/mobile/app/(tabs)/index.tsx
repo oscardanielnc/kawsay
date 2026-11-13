@@ -35,6 +35,7 @@ import {
 import { itemDetail } from '@/features/meals/catalog-detail';
 import { addPending, completePending, deletePending } from '@/features/meals/pending-db';
 import { saveTextLog } from '@/features/meals/text-log-db';
+import { saveUserFood } from '@/features/meals/user-food-db';
 import { MEALS, MealsSection, type AddMeal } from '@/features/meals/MealsSection';
 import {
   deleteRoutine,
@@ -74,6 +75,7 @@ import { deviceTimeZone } from '@/lib/time-zone';
 import { today } from '@/lib/today';
 import { useLoad } from '@/lib/use-load';
 import { useSync } from '@/lib/sync/SyncProvider';
+import { takeLabelPhoto } from '@/lib/label-photo';
 import { useReloadOnFocus } from '@/lib/use-reload-on-focus';
 import { unlockWithDevice } from '@/lib/unlock';
 import { color, type } from '@/lib/theme';
@@ -311,6 +313,20 @@ export default function TodayRoute() {
           {...(sync.account?.kind === 'signed-in' && {
             proposeDish: (name: string) => sync.proposeDish(name),
           })}
+          labelFood={{
+            takePhoto: takeLabelPhoto,
+            ...(sync.account?.kind === 'signed-in' && {
+              readLabel: ({ base64, mimeType }) =>
+                sync.readLabel({ imageBase64: base64, mimeType }),
+            }),
+            onSave: async (food) => {
+              const { id } = await saveUserFood(db, env, { ...food, labelDate: day });
+              reload();
+              const item = (await catalogItems(db)).find((i) => i.kind === 'food' && i.id === id);
+              if (!item) throw new Error(`label food ${id} was not saved`);
+              return item;
+            },
+          }}
           textLog={{
             propose:
               sync.account?.kind === 'signed-in'

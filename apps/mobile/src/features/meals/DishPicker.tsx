@@ -22,6 +22,8 @@ interface Props {
   onSavePending?: (name: string) => void;
   /** "Crear «…» con IA" for any typed name (F07 v0.2, F23 piece 4); absent without an account. */
   onCreateWithAi?: (name: string) => void;
+  /** "Crear desde etiqueta": a packaged food from its label, photo or typed (F23 piece 3). */
+  onCreateFromLabel?: (name: string) => void;
 }
 
 /** Search box, 12 recent dishes as tiles (filtered while typing) and the "Create dish" button (F05). */
@@ -34,6 +36,7 @@ export function DishPicker({
   onCreate,
   onSavePending,
   onCreateWithAi,
+  onCreateFromLabel,
 }: Props) {
   const { t } = useTranslation();
   const shown = query.trim() ? searchCatalog(query, items).slice(0, TILES * 2) : recent;
@@ -88,6 +91,16 @@ export function DishPicker({
         label={query.trim() ? t('meals.createNamed', { name: query.trim() }) : t('meals.create')}
         onPress={() => onCreate(query.trim())}
       />
+      {onCreateFromLabel ? (
+        <Button
+          variant="secondary"
+          label={t('meals.createFromLabel')}
+          onPress={() => {
+            Keyboard.dismiss();
+            onCreateFromLabel(query.trim());
+          }}
+        />
+      ) : null}
       {onSavePending && query.trim() ? (
         <Button
           variant="secondary"

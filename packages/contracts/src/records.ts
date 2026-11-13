@@ -153,6 +153,20 @@ export const RECORD_SCHEMAS = {
     portion: z.string().max(60),
   }),
   day_note: z.strictObject({ ...synced, ...dated, text: z.string().trim().min(1).max(4000) }),
+  /** A packaged food created from its label (F23 piece 3): numbers per 100 g, typed or read from a photo. */
+  user_food: z.strictObject({
+    ...synced,
+    name: text,
+    brand: z.string().max(80).nullable(),
+    per100g: z.record(z.string().max(40), z.number().nonnegative().nullable()),
+    servingLabel: z.string().max(60).nullable(),
+    servingGrams: amount.nullable(),
+    packageGrams: amount.nullable(),
+    isDrink: z.boolean(),
+    refinedFlour: z.boolean(),
+    labelDate: day,
+    readByAi: z.boolean(),
+  }),
 };
 
 export type Collection = keyof typeof RECORD_SCHEMAS;

@@ -33,3 +33,4 @@ Template: [template.md](template.md).
 | [0026](0026-agent-guardrails.md) | Guardrails for the text agent | Accepted |
 | [0027](0027-gauges-at-real-scale.md) | Gauges at real scale | Accepted |
 | [0028](0028-thousands-of-dishes.md) | Thousands of dishes: INS group S first, AI recipes over the table next, delivered by sync | Accepted |
+| [0029](0029-label-reading-with-vision.md) | Food labels read from a photo by Gemini, confirmed by the user | Accepted |

@@ -17,6 +17,9 @@ export const envSchema = z.object({
   DEEPSEEK_MODEL: z.string().min(1).default('deepseek-flash'),
   /** AI analyses per user in any 24 h (F17). */
   AI_DAILY_LIMIT: z.coerce.number().int().min(1).max(50).default(3),
+  /** Gemini key for reading food labels (ADR 0029); without it "Leer etiqueta" answers unavailable. */
+  GEMINI_API_KEY: z.string().min(20).optional(),
+  LABEL_MODEL: z.string().min(1).default('gemini-3.5-flash-lite'),
   /** The published catalog (packages/catalog/remote): dishes delivered by sync and the AI food list (ADR 0028). */
   /** AI traces in Langfuse Cloud (ADR 0024); all three or tracing stays off. */
   LANGFUSE_PUBLIC_KEY: z.string().optional(),

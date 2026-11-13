@@ -17,3 +17,21 @@ export class DishUnavailableError extends DomainError {
     super('The AI could not propose a recipe; try again later or create it by hand');
   }
 }
+
+/** The user already read the allowed labels in the last 24 h. */
+export class LabelLimitError extends DomainError {
+  readonly code = 'catalog.label_limit';
+
+  constructor(readonly retryAfter: Date) {
+    super('The daily limit of label readings was reached');
+  }
+}
+
+/** The vision model did not answer, or twice without a usable reading (ADR 0007). */
+export class LabelUnavailableError extends DomainError {
+  readonly code = 'catalog.label_unavailable';
+
+  constructor() {
+    super('The label could not be read; try again or type the numbers');
+  }
+}

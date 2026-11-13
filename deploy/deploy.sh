@@ -29,8 +29,8 @@ git archive --format=tar HEAD \
   packages/config packages/contracts packages/core packages/catalog/remote apps/api deploy \
   | "${SSH[@]}" "$TARGET" 'mkdir -p ~/kawsay && tar -xf - -C ~/kawsay'
 
-# Langfuse keys (ADR 0024): appended to the VM env file once, from this machine's environment, never echoed.
-for name in LANGFUSE_PUBLIC_KEY LANGFUSE_SECRET_KEY LANGFUSE_BASE_URL; do
+# Langfuse (ADR 0024) and Gemini (ADR 0029) keys: appended to the VM env file once, from this machine's environment, never echoed.
+for name in LANGFUSE_PUBLIC_KEY LANGFUSE_SECRET_KEY LANGFUSE_BASE_URL GEMINI_API_KEY; do
   value="${!name:-}"
   [ -n "$value" ] || continue
   printf '%s' "$value" | "${SSH[@]}" "$TARGET" \

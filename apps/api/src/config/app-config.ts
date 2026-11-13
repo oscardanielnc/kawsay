@@ -14,6 +14,13 @@ export interface AiConfig {
   dailyLimit: number;
 }
 
+/** Reading food labels from a photo (F23 piece 3, ADR 0029). */
+export interface VisionConfig {
+  /** null: label reading is disabled. */
+  geminiApiKey: string | null;
+  model: string;
+}
+
 export interface TracingConfig {
   /** null: tracing is off. */
   langfuse: { publicKey: string; secretKey: string; baseUrl: string } | null;
@@ -31,6 +38,7 @@ export class AppConfig {
     /** Folder of the published catalog files (dishes.json, foods.json). */
     readonly catalogDir: string = '../../packages/catalog/remote',
     readonly tracing: TracingConfig = { langfuse: null, environment: 'local' },
+    readonly vision: VisionConfig = { geminiApiKey: null, model: 'gemini-3.5-flash-lite' },
   ) {}
 
   static fromEnv(env: Env): AppConfig {
@@ -61,6 +69,7 @@ export class AppConfig {
             : null,
         environment: env.DEPLOY_ENVIRONMENT,
       },
+      { geminiApiKey: env.GEMINI_API_KEY ?? null, model: env.LABEL_MODEL },
     );
   }
 }

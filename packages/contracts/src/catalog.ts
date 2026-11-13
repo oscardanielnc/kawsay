@@ -58,3 +58,50 @@ export const AiDishProposal = z.strictObject({
   items,
 });
 export type AiDishProposal = z.infer<typeof AiDishProposal>;
+
+/**
+ * "Leer etiqueta" (F23 piece 3, ADR 0029): one photo of a food label, already shrunk on the phone. Only the image
+ * goes: no user data. 1.5 MB of base64 is about a 1,600 px JPEG at 80 %.
+ */
+export const LabelReadRequest = z.strictObject({
+  imageBase64: z
+    .string()
+    .min(100)
+    .max(1_500_000)
+    .regex(/^[A-Za-z0-9+/]+={0,2}$/, 'must be base64'),
+  mimeType: z.enum(['image/jpeg', 'image/png']),
+});
+export type LabelReadRequest = z.infer<typeof LabelReadRequest>;
+
+const labelNumber = z.number().nonnegative().max(100_000).nullable();
+
+/**
+ * What the vision model read, as printed: per 100 g or per serving, null where the label shows nothing (it reads,
+ * never invents). The phone shows every number for the user to confirm before saving.
+ */
+export const LabelReading = z.strictObject({
+  readable: z.boolean(),
+  name: z.string().max(80).nullable(),
+  brand: z.string().max(80).nullable(),
+  basis: z.enum(['per100g', 'perServing']),
+  servingLabel: z.string().max(60).nullable(),
+  servingGrams: z.number().positive().max(5000).nullable(),
+  packageGrams: z.number().positive().max(20_000).nullable(),
+  isDrink: z.boolean(),
+  /** The ingredient list names refined wheat flour (F24); false when it is not visible. */
+  refinedFlour: z.boolean(),
+  values: z.strictObject({
+    energyKcal: labelNumber,
+    fatG: labelNumber,
+    saturatedFatG: labelNumber,
+    transFatG: labelNumber,
+    cholesterolMg: labelNumber,
+    sodiumMg: labelNumber,
+    carbsTotalG: labelNumber,
+    fiberG: labelNumber,
+    sugarsTotalG: labelNumber,
+    addedSugarG: labelNumber,
+    proteinG: labelNumber,
+  }),
+});
+export type LabelReading = z.infer<typeof LabelReading>;

@@ -35,6 +35,8 @@ const DOMAIN_ERROR_STATUS: Record<string, number> = {
   'ai.text_log_not_found': HttpStatus.NOT_FOUND,
   'catalog.ai_dish_limit': HttpStatus.TOO_MANY_REQUESTS,
   'catalog.ai_dish_unavailable': HttpStatus.BAD_GATEWAY,
+  'catalog.label_limit': HttpStatus.TOO_MANY_REQUESTS,
+  'catalog.label_unavailable': HttpStatus.BAD_GATEWAY,
   'insights.ai_disabled': HttpStatus.SERVICE_UNAVAILABLE,
   'insights.ai_unavailable': HttpStatus.SERVICE_UNAVAILABLE,
 };

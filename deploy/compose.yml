@@ -40,6 +40,8 @@ services:
       JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:?set JWT_ACCESS_SECRET in the env file}
       # Optional: without it the AI analysis answers "disabled" (F17).
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      # Optional: reads food labels from a photo (ADR 0029); without it the endpoint answers unavailable.
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       # Optional: AI traces in Langfuse Cloud, content masked (ADR 0024). Off without the keys.
       LANGFUSE_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:-}
       LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY:-}

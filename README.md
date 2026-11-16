@@ -58,7 +58,9 @@ flowchart LR
   cost and acceptance from `ai_call`; full report: [evals/analysis/report.md](evals/analysis/report.md)
 - 2,016 dishes: 544 official INS preparations plus 1,365 AI recipes over the table, each checked automatically
   ([ADR 0028](docs/adr/0028-thousands-of-dishes.md))
-- Write-up: [docs/writeups/2026-11-text-logging-agent.md](docs/writeups/2026-11-text-logging-agent.md)
+- Food labels read from a photo by a vision model, checked against the Atwater formula and confirmed number by
+  number; the photo is never stored ([ADR 0029](docs/adr/0029-label-reading-with-vision.md))
+- Two-minute summary: [docs/highlights.md](docs/highlights.md) · Write-up: [docs/writeups/2026-11-text-logging-agent.md](docs/writeups/2026-11-text-logging-agent.md)
 
 ## Layout
 

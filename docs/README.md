@@ -4,6 +4,7 @@ One line per file: what it holds and when to read it.
 
 | File                                                     | Read it when                                                                        |
 | -------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [highlights.md](highlights.md)                           | You want the two-minute summary of what this repo shows: AI evals, numbers, practices |
 | [product/vision.md](product/vision.md)                   | You need to know what the product is, who it is for and what it is not              |
 | [product/features/README.md](product/features/README.md) | You are about to build or change a feature; lists every feature and its release     |
 | [product/food-seed.md](product/food-seed.md)             | Curating the food catalog: dishes and foods to seed                                 |
